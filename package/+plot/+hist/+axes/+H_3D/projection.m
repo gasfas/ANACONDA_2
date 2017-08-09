@@ -1,0 +1,46 @@
+function [h_GraphObj] = projection(h_axes, midpoints, Count, GraphObj_md)
+
+% Project the histograms on the outer walls:
+
+%% X-Projection:
+Proj_x = sum(Count, 1); % sum over x-coordinate
+Proj_x = permute(Proj_x, [2, 3, 1]);
+XData	= max(midpoints.dim1)*ones(size(Proj_x));
+[YData, ZData]	= meshgrid(midpoints.dim2, midpoints.dim3);
+
+h_GraphObj(1) = surface( ...
+	'XData', XData,...
+	'YData', YData',...
+	'ZData', ZData',...
+	'CData',Proj_x);
+view(3)
+hold on 
+
+%% Y_projection
+Proj_y = sum(Count, 2); % sum over x-coordinate
+Proj_y = permute(Proj_y, [1, 3, 2]);
+YData	= max(midpoints.dim2)*ones(size(Proj_y));
+[XData, ZData]	= meshgrid(midpoints.dim1, midpoints.dim3);
+
+h_GraphObj(2) = surface( ...
+	'XData', XData',...
+	'YData', YData,...
+	'ZData', ZData',...
+	'CData',Proj_y);
+
+%% Z-projection:
+Proj_z = sum(Count, 3); % sum over x-coordinate
+ZData	= min(midpoints.dim3)*ones(size(Proj_z));
+[XData, YData]	= meshgrid(midpoints.dim1, midpoints.dim2);
+
+h_GraphObj(3) = surface( ...
+	'XData', XData',...
+	'YData', YData',...
+	'ZData', ZData,...
+	'CData',Proj_z);
+
+%% Draw a 3D grid:
+plot.grid_3D(h_GraphObj(1).Parent,	[min(midpoints.dim1)-10, 0, max(midpoints.dim1)], ...
+								[min(midpoints.dim2)-10, 0, max(midpoints.dim2)], ...
+								[min(midpoints.dim2), 0, max(midpoints.dim3)+10], 'k');
+end

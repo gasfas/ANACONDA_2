@@ -1,0 +1,15 @@
+-- FLY2 file, automatically created from the MATLAB function write_FLY2. 
+ -- written on: [Year month hour min sec] 2017              7             17             14             42      45.143687
+
+particles { 
+ standard_beam { 
+	n = 	100, 
+	mass = 	sequence{5}, 
+	charge = 	arithmetic_sequence{first = 1, last = 1, n = 1}, 
+	x = 	gaussian_distribution{mean = 120, stdev = 0.1 }, 
+	y = 	gaussian_distribution{mean = 0, stdev = 0.1 }, 
+	z = 	gaussian_distribution{mean = 0, stdev = 0.1}, 
+	direction = 	cone_direction_distribution {axis = vector(1, 0, 0), half_angle = 180, fill = true}, 
+	ke = 	gaussian_distribution{mean = 3, stdev = 0.1}, 
+	 } 
+}

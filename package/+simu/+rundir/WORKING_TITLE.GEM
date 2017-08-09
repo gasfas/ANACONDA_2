@@ -1,0 +1,42 @@
+; GEM file, automatically created from the MATLAB function write_GEM_file. 
+; written on: [Year month day hour min sec] 
+; 2017              7             17             14             42      45.120947
+pa_define(900, 150, 1, cylindrical, None, Electrostatic) 
+locate (120.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00) 
+{ 
+	 electrode(1) 
+	 { 
+	 	 fill{within{box(100.00, 0.00, 100.00, 1000.00)}} 
+	 	 	 ;Potential(-4000.00) 
+	 } 
+	 electrode(2) 
+	 { 
+	 	 fill{within{box(100.00, 22.00, 110.00, 27.00)}} 
+	 	 fill{within{box(100.00, 27.00, 194.00, 29.00)}} 
+	 	 fill{within{box(194.00, 27.00, 194.00, 45.00)}} 
+	 	 fill{within{box(194.00, 40.00, 750.00, 45.00)}} 
+	 	 	 ;Potential(-4000.00) 
+	 } 
+	 electrode(3) 
+	 { 
+	 	 fill{within{box(115.00, 22.00, 120.00, 25.00)}} 
+	 	 fill{within{box(123.00, 22.00, 128.00, 25.00)}} 
+	 	 	 ;Potential(-3250.00) 
+	 } 
+	 electrode(4) 
+	 { 
+	 	 fill{within{box(752.00, 0.00, 754.00, 40.00)}} 
+	 	 	 ;Potential(-2100.00) 
+	 	 	 ;(detector) 
+	 } 
+	 electrode(5) 
+	 { 
+	 	 fill{within{box(7.00, 0.00, 7.00, 1000.00)}} 
+	 	 	 ;Potential(0.00) 
+	 } 
+	 electrode(6) 
+	 { 
+	 	 fill{within{box(-7.00, 0.00, -7.00, 1000.00)}} 
+	 	 	 ;Potential(480.00) 
+	 } 
+} 
