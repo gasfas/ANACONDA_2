@@ -151,10 +151,6 @@ d1.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (H$^+$) [a.u.]';
 % d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (C$_2$H$_3^+$) [a.u.]';
 d1.Dalitz_C2.axes.YLabel.String		= '$|p_2|$ (NH$^+$) [a.u.]';
 d1.Dalitz_C2.axes.ZLabel.String		= '$|p_{res}|$ [a.u.]';
-% d2.Dalitz_C2.axes.Xlim_scaled		= [0 0.5];
-% d2.Dalitz_C2.axes.Ylim_scaled		= [0 0.5];
-% d2.Dalitz_C2.axes.Zlim_scaled		= [0 0.5];
-% d2.Dalitz_C2.axes.colormap			= plot.custom_RGB_colormap('w', 'b');
 d1.Dalitz_C2.axes.axis		= 'equal';
 d1.Dalitz_C2.cond			= exp_md.cond.NH_H;
 
