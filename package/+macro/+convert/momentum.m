@@ -57,9 +57,9 @@ for i = 1:length(detnames)
 	% Calculate the radial component:
 	data_out.h.(detname).dp_R							= general.vector.norm_vectorarray(data_out.h.(detname).dp(:,1:2), 2);
 	% Sum of all momenta in one event:
-    data_out.e.(detname).p_sum = convert.event_sum(data_out.h.(detname).dp, data_out.e.raw(:,detnr));
+    data_out.e.(detname).dp_sum = convert.event_sum(data_out.h.(detname).dp, data_out.e.raw(:,detnr));
     % calculate the norm of the momentum sum:
-    data_out.e.(detname).p_sum_norm = general.vector.norm_vectorarray(data_out.e.(detname).p_sum, 2);
+    data_out.e.(detname).dp_sum_norm = general.vector.norm_vectorarray(data_out.e.(detname).dp_sum, 2);
 	
 	% remove unused fields for memory saving:
 	data_out.h.(detname) = rmfield(data_out.h.(detname), 'p');

@@ -5,7 +5,7 @@ function [ Ax ] = add_axes(Ax_ori, Ax_new, md, axestype, coor)
 % values.
 % Inputs:
 % Ax_ori			The original axes
-% md			conversion metadata. In case of 'cluster_size as an
+% md			conversion metadata. In case of 'cluster_size' as an
 %					axestype, this is the sample metadata.
 % AxisLocation		(optional) where the plot should be: 'top' or 'bottom'.
 %					Default: 'top'
@@ -52,8 +52,6 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 			ticklabel					= md.fragment.sizes';
 			Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabel),'%s');
 			Ax_new.([cname 'Tick'])		= md.fragment.masses;
-			Ax_ori.([cname 'Tick'])			= Ax_new.([cname 'Tick']);
-			Ax_ori.([cname 'TickLabel'])	= Ax_ori.([cname 'Tick']);
 		case 'CSD'
 			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
 			KER_ticks = Ax_ori.([cname 'Tick']);
