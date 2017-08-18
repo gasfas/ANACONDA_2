@@ -26,13 +26,10 @@ set(UILoad.UnLoadFileButton, ...
 %    'Callback', @UseFiles)
 set(UIPlot.PlotButton,...
     'Callback', @Plot_it)
-set(UIFilter.AddFilter,...
-    'Callback', @AddFilterButton)
-% set(UIFilter.CopyFilter,...
-%     'Callback', @CopyFilterButton)
-
 set(UIFilter.EditFilter,...
     'Callback', @EditFilterButton)
+set(UIFilter.RenameFilter,...
+    'Callback', @RenameFilterButton)
 set(UIFilter.RemoveFilter,...
     'Callback', @RemoveFilterButton)
 set(UIPlot.PlotConfButton,...
@@ -104,14 +101,14 @@ set(UIPlot.PopupPlotSelected,...
     function UnLoadFile(hObject, eventdata)
         GUI.load.IO.buttons.UnLoadFile(UILoad, UIPlot, UIFilter);
     end  
-    function AddFilterButton(hObject, eventdata)
-        GUI.filter.edit.Add_Filter(UIFilter);
+    function EditFilterButton(hObject, eventdata)
+        GUI.filter.edit.Edit_Filter(UIFilter);
     end
 %     function CopyFilterButton(hObject, eventdata)
 %         GUI.filter.edit.Copy_Filter(UIFilter);
 %     end
-    function EditFilterButton(hObject, eventdata)
-        GUI.filter.edit.Edit_Filter(UIFilter);
+    function RenameFilterButton(hObject, eventdata)
+        GUI.filter.edit.Rename_Filter(UIFilter);
     end
     function RemoveFilterButton(hObject, eventdata)
         GUI.filter.edit.Remove_Filter(UIFilter);
