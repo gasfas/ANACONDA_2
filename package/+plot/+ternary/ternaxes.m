@@ -1,6 +1,10 @@
 % TERNAXES create ternary axis
-%   HOLD_STATE = TERNAXES(MAJORS) creates a ternary axis system using the system
+%   HOLD_STATE = TERNAXES(fig, MAJORS, axLim) creates a ternary axis system using the system
 %   defaults and with MAJORS major tickmarks.
+% Inputs:
+% fig		handle of the figure to create the axes in
+% MAJORS	number of ticks on the axis
+% axLim		(optional) min and max value on the axis. Default = [0 1];
 
 % Author: Carl Sandrock 20050211
 
@@ -15,7 +19,7 @@
 % (CS) Carl Sandrock
 % (SA) Shahab Afshari
 
-function [hold_state, cax, next] = ternaxes(majors, lim)
+function [hold_state, ax, next] = ternaxes(fig, majors, axLim)
 if nargin < 1
     majors = 10;
 end
@@ -24,8 +28,8 @@ end
 direction = 'clockwise';
 percentage = false;
 
-if ~exist('lim', 'var')
-	lim = [0 1];
+if ~exist('axLim', 'var')
+	axLim = [0 1];
 end
 
 %TODO: Get a better way of offsetting the labels
@@ -36,52 +40,55 @@ yoffset = 0.01;
 % cax = newplot;
 % next = lower(get(cax,'NextPlot'));
 % hold_state = ishold;
-cax = gca;
+figure(fig)
+ax = gca;
 hold_state = ishold;
 
 % get x-axis text color so grid is in same color
-tc = get(cax,'xcolor');
-ls = get(cax,'gridlinestyle');
+tc = get(ax,'xcolor');
+ls = get(ax,'gridlinestyle');
 
 % Hold on to current Text defaults, reset them to the
 % Axes' font attributes so tick marks use them.
-fAngle  = get(cax, 'DefaultTextFontAngle');
-fName   = get(cax, 'DefaultTextFontName');
-fSize   = get(cax, 'DefaultTextFontSize');
-fWeight = get(cax, 'DefaultTextFontWeight');
-fUnits  = get(cax, 'DefaultTextUnits');
+fAngle  = get(ax, 'DefaultTextFontAngle');
+fName   = get(ax, 'DefaultTextFontName');
+fSize   = get(ax, 'DefaultTextFontSize');
+fWeight = get(ax, 'DefaultTextFontWeight');
+fUnits  = get(ax, 'DefaultTextUnits');
 
-set(cax, 'DefaultTextFontAngle',  get(cax, 'FontAngle'), ...
-         'DefaultTextFontName',   get(cax, 'FontName'), ...
-         'DefaultTextFontSize',   get(cax, 'FontSize'), ...
-         'DefaultTextFontWeight', get(cax, 'FontWeight'), ...
+set(ax, 'DefaultTextFontAngle',  get(ax, 'FontAngle'), ...
+         'DefaultTextFontName',   get(ax, 'FontName'), ...
+         'DefaultTextFontSize',   get(ax, 'FontSize'), ...
+         'DefaultTextFontWeight', get(ax, 'FontWeight'), ...
          'DefaultTextUnits','data')
 
+	 %% Axis lines
+	 
 % only do grids if hold is off
 if ~hold_state
 	%plot axis lines
+	triangle_size = 1;
 	hold on;
-	plot ([0 lim(2) lim(2)/2 0],[0 0 lim(2)*sin(1/3*pi) 0], 'color', tc, 'linewidth',1,...
+	plot ([0 triangle_size triangle_size/2 0],[0 0 triangle_size*sin(1/3*pi) 0], 'color', tc, 'linewidth',1,...
                    'handlevisibility','off');
 	set(gca, 'visible', 'off');
     % plot background if necessary
-    if ~ischar(get(cax,'color'))
-       patch('xdata', [0 lim(2) lim(2)/2 0], 'ydata', [0 0 lim(2)*sin(1/3*pi) 0], ...
+    if ~ischar(get(ax,'color'))
+       patch('xdata', [0 triangle_size triangle_size/2 0], 'ydata', [0 0 triangle_size*sin(1/3*pi) 0], ...
              'edgecolor',tc, ...
              'facecolor',get(gca,'color'),...
              'facealpha', 0, ...
              'handlevisibility','off');
-    end
+	end
 
+	%% Tick labels
 	% Generate labels
+	
+    majorticks	= linspace(axLim(1), axLim(2), majors + 1); 
+    majorpos	= linspace(0, triangle_size, majors + 1);
 
-    if majors < 10
-        majorticks = linspace(lim(1), lim(2), majors + 1); 
-    else
-        majorticks = linspace(lim(1), lim(2), 10 + 1); 
-    end
-    
-    majorticks = majorticks(1:end-1);
+    majorticks	= majorticks(1:end-1);
+ 	majorpos	= majorpos(1:end-1);
 
     if percentage
         multiplier = 100;
@@ -93,50 +100,49 @@ if ~hold_state
         labels = num2str(majorticks'*multiplier);
     else
         labels = num2str(majorticks(end:-1:1)'*multiplier);
-    end
-
+	end
     
     zerocomp = zeros(size(majorticks)); % represents zero composition
-    
-	% Plot bottom labels (no c - only b a)
+	
     a_l = 0.02; % length of the arrow
     
-    [lxc,       lyc]        = plot.ternary.terncoords(lim(2)-majorticks, majorticks, zerocomp);
-    [arrow_xc,  arrow_yc]        = plot.ternary.terncoords(lim(2)-majorticks, majorticks - a_l, zerocomp + a_l);
-	text(lxc+0.1, lyc-0.025, [repmat('  ', size(labels,1), 1) labels], 'VerticalAlignment', 'Top', 'HorizontalAlignment', 'left');
+	% Plot bottom labels (no c - only b a)
+    [lxc,       lyc]        = plot.ternary.terncoords(triangle_size-majorpos, majorpos, zerocomp);
+    [arrow_xc,  arrow_yc]        = plot.ternary.terncoords(triangle_size-majorpos, majorpos - a_l, zerocomp + a_l);
+	text(ax, lxc+0.12, lyc-0.015, [repmat('  ', size(labels,1), 1) labels], 'VerticalAlignment', 'Top', 'HorizontalAlignment', 'left', 'Rotation', -60);
     
 	% Plot left labels (no b - only a c)
-    [lxb, lyb] = plot.ternary.terncoords(majorticks, zerocomp, lim(2)-majorticks); % fB = 1-fA
-    [arrow_xb, arrow_yb] = plot.ternary.terncoords(majorticks - a_l, zerocomp + a_l, lim(2)-majorticks); % fB = 1-fA
-    text(lxb-0.115, lyb-0.065, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center');
+    [lxb, lyb] = plot.ternary.terncoords(majorpos, zerocomp, triangle_size-majorpos); % fB = 1-fA
+    [arrow_xb, arrow_yb] = plot.ternary.terncoords(majorpos - a_l, zerocomp + a_l, triangle_size-majorpos); % fB = 1-fA
+    text(ax, lxb-0.12, lyb-0.075, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center', 'Rotation', 0);
 
 	% Plot right labels (no a, only c b)
-	[lxa, lya] = plot.ternary.terncoords(zerocomp, lim(2)-majorticks, majorticks);
-    [arrow_xa, arrow_ya] = plot.ternary.terncoords(zerocomp + a_l, lim(2)-majorticks, majorticks - a_l);
-	text(lxa, lya+0.115, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center');
+	[lxa, lya] = plot.ternary.terncoords(zerocomp, triangle_size-majorpos, majorpos);
+    [arrow_xa, arrow_ya] = plot.ternary.terncoords(zerocomp + a_l, triangle_size-majorpos, majorpos - a_l);
+	text(ax, lxa, lya+0.115, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center', 'Rotation', 60);
 	
 	nlabels = length(labels)-1;
 	for i = 1:nlabels
-        plot([lxa(i+1) lxb(nlabels - i + 2)], [lya(i+1) lyb(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
+        plot(ax, [lxa(i+1) lxb(nlabels - i + 2)], [lya(i+1) lyb(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
            'handlevisibility','off');
-        plot([lxa(i+1) lxb(nlabels - i + 2)], [lya(i+1) lyb(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
+        plot(ax, [lxa(i+1) lxb(nlabels - i + 2)], [lya(i+1) lyb(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
            'handlevisibility','off');       
-        plot([lxb(i+1) lxc(nlabels - i + 2)], [lyb(i+1) lyc(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
+        plot(ax, [lxb(i+1) lxc(nlabels - i + 2)], [lyb(i+1) lyc(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
            'handlevisibility','off');
-        plot([lxc(i+1) lxa(nlabels - i + 2)], [lyc(i+1) lya(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
+        plot(ax, [lxc(i+1) lxa(nlabels - i + 2)], [lyc(i+1) lya(nlabels - i + 2)], ls, 'color', [0, 0, 0, 0.1], 'linewidth',0.01,...
            'handlevisibility','off');
         % arrows:
-        plot([lxa(i+1) arrow_xa(i+1)], [lya(i+1) arrow_ya(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
+        plot(ax, [lxa(i+1) arrow_xa(i+1)], [lya(i+1) arrow_ya(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
            'handlevisibility','off');
-        plot([lxb(i+1) arrow_xb(i+1)], [lyb(i+1) arrow_yb(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
+        plot(ax, [lxb(i+1) arrow_xb(i+1)], [lyb(i+1) arrow_yb(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
            'handlevisibility','off');
-        plot([lxc(i+1) arrow_xc(i+1)], [lyc(i+1) arrow_yc(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
+        plot(ax, [lxc(i+1) arrow_xc(i+1)], [lyc(i+1) arrow_yc(i+1)], ls, 'color', [0, 0, 0, 1], 'linewidth',2,...
            'handlevisibility','off');
-	end;
-end;
+	end
+end
 
 % Reset defaults
-set(cax, 'DefaultTextFontAngle', fAngle , ...
+set(ax, 'DefaultTextFontAngle', fAngle , ...
     'DefaultTextFontName',   fName , ...
     'DefaultTextFontSize',   fSize, ...
     'DefaultTextFontWeight', fWeight, ...

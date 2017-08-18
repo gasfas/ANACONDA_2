@@ -9,20 +9,22 @@ function [exp_md] = plot(exp_md)
 % d1.ifdo.TOF_X						= true;
 % d1.ifdo.XY						= true;
 % d1.ifdo.theta_R					= true;
-d1.ifdo.TOF_hit1_hit2				= true;
+% d1.ifdo.TOF_hit1_hit2				= true;
 % d1.ifdo.m2q_hit1_hit2				= true;
 % d1.ifdo.m2q_hit2_hit3				= true;
 % d1.ifdo.dp						= true;
 % d1.ifdo.dp_xR						= true;
 % d1.ifdo.dp_normphi					= true;
 % d1.ifdo.dp_norm						= true;
-% d1.ifdo.p_sum_norm				= true;
+% d1.ifdo.dp_sum_norm				= true;
+d1.ifdo.Dalitz_C2					= true;
 % d1.ifdo.angle_p_corr_C2			= true;
 % d1.ifdo.angle_p_corr_C2_KER_sum	= true;
-% d1.ifdo.angle_p_corr_C2_p_sum_norm = true;
-d1.ifdo.KER_sum					= true;
+% d1.ifdo.angle_p_corr_C2_dp_sum_norm = true;
+% d1.ifdo.KER_sum					= true;
 % d1.ifdo.m2q_l_sum_KER_sum			= true;
 % d1.ifdo.m2q_sum_CSD				= true;
+
 
 % load the signal plotting metadata:
 exp_md = metadata.defaults.Laksman_TOF.plot_signals(exp_md);
@@ -57,7 +59,7 @@ d1.m2q.GraphObj.ax_nr			= 1;
 % Axes properties:
 d1.m2q.axes(1).YTick			= linspace(0, 1, 101);
 d1.m2q.axes(1).YLim				= [0 0.1];
-d1.m2q.axes						= macro.plot.add_axes(d1.m2q.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q', 'X');
+d1.m2q.axes						= macro.plot.add_axes(d1.m2q.axes(1), signals.add_cluster_size_X.axes, exp_md.sample, 'cluster_size', 'X');
 % d1.m2q.cond			= exp_md.cond.H;
 
 d1.m2q_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.m2q, signals.m2q});
@@ -138,8 +140,19 @@ d1.dp_normphi.figure.Position		= [1230  410 500 460];
 d1.dp_normphi.axes.colormap		= plot.custom_RGB_colormap('w', 'r');
 d1.dp_normphi.axes.Position = [0.2 0.2 0.6 0.6];
 
-d1.p_sum_norm					= metadata.create.plot.signal_2_plot(signals.p_sum_norm);
-d1.p_sum_norm.cond				= exp_md.cond.angle_p_corr_C2;
+d1.dp_sum_norm					= metadata.create.plot.signal_2_plot(signals.dp_sum_norm);
+d1.dp_sum_norm.cond				= exp_md.cond.angle_p_corr_C2;
+
+d1.Dalitz_C2.Type				= 'ternary';
+d1.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.dp_norm, signals.dp_norm, signals.dp_sum_norm}, d1.Dalitz_C2);
+d1.Dalitz_C2.hist.hitselect		= [1, 2, NaN]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
+d1.Dalitz_C2.figure.Position	= [1200 300 600  600];
+d1.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (H$^+$) [a.u.]';
+% d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (C$_2$H$_3^+$) [a.u.]';
+d1.Dalitz_C2.axes.YLabel.String		= '$|p_2|$ (NH$^+$) [a.u.]';
+d1.Dalitz_C2.axes.ZLabel.String		= '$|p_{res}|$ [a.u.]';
+d1.Dalitz_C2.axes.axis		= 'equal';
+d1.Dalitz_C2.cond			= exp_md.cond.NH_H;
 
 d1.angle_p_corr_C2.axes.Type	= 'polaraxes';
 d1.angle_p_corr_C2				= metadata.create.plot.signal_2_plot(signals.angle_p_corr_C2, d1.angle_p_corr_C2);
@@ -159,9 +172,9 @@ d1.angle_p_corr_C2_KER_sum.axes.Type	= 'polaraxes';
 d1.angle_p_corr_C2_KER_sum				= metadata.create.plot.signal_2_plot({signals.angle_p_corr_C2, signals.KER_sum}, d1.angle_p_corr_C2_KER_sum);
 d1.angle_p_corr_C2_KER_sum.GraphObj.Type = 'surfcn';
 
-d1.angle_p_corr_C2_p_sum_norm.axes.Type	= 'polaraxes';
-d1.angle_p_corr_C2_p_sum_norm				= metadata.create.plot.signal_2_plot({signals.angle_p_corr_C2, signals.p_sum_norm}, d1.angle_p_corr_C2_p_sum_norm);
-d1.angle_p_corr_C2_p_sum_norm.GraphObj.Type = 'surfcn';
+d1.angle_p_corr_C2_dp_sum_norm.axes.Type	= 'polaraxes';
+d1.angle_p_corr_C2_dp_sum_norm				= metadata.create.plot.signal_2_plot({signals.angle_p_corr_C2, signals.dp_sum_norm}, d1.angle_p_corr_C2_dp_sum_norm);
+d1.angle_p_corr_C2_dp_sum_norm.GraphObj.Type = 'surfcn';
 
 d1.m2q_l_sum_KER_sum				= metadata.create.plot.signal_2_plot({signals.m2q_l_sum, signals.KER_sum});
 d1.m2q_l_sum_KER_sum.GraphObj.Type	= 'Y_mean';
@@ -172,7 +185,7 @@ d1.m2q_l_sum_KER_sum.axes.XTick	= 2*exp_md.sample.fragment.masses; % [Da] Tick o
 d1.m2q_l_sum_KER_sum.axes.Position			= [0.2 0.25 0.6 0.55];
 d1.m2q_l_sum_KER_sum.figure.Position		= [1390         569         531         405];
 d1.m2q_l_sum_KER_sum.axes.XTickLabel = d1.m2q_l_sum_KER_sum.axes.XTick; % [Da] Tick of the axis that shows the m2q variable. 
-d1.m2q_l_sum_KER_sum.axes(2)		= general.struct.catstruct(d1.m2q_l_sum_KER_sum.axes(1), signals.add_cluster_size.axes);
+d1.m2q_l_sum_KER_sum.axes(2)		= general.struct.catstruct(d1.m2q_l_sum_KER_sum.axes(1), signals.add_cluster_size_X.axes);
 conv.eps_m = 1; conv.mult = 2; conv.charge = 1;
 d1.m2q_l_sum_KER_sum.axes = macro.plot.add_axes(d1.m2q_l_sum_KER_sum.axes(1), signals.add_CSD.axes, conv, 'CSD', 'Y');
 d1.m2q_l_sum_KER_sum.axes(2).XTickLabel = 2:2:22;

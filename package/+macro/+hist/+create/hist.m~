@@ -8,7 +8,7 @@ function [histogram] = hist(exp, hist_md, e_filter)
 % Outputs:
 % histogram	struct, containing the fields 'Count' (the histogram matrix),
 %			and 'midpoints', giving the midpoints in each dimension.
-
+%% HISTOGRAM
 %Make a histogram from the fetched signals:
 % If multiple histograms are defined, perform this function recursively:
 if numel(hist_md)>1
@@ -29,21 +29,21 @@ else
 	end
 end
 
+%% Additional manipulation to histogram:
+
 if strcmp(general.struct.probe_field(hist_md, 'Type'), 'ternary')
 	% Create ternary axis histogram. We assume that all three signals are given. We normalize the datapoints:
 	norm_factor = sum(hist_data, 2);
 	hist_data_n = hist_data./norm_factor;
-
 	% Only one binsize possible, so in case multiple binsizes
 	% are given:
 	hist_md.binsize	= [mean(hist_md.binsize) mean(hist_md.binsize)]./mean(diff(hist_md.Range, 1, 2));
 	hist_md.Range	= [0 1; 0 1];
 	% convert the C1, C2 coordinates data to x,y coordinates (rotating 60 degrees):
 	[hist_data(:,1), hist_data(:,2)] = plot.ternary.terncoords(hist_data_n(:,1), hist_data_n(:,2), hist_data_n(:,3));
- 	hist_data(:,3) = [];
+	hist_data(:,3) = [];
 end
 
-%% HISTOGRAM
 % Add signal as background subtraction if requested:
 if general.struct.issubfield(hist_md, 'bgr')
 	if isfield(hist_md.bgr, 'cond')
@@ -67,7 +67,6 @@ else
 	[histogram.Count, histogram.midpoints] = hist.H_nD(hist_data, midpoints);
 end
 
-%% Additional manipulation to histogram:
 % Apply histogram saturation if requested:
 if isfield(hist_md, 'saturation_limits')
 	sf	= 1./max(histogram.Count(:));

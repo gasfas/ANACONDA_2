@@ -145,16 +145,16 @@ s.dp_norm.axes.Tick	= s.dp_norm.hist.Range(1):5:s.dp_norm.hist.Range(2);% [au] T
 s.dp_norm.axes.Label.String	= {'$|\vec{p}|$ [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum sum norm:
-s.p_sum_norm.hist.pointer	= 'e.det1.p_sum_norm';% Data pointer, where the signal can be found. 
+s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.p_sum_norm.hist.binsize	= [2];% [a.u.] binsize of the variable. 
-s.p_sum_norm.hist.Range	= [0 200];% [au] range of the variable. 
+s.dp_sum_norm.hist.binsize	= [2];% [a.u.] binsize of the variable. 
+s.dp_sum_norm.hist.Range	= [0 200];% [au] range of the variable. 
 % Axes metadata:
-s.p_sum_norm.axes.Lim	= s.p_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.p_sum_norm.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
-s.p_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
+s.dp_sum_norm.axes.Lim	= s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.dp_sum_norm.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
+s.dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
 % Condition metadata:
-s.p_sum_norm.cond			= [];
+s.dp_sum_norm.cond			= [];
 
 %%%%%% angular correlation of momenta p_corr_C2:
 s.angle_p_corr_C2.hist.pointer	= 'e.det1.angle_p_corr_C2';% Data pointer, where the signal can be found. 
@@ -200,10 +200,11 @@ s.add_m2q.axes.YTick			= [];
 s.add_m2q.axes.XAxisLocation	= 'top';
 s.add_m2q.axes.YAxisLocation	= 'right';
 
-s.add_cluster_size.axes.YLabel.String	= 'Recorded cluster size';
-s.add_cluster_size.axes.XLabel.String	= 'Recorded cluster size';
-s.add_cluster_size.axes.XAxisLocation	= 'top';
-s.add_cluster_size.axes.YAxisLocation	= 'right';
+s.add_cluster_size_X.axes.XLabel.String	= 'Recorded cluster size';
+s.add_cluster_size_X.axes.XAxisLocation	= 'top';
+s.add_cluster_size_X.axes.YAxisLocation	= 'right';
+s.add_cluster_size_X.axes.YTick			= [];
+s.add_cluster_size_X.axes.YLabel.String	= [];
 
 s.add_CSD.axes.YLabel.String	= 'CSD';
 s.add_CSD.axes.XLabel.String	= 'Recorded cluster size';
