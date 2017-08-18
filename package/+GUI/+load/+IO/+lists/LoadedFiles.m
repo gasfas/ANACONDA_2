@@ -143,7 +143,9 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                 hits_evs(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))])));
                 detectornum(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))]).(char(hits_evs(lzz, 2)))));
                 % Set 
-                plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectornum(1, 1))));
+                expsettings_plot = md_GUI.plot.expsettings.([char(expname(1))]);
+                detnom = expsettings_plot(2);
+                plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectornum(1, detnom))));
                 plottypes_Y(lzz, 1) =  cellstr('Pre-defined');
                 for lxz = 1:length(plottypes(lzz, :))
                     plottypes_Y(lzz, lxz+1) = plottypes(lzz, lxz);

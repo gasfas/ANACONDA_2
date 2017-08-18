@@ -64,18 +64,25 @@ else
     filterstruct = general.getsubfield(md_GUI.mdata_n, SelectedNodePath);
     % Get the path of the destination:
     targetpath = TargetNode.Name;
-    % Check if it is a filter or a filter container. If is a filter, take its parent.
+    % Check if it is a condition or a condition group (filter). If is a condition, take its parent.
     % This can be checked by looking if its children are structs or not.
     filtercontcheck = TargetNode.Children;
     if isempty(filtercontcheck)
         targetpath = TargetNode.Parent.Name;
         TargetNode = TargetNode.Parent;
+        % Message to log_box - cell_to_be_inserted:
+        cell_to_be_inserted = ['Target found to be a condition. Parent selected to be target, which is a filter: ', targetpath];
+        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+        % End of new message to log_box function.
     end
     depth = 0;
     [ ~, ~, depth ] = GUI.filter.visualize.targetdepthfinder( TargetNode, targetpath, depth );
     [  targetpath, exp_name_out ] = GUI.filter.visualize.targetextractor(TargetNode, depth);
     if strcmp(targetpath, '.filter')
         targetfullpath = [exp_name_out, '.cond', '.', SelectedNode];
+    elseif isempty(targetpath)
+        targetfullpath = [exp_name_out, '.cond.', SelectedNode];
     else
         targetfullpath = [exp_name_out, '.cond.', targetpath, '.', SelectedNode];
     end
@@ -106,7 +113,7 @@ switch DropAction
         assignin('base', 'md_GUI', md_GUI)
         % Always reload the tree if a previous node is replaced.
         if Replacement == 1
-            UI = md_GUI.UI.UI;
+            UI = md_GUI.UI.UIFilter;
             clear Node
             UI.Tree.Root.Children.delete
             NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
@@ -130,7 +137,7 @@ switch DropAction
         end
         % Always reload the tree if a previous node is replaced.
         if Replacement == 1
-            [ UI ] = evalin('base', 'UI');
+            UI = md_GUI.UI.UIFilter;
             clear Node
             UI.Tree.Root.Children.delete
             NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;

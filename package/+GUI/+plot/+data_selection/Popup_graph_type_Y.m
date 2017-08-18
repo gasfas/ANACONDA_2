@@ -9,11 +9,15 @@
 
 function [] = Popup_graph_type_Y(hObject, eventdata, UILoad, UIPlot)
 md_GUI = evalin('base', 'md_GUI');
-guidata(hObject)
-disp('Object marked in exp popup')
+guidata(hObject);
 handles = guidata(hObject);
 handles.filetype = get(hObject, 'String');
 graphtype_Y_selected_number = get(hObject, 'Val');
 md_GUI.plot.plotsettings(3) = graphtype_Y_selected_number;
+%% Message to log_box - cell_to_be_inserted:
+cell_to_be_inserted = ['Ordinate: ', char(handles.filetype(graphtype_Y_selected_number))];
+[ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+% End of new message to log_box function.
 assignin('base', 'md_GUI', md_GUI);
 end

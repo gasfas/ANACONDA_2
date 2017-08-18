@@ -75,6 +75,73 @@ UIctrl_multitab.SaveButton = uicontrol('Parent', UI.h_figure, ...
 'String', 'Save', ...
 'TooltipString', 'Does nothing now. Callback function is empty. In future - will save GUI workspace to a file.');
 
+%% Individual callbacks for each filter tab buttons:
+tab_load.ButtonDownFcn = @loadtabopening;
+tab_calib.ButtonDownFcn = @calibtabopening;
+tab_filter.ButtonDownFcn = @filtertabopening;
+tab_plot.ButtonDownFcn = @plottabopening;
+    function loadtabopening(hObject, eventdata)
+        md_GUI = evalin('base', 'md_GUI');
+        if md_GUI.UI.tabnumber == 3
+            % Filter tree is destructed.
+            UI = md_GUI.UI.UIFilter;
+            UI.Tree.Root.Children.delete
+            md_GUI.UI.UIFilter.Tree.Enable = 0;
+            md_GUI.UI.tabnumber = 1;
+        else
+            md_GUI.UI.tabnumber = 1;
+        end
+        assignin('base', 'md_GUI', md_GUI);
+    end
+    function calibtabopening(hObject, eventdata)
+        md_GUI = evalin('base', 'md_GUI');
+        if md_GUI.UI.tabnumber == 3
+            % Filter tree is destructed.
+            UI = md_GUI.UI.UIFilter;
+            UI.Tree.Root.Children.delete
+            md_GUI.UI.UIFilter.Tree.Enable = 0;
+            md_GUI.UI.tabnumber = 2;
+        else
+            md_GUI.UI.tabnumber = 2;
+        end
+        assignin('base', 'md_GUI', md_GUI);
+    end
+    function filtertabopening(hObject, eventdata)
+        md_GUI = evalin('base', 'md_GUI');
+        if md_GUI.UI.tabnumber == 3
+            % Filter tab was already open.
+        else
+            md_GUI.UI.tabnumber = 3;
+            % Filter tree is constructed.
+            fileloading = 1;
+            NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
+            md_GUI.UI.UIFilter.Tree.Enable = 1;
+            if NumberOfLoadedFiles == 0
+                msgbox('No files are loaded.', '0 loaded files')
+                md_GUI.UI.UIFilter.Tree.Enable = 0;
+            else
+                for nn = 1:NumberOfLoadedFiles
+                    UI = md_GUI.UI.UIFilter;
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                end
+            end
+        end
+        assignin('base', 'md_GUI', md_GUI);
+    end
+    function plottabopening(hObject, eventdata)
+        md_GUI = evalin('base', 'md_GUI');
+        if md_GUI.UI.tabnumber == 3
+            % Filter tree is destructed.
+            UI = md_GUI.UI.UIFilter;
+            UI.Tree.Root.Children.delete
+            md_GUI.UI.UIFilter.Tree.Enable = 0;
+            md_GUI.UI.tabnumber = 4;
+        else
+            md_GUI.UI.tabnumber = 4;
+        end
+        assignin('base', 'md_GUI', md_GUI);
+    end
+
 %% Loading
 [h_figure, UIctrl_load] = GUI.create_layout.load(UI.h_figure, pos, UI.h_tabs, tab_load);
 
@@ -84,6 +151,7 @@ UIctrl_multitab.SaveButton = uicontrol('Parent', UI.h_figure, ...
 %% Filtering
 [h_figure, UIctrl_filter] = GUI.create_layout.filter(UI.h_figure, pos, UI.h_tabs, tab_filter);
 assignin('base', 'tab_filter', tab_filter)
+
 %% Plotting
 [h_figure, UIctrl_plot] = GUI.create_layout.plot(UI.h_figure, pos, UI.h_tabs, tab_plot);
 

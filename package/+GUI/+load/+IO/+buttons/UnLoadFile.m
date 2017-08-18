@@ -24,8 +24,7 @@
 %% UnLoadFile function
 function [ ] = UnLoadFile(UILoad, UIPlot, UIFilter)
 md_GUI = evalin('base', 'md_GUI');
-UI = md_GUI.UI.UI;
-import uiextras.jTree.*
+UI = md_GUI.UI.UIFilter;
 %Get the filenumber of the selected file - if exists.
 if isfield(md_GUI.load, 'filenumber_selected')
     LoadedFileNumber = md_GUI.load.filenumber_selected; %multiselection available! -> Cell.
@@ -47,10 +46,6 @@ if numberoffilesselected == 1
 	%unload file.
     disp('Single file chosen - gets unloaded.')
     String_FileToUnload = String_LoadedFiles(LoadedFileNumber)
-    % Delete the tree nodes - strange errors found. Temporary solution: 
-    % Destroy all nodes and then reconstruct them.
-    clear Node
-    UI.Tree.Root.Children.delete
     for nn = (LoadedFileNumber + 1):NumberOfLoadedFiles
         filenumber_1 = nn-1;
         filenumber = nn;
@@ -130,15 +125,10 @@ if numberoffilesselected == 1
     set(UILoad.LoadedFiles, 'Value', 1);
     set(UIPlot.Popup_experiment_name, 'Enable', 'off');
     set(UIPlot.Popup_experiment_name, 'String', '-');
-    % Reconstruct all nodes:
-    fileloading = 1;
-    assignin('base', 'md_GUI', md_GUI);
-    for nn = 1:NumberOfLoadedFiles
-        [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
-    end
 else
 	%Give message that this GUI version supports only one unload per time.
 	msgbox('Select one file to unload.', 'Warning')
     disp('Select one file to unload.')
 end
+assignin('base', 'md_GUI', md_GUI)
 end

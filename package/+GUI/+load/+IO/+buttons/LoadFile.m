@@ -83,10 +83,6 @@ md_GUI.data_n = data_n;
 md_GUI.mdata_n = mdata_n;
 fileloading = 1; % file is being loaded, needed for the FilterTreeList function since this makes the FilterTreeList construct filters for this experiment.
 nn = 0; % means file is loaded and not unloaded.
-assignin('base', 'md_GUI', md_GUI)
-[ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
-md_GUI = evalin('base', 'md_GUI');
-md_GUI.UI.UI = UI;
 set(UIPlot.Popup_experiment_name, 'String', md_GUI.load.String_LoadedFiles);
 md_GUI.mdata_n.(['exp', filenumber]).cond.nofilter = md_GUI.mdata_n.(['exp', filenumber]).cond;
 md_GUI.mdata_n.(['exp', filenumber]).filepath = fullfilepath;

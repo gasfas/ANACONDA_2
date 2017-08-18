@@ -62,11 +62,11 @@ function [] = Remove_Filter(UIFilter)
                 base_path = [base_path, '.', char(exp_parts_struct(sdf))];
             end
         end
-        filtname = md_GUI.UI.UI.Tree.SelectedNodes.Name;
+        filtname = md_GUI.UI.UIFilter.Tree.SelectedNodes.Name;
         choice = questdlg(['Are you sure you want to delete ', filtname, '?'],'Remove filter');
         switch choice
             case 'Yes'
-            parentname = md_GUI.UI.UI.Tree.SelectedNodes.Parent.Name;
+            parentname = md_GUI.UI.UIFilter.Tree.SelectedNodes.Parent.Name;
             checkifnotexperiment = strcmp(parentname, 'Filter');
             if checkifnotexperiment == 0 % Means parent is not Filter and hence it is not an experiment itself
                 % Remove it:

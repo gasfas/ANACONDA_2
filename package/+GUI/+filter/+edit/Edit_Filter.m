@@ -47,7 +47,7 @@ function [] = Edit_Filter(UIFilter)
             base_value = general.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
             
             
-            UI = md_GUI.UI.UI;
+            UI = md_GUI.UI.UIFilter;
             OldName = UI.Tree.SelectedNodes.Name;
             NewName = inputdlg('Select the new filter name.', 'New Filter name', 1, {char(OldName)});
             NewName = char(NewName);

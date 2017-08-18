@@ -47,7 +47,6 @@ else
 end
 Node.(['Experiment', int2str(expnom)]) = TreeNode('Name',exp_name_in_tree,'Parent',UI.Tree);
 [ Node ] = GUI.filter.visualize.NodeCreator(metadata_cond_1, exp_md, Node, expnom);
-disp('Log: Filter tree constructed.')
 %% Select nodes
 % Strongly recommend having single selection - multi selection not yet supported since filter structure altering has to be exported...
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'. For some reason suggested 'dis'-/'contiguous' ? ? ?

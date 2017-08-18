@@ -22,7 +22,6 @@ md_GUI = evalin('base', 'md_GUI');
 %NewName = char(NewName);
 
 
-GUI.filter.edit.Add_Filter_Choice;
 
 prompt = {'Type the new filter name.';'Select experiment number to insert the new filter into.'};
 name = 'New Filter';
@@ -35,7 +34,7 @@ formats(2,1).type   = 'list';
 formats(2,1).style  = 'popupmenu';
 exp_names = fieldnames(md_GUI.mdata_n);
 formats(2,1).items  = exp_names;
-defaultanswer = {'NewFilterName', 1};
+defaultanswer = {NewFil, 1};
 
 [answer, canceled] = inputsdlg(prompt, name, formats, defaultanswer);
 

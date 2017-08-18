@@ -25,12 +25,17 @@ else
 end
 
 detectornum = md_GUI.plot.expsettings.All(2);
-detectorname = fieldnames(md_GUI.mdata_n.([exp_name]).plot(detectornum));
+detectorname = fieldnames(md_GUI.mdata_n.([exp_name]).plot);
 detectorname = char(detectorname(detectornum));
+if strcmp(detectorname, 'signal')
+    detectorname = fieldnames(md_GUI.mdata_n.([exp_name]).plot);
+    detectorname = char(detectorname(detectornum+1));
+end
 graphnum_X = md_GUI.plot.plotsettings(2);
 graphtypes = fieldnames(md_GUI.mdata_n.([exp_name]).plot.([detectorname]));
 graphtype_X = char(graphtypes(graphnum_X));
-%graphtype_Y = md_GUI.graphtype_Y; % % % % Add when 2D plotting is available.
+%graphtype_Y = graphtype_X; % % % % Add when 2D plotting is available.
+
 
 plotconf_fieldnames = md_GUI.mdata_n.([exp_name]).plot.([detectorname]).([char(graphtype_X)]);
 % Get name of all properties of the selected plottype. In the future: Also have plot configurations for graphtype_Y.
@@ -106,10 +111,10 @@ function PlotConfSel(hObject, eventdata)
          set(PlotConfFigSetButton, 'Enable', 'off')
     end
     if structure_true == 0
-	set(PlotConfFigPopupEditBox, 'String', fieldselectedvalue_str)
-    assignin('base', 'md_GUI', md_GUI);
-    assignin('base', 'oldfieldselectedvalue', fieldselectedvalue);
-    assignin('base', 'fieldselectedvalue', fieldselectedvalue); 
+        set(PlotConfFigPopupEditBox, 'String', fieldselectedvalue_str)
+        assignin('base', 'md_GUI', md_GUI);
+        assignin('base', 'oldfieldselectedvalue', fieldselectedvalue);
+        assignin('base', 'fieldselectedvalue', fieldselectedvalue); 
     end
 end
 %%
@@ -118,6 +123,9 @@ if ischar(fieldselectedvalue)
     fieldselectedvalue_str = fieldselectedvalue;
 elseif isnumeric(fieldselectedvalue)
     fieldselectedvalue_str = num2str(fieldselectedvalue);
+elseif isstruct(fieldselectedvalue)
+    % Need a new popup box.
+    
 end
 % Edit box construction:
 PlotConfFigPopupEditBox = uicontrol('Parent', PlotConfFig, ...

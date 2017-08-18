@@ -12,6 +12,10 @@
 % Modifier:
 
 function [ targetingpath, exp_name_out ] = targetextractor( TargetNode, depth )
+if depth == 0
+    targetingpath = '';
+    exp_name_out = TargetNode.Name;
+else
     for dd = 1:depth
         if dd == 1
             targetingpath = TargetNode.Name;
@@ -25,4 +29,5 @@ function [ targetingpath, exp_name_out ] = targetextractor( TargetNode, depth )
             exp_name_out = char(exp_name_out(1));
         end
     end
+end
 end

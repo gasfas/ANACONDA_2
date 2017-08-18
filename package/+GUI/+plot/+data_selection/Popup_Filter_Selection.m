@@ -14,13 +14,17 @@
 function [ ] = Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot)
 md_GUI = evalin('base', 'md_GUI');
 %Gives: Experiment type; hits or events. Can also show information about 
-guidata(hObject)
-disp('Object marked in h or e popup')
+guidata(hObject);
 handles = guidata(hObject);
 handles.filetype = get(hObject, 'String');
 filter_selected_number = get(hObject, 'Val');
 filter_selected = handles.filetype(filter_selected_number);
 filter_selected = char(filter_selected);
+%% Message to log_box - cell_to_be_inserted:
+cell_to_be_inserted = ['Filter selected: ', filter_selected];
+[ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+% End of new message to log_box function.
 newfilter_selected = strrep(filter_selected,'__','.');
 exp_names = md_GUI.load.exp_names;
 exp_nom = md_GUI.plot.experiment_selected_number;
