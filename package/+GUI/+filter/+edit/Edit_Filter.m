@@ -58,65 +58,62 @@ function [] = Edit_Filter(UIFilter)
                 base_value.type = 'continuous';
             end
             if ~isfield(base_value, 'translate_condition')
-                create_tc_filt = questdlg('Create a translate condition field?', 'Translate condition field not found.', 'yes', 'no', 'no');
-                switch create_tc_filt
-                    case 'yes'
-                        base_value.translate_condition = 'AND';
-                    case 'no'
-                        fieldstoedit(4) = 0;
-                end
+                base_value.translate_condition = 'AND';
+                fieldstoedit(4) = 0;
             end
             if ~isfield(base_value, 'invert_filter')
-                create_inv_filt = questdlg('Create an invert filter field?', 'Invert Filter field not found.', 'yes', 'no', 'no');
-                switch create_inv_filt
-                    case 'yes'
-                        base_value.invert_filter = logical(0);
-                    case 'no'
-                        fieldstoedit(5) = 0;
-                end
+                base_value.invert_filter = logical(0);
+                fieldstoedit(5) = 0;
             end
+            oldbasevalue = base_value;
             base_value = GUI.filter.edit.Edit_Filter_Choice(fieldstoedit, base_value);
             md_GUI.mdata_n.(exp_name).cond = general.setsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part, base_value);
-        end
-        fieldnamms = md_GUI.UI.UIFilter.Fieldname.String;
-        for llz = 1:length(fieldnamms)
-            if strcmp(fieldnamms, 'type')
-                md_GUI.UI.UIFilter.Fieldvalue.String(llz) = base_value.type;
-            end
-            if strcmp(fieldnamms, 'data_pointer')
-                md_GUI.UI.UIFilter.Fieldvalue.String(llz) = base_value.data_pointer;
-            end
-            if strcmp(fieldnamms, 'value')
-                md_GUI.UI.UIFilter.Fieldvalue.String(llz) = base_value.value;
-            end
-            if strcmp(fieldnamms, 'translate_condition')
-                md_GUI.UI.UIFilter.Fieldvalue.String(llz) = base_value.translate_condition;
-            end
-            if strcmp(fieldnamms, 'invert_filter')
-                md_GUI.UI.UIFilter.Fieldvalue.String(llz) = base_value.invert_filter;
-            end
-        end
-        if length(fieldnamms) < length(fieldnames(base_value)) % means new fields have been added.
             allfields = fieldnames(base_value);
-            for llx = length(fieldnamms)+1:length(fieldnames(base_value))
-                md_GUI.UI.UIFilter.Fieldname.String(llx) = allfields(llx);
-                vaal = base_value.(char(allfields(llx)));
-                if islogical(vaal)
-                    vaal = num2str(vaal);
+            md_GUI.UI.UIFilter.Fieldvalue.String = cell(size(allfields));
+            md_GUI.UI.UIFilter.Fieldname.String = cell(size(allfields));
+            for llz = 1:length(allfields)
+                if strcmp(allfields(llz), 'type')
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {base_value.type};
+                    md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('type');
                 end
-                md_GUI.UI.UIFilter.Fieldvalue.String(llx) = cellstr(vaal);
+                if strcmp(allfields(llz), 'data_pointer')
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {base_value.data_pointer};
+                    md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('data_pointer');
+                end
+                if strcmp(allfields(llz), 'value')
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {strjoin(strsplit(char(num2str(base_value.value))), '  ')};
+                    md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('value');
+                end
+                if strcmp(allfields(llz), 'translate_condition')
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {base_value.translate_condition};
+                    md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('translate_condition');
+                end
+                if strcmp(allfields(llz), 'invert_filter')
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {num2str(base_value.invert_filter)};
+                    md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('invert_filter');
+                end
             end
+            if length(allfields) > length(fieldnames(oldbasevalue)) % means new fields have been added.
+                for llx = length(oldbasevalue)+1:length(fieldnames(allfields))
+                    md_GUI.UI.UIFilter.Fieldname.String(llx) = allfields(llx);
+                    vaal = base_value.(char(allfields(llx)));
+                    if islogical(vaal) || isnumeric(vaal)
+                        vaal = num2str(vaal);
+                    end
+                    md_GUI.UI.UIFilter.Fieldvalue.String(llx) = cellstr(vaal);
+                end
+            end
+            %% Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['The filter ', exp_part, ' for ',parent.s2, ' has been edited.'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
+                    %% Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['New filter conditions saved.'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
         end
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['The filter ', exp_part, ' for ',parent.s2, ' has been edited.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-                %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['New filter conditions saved.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-        assignin('base', 'md_GUI', md_GUI)
     end
+	assignin('base', 'md_GUI', md_GUI)
 end
