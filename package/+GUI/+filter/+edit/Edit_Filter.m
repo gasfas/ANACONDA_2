@@ -66,7 +66,8 @@ function [] = Edit_Filter(UIFilter)
                 fieldstoedit(5) = 0;
             end
             oldbasevalue = base_value;
-            base_value = GUI.filter.edit.Edit_Filter_Choice(fieldstoedit, base_value);
+            datapointers = md_GUI.data_n.(char(exp_name));
+            base_value = GUI.filter.edit.Edit_Filter_Choice(fieldstoedit, base_value, datapointers);
             md_GUI.mdata_n.(exp_name).cond = general.setsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part, base_value);
             allfields = fieldnames(base_value);
             md_GUI.UI.UIFilter.Fieldvalue.String = cell(size(allfields));
