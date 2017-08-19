@@ -33,8 +33,11 @@ function [] = Edit_Filter(UIFilter)
             prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
         end
         selected_node_path = [prev_path, '.', SelectedNode];
+        selected_node_path_cells = strsplit(selected_node_path, '.')
         if selected_node_path == 0
             %Do nothing.
+        elseif strcmp(char(selected_node_path_cells(1)), 'common_filters') || strcmp(char(selected_node_path_cells(2)), 'common_filters')
+            msgbox('Cannot edit common filters.')
         else
             [exp_names] = strsplit(selected_node_path,'.');
             exp_name = char(exp_names(1));

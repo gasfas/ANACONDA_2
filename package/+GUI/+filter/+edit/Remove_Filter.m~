@@ -122,61 +122,13 @@ function [] = Remove_Filter(UIFilter)
                                     fieldcheck = [fieldcheck, '.', char(FieldToRmvCell(lzx))];
                                 end
                             end
+                            parentcheck = general.getsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                             if strcmp(char(exp_parts_struct(1)), 'Combined_Filter')
-                                %% Common filters
-                                parentcheck = general.getsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
-                                if isempty(fieldnames(parentcheck))
-                                    fieldcheckCell = strsplit(fieldcheck, '.');
-                                    if length(fieldcheckCell) == 1
-                                        md_GUI.filter.common_filters.cond = rmfield(md_GUI.filter.common_filters.cond, fieldcheck);
-                                    else
-                                        md_GUI.filter.common_filters.cond = general.rmsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
-                                    end
-                                    %% Message to log_box - cell_to_be_inserted:
-                                    FilterName = UIFilter.Tree.SelectedNodes.Name;
-                                    FilterName = char(FilterName);
-                                    FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
-                                    FilterParentName = char(FilterParentName);
-                                    cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                    % End of new message to log_box function.
-                                    %%
-                                    SelNode = UIFilter.Tree.SelectedNodes.Parent;
-                                    UIFilter.Tree.SelectedNodes.delete
-                                    UIFilter.Tree.SelectedNodes = SelNode;
-                                elseif length(fieldnames(parentcheck)) == 1
-                                    operatorcheck = fieldnames(parentcheck);
-                                    operatorcheck = char(operatorcheck(1));
-                                    if strcmp(operatorcheck, 'operators')
-                                        fieldcheckCell = strsplit(fieldcheck, '.');
-                                        if length(fieldcheckCell) == 1
-                                            md_GUI.filter.common_filters.cond = rmfield(md_GUI.filter.common_filters.cond, fieldcheck);
-                                        else
-                                            md_GUI.filter.common_filters.cond = general.rmsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
-                                        end
-                                        %% Message to log_box - cell_to_be_inserted:
-                                        FilterName = UIFilter.Tree.SelectedNodes.Name;
-                                        FilterName = char(FilterName);
-                                        FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
-                                        FilterParentName = char(FilterParentName);
-                                        cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                        % End of new message to log_box function.
-                                        %%
-                                        SelNode = UIFilter.Tree.SelectedNodes.Parent;
-                                        UIFilter.Tree.SelectedNodes.delete
-                                        UIFilter.Tree.SelectedNodes = SelNode;
-                                    end
-                                end
                             else
-                                %% Experiment filters
-                                parentcheck = general.getsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                 if isempty(fieldnames(parentcheck))
                                     fieldcheckCell = strsplit(fieldcheck, '.');
                                     if length(fieldcheckCell) == 1
-                                        md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
+                                        md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.exp1.cond, fieldcheck);
                                     else
                                         md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                     end
@@ -199,7 +151,7 @@ function [] = Remove_Filter(UIFilter)
                                     if strcmp(operatorcheck, 'operators')
                                         fieldcheckCell = strsplit(fieldcheck, '.');
                                         if length(fieldcheckCell) == 1
-                                            md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
+                                            md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.exp1.cond, fieldcheck);
                                         else
                                             md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                         end

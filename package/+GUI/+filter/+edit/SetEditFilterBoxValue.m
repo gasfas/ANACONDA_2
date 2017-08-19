@@ -48,6 +48,76 @@ else
             % Do nothing - experiment was selected.
             base_fieldtype = cellstr('Experiment');
             filtertreatable = 0;
+        elseif strcmp(char(exp_parts(1)), 'common_filters')
+            exp_md = md_GUI.filter.common_filters;
+            base_field = exp_md.cond;
+            base_path = 'cond';
+            for sdf = 2:length(exp_parts)
+                base_field = base_field.([char(exp_parts(sdf))]);
+                base_fieldnames = fieldnames(base_field);
+                base_path = [base_path, '.', char(exp_parts(sdf))];
+            end
+            for fieldnumbervalue = 1:length(base_fieldnames)
+                base_fieldvaluex = base_field.([char(base_fieldnames(fieldnumbervalue))]);
+                if ischar(base_fieldvaluex)
+                    md_GUI.filter.numeric = 0;
+                    filtertreatable = 1;
+                    base_fieldvalue(fieldnumbervalue) = cellstr(base_fieldvaluex);
+                    base_fieldtype(fieldnumbervalue) = cellstr('char');
+                    md_GUI.filter.onerow(fieldnumbervalue) = 1;
+                elseif isnumeric(base_fieldvaluex)
+                    md_GUI.filter.numeric = 1;
+                    if length(base_fieldvaluex) == 1
+                        filtertreatable = 1;
+                    else
+                        [xxrows, xxcolumns] = size(base_fieldvaluex);
+                        if xxrows == 1
+                            % Then good. Nothing else needed.
+                            md_GUI.filter.onerow(fieldnumbervalue) = 1;
+                            filtertreatable = 1;
+                        else
+                            %Check if there is also more than one column. If yes, not
+                            %possible to use vallues.
+                            if xxcolumns == 1
+                                % Then good - let's convert rows to columns.
+                                % Important to remember this for the filter.
+                                md_GUI.filter.onerow(fieldnumbervalue) = 0;
+                                filtertreatable = 1;
+                                base_fieldvaluex = base_fieldvaluex.';
+                            else
+                                % This means that the matrix cannot be treated.
+                                filtertreatable = 0;
+                                md_GUI.filter.onerow(fieldnumbervalue) = 0;
+                                disp('Matrix too large.')
+                                disp('Matrix dimensions required:')
+                                disp(' [n, 1] or [1, n]')
+                            end
+                        end
+                    end
+                    if filtertreatable == 1
+                        base_fieldvalue(fieldnumbervalue) = cellstr(num2str(base_fieldvaluex));
+                        base_fieldtype(fieldnumbervalue) = cellstr('numeric');
+                    else
+                        base_fieldtype(fieldnumbervalue) = cellstr('Numeric_untreatable');
+                    end
+                elseif islogical(base_fieldvaluex)
+                    md_GUI.filter.onerow(fieldnumbervalue) = 1;
+                    md_GUI.filter.numeric = 1;
+                    filtertreatable = 1;
+                    base_fieldvalue(fieldnumbervalue) = cellstr(num2str(base_fieldvaluex));
+                    base_fieldtype(fieldnumbervalue) = cellstr('logical');
+                elseif isstruct(base_fieldvaluex)
+                    md_GUI.filter.onerow(fieldnumbervalue) = 0;
+                    filtertreatable = 1;
+                    base_fieldvalue(fieldnumbervalue) = cellstr('Structure.');
+                    base_fieldtype(fieldnumbervalue) = cellstr('struct');
+                end
+            end
+            md_GUI.filter.TreeNodeSel = treePath;
+            md_GUI.filter.base_field = base_field;
+            md_GUI.filter.base_fieldvalue = base_fieldvalue;
+            md_GUI.filter.base_path = base_path;
+            md_GUI.filter.base_fieldtype = base_fieldtype;
         else
             exp_md = md_GUI.mdata_n.(char(exp_name));
             base_field = exp_md.cond;
@@ -138,7 +208,6 @@ else
                     end
                 end
             end
-
             if operatorexist == 0
                 if strcmp(char(base_fieldvalue(1)), 'Structure.')
                     set(UIFilter.Fieldvalue, 'Enable', 'off')

@@ -21,17 +21,21 @@ function [] = Rename_Filter(UIFilter)
     parents_nom_str = 'Parent.Name'; %Starting parental path.
     parent.xyx = 0; %simply creating a struct named parent.
     [ parent, SelectedNode ] = GUI.filter.visualize.UI_Tree_selected_node_extract( node_depth, parents_nom_str, parent );
+    check_common_filters = strsplit(SelectedNode, '.')
     % From the recursive extractor above, the path is returned as (parent.s(N-1)). ... .(parent.s2).
     nom_parents = length(fieldnames(parent)) - 2; %First fieldname is xyx ('waste'), and last one is the selected node.
+    prev_path = parent.s1;
+    for pathway = 2:(nom_parents) % 2 since number 1 is already set to prev_path.
+        prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
+    end
+    selected_node_path = [prev_path, '.', SelectedNode];
+    selected_node_path_cells = strsplit(selected_node_path, '.');
     if nom_parents == 0
         % Name is NOT editable! This is an experimental parameter.
-        msgbox('This field cannot be renamed! This is a filter parent for an experiment.')
+        msgbox('This field cannot be renamed! This is a filter parent for an experiment.', 'Warning')
+    elseif strcmp(char(selected_node_path_cells(1)), 'common_filters') || strcmp(char(selected_node_path_cells(2)), 'common_filters')
+        msgbox('Cannot rename a common filter.', 'Warning')
     else
-        prev_path = parent.s1;
-        for pathway = 2:(nom_parents) % 2 since number 1 is already set to prev_path.
-            prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
-        end
-        selected_node_path = [prev_path, '.', SelectedNode];
         if selected_node_path == 0
             %Do nothing.
         else
