@@ -49,20 +49,18 @@ function [] = Edit_Filter(UIFilter)
             UI = md_GUI.UI.UIFilter;
             fieldstoedit = [1 1 1 1 1];
             if ~isfield(base_value, 'data_pointer')
-                base_value.data_pointer = 'datapointer';
+                fieldstoedit(1) = 0;
             end
             if ~isfield(base_value, 'value')
-                base_value.value = '0 1';
+                fieldstoedit(2) = 0;
             end
             if ~isfield(base_value, 'type')
-                base_value.type = 'continuous';
+                fieldstoedit(3) = 0;
             end
             if ~isfield(base_value, 'translate_condition')
-                base_value.translate_condition = 'AND';
                 fieldstoedit(4) = 0;
             end
             if ~isfield(base_value, 'invert_filter')
-                base_value.invert_filter = logical(0);
                 fieldstoedit(5) = 0;
             end
             oldbasevalue = base_value;
@@ -95,7 +93,7 @@ function [] = Edit_Filter(UIFilter)
                 end
             end
             if length(allfields) > length(fieldnames(oldbasevalue)) % means new fields have been added.
-                for llx = length(oldbasevalue)+1:length(fieldnames(allfields))
+                for llx = length(oldbasevalue)+1:length(allfields)
                     md_GUI.UI.UIFilter.Fieldname.String(llx) = allfields(llx);
                     vaal = base_value.(char(allfields(llx)));
                     if islogical(vaal) || isnumeric(vaal)

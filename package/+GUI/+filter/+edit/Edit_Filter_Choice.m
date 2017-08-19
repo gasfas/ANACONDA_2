@@ -13,9 +13,7 @@ md_GUI = evalin('base', 'md_GUI');
 %function choice = choosedialog
 screensize = md_GUI.UI.screensize;
 numberoffieldstoedit = sum(fieldstoedit);
-
-
-d = dialog('Position',[screensize(3)/4 screensize(4)/5 screensize(3)/3 screensize(4)/2],'Name','Select One');
+d = dialog('Position',[screensize(3)/4 screensize(4)/5 screensize(3)/3 screensize(4)/2],'Name','Edit filter');
 txt_type = uicontrol('Parent',d,...
        'Style','text',...
        'units', 'normalized',...
@@ -85,8 +83,12 @@ translate_options = {'AND';'OR';'XOR';'HIT1';'HIT2'};
 translave_value = 1;
 if fieldstoedit(4) == 1 % translate
     for ll = 1:length(translate_options)
-        if strcmp(translate_options(ll), base_value.translate_condition)
-            translave_value = ll;
+        if ~isfield(base_value, 'translate_condition')
+            translave_value = 1;
+        else
+            if strcmp(translate_options(ll), base_value.translate_condition)
+                translave_value = ll;
+            end
         end
     end
     translate_enable = 'on';
@@ -110,10 +112,15 @@ checkbox_translate = uicontrol('Parent',d,...
        'String','Use',...
        'Value', fieldstoedit(4),...
        'Callback',@checkbox_translate_callback);
+
 invert_options = [0, 1];
 invert_value = 1;
 if fieldstoedit(5) == 1 % inverse
     for lm = 1:length(invert_options)
+        if ~isfield(base_value, 'invert_filter')
+            base_value.invert_filter = logical(0);
+            fieldstoedit(5) = 0;
+        end
         if invert_options(lm) == base_value.invert_filter
             invert_value = lm;
         end
@@ -185,12 +192,12 @@ listbox4_datapointer = uicontrol('Parent',d,...
        'Callback',@listbox4_datapointer_callback);
 setdatapointerbutton = uicontrol('Parent',d,...
        'Style','pushbutton',...
+       'Enable', 'off',...
        'units', 'normalized',...
        'fontsize', 12,...
        'Position',[0.85 0.09 0.1 0.06],...
        'String','Set datapointer',...
        'Callback',@setdatapointerbutton_callback);
-
 OK_btn = uicontrol('Parent',d,...
        'Style','pushbutton',...
        'units', 'normalized',...
@@ -198,9 +205,6 @@ OK_btn = uicontrol('Parent',d,...
        'Position',[0.85 0.03 0.1 0.06],...
        'String','Ok',...
        'Callback','delete(gcf)');
-% Wait for d to close before running to completion
-uiwait(d);
-    % Callbacks:
     function type_callback(popup_type,event)
         idx = popup_type.Value;
         popup_items = popup_type.String;
@@ -273,6 +277,7 @@ uiwait(d);
         list2 = {'-'};
         list3 = {'-'};
         list4 = {'-'};
+        setdatapointerbutton.Enable = 'Off';
         if checkbox_datapointer.Value == 1
             listbox1_datapointer.Enable = 'On';
             listbox2_datapointer.Enable = 'Off';
@@ -366,7 +371,6 @@ uiwait(d);
             listbox4_datapointer.Enable = 'Off';
         end
     end
-
     function listbox4_datapointer_callback(listbox4_datapointer, event)
         list4sel = listbox4_datapointer.String(listbox4_datapointer.Value);
         list3sel = listbox3_datapointer.String(listbox3_datapointer.Value);
@@ -389,4 +393,6 @@ uiwait(d);
         % End of new message to log_box function.
         base_value.data_pointer = full_datapointer_string;
     end
+% Wait for d to close before running to completion
+uiwait(d);
 end
