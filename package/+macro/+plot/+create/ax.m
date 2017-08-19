@@ -32,8 +32,8 @@ else
 		case 'polaraxes'
 			h_axes = polaraxes('Parent', h_figure);
 		case 'ternary'
-			try [~, h_axes] = plot.ternary.ternaxes(h_figure, 10, axes_md.XLim_scaled);
-			catch [~, h_axes] = plot.ternary.ternaxes(h_figure, 10); end
+			try [~, h_axes] = plot.ternary.ternaxes(11, axes_md.Xlim_scaled);
+			catch [~, h_axes] = plot.ternary.ternaxes(11); end
 % 			h_axes = axes('Parent', h_figure);
 			plot.ternary.ternlabel(axes_md.XLabel.String, axes_md.YLabel.String, axes_md.ZLabel.String);
 			try axes_md.XLim = axes_md.Xlim_scaled;

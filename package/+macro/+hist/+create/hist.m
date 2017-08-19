@@ -9,7 +9,6 @@ function [histogram] = hist(exp, hist_md, e_filter)
 % histogram	struct, containing the fields 'Count' (the histogram matrix),
 %			and 'midpoints', giving the midpoints in each dimension.
 
-%Make a histogram from the fetched signals:
 % If multiple histograms are defined, perform this function recursively:
 if numel(hist_md)>1
 	histogram = struct('Count', [], 'midpoints', []);
@@ -29,21 +28,22 @@ else
 	end
 end
 
+%% HISTOGRAM
+%Make a histogram from the fetched signals:
+
 if strcmp(general.struct.probe_field(hist_md, 'Type'), 'ternary')
 	% Create ternary axis histogram. We assume that all three signals are given. We normalize the datapoints:
 	norm_factor = sum(hist_data, 2);
 	hist_data_n = hist_data./norm_factor;
-
 	% Only one binsize possible, so in case multiple binsizes
 	% are given:
 	hist_md.binsize	= [mean(hist_md.binsize) mean(hist_md.binsize)]./mean(diff(hist_md.Range, 1, 2));
 	hist_md.Range	= [0 1; 0 1];
 	% convert the C1, C2 coordinates data to x,y coordinates (rotating 60 degrees):
 	[hist_data(:,1), hist_data(:,2)] = plot.ternary.terncoords(hist_data_n(:,1), hist_data_n(:,2), hist_data_n(:,3));
- 	hist_data(:,3) = [];
+	hist_data(:,3) = [];
 end
 
-%% HISTOGRAM
 % Add signal as background subtraction if requested:
 if general.struct.issubfield(hist_md, 'bgr')
 	if isfield(hist_md.bgr, 'cond')
@@ -67,22 +67,21 @@ else
 	[histogram.Count, histogram.midpoints] = hist.H_nD(hist_data, midpoints);
 end
 
-%% Additional manipulation to histogram:
-% Apply histogram saturation if requested:
+%% Apply histogram saturation if requested:
 if isfield(hist_md, 'saturation_limits')
 	sf	= 1./max(histogram.Count(:));
 	histogram.Count(histogram.Count.*sf < hist_md.saturation_limits(1)) = hist_md.saturation_limits(1)./sf;
 	histogram.Count(histogram.Count.*sf > hist_md.saturation_limits(2)) = hist_md.saturation_limits(2)./sf;
 end
 
-% Apply intensity solid angle correction if requested:
+%% Apply intensity solid angle correction if requested:
 if general.struct.probe_field(hist_md, 'ifdo.Solid_angle_correction')
 	% This means the user want to apply a solid angle correction. Select dimension:
 	Theta_dim = hist_md.Solid_angle_correction.Dim_nr;
 	histogram = hist.solid_angle_correction(histogram, Theta_dim);
 end
 
-% Apply Intensity normalization if requested:
+%% Apply Intensity normalization if requested:
 if general.struct.probe_field(hist_md, 'Integrated_value')
 	switch hist_md.dim
 		case 1	
@@ -94,7 +93,7 @@ elseif  general.struct.probe_field(hist_md, 'Maximum_value')
 	histogram.Count = histogram.Count./max(histogram.Count(:)) * hist_md.Maximum_value;
 end
 
-% Apply logarithmic rescaling if requested:
+%% Apply logarithmic rescaling if requested:
 if general.struct.probe_field(hist_md, 'Intensity_scaling')
 	switch hist_md.Intensity_scaling
 		case 'log'
