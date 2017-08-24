@@ -19,15 +19,15 @@ function [exp_md] = plot(exp_md)
 d2.labels_to_show     = exp_md.sample.fragment.masses;
 
 % Specify which plot to show:
-d2.ifdo.BR_Ci							= true;
+% d2.ifdo.BR_Ci							= true;
 % d2.ifdo.TOF							= true;
 % d2.ifdo.TOF_X						= true;
 % d2.ifdo.TOF_R						= true;
 % d2.ifdo.XY						= true;
 % d2.ifdo.dp						= true;
 % d2.ifdo.p_norm					= true;
-% d2.ifdo.p_sum_norm				= true;
-% d2.ifdo.p_sum						= true;
+% d2.ifdo.dp_sum_norm				= true;
+% d2.ifdo.dp_sum						= true;
 % d2.ifdo.TOF_hit1_hit2				= true;
 % d2.ifdo.m2q_hit1_hit2				= true;
 % d2.ifdo.m2q_hit1_hit2				= true;
@@ -35,6 +35,7 @@ d2.ifdo.BR_Ci							= true;
 % d2.ifdo.angle_p_corr_p				= true;
 % d2.ifdo.p_norm_hit1_hit2			= true;
 % d2.ifdo.Dalitz_C2						= true;
+d2.ifdo.KER_sum					= true;
 
 % cross-detector histograms:
 % exp_md.plot.e.ifdo.m2q_2_KER	= false;
@@ -152,20 +153,20 @@ d2.p_norm.hist.hitselect		= [1];
 % d2.p_norm.cond				= exp_md.cond.Npl_Npl;
 d2.p_norm.cond			= exp_md.cond.CHx_CF3;
 
-d2.p_sum					= metadata.create.plot.signal_2_plot({signals.i_p_sum});
-d2.p_sum.figure.Position		= plot.fig.Position('SW');
-d2.p_sum.cond			= exp_md.cond.Npl_Npl;
-d2.p_sum.GraphObj.contourvalue = 0.95;
-d2.p_sum.GraphObj.Type	= 'projection';
-d2.p_sum.figure.Position = plot.fig.Position('E');
-d2.p_sum.cond			= exp_md.cond.C2Hx_CF3;
+d2.dp_sum					= metadata.create.plot.signal_2_plot({signals.i_dp_sum});
+d2.dp_sum.figure.Position		= plot.fig.Position('SW');
+d2.dp_sum.cond			= exp_md.cond.Npl_Npl;
+d2.dp_sum.GraphObj.contourvalue = 0.95;
+d2.dp_sum.GraphObj.Type	= 'projection';
+d2.dp_sum.figure.Position = plot.fig.Position('E');
+d2.dp_sum.cond			= exp_md.cond.C2Hx_CF3;
 
-d2.p_sum_norm					= metadata.create.plot.signal_2_plot({signals.i_p_sum_norm});
-d2.p_sum_norm.figure.Position		= plot.fig.Position('SE');
-d2.p_sum_norm.axes.YLim				= [0 0.03];
-d2.p_sum_norm.figure.Position = plot.fig.Position('SW');
-d2.p_sum_norm.hist.Integrated_value = 1;
-d2.p_sum_norm.cond			= exp_md.cond.C2Hx_CF3;
+d2.dp_sum_norm					= metadata.create.plot.signal_2_plot({signals.i_dp_sum_norm});
+d2.dp_sum_norm.figure.Position		= plot.fig.Position('SE');
+d2.dp_sum_norm.axes.YLim				= [0 0.03];
+d2.dp_sum_norm.figure.Position = plot.fig.Position('SW');
+d2.dp_sum_norm.hist.Integrated_value = 1;
+d2.dp_sum_norm.cond			= exp_md.cond.C2Hx_CF3;
 
 d2.angle_p_corr_C2.axes.Type	= 'polaraxes';
 d2.angle_p_corr_C2				= metadata.create.plot.signal_2_plot({signals.i_angle_p_corr_C2}, d2.angle_p_corr_C2);
@@ -180,7 +181,7 @@ d2.angle_p_corr_p.hist.binsize(2)= 2*d2.angle_p_corr_p.hist.binsize(2);
 d2.angle_p_corr_p.cond			= exp_md.cond.CHx_CF3;
 
 d2.Dalitz_C2.Type				= 'ternary';
-d2.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm, signals.i_p_sum_norm}, d2.Dalitz_C2);
+d2.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm, signals.i_dp_sum_norm}, d2.Dalitz_C2);
 d2.Dalitz_C2.hist.hitselect		= [1, 2, NaN]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
 d2.Dalitz_C2.figure.Position	= [1200 300 600  600];
 d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (CH$_3^+$) [a.u.]';
@@ -194,6 +195,12 @@ d2.Dalitz_C2.axes.ZLabel.String		= '$|p_{res}|$ [a.u.]';
 
 d2.Dalitz_C2.axes.axis		= 'equal';
 d2.Dalitz_C2.cond			= exp_md.cond.CHx_CF3;
+
+% KER sum plot:
+d2.KER_sum							= metadata.create.plot.signal_2_plot({signals.i_KER_sum});
+d2.KER_sum.hist.Integrated_value	= 1;
+% d2.KER_sum.cond						= exp_md.cond.NH_H;
+
 
 exp_md.plot.det1 = d1;
 exp_md.plot.det2 = d2;

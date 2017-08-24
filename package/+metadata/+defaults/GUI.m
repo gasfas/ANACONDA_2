@@ -25,15 +25,8 @@ md_GUI.filter.tree.NewNodeLevel = 1;
 md_GUI.filter.tree.NameOfTab = 'filter';
 md_GUI.filter.list.RowNumber = 0;
 md_GUI.filter.set_filter_names = cellstr('filter'); % Write it in the code, not here in definitions.
-md_GUI.filter.common_filters.cond.Combined_Filter.EventsFilter.type = 'continuous';
-md_GUI.filter.common_filters.cond.Combined_Filter.EventsFilter.value = [0 40];
-md_GUI.filter.common_filters.cond.Combined_Filter.EventsFilter.data_pointer = 'e.det1.m2q_l_sum';
-md_GUI.filter.common_filters.cond.Combined_Filter.HitsFilter.type = 'discrete';
-md_GUI.filter.common_filters.cond.Combined_Filter.HitsFilter.value = [0 5 10 15 20 25 30 35 40];
-md_GUI.filter.common_filters.cond.Combined_Filter.HitsFilter.data_pointer = 'h.det1.m2q_l';
 %% Plot
 md_GUI.plot.filtersel = 'No_Filter';
 md_GUI.plot.expsettings.All = [2 1 1];
 md_GUI.plot.plotsettings = [1 1 1 1];
-
 end

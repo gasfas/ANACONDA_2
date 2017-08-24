@@ -171,28 +171,28 @@ s.i_p_norm.axes.Tick	= s.i_p_norm.hist.Range(1):25:s.i_p_norm.hist.Range(2);% [a
 s.i_p_norm.axes.Label.String	= {'$|p|$ [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum sum:
-s.i_p_sum.hist.pointer	= 'e.det2.p_sum';% Data pointer, where the signal can be found. 
+s.i_dp_sum.hist.pointer	= 'e.det2.dp_sum';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_p_sum.hist.binsize	= [2 2 2];% [a.u.] binsize of the variable. 
-s.i_p_sum.hist.Range	= [-50 50; -50 50; -50 50];% [au] range of the variable. 
+s.i_dp_sum.hist.binsize	= [2 2 2];% [a.u.] binsize of the variable. 
+s.i_dp_sum.hist.Range	= [-50 50; -50 50; -50 50];% [au] range of the variable. 
 % Axes metadata:
-s.i_p_sum.axes.Lim	= s.i_p_sum.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.i_p_sum.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
-s.i_p_sum.axes.Label.String	= {'$p_{sum, x}$ [a.u.]', '$p_{sum, y}$ [a.u.]', '$p_{sum, z}$ [a.u.]'}; %The label of the variable
+s.i_dp_sum.axes.Lim	= s.i_dp_sum.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.i_dp_sum.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
+s.i_dp_sum.axes.Label.String	= {'$p_{sum, x}$ [a.u.]', '$p_{sum, y}$ [a.u.]', '$p_{sum, z}$ [a.u.]'}; %The label of the variable
 % Condition metadata:
-s.i_p_sum.cond			= [];
+s.i_dp_sum.cond			= [];
 
 %%%%%% Momentum sum norm:
-s.i_p_sum_norm.hist.pointer	= 'e.det2.p_sum_norm';% Data pointer, where the signal can be found. 
+s.i_dp_sum_norm.hist.pointer	= 'e.det2.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_p_sum_norm.hist.binsize	= [1];% [a.u.] binsize of the variable. 
-s.i_p_sum_norm.hist.Range	= [0 100];% [au] range of the variable. 
+s.i_dp_sum_norm.hist.binsize	= [1];% [a.u.] binsize of the variable. 
+s.i_dp_sum_norm.hist.Range	= [0 100];% [au] range of the variable. 
 % Axes metadata:
-s.i_p_sum_norm.axes.Lim	= s.i_p_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.i_p_sum_norm.axes.Tick	= 0:20:300;% [au] Ticks on the respective axes.
-s.i_p_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
+s.i_dp_sum_norm.axes.Lim	= s.i_dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.i_dp_sum_norm.axes.Tick	= 0:20:300;% [au] Ticks on the respective axes.
+s.i_dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
 % Condition metadata:
-s.i_p_sum_norm.cond			= [];
+s.i_dp_sum_norm.cond			= [];
 
 %%%%%% angular correlation of momenta p_corr_C2:
 s.i_angle_p_corr_C2.hist.pointer	= 'e.det2.angle_p_corr_C2';% Data pointer, where the signal can be found. 
@@ -208,10 +208,10 @@ s.i_angle_p_corr_C2.axes.Label.String	= {'mutual angle [deg]'}; %The label of th
 %%%%%% Kinetic Energy Release:
 s.i_KER_sum.hist.pointer	= 'e.det2.KER_sum';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_KER_sum.hist.binsize	=  0.05; %[eV] binsize of the CSD variable. 
-s.i_KER_sum.hist.Range	= [0 15]; %[eV] range of the variable. 
+s.i_KER_sum.hist.binsize	=  0.01*1e10; %[eV] binsize of the CSD variable. 
+s.i_KER_sum.hist.Range	= [0.01 100]*1e10; %[eV] range of the variable. 
 % Axes metadata:
-s.i_KER_sum.axes.Lim	= [0 3];% [eV] Lim of the axis that shows the variable. 
+s.i_KER_sum.axes.Lim	= s.i_KER_sum.hist.Range;% [eV] Lim of the axis that shows the variable. 
 s.i_KER_sum.axes.Tick	= linspace(s.i_KER_sum.hist.Range(1), s.i_KER_sum.hist.Range(2), 11);% [au] Ticks on the respective axes.
 s.i_KER_sum.axes.Label.String	= {'Total ion KER [eV]'}; %The label of the variable
 
