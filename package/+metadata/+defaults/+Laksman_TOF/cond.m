@@ -249,7 +249,7 @@ c.H.dp_norm.value			= [13; 100];
 c.H.dp_norm.translate_condition = 'AND';
 
 %% Condition: get rid of the oil-related peaks in the PEPIPICO:
-%c.PEPIPICO_article.mol.label	= c.monomer;
+c.PEPIPICO_article.mol.label	= c.monomer;
 c.PEPIPICO_article.mol.p_sum	= def.p_sum;
 c.PEPIPICO_article.mol.p_sum.value	= [0 120];
 

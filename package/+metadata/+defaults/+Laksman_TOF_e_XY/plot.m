@@ -53,13 +53,13 @@ d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
 d1.XY.figure.Position		= [1500 1000 440 460];
 d1.XY.axes.Title.String		= 'Electron detector image';
 d1.XY.axes.axis				= 'equal';
-%d1.XY.cond					= exp_md.cond.e_He;
+d1.XY.cond					= exp_md.cond.e_He;
 
 d1.dpxy						= metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpy});
 d1.dpxy.figure.Position		= [1500 1000 440 460];
 d1.dpxy.figure.Position		= plot.fig.Position('NE');
 d1.dpxy.axes.axis				= 'equal';
-%d1.dpxy.cond					= exp_md.cond.e_He;
+d1.dpxy.cond					= exp_md.cond.e_He;
 
 % % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 d2.BR_Ci						= metadata.create.plot.signal_2_plot({signals.i_mult});
