@@ -76,15 +76,19 @@ if exist(fullfile(dir, 'md_defaults.m'), 'file')
     md_def_setting = md_GUI.UI.UILoad.md_default_radiobuttongroup.SelectedObject.String;
     if strcmp(md_def_setting, 'System metadata default')
         % Use system md_Defaults.
+        %Prompt user to select the substructs
+        metadata.defaults.exp.EPICEA
+        metadata.defaults.Laksman_TOF_e_XY. % Make it in correct order - see md defaults!
+        [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
     elseif strcmp(md_def_setting, 'Local metadata default')
         % Use local md_Defaults.
+        [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
     end
 else % Local md_defaults does not exist. Use system md_Defaults.
     
 end
 
 [data_n.(['exp', filenumber])]   = IO.import_raw(file);
-[mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
 
 
 data_n.info.foi = fieldnames(md_GUI.d_fn);
