@@ -5,6 +5,10 @@
 % This m-file defines the default metadata.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function exp_md = md_all_defaults()
+if ~exist('exp_md', 'var')
+    exp_md = struct();
+end
 
 %% Sample info:
 exp_md = metadata.defaults.Laksman_TOF.sample( exp_md );
@@ -36,3 +40,4 @@ exp_md = metadata.defaults.Laksman_TOF.cond(exp_md);
                                                     
 %% Plot Styles are defined in this file.
 exp_md = metadata.defaults.Laksman_TOF.plot(exp_md);
+end
