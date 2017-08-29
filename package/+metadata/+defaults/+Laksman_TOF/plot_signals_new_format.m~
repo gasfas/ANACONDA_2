@@ -1,0 +1,71 @@
+function [exp_md] = plot_signals_new_format(exp_md)
+% This metadata file describes the signal plotting preferences.
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SIGNALS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Each signal has its own configuration metadata:
+%%%%%% TOF:
+s.TOF.hist.pointer	= 'h.det1.TOF';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.TOF.hist.binsize	= 10;% [ns] binsize of the variable. 
+s.TOF.hist.Range	= [0 1e5];% [ns] range of the variable. 
+% Axes metadata:
+s.TOF.axes.Lim		= [0 2e4];% [ns] Lim of the axis that shows the variable. 
+s.TOF.axes.Tick	= convert.m2q_2_TOF(exp_md.sample.fragment.masses, ...
+								exp_md.conv.det1.TOF_2_m2q.factor, ...
+								exp_md.conv.det1.TOF_2_m2q.t0);% [ns] Tick of the axis that shows the variable.
+							
+s.TOF.axes.Tick		= [0:1e4:3e4];
+s.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
+s.TOF.axes.ifdo.add_m2q_Tick = true;
+% Condition metadata:
+s.TOF.cond			= exp_md.cond.monomer;
+
+%%%%%% X:
+s.X.hist.pointer	= 'h.det1.X';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.X.hist.binsize	= 0.5;% [mm] binsize of the variable. 
+s.X.hist.Range	= [-40 40];% [mm] range of the variable. 
+% Axes metadata:
+s.X.axes.Lim		= [-10 30];% [ns] Lim of the axis that shows the variable. 
+s.X.axes.Label.String	= 'X [mm]'; %The label of the variable
+% Condition metadata:
+s.X.cond			= exp_md.cond.label;
+
+%%%%%% Mass-to-charge:
+s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.m2q.hist.binsize	= 1;% [Da] binsize of the variable. 
+s.m2q.hist.Range	= [0 200];% [Da] range of the variable. 
+% Axes metadata:
+s.m2q.axes.Lim		= [0 100];% [Da] Lim of the axis that shows the variable. 
+s.m2q.axes.Tick	= convert.m2q_2_TOF(exp_md.sample.fragment.masses, ...
+								exp_md.conv.det1.TOF_2_m2q.factor, ...
+								exp_md.conv.det1.TOF_2_m2q.t0);% [ns] Tick of the axis that shows the variable. 
+s.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
+% Condition metadata:
+s.m2q.cond			= exp_md.cond.label;
+
+%%%%%% Momentum:
+s.dp.hist.pointer	= 'h.det1.dp';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.dp.hist.binsize	= [1 1 1];% [a.u.] binsize of the variable. 
+s.dp.hist.Range	= [-200 200; -199 300; -100 100];% [au] range of the variable. 
+% Axes metadata:
+s.dp.axes.Lim	= s.dp.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.dp.axes.Tick	= s.dp.hist.Range;% [au] Ticks on the respective axes.
+s.dp.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The label of the variable
+% Condition metadata:
+s.dp.cond			= exp_md.cond.label;
+
+%%%%%% angular correlation of momenta p_corr_C2:
+s.p_corr_C2.hist.pointer	= 'h.det1.dp';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.p_corr_C2.hist.binsize	= [1 1 1];% [a.u.] binsize of the variable. 
+s.p_corr_C2.hist.Range	= [-200 200; -199 300; -100 100];% [au] range of the variable. 
+% Axes metadata:
+s.p_corr_C2.axes.Lim	= s.p_corr_C2.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.p_corr_C2.axes.Tick	= s.p_corr_C2.hist.Range;% [au] Ticks on the respective axes.
+s.p_corr_C2.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The label of the variable
+% Condition metadata:
+s.p_corr_C2.cond			= exp_md.cond.label;
+
+exp_md.plot.signal	= s;

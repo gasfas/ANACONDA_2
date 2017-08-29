@@ -145,16 +145,16 @@ s.dp_norm.axes.Tick	= s.dp_norm.hist.Range(1):5:s.dp_norm.hist.Range(2);% [au] T
 s.dp_norm.axes.Label.String	= {'$|\vec{p}|$ [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum sum norm:
-s.p_sum_norm.hist.pointer	= 'e.det1.p_sum_norm';% Data pointer, where the signal can be found. 
+s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.p_sum_norm.hist.binsize	= [2];% [a.u.] binsize of the variable. 
-s.p_sum_norm.hist.Range	= [0 200];% [au] range of the variable. 
+s.dp_sum_norm.hist.binsize	= [2];% [a.u.] binsize of the variable. 
+s.dp_sum_norm.hist.Range	= [0 200];% [au] range of the variable. 
 % Axes metadata:
-s.p_sum_norm.axes.Lim	= s.p_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.p_sum_norm.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
-s.p_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
+s.dp_sum_norm.axes.Lim	= s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.dp_sum_norm.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
+s.dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
 % Condition metadata:
-s.p_sum_norm.cond			= [];
+s.dp_sum_norm.cond			= [];
 
 %%%%%% angular correlation of momenta p_corr_C2:
 s.angle_p_corr_C2.hist.pointer	= 'e.det1.angle_p_corr_C2';% Data pointer, where the signal can be found. 
@@ -166,8 +166,6 @@ s.angle_p_corr_C2.hist.ifdo.Solid_angle_correction	= true;% The binsize is equal
 s.angle_p_corr_C2.axes.Lim	= [0 180];% [au] Lim of the axis that shows the variable. 
 s.angle_p_corr_C2.axes.Tick	= linspace(0, 180, 7);% [au] Ticks on the respective axes.
 s.angle_p_corr_C2.axes.Label.String	= {'mutual angle [deg]'}; %The label of the variable
-% Condition metadata:
-s.angle_p_corr_C2.cond			= exp_md.cond.angle_p_corr_C2;
 
 %%%%%% Kinetic Energy Release:
 s.KER_sum.hist.pointer	= 'e.det1.KER_sum';% Data pointer, where the signal can be found. 
@@ -178,8 +176,7 @@ s.KER_sum.hist.Range	= [0 15]; %[eV] range of the variable.
 s.KER_sum.axes.Lim	= s.KER_sum.hist.Range;% [eV] Lim of the axis that shows the variable. 
 s.KER_sum.axes.Tick	= linspace(s.KER_sum.axes.Lim(1), s.KER_sum.axes.Lim(2), 6);% [au] Ticks on the respective axes.
 s.KER_sum.axes.Label.String	= {'Total ion KER [eV]'}; %The label of the variable
-% Condition metadata:
-s.KER_sum.cond			= exp_md.cond.angle_p_corr_C2;
+
 
 %%%%%% Charge Separation Distance (CSD):
 s.CSD.hist.pointer	= 'e.det1.CSD';% Data pointer, where the signal can be found. 
@@ -190,8 +187,7 @@ s.CSD.hist.Range	= [0 1]*1e2; %[Ångström] range of the variable.
 s.CSD.axes.Lim	= s.CSD.hist.Range;% [Ångström] Lim of the axis that shows the variable. 
 s.CSD.axes.Tick	= linspace(s.CSD.hist.Range(1), s.CSD.hist.Range(2), 11);% [au] Ticks on the respective axes.
 s.CSD.axes.Label.String	= {'CSD [\AA]'}; %The label of the variable
-% Condition metadata:
-s.CSD.cond			= exp_md.cond.angle_p_corr_C2;
+
 
 %%%%%% Extra axes defaults:
 s.add_m2q.axes.YLabel.String	= '';
@@ -211,4 +207,4 @@ s.add_CSD.axes.YTick			= [];
 s.add_CSD.axes.XAxisLocation	= 'top';
 s.add_CSD.axes.YAxisLocation	= 'right';
 
-exp_md.plot.signal	= s;
+exp_md.plot.signal = s;

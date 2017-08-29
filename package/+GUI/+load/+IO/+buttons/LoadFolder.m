@@ -17,12 +17,14 @@ else
     folder_name = uigetdir;
 end
 nofiles = 0;
+fullfiletypeselected = '.mat';
 if folder_name == 0
-    % Do nothing.
+    msgbox('Please select a folder')
 else
     %Save folder to .mat file - must be here, otherwise changes to 0
     md_GUI.load.prevdir = folder_name;
     foldername = folder_name;
+    mdDefaultsPath = fullfile(foldername, 'md_defaults.m');
     pathname = fullfile(foldername, '*.dlt');   %set file extension
     matFiles = dir(pathname);                   %get the files
     String_ListOfFilesInFolder = {matFiles.name};
@@ -44,6 +46,16 @@ else
         fileselected = String_ListOfFilesInFolder(1);
     end
     if nofiles == 0
+    if exist(mdDefaultsPath, 'file' )
+        filepath_mdDefault = fullfile(foldername, 'md_defaults.m'); %md_default in folder
+        fileextension = ['*', fullfiletypeselected];
+        pathname = fullfile(foldername, fileextension);   %set file extension
+        matFiles = dir(pathname);                   %get the file
+    else
+    % Construct a question dialogue with two options: Yes and no.
+        msgbox('md_defaults.m was not found in the folder. Please select the md_defaults file.')
+        filepath_mdDefault = uigetfile();
+    end
  	%run (filepath_mdDefault)
     md_GUI.load.String_ListOfFilesInFolder = String_ListOfFilesInFolder;
     md_GUI.load.folder_name = folder_name;

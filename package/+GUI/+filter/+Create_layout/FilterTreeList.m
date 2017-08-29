@@ -19,18 +19,20 @@ import uiextras.jTree.*
 md_GUI = evalin('base', 'md_GUI');
 UI = md_GUI.UI.UIFilter; %Gives access to the tree layout.
 UI.Tree.Enable = 1;
-% Opening the 'Filter' tab enables the UI Tree.
+% Loading files enables UI Tree.
+%Check if a new filter is being created or if a file is being loaded
 if fileloading == 1 % File is being loaded or unloaded
-    if filenumber == 0 % No idea yet - check if needed.
-%         filenumber = md_GUI.load.NumberOfLoadedFiles;
-%         filenumber = int2str(filenumber);
-%         expnom = md_GUI.load.NumberOfLoadedFiles;
-    else % Filter tab has opened.
+    if filenumber == 0 % File is being loaded
+        filenumber = md_GUI.load.NumberOfLoadedFiles;
+        filenumber = int2str(filenumber);
+        expnom = md_GUI.load.NumberOfLoadedFiles;
+    else % File is being unloaded
         expnom = filenumber;
         filenumber = int2str(filenumber);
     end
     exp_md = md_GUI.mdata_n.(['exp', filenumber]);
     %filename_LoadedFile = char(md_GUI.fileselected(1));
+    filename_LoadedFile = char(md_GUI.load.String_LoadedFiles(expnom));
     metadata_cond_1 = fieldnames(exp_md.cond);
     exp_name_in_tree = ['exp', int2str(expnom)]; %
 elseif fileloading == 2 %New subfilter is being created.

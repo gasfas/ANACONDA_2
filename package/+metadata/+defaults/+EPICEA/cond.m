@@ -23,11 +23,11 @@ def.oil.translate_condition    = 'AND';
 def.oil.invert_filter          = true;
 
 % Get rid of large momenta:
-def.p_sum.type             = 'continuous';
-def.p_sum.data_pointer     = 'e.det2.p_sum_norm';
-def.p_sum.value            = [0 ; 110];
-def.p_sum.translate_condition = 'AND';
-def.p_sum.invert_filter     = false;
+def.dp_sum.type             = 'continuous';
+def.dp_sum.data_pointer     = 'e.det2.dp_sum_norm';
+def.dp_sum.value            = [0 ; 110];
+def.dp_sum.translate_condition = 'AND';
+def.dp_sum.invert_filter     = false;
 
 % make sure one only takes the labeled hits:
 def.label.type             = 'continuous';
@@ -96,11 +96,11 @@ c.C2Hx_CF3.CF3.value				= [69];
 c.C2Hx_CF3.CF3.translate_condition	= 'hit2';
 
 % Get rid of large momenta:
-c.C2Hx_CF3.p_sum.type             = 'continuous';
-c.C2Hx_CF3.p_sum.data_pointer     = 'e.det2.p_sum_norm';
-c.C2Hx_CF3.p_sum.value            = [0 ; 60];
-c.C2Hx_CF3.p_sum.translate_condition = 'AND';
-c.C2Hx_CF3.p_sum.invert_filter     = false;
+c.C2Hx_CF3.dp_sum.type             = 'continuous';
+c.C2Hx_CF3.dp_sum.data_pointer     = 'e.det2.dp_sum_norm';
+c.C2Hx_CF3.dp_sum.value            = [0 ; 60];
+c.C2Hx_CF3.dp_sum.translate_condition = 'AND';
+c.C2Hx_CF3.dp_sum.invert_filter     = false;
 
 %% Condition: only methyl+ CF3+ pair (for calibration)
 c.CHx_CF3.REAL_TRG		= macro.filter.write_coincidence_condition(1, 'det1');
@@ -117,12 +117,11 @@ c.CHx_CF3.CF3.value				= [69-2, 69+2];
 c.CHx_CF3.CF3.translate_condition	= 'hit2';
 
 % Get rid of large momenta:
-c.CHx_CF3.p_sum.type             = 'continuous';
-c.CHx_CF3.p_sum.data_pointer     = 'e.det2.p_sum_norm';
-c.CHx_CF3.p_sum.value            = [0 ; 90];
-c.CHx_CF3.p_sum.translate_condition = 'AND';
-c.CHx_CF3.p_sum.invert_filter     = false;
-
+c.CHx_CF3.dp_sum.type             = 'continuous';
+c.CHx_CF3.dp_sum.data_pointer     = 'e.det2.dp_sum_norm';
+c.CHx_CF3.dp_sum.value            = [0 ; 90];
+c.CHx_CF3.dp_sum.translate_condition = 'AND';
+c.CHx_CF3.dp_sum.invert_filter     = false;
 
 %%
 exp_md.cond = c;
