@@ -54,10 +54,10 @@ cd1.momentum.hist.Range			= [-1 1]*3e2; % [a.u.] x range of the data on x-axis.
 cd1.momentum.hist.pointer		= 'h.det1.raw';
 
 % Plot style for 2D momentum histogram:
-cd1.momentum.labels_to_show = [1 16];% exp_md.sample.fragment.masses;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
-cd1.momentum.binsize       	= [1, 1]*2e0; %[a.u.] binsize of the m2q variable. 
-cd1.momentum.x_range		= [-1 1]*5e1; % [a.u.] x range of the data on x-axis.
-cd1.momentum.y_range		= [-1 1]*5e1; % [a.u.] y range of the data on y-axis.
+cd1.momentum.labels_to_show = exp_md.sample.fragment.masses;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
+cd1.momentum.binsize       	= [1, 1]*4e0; %[a.u.] binsize of the m2q variable. 
+cd1.momentum.x_range		= [-1 1]*1e2; % [a.u.] x range of the data on x-axis.
+cd1.momentum.y_range		= [-1 1]*1e2; % [a.u.] y range of the data on y-axis.
 
 
 exp_md.calib.det1 = cd1;

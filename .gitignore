@@ -3,5 +3,4 @@ example_code
 example_data
 Versions
 Documentation
-/package/+fit/+Abel_inversion/+CpBasex/*
-**/*.m~
+/package/+fit/+CpBasex/*
