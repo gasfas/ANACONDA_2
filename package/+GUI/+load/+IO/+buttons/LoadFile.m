@@ -66,9 +66,25 @@ else % Load other data from before
     data_n = md_GUI.data_n;
     mdata_n = md_GUI.mdata_n;
 end
+
 md_GUI.d_fn.(['exp', filenumber]) = fullfile(fullfilepath);
-[data_n.(['exp', filenumber])]   = IO.import_raw(md_GUI.d_fn.(['exp', filenumber]));
-[mdata_n.(['exp', filenumber])]  = IO.import_metadata(md_GUI.d_fn.(['exp', filenumber]));
+[dir, filename, ext] = fileparts(md_GUI.d_fn.(['exp', filenumber]));
+file = [dir, '/', filename, ext];
+% Check if a local md_defaults exists.
+if exist(fullfile(dir, 'md_defaults.m'), 'file')
+    % Local md_defaults exist. Check if system or local md_Defaults is to be used via radiobutton selection.
+    md_def_setting = md_GUI.UI.UILoad.md_default_radiobuttongroup.SelectedObject.String;
+    if strcmp(md_def_setting, 'System metadata default')
+        % Use system md_Defaults.
+    elseif strcmp(md_def_setting, 'Local metadata default')
+        % Use local md_Defaults.
+    end
+else % Local md_defaults does not exist. Use system md_Defaults.
+    
+end
+
+[data_n.(['exp', filenumber])]   = IO.import_raw(file);
+[mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
 data_n.info.foi = fieldnames(md_GUI.d_fn);
 data_n.info.numexps = length(data_n.info.foi);
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -81,8 +97,6 @@ data_n.info.numexps = length(data_n.info.foi);
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 md_GUI.data_n = data_n;
 md_GUI.mdata_n = mdata_n;
-fileloading = 1; % file is being loaded, needed for the FilterTreeList function since this makes the FilterTreeList construct filters for this experiment.
-nn = 0; % means file is loaded and not unloaded.
 set(UIPlot.Popup_experiment_name, 'String', md_GUI.load.String_LoadedFiles);
 md_GUI.mdata_n.(['exp', filenumber]).cond.nofilter = md_GUI.mdata_n.(['exp', filenumber]).cond;
 md_GUI.mdata_n.(['exp', filenumber]).filepath = fullfilepath;
