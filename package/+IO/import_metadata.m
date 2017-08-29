@@ -11,18 +11,17 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
      file = ['md_' file];
  end
 
-switch ext
-	case 'mat'
-		[exp_md, simu_md, th_md] = load_mat(dir, file);
-	case 'm'
+switch ext % If the extension is a known one, we try those:
+	case '.mat'
+		[exp_md, simu_md, th_md] = load_mat(filename);
+	case '.m'
 		[exp_md, simu_md, th_md] = load_script(dir, file);
-	otherwise
+	otherwise % Otherwise we try two extensions (.mat and then .m): 
 		try [exp_md, simu_md, th_md] = load_mat(fullfile(dir, [file '.mat']));
 		catch [exp_md, simu_md, th_md] = load_script(dir, file);
 		end
 end
 end
-
 
 % Local functions	
 function [exp_md, simu_md, th_md] = load_script(dir, file)
