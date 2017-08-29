@@ -69,7 +69,7 @@ end
 
 md_GUI.d_fn.(['exp', filenumber]) = fullfile(fullfilepath);
 [dir, filename, ext] = fileparts(md_GUI.d_fn.(['exp', filenumber]));
-file = [dir, '/', filename, ext];
+file = fullfile(dir, filename);
 % Check if a local md_defaults exists.
 if exist(fullfile(dir, 'md_defaults.m'), 'file')
     % Local md_defaults exist. Check if system or local md_Defaults is to be used via radiobutton selection.
@@ -85,6 +85,8 @@ end
 
 [data_n.(['exp', filenumber])]   = IO.import_raw(file);
 [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
+
+
 data_n.info.foi = fieldnames(md_GUI.d_fn);
 data_n.info.numexps = length(data_n.info.foi);
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
