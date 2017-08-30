@@ -6,4 +6,5 @@ Documentation
 /package/+fit/+Abel_inversion/+FOM/*.dat
 !/package/+fit/+Abel_inversion/+CpBasex/gData
 /package/+fit/+Abel_inversion/+CpBasex/gData/*
+/package/+fit/+Abel_inversion/+CpBasex/CPBASEX/*
 **/*.m~
