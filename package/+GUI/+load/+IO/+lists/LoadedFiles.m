@@ -138,21 +138,21 @@ if md_GUI.load.NumberOfLoadedFiles > 0
 
             m2qcheck = 0;
             % Get all field values and set them as ' 2 1 1 ':
-            for lzz = 1:length(filenumber)
-                expname(lzz) = cellstr(['exp', num2str(filenumber(lzz))]);
-                hits_evs(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))])));
-                detectornum(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))]).(char(hits_evs(lzz, 2)))));
-                % Set 
-                expsettings_plot = md_GUI.plot.expsettings.([char(expname(1))]);
-                detnom = expsettings_plot(2);
-                plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectornum(1, detnom))));
-                plottypes_Y(lzz, 1) =  cellstr('Pre-defined');
-                for lxz = 1:length(plottypes(lzz, :))
-                    plottypes_Y(lzz, lxz+1) = plottypes(lzz, lxz);
-                    % Try to find m2q.
-                    if strcmp('m2q', char(plottypes(lzz, lxz)))
-                        m2qcheck = lxz;
-                    end
+            % Only take for selected experiment #1:
+            lzz = 1;
+            expname(lzz) = cellstr(['exp', num2str(filenumber(lzz))]);
+            hits_evs(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))])));
+            detectornum(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))]).(char(hits_evs(lzz, 2)))));
+            % Set 
+            expsettings_plot = md_GUI.plot.expsettings.([char(expname(1))]);
+            detnom = expsettings_plot(2);
+            plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectornum(1, detnom))));
+            plottypes_Y(lzz, 1) =  cellstr('Pre-defined');
+            for lxz = 1:length(plottypes(lzz, :))
+                plottypes_Y(lzz, lxz+1) = plottypes(lzz, lxz);
+                % Try to find m2q.
+                if strcmp('m2q', char(plottypes(lzz, lxz)))
+                    m2qcheck = lxz;
                 end
             end
 
@@ -170,57 +170,56 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                 exp_names = ['exp', int2str(filenumber)];
             end
             md_GUI.plot.selected_exp_names = exp_names;
-
+            
             % Set filter options for 'All' selected experiments. Default: No filter, value 1.
-            for exp_nomb = 1:length(cellstr(exp_names))
-                exp_nomb_str = num2str(exp_nomb);
-                Filters_string.(['exp', exp_nomb_str, '_cond']) = md_GUI.mdata_n.(['exp', exp_nomb_str]).cond;
-                Filters_string_str_1 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']));
-                for sf_1 = 1:length(Filters_string_str_1)
-                    Filters_string_str_1_str = char(Filters_string_str_1(sf_1));
-                    sff_1(sf_1)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
-                    if sff_1(sf_1) == 0
-                        Filters_string.(['numb_', num2str(exp_nomb), '_', num2str(sf_1)]) = Filters_string_str_1_str;
-                    else
-                        Filters_string_str_2 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
-                        for sf_2 = 1:length(Filters_string_str_2)
-                            Filters_string_str_2_str = char(Filters_string_str_2(sf_2));
-                            sff_2(sf_2)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
-                            if sff_2(sf_2) == 0
-                                Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
-                                Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
-                            else
-                                Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
-                                Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
+            exp_nomb = 1;
+            exp_nomb_str = num2str(exp_nomb);
+            Filters_string.(['exp', exp_nomb_str, '_cond']) = md_GUI.mdata_n.(['exp', exp_nomb_str]).cond;
+            Filters_string_str_1 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']));
+            for sf_1 = 1:length(Filters_string_str_1)
+                Filters_string_str_1_str = char(Filters_string_str_1(sf_1));
+                sff_1(sf_1)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
+                if sff_1(sf_1) == 0
+                    Filters_string.(['numb_', num2str(exp_nomb), '_', num2str(sf_1)]) = Filters_string_str_1_str;
+                else
+                    Filters_string_str_2 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
+                    for sf_2 = 1:length(Filters_string_str_2)
+                        Filters_string_str_2_str = char(Filters_string_str_2(sf_2));
+                        sff_2(sf_2)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
+                        if sff_2(sf_2) == 0
+                            Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
+                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
+                        else
+                            Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
+                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
 
-                                Filters_string_str_3 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
-                                for sf_3 = 1:length(Filters_string_str_3)
-                                    Filters_string_str_3_str = char(Filters_string_str_3(sf_3));
-                                    sff_3(sf_3)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
-                                    if sff_3(sf_3) == 0
-                                        Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str]) = Filters_string_str_2_str;
-                                        Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_3)]) = Filters_string_str_3_str;
-                                    else
-                                        Filters_string_str_4 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
-                                        for sf_4 = 1:length(Filters_string_str_4)
-                                            Filters_string_str_4_str = char(Filters_string_str_4(sf_4));
-                                            sff_4(sf_4)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
-                                            if sff_4(sf_4) == 0
-                                                Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str]) = Filters_string_str_3_str;
-                                                Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_4)]) = Filters_string_str_4_str;
-                                            else
-                                                Filters_string_str_5 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
-                                                for sf_5 = 1:length(Filters_string_str_5)
-                                                    Filters_string_str_5_str = char(Filters_string_str_5(sf_5));
-                                                    sff_5(sf_5)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str).(Filters_string_str_5_str));
-                                                    if sff_5(sf_5) == 0
-                                                        Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str, '__', Filters_string_str_4_str]) = Filters_string_str_4_str;
-                                                        Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_5)]) = Filters_string_str_5_str;
-                                                    else
-                                                        disp('uh-oh..')
-                                                        % Now all until 5th level have
-                                                        % fieldnames separated by : __
-                                                    end
+                            Filters_string_str_3 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
+                            for sf_3 = 1:length(Filters_string_str_3)
+                                Filters_string_str_3_str = char(Filters_string_str_3(sf_3));
+                                sff_3(sf_3)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
+                                if sff_3(sf_3) == 0
+                                    Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str]) = Filters_string_str_2_str;
+                                    Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_3)]) = Filters_string_str_3_str;
+                                else
+                                    Filters_string_str_4 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
+                                    for sf_4 = 1:length(Filters_string_str_4)
+                                        Filters_string_str_4_str = char(Filters_string_str_4(sf_4));
+                                        sff_4(sf_4)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
+                                        if sff_4(sf_4) == 0
+                                            Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str]) = Filters_string_str_3_str;
+                                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_4)]) = Filters_string_str_4_str;
+                                        else
+                                            Filters_string_str_5 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
+                                            for sf_5 = 1:length(Filters_string_str_5)
+                                                Filters_string_str_5_str = char(Filters_string_str_5(sf_5));
+                                                sff_5(sf_5)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str).(Filters_string_str_5_str));
+                                                if sff_5(sf_5) == 0
+                                                    Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str, '__', Filters_string_str_4_str]) = Filters_string_str_4_str;
+                                                    Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_5)]) = Filters_string_str_5_str;
+                                                else
+                                                    disp('uh-oh..')
+                                                    % Now all until 5th level have
+                                                    % fieldnames separated by : __
                                                 end
                                             end
                                         end
