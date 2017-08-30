@@ -86,7 +86,7 @@ end
 function histogram = FOM(data_in, fit_md, plot_md)
 
 	% Make sure the binsize results in the right size:
-	plot_md.hist.binsize = diff(plot_md.hist.Range, 1, 2)./fit_md.ImageSize;
+	plot_md.hist.binsize = diff(plot_md.hist.Range, 1, 2)./(fit_md.ImageSize-1);
 
 	% Write the input configuration file:
 	fit.Abel_inversion.FOM.create_configuration_file(fit_md);
@@ -96,7 +96,7 @@ function histogram = FOM(data_in, fit_md, plot_md)
 	% Write it into the input datafile:
 	data = histogram.Count;
 	input_data_fn = ['images000' num2str(fit_md.filenumber) '.dat'];
-	save([fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')) input_data_fn], 'data', '-ascii')
+	save(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), input_data_fn), 'data', '-ascii')
 	
 	%% Fit
 	% Execute the inversion:
