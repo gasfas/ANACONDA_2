@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOM
+This is the Iterative code developed by FOM, Amsterdam. 
+The executable does not require input arguments, but the executable directory does require a few files of certain names:
+
+Input configuration filename: 		names.dat (ASCII file. First line).
+First line:
+unknown,itermode,itmax,radfac,angfac
+	unknown, maybe to do with symmetry?
+        itermode = 1: do itmax iterations
+        itermode = 2: stop the iterations when the absolute sum difference
+                between successive iterations stops decreasing
+        itermode = 3: stop the iterations when the relative sum difference
+                between successive iterations stops decreasing
+                (the maximum no. of iterations is itmax)
+
+        itmax = the highest number of iterations that the program can make
+        radfac = correction factor radial iteration
+        angfac = correction factor angular iteration
+
+Second line:
+filenumber, Sample_name
+	filenumber: in most cases '1'.
+	Sample_name: string value.
+Third line:
+x_size, y_size
+
+Input data filename: 			images0001.dat (ASCII file, can be exported for instance from MATLAB by: save('/path/to/file/images0001.dat', 'variable', '-ascii').
+Note that if the name is images0002.dat, the filenumber should be 2.
+Output Abel inverted image: 		it_3dcart0001.dat (ASCII file, can be imported into MATLAB by: a = load('/path/to/file/it_3dcart0001.dat').
+
+Additional information:
+- filesize should be x_size*y_size (1000*1000 or 500*500)
+- every iteration roughly takes below one minute CPU time (tested on a 2014 laptop)
+
+
+Example:
+in windows: run/click iterative_inversion.exe
+in Linux/unix: run ./iterative_inversion_unix
+
+

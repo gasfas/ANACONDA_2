@@ -3,5 +3,6 @@ example_code
 example_data
 Versions
 Documentation
-/package/+fit/+Abel_inversion/*
+/package/+fit/+Abel_inversion/+FOM/*.dat
+/package/+fit/+Abel_inversion/+CpBasex/gData/*
 **/*.m~

@@ -100,20 +100,21 @@ function histogram = FOM(data_in, fit_md, plot_md)
 	
 	%% Fit
 	% Execute the inversion:
-	fit.Abel_inversion.FOM.execute_IterativeInversion
+% 	fit.Abel_inversion.FOM.execute_IterativeInversion
 
 	%% Inverted image histogram:
 	% Fetch it:
-	
-	
-fold_inv = fit.Abel_inversion.CpBasex.resizeFolded(fit.Abel_inversion.CpBasex.foldQuadrant(out.inv,r,r,[1,1,1,1]),r);
-fold_inv = fold_inv - min(fold_inv(:));
-fold_inv = fold_inv*max(fold(:))./max(fold_inv(:));
+	a = load(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), 'it_3dcart0001.dat'));
+	imagesc(a)
+% 	fold it over at the middle line:
+	halfwidth = floor(size(a,1)/2);
+	half_a = (a(1:halfwidth,:) + a(end-halfwidth+1:end,:))*max(histogram.Count(:))./max(a(:));
 
 % Replace half of the circle with the original data, half with the
 % inverted, with matching intensities:
-histogram.Count(1:512,1:1024) = [rot90(fold,2) flip(fold,1)];
-histogram.Count(513:1024,1:1024) = [flip(fold_inv,2) fold_inv];
+% The exported datafile is a bit smaller than the input file:
+first_x_idx = round((fit_md.ImageSize(2)-size(a,2))/2);
+histogram.Count(end-halfwidth+1:end, first_x_idx:first_x_idx+size(a,2)-1) = half_a;
 
 end
 
