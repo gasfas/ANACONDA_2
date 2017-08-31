@@ -29,13 +29,13 @@ function [] = Remove_Filter(UIFilter)
     end
     selected_node_path = [prev_path, '.', SelectedNode];
     switch selected_node_path
-        case 'common_filters.Combined_Filter.HitsFilter'
+        case 'built_in_filter.Combined_Filter.HitsFilter'
             msgbox('Cannot remove hard-coded common filters. Note that these will not influence the experiment filters.')
-        case 'common_filters.Combined_Filter.EventsFilter'
+        case 'built_in_filter.Combined_Filter.EventsFilter'
             msgbox('Cannot remove hard-coded common filters. Note that these will not influence the experiment filters.')
-        case 'common_filters.Combined_Filter'
+        case 'built_in_filter.Combined_Filter'
             msgbox('Cannot remove hard-coded common combined filters. Note that these will not influence the experiment filters.')
-        case 'Filter.common_filters'
+        case 'Filter.built_in_filter'
             msgbox('Cannot remove hard-coded common filters struct. Note that it will not influence the experiment filters.')
         otherwise
             if selected_node_path == 0
@@ -52,7 +52,7 @@ function [] = Remove_Filter(UIFilter)
                 exp_parts = strsplit(selected_node_path,([exp_name, '.']));
                 exp_parts_struct = strsplit(char(exp_parts(2)), '.');
                 if strcmp(char(exp_parts_struct(1)), 'Combined_Filter')
-                    exp_md = md_GUI.filter.common_filters;
+                    exp_md = md_GUI.filter.built_in_filter;
                 else
                     exp_md = md_GUI.mdata_n.(exp_name);
                 end
@@ -89,9 +89,9 @@ function [] = Remove_Filter(UIFilter)
                         FieldToRmvCell = strsplit(FieldToRmv, '.');
                         if strcmp(char(exp_parts_struct(1)), 'Combined_Filter')
                             if length(FieldToRmvCell) == 1
-                                md_GUI.filter.common_filters.cond = rmfield(md_GUI.filter.common_filters.cond, FieldToRmv);
+                                md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, FieldToRmv);
                             else
-                                md_GUI.filter.common_filters.cond = general.rmsubfield(md_GUI.filter.common_filters.cond, FieldToRmv);
+                                md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, FieldToRmv);
                             end
                         else
                             if length(FieldToRmvCell) == 1
@@ -124,13 +124,13 @@ function [] = Remove_Filter(UIFilter)
                             end
                             if strcmp(char(exp_parts_struct(1)), 'Combined_Filter')
                                 %% Common filters
-                                parentcheck = general.getsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
+                                parentcheck = general.struct.getsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                 if isempty(fieldnames(parentcheck))
                                     fieldcheckCell = strsplit(fieldcheck, '.');
                                     if length(fieldcheckCell) == 1
-                                        md_GUI.filter.common_filters.cond = rmfield(md_GUI.filter.common_filters.cond, fieldcheck);
+                                        md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                     else
-                                        md_GUI.filter.common_filters.cond = general.rmsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
+                                        md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                     end
                                     %% Message to log_box - cell_to_be_inserted:
                                     FilterName = UIFilter.Tree.SelectedNodes.Name;
@@ -151,9 +151,9 @@ function [] = Remove_Filter(UIFilter)
                                     if strcmp(operatorcheck, 'operators')
                                         fieldcheckCell = strsplit(fieldcheck, '.');
                                         if length(fieldcheckCell) == 1
-                                            md_GUI.filter.common_filters.cond = rmfield(md_GUI.filter.common_filters.cond, fieldcheck);
+                                            md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                         else
-                                            md_GUI.filter.common_filters.cond = general.rmsubfield(md_GUI.filter.common_filters.cond, fieldcheck);
+                                            md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                         end
                                         %% Message to log_box - cell_to_be_inserted:
                                         FilterName = UIFilter.Tree.SelectedNodes.Name;
@@ -172,7 +172,7 @@ function [] = Remove_Filter(UIFilter)
                                 end
                             else
                                 %% Experiment filters
-                                parentcheck = general.getsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
+                                parentcheck = general.struct.getsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                 if isempty(fieldnames(parentcheck))
                                     fieldcheckCell = strsplit(fieldcheck, '.');
                                     if length(fieldcheckCell) == 1

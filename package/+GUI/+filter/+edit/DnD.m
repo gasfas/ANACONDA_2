@@ -29,7 +29,7 @@ if strcmp(TargetName, 'Filter')
 elseif strcmp(NameOfSourceParent, 'Filter')
 	msgbox('Cannot move an experiment.', 'Warning')
     DropAction = 'Nothing';
-elseif strcmp(SourceName, 'common_filters')
+elseif strcmp(SourceName, 'built_in_filter')
 	msgbox('Cannot copy a common filters struct - choose children.', 'Warning')
     DropAction = 'Nothing';
 else
@@ -41,7 +41,7 @@ else
     [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
     md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
     % End of new message to log_box function.
-    if strcmp(NameOfSourceParentParent, 'common_filters') || strcmp(NameOfSourceParent, 'common_filters')
+    if strcmp(NameOfSourceParentParent, 'built_in_filter') || strcmp(NameOfSourceParent, 'built_in_filter')
         DropAction = 'copy';
     else
         DropAction = questdlg(['Copy or move ' SourceName ' to ' TargetName '?'], 'Drag and drop', 'copy', 'move', 'move');
@@ -73,10 +73,10 @@ else
             SelectedNodePath = [char(SelectedNodePath), '.', char(parentpath(ppp))];
         end
         SelectedNodePath = [char(SelectedNodePath), '.', char(SelectedNode)];
-        if strcmp(NameOfSourceParentParent, 'common_filters') || strcmp(NameOfSourceParent, 'common_filters')
-            filterstruct = general.getsubfield(md_GUI.filter, SelectedNodePath);
+        if strcmp(NameOfSourceParentParent, 'built_in_filter') || strcmp(NameOfSourceParent, 'built_in_filter')
+            filterstruct = general.struct.getsubfield(md_GUI.filter, SelectedNodePath);
         else
-            filterstruct = general.getsubfield(md_GUI.mdata_n, SelectedNodePath);
+            filterstruct = general.struct.getsubfield(md_GUI.mdata_n, SelectedNodePath);
         end
         % Get the path of the destination:
         targetpath = TargetNode.Name;
@@ -102,10 +102,10 @@ else
         else
             targetfullpath = [exp_name_out, '.cond.', targetpath, '.', SelectedNode];
         end
-        if strcmp(exp_name_out, 'common_filters')
-            md_GUI.filter = general.setsubfield(md_GUI.filter, targetfullpath, filterstruct);
+        if strcmp(exp_name_out, 'built_in_filter')
+            md_GUI.filter = general.struct.setsubfield(md_GUI.filter, targetfullpath, filterstruct);
         else
-            md_GUI.mdata_n = general.setsubfield(md_GUI.mdata_n, targetfullpath, filterstruct);
+            md_GUI.mdata_n = general.struct.setsubfield(md_GUI.mdata_n, targetfullpath, filterstruct);
         end
         %Check if there already is a node with same name - if yes, tell this to the user and ask what to do.
         targetchildren = char(TargetNode.Children.Name);

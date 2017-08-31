@@ -17,7 +17,7 @@ if md_GUI.UI.UIFilter.Tree.Enable == 1
     SelectedNode = UI.Tree.SelectedNodes.Name;
     %% Parent name - get top parent name.
     % Compares if the top parent name is filter. If so, path is found.
-    parent.(['s', node_depth_str]) = general.getsubfield(UI.Tree.SelectedNodes, parents_nom_str);
+    parent.(['s', node_depth_str]) = general.struct.getsubfield(UI.Tree.SelectedNodes, parents_nom_str);
     %parent.(['s', node_depth_str]) = UI.Tree.SelectedNodes.Parent.Name;
     s_check = strcmp(parent.(['s', node_depth_str]), 'Filter');
     if s_check == 0

@@ -304,7 +304,7 @@ OK_btn = uicontrol('Parent',d,...
         full_datapointer_string = [char(list1sel)];
         checkchildren = isstruct(datapointers.(char(list1sel)));
         if checkchildren == 1
-            list2 = general.getsubfield(datapointers, full_datapointer_string);
+            list2 = general.struct.getsubfield(datapointers, full_datapointer_string);
             setdatapointerbutton.Enable = 'Off';
             listbox2_datapointer.String = fieldnames(list2);
             listbox3_datapointer.String = {'-'};
@@ -334,7 +334,7 @@ OK_btn = uicontrol('Parent',d,...
         full_datapointer_string = [char(list1sel), '.', char(list2sel)];
         checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)));
         if checkchildren == 1
-            list3 = general.getsubfield(datapointers, full_datapointer_string);
+            list3 = general.struct.getsubfield(datapointers, full_datapointer_string);
             setdatapointerbutton.Enable = 'Off';
             listbox3_datapointer.String = fieldnames(list3);
             listbox4_datapointer.String = {'-'};
@@ -359,7 +359,7 @@ OK_btn = uicontrol('Parent',d,...
         full_datapointer_string = [char(list1sel), '.', char(list2sel), '.', (char(list3sel))];
         checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)).(char(list3sel)));
         if checkchildren == 1
-            list4 = general.getsubfield(datapointers, full_datapointer_string);
+            list4 = general.struct.getsubfield(datapointers, full_datapointer_string);
             setdatapointerbutton.Enable = 'Off';
             listbox4_datapointer.String = fieldnames(list4);
             listbox4_datapointer.Value = 1;

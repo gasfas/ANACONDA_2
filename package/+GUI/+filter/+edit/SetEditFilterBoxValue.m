@@ -48,8 +48,8 @@ else
             % Do nothing - experiment was selected.
             base_fieldtype = cellstr('Experiment');
             filtertreatable = 0;
-        elseif strcmp(char(exp_parts(1)), 'common_filters')
-            exp_md = md_GUI.filter.common_filters;
+        elseif strcmp(char(exp_parts(1)), 'built_in_filter')
+            exp_md = md_GUI.filter.built_in_filter;
             base_field = exp_md.cond;
             base_path = 'cond';
             for sdf = 2:length(exp_parts)

@@ -1,11 +1,11 @@
 function exp_md = LoadFile_system_md(md_path_str, xpos, ypos)
-    d = dialog('Position',[xpos/2 ypos/2 300 200],'Name','Select One');
+    d = dialog('Position',[xpos/2 ypos/2 300 200],'Name','Select One', 'CloseRequestFcn',@closereq);
         textbox = uicontrol('Parent',d,...
             'Style','text',...
             'FontSize', 14,...
             'units', 'normalized',...
             'Position',[0.1 0.7 0.8 0.2],...
-            'String','Select spectroscopic settings:');
+            'String','Select spectrometer:');
         popupbox = uicontrol('Parent',d,...
             'Style','popup',...
             'FontSize', 12,...
@@ -21,11 +21,14 @@ function exp_md = LoadFile_system_md(md_path_str, xpos, ypos)
             'Callback','delete(gcf)');
     exp_md_type = char(md_path_str(1));
     uiwait(d);
-   function popup_box_callback(popup,event)
-      idx = popup.Value;
-      popup_items = popup.String;
-      exp_md_type = char(popup_items(idx,:));
-   end
+    function closereq(src,callbackdata)
+        %Do nothing. Dialog hence disabled from closing.
+    end
+    function popup_box_callback(popup,event)
+        idx = popup.Value;
+        popup_items = popup.String;
+        exp_md_type = char(popup_items(idx,:));
+    end
     switch exp_md_type
         case 'EPICEA'
             % does not work yet.

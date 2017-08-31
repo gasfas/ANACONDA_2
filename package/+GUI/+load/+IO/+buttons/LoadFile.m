@@ -99,7 +99,21 @@ if exist(fullfile(dir, 'md_defaults.m'), 'file')
         [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
         md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
         % End of new message to log_box function.
-        [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
+        try
+            [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
+        catch
+            % Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['Error in using local metadata default!!!'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
+            [mdata_n.(['exp', filenumber])] = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
+            % Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['System metadata default is used.'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
+        end
     end
 else % Local md_defaults does not exist. Use system md_Defaults.
     % Message to log_box - cell_to_be_inserted:
@@ -127,6 +141,19 @@ cell_to_be_inserted = ['File loaded: ', char(fileselected)];
 [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
 md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
 % End of new message to log_box function.
+exps = md_GUI.data_n.(['exp', filenumber]);
+%Try to see if experiment has any information:
+try exps.info
+    information = exps.info;
+    information_acq_start = information.acquisition_start_str;
+    information_acq_dur = information.acquisition_duration;
+    information_acq_dur = num2str(information_acq_dur);
+    information_comment = information.comment; %in experimental data, exps.info field has a variable: comment - which contains experiment information.
+    informationbox = sprintf(['\nExperiment: exp', filenumber, '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
+catch
+    informationbox = sprintf(['\nExperiment: exp', filenumber]);
+end
+set(UILoad.SelectedFileInformation, 'String', informationbox);
 assignin('base', 'md_GUI', md_GUI)
 disp('Log: Finished loading file.')
 end

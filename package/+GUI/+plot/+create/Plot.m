@@ -73,7 +73,7 @@ for llx = 1:length(exp_names)
         disp('No filter.')
     else % Apply the filter.
         fieldname.([char(exp_names(llx))]) = filtername.(char(exp_names(llx)));
-        filtername.([char(exp_names(llx))]) = general.getsubfield(mdata_n.([char(exp_names(llx))]).cond, fieldname.([char(exp_names(llx))]));
+        filtername.([char(exp_names(llx))]) = general.struct.getsubfield(mdata_n.([char(exp_names(llx))]).cond, fieldname.([char(exp_names(llx))]));
         mdata_n.([char(exp_names(llx))]).plot.([char(detectors.([char(exp_names(llx))]))]).(char(graphtype_X)).cond = filtername.(char(exp_names(llx)));
     end
 end

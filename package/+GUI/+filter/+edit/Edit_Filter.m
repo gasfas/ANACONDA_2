@@ -37,7 +37,7 @@ function [] = Edit_Filter(UIFilter)
             selected_node_path_cells = strsplit(selected_node_path, '.')
             if selected_node_path == 0
                 %Do nothing.
-            elseif strcmp(char(selected_node_path_cells(1)), 'common_filters') || strcmp(char(selected_node_path_cells(2)), 'common_filters')
+            elseif strcmp(char(selected_node_path_cells(1)), 'built_in_filter') || strcmp(char(selected_node_path_cells(2)), 'built_in_filter')
                 msgbox('Cannot edit common filters.')
             else
                 [exp_names] = strsplit(selected_node_path,'.');
@@ -49,7 +49,7 @@ function [] = Edit_Filter(UIFilter)
                 for llx = 2:length(exp_parts_struct)-1
                     exp_parent_path = [exp_parent_path, '.', char(exp_parts_struct(llx))];
                 end
-                base_value = general.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part); 
+                base_value = general.struct.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part); 
                 UI = md_GUI.UI.UIFilter;
                 fieldstoedit = [1 1 1 1 1];
                 if ~isfield(base_value, 'data_pointer')
@@ -70,7 +70,7 @@ function [] = Edit_Filter(UIFilter)
                 oldbasevalue = base_value;
                 datapointers = md_GUI.data_n.(char(exp_name));
                 base_value = GUI.filter.edit.Edit_Filter_Choice(fieldstoedit, base_value, datapointers);
-                md_GUI.mdata_n.(exp_name).cond = general.setsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part, base_value);
+                md_GUI.mdata_n.(exp_name).cond = general.struct.setsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part, base_value);
                 allfields = fieldnames(base_value);
                 md_GUI.UI.UIFilter.Fieldvalue.String = cell(size(allfields));
                 md_GUI.UI.UIFilter.Fieldname.String = cell(size(allfields));

@@ -82,7 +82,7 @@ else                %They are not the same - allowed.
         base_parent_path = 'cond';
     end
     base_pathpath = [base_parent_path, '.', NewName];
-    md_GUI.mdata_n.(exp_name) = general.setsubfield(md_GUI.mdata_n.(exp_name), base_pathpath, base_value);
+    md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_pathpath, base_value);
 end
 end
 assignin('base', 'md_GUI', md_GUI)

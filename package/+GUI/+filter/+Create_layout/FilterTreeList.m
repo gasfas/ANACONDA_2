@@ -34,7 +34,7 @@ if fileloading == 1 % File is being loaded or unloaded
     metadata_cond_1 = fieldnames(exp_md.cond);
     exp_name_in_tree = ['exp', int2str(expnom)]; %
 elseif fileloading == 2 %New subfilter is being created.
-    md_GUI.mdata_n.(exp_name) = general.setsubfield(md_GUI.mdata_n.(exp_name), base_path, new_ans_1);
+    md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_path, new_ans_1);
 end
 if expnom == 1
     % No nodes are yet present. Create new and load nothing (since there is nothing to load).

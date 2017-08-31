@@ -116,7 +116,7 @@ function [] = FieldDoubleClick(UIFilter)
             msgbox('Something really strange just happened. Check the datatype. It is not a char, numeric, logical nor struct.', 'Unexplainable error.')
     end
     if treatable == 1
-        md_GUI.mdata_n.(exp_name) = general.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, filteroutputvalue);
+        md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, filteroutputvalue);
         if ischar(previous_ans)
             previous_val = previous_ans;
         elseif isnumeric(previous_ans)
