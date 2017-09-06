@@ -142,6 +142,7 @@ cell_to_be_inserted = ['File loaded: ', char(fileselected)];
 md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
 % End of new message to log_box function.
 exps = md_GUI.data_n.(['exp', filenumber]);
+filesextratext = 'Last loaded file information: \n';
 %Try to see if experiment has any information:
 try exps.info
     information = exps.info;
@@ -149,9 +150,9 @@ try exps.info
     information_acq_dur = information.acquisition_duration;
     information_acq_dur = num2str(information_acq_dur);
     information_comment = information.comment; %in experimental data, exps.info field has a variable: comment - which contains experiment information.
-    informationbox = sprintf(['\nExperiment: exp', filenumber, '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
+    informationbox = sprintf([filesextratext, filename, '\nExperiment: exp', filenumber, '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
 catch
-    informationbox = sprintf(['\nExperiment: exp', filenumber]);
+    informationbox = sprintf([filesextratext, filename, '\nExperiment: exp', filenumber, '\nNo info found.']);
 end
 set(UILoad.SelectedFileInformation, 'String', informationbox);
 assignin('base', 'md_GUI', md_GUI)

@@ -96,7 +96,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                     information_comment = information.comment; %in experimental data, exps.info field has a variable: comment - which contains experiment information.
                     informationbox = sprintf([filesextratext, selectedloadedfiles_str, '\nExperiment: exp', filenumberstr, '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
                 catch
-                    informationbox = sprintf([filesextratext, selectedloadedfiles_str, '\nExperiment: exp', filenumberstr]);
+                    informationbox = sprintf([filesextratext, selectedloadedfiles_str, '\nExperiment: exp', filenumberstr, '\nNo info found.']);
                 end
                 set(UILoad.SelectedFileInformation, 'String', informationbox);
                 md_GUI.load.filenumber_selected = filenumber;
