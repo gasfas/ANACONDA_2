@@ -17,5 +17,5 @@ wdth = a(2)-a(1);
 ht = a(4)-a(3);
 pos = [a(1)+width*wdth a(4)-height*ht];
 
-h = text(pos(1),pos(2),txt,'Fontsize', 14, 'Color', color);
+h = text(pos(1),pos(2),txt,'Fontsize', 16, 'Color', color);
 end

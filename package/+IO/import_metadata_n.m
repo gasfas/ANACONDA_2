@@ -9,7 +9,6 @@ function [exp_mds, simu_mds, th_mds] = import_metadata_n (filenames)
 exp_names = fieldnames(filenames);
 for i = 1:length(exp_names)
     filename = filenames.(exp_names{i});
-    [exp_mds.(exp_names{i}) simu_mds.(exp_names{i}) th_mds.(exp_names{i})] = IO.import_metadata(filename);
-end
+    [exp_mds.(exp_names{i}) simu_mds.(exp_names{i}) th_mds.(exp_names{i})] = IO.import_metadata(filename);end
 
 end

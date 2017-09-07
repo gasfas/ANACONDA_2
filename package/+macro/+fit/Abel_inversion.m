@@ -92,23 +92,23 @@ function histogram = FOM(data_in, fit_md, plot_md)
 	fit.Abel_inversion.FOM.create_configuration_file(fit_md);
 	
 	%% Calculate the raw image Histogram:
-	histogram = raw_hist(plot_md, data_in);
+	histogram		= raw_hist(plot_md, data_in);
 	% Write it into the input datafile:
-	data = histogram.Count;
-	input_data_fn = ['images000' num2str(fit_md.filenumber) '.dat'];
+	data			= histogram.Count;
+	input_data_fn	= ['images000' num2str(fit_md.filenumber) '.dat'];
 	save(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), input_data_fn), 'data', '-ascii')
 	
 	%% Fit
 	% Execute the inversion:
-% 	fit.Abel_inversion.FOM.execute_IterativeInversion
+	fit.Abel_inversion.FOM.execute_IterativeInversion
 
 	%% Inverted image histogram:
 	% Fetch it:
-	a = load(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), 'it_3dcart0001.dat'));
-	imagesc(a)
-% 	fold it over at the middle line:
-	halfwidth = floor(size(a,1)/2);
-	half_a = (a(1:halfwidth,:) + a(end-halfwidth+1:end,:))*max(histogram.Count(:))./max(a(:));
+	a			= load(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), 'it_3dcart0001.dat'));
+	
+	% 	fold it over at the middle line:
+	halfwidth	= floor(size(a,1)/2);
+	half_a		= (flip(a(1:halfwidth,:),1) + a(end-halfwidth+1:end,:))*max(histogram.Count(:))./max(a(:));
 
 % Replace half of the circle with the original data, half with the
 % inverted, with matching intensities:

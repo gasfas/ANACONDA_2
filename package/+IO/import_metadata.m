@@ -27,10 +27,12 @@ end
 function [exp_md, simu_md, th_md] = load_script(dir, file)
 % load a '.m' script:
 	exp_md = []; simu_md = []; th_md = [];
-	basedir = pwd;
-	cd (dir)
+	homedir = pwd;
+	cd(dir)
 	run(fullfile(dir, file));
-	cd(basedir)
+	cd(homedir)
+% 	A = general.handle.function_handle(fullfile(dir, [file '.m']));
+% 	A();
  end
  
 function [exp_md, simu_md, th_md] = load_mat(filename)

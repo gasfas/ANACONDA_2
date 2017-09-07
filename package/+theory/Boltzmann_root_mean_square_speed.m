@@ -1,5 +1,5 @@
-function [ v_p ] = Boltzmann_v_p( Temp, Mass )
-%This function calculates the most probable velocity of an equilibrium
+function [ v_p ] = Boltzmann_root_mean_square_speed( Temp, Mass )
+%This function calculates the root mean square speed of an equilibrium
 %Boltzmann gas.
 % Input:
 % Temp:     [Kelvin] The temperature of the gas 
@@ -9,8 +9,8 @@ function [ v_p ] = Boltzmann_v_p( Temp, Mass )
 
 % Load the Boltzmann constant:
 R   = general.constants('R');
-% Note that this formula ignores gamma/(gamma-1).
-v_p = sqrt(2.*R.*Temp./Mass);
+
+v_p = sqrt(3.*R.*Temp./Mass);
 
 end
 
