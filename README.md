@@ -8,5 +8,5 @@ For installation:
 
 you are now ready to use all functions within the package. 
 
-Use the GUI by writing 'GUI.main' in your command window.
+Use the GUI (under development) by writing 'GUI.main' in your command window.
 
