@@ -75,54 +75,84 @@ for llx = 1:length(md_path)-1
     new_md_path = char(new_md_path(2));
     md_path_str(llx) = cellstr(new_md_path);
 end
-% Check if a local md_defaults exists.
-if exist(fullfile(dir, 'md_defaults.m'), 'file')
-    % Local md_defaults exists. Check if system or local md_Defaults is to be used via radiobutton selection.
-    % Message to log_box - cell_to_be_inserted:
-    cell_to_be_inserted = ['Local md_defaults found.'];
-    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-    % End of new message to log_box function.
-    md_def_setting = md_GUI.UI.UILoad.md_default_radiobuttongroup.SelectedObject.String;
-    if strcmp(md_def_setting, 'System metadata default')
-        % Use system md_Defaults.
-        % Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['System metadata default selected to be used.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-        [mdata_n.(['exp', filenumber])] = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
-    elseif strcmp(md_def_setting, 'Local metadata default')
-        % Use local md_Defaults.
-        % Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['Local metadata default selected to be used.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-        try
-            [mdata_n.(['exp', filenumber])]  = IO.import_metadata(file);
-        catch
-            % Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Error in using local metadata default!!!'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
-            [mdata_n.(['exp', filenumber])] = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
-            % Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['System metadata default is used.'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
-        end
+% Check if a md file exists for the selected data file.
+md_use = 0;
+if exist(fullfile(dir, ['md_', filename, '.m']))
+    whattouse = questdlg('Metadata found for selected file. Use the file metadata (1), metadata default (2) or both (3)?', 'Metadata', '1', '2', '3', '1');
+    switch whattouse
+        case '1'
+
+            md_use = 1;
+        case '3'
+            md_use = 3;
     end
-else % Local md_defaults does not exist. Use system md_Defaults.
-    % Message to log_box - cell_to_be_inserted:
-    cell_to_be_inserted = ['Local md_defaults.m not found. System md_default is to be used.'];
-    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-    % End of new message to log_box function.
-	[mdata_n.(['exp', filenumber])] = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
 end
+if md_use == 1 % Means user selected to use md_{filename}.m.
+	metadata_loc = fullfile(dir, ['md_', filename, '.m']);
+	run(metadata_loc) % Results in an exp_md generated.
+else % Means user selected to use md_defaults for the file or both, or that a md_{filename}.m does not exist.
+    % Check if a local md_defaults exists.
+    if exist(fullfile(dir, 'md_defaults.m'), 'file')
+        % Local md_defaults exists. Check if system or local md_Defaults is to be used via radiobutton selection.
+        % Message to log_box - cell_to_be_inserted:
+        cell_to_be_inserted = ['Local md_defaults found.'];
+        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+        % End of new message to log_box function.
+        md_def_setting = md_GUI.UI.UILoad.md_default_radiobuttongroup.SelectedObject.String;
+        if strcmp(md_def_setting, 'System metadata default')
+            % Use system md_Defaults.
+            % Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['System metadata default selected to be used.'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
+            exp_md_2 = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
+        elseif strcmp(md_def_setting, 'Local metadata default')
+            % Use local md_Defaults.
+            % Message to log_box - cell_to_be_inserted:
+            cell_to_be_inserted = ['Local metadata default selected to be used.'];
+            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+            % End of new message to log_box function.
+            try
+                exp_md_2  = IO.import_metadata(file);
+            catch
+                % Message to log_box - cell_to_be_inserted:
+                cell_to_be_inserted = ['Error in using local metadata default!!!'];
+                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+                % End of new message to log_box function.
+                exp_md_2 = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
+                % Message to log_box - cell_to_be_inserted:
+                cell_to_be_inserted = ['System metadata default is used.'];
+                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+                % End of new message to log_box function.
+            end
+        end
+    else % Local md_defaults does not exist. Use system md_Defaults.
+        % Message to log_box - cell_to_be_inserted:
+        cell_to_be_inserted = ['Local md_defaults.m not found. System md_default is to be used.'];
+        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+        % End of new message to log_box function.
+        exp_md_2 = GUI.load.IO.buttons.LoadFile_system_md(md_path_str, md_GUI.UI.screensize(3), md_GUI.UI.screensize(4));
+    end
+end
+if md_use == 0 % Means user selected to use md_defaults for the file or both, or that a md_{filename}.m does not exist.
+    exp_md = exp_md_2;
+elseif md_use == 3 % Means user selected to use md_{filename}.m AND md_defaults.
+    metadata_loc = fullfile(dir, ['md_', filename, '.m']);
+    run(metadata_loc) % Results in exp_md defined.
+    if exist(exp_md)
+        exp_md = general.struct.catstruct(exp_md_2, exp_md);
+    else
+        exp_md = exp_md_2;
+    end
+end
+[mdata_n.(['exp', filenumber])] = exp_md;
+% Load the experimental data.
 [data_n.(['exp', filenumber])]   = IO.import_raw(file);
 data_n.info.foi = fieldnames(md_GUI.d_fn);
 data_n.info.numexps = length(data_n.info.foi);

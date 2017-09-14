@@ -80,7 +80,7 @@ set(UIPlot.PopupPlotSelected,...
         GUI.load.IO.buttons.LoadFolder( hObject, eventdata, UIPlot, UILoad );
     end
     function SaveButton(hObject, eventdata) %Does nothing now, button for future purposes.
-        GUI.load.IO.buttons.FileType();
+        GUI.work.SaveWork( );
     end
     function Conf(hObject, eventdata)
         GUI.load.IO.buttons.Conf();
