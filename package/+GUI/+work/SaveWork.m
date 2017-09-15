@@ -9,22 +9,24 @@
 % Modifier:
 
 function [ ] = SaveWork()
-currentdir = pwd;
-md_GUI = evalin('base', 'md_GUI');
-metadata = md_GUI.mdata_n;
-exp_fullfilepaths = md_GUI.d_fn;
-expnames = fieldnames(metadata);
-for ll = 1:length(expnames)
-    filepath = exp_fullfilepaths.(char(expnames(ll)));
-    filepath = strsplit(filepath, '/');
-    fullfilename = char(filepath(length(filepath)));
-    filepath = strsplit(exp_fullfilepaths.(char(expnames(ll))), fullfilename);
-    filepath = char(filepath(1));
-    filename = strsplit(fullfilename, '.');
-    filename = ['md_', char(filename(1)), '.m'];
-    exp_md = metadata.(char(expnames(ll)));
-    cd(filepath)
-    matlab.io.saveVariablesToScript(filename, 'exp_md')
-end
-cd(currentdir)
+    md_GUI = evalin('base', 'md_GUI');
+    metadata = md_GUI.mdata_n;
+    exp_fullfilepaths = md_GUI.d_fn;
+    expnames = fieldnames(metadata);
+    save_mode = questdlg('Replace or update metadata?', 'Save workspace', 'Replace', 'Update', 'Cancel', 'Cancel');
+    for ll = 1:length(expnames)
+        exp_fullfilepath = exp_fullfilepaths.(char(expnames(ll)));
+        [exp_path, exp_filename] = fileparts(exp_fullfilepath);
+        md_fullfilepath = fullfile(exp_path, ['md_', exp_filename, '.m']);
+        exp_md = metadata.(char(expnames(ll)));
+        switch save_mode
+            case 'Replace'
+                matlab.io.saveVariablesToScript(md_fullfilepath, 'exp_md', 'SaveMode', 'create')
+            case 'Update'
+                matlab.io.saveVariablesToScript(md_fullfilepath, 'exp_md', 'SaveMode', 'update')
+            case 'Cancel'
+                return
+        end
+        GUI.log.add(['Metadata file for md_', exp_filename, '.m saved locally.' ])
+    end
 end

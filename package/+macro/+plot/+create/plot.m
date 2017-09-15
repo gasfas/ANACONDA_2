@@ -3,7 +3,7 @@ function [h_figure, h_axes, h_GraphObj, exp] = plot(varargin)
 % with the specified styles in a new figure.
 % Inputs:
 % handle		(optional) handle of a figure or axes to plot into.
-% exp			The experimental metadata.
+% exp			The experimental data.
 % plot_md		The metadata struct, with optional fields: 
 % 				fig (Figure properties)
 %				axes (axes properties)

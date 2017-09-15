@@ -14,7 +14,8 @@
 % End of new message to log_box function.
 %%
 function [ newCellStruct ] = insertCell ( oldCellStruct, cell_to_be_inserted )
-newCellStruct(1) = {[datestr(datetime('now')), ': ', cell_to_be_inserted]};
+[H,M] = hms(datetime('now'));
+newCellStruct(1) = {[num2str(H), ':', num2str(M), ': ', cell_to_be_inserted]};
 for lx = 1:length(oldCellStruct) 
     newCellStruct(lx+1) = oldCellStruct(lx);
 end

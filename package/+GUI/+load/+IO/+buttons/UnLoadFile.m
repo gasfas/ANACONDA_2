@@ -44,8 +44,7 @@ NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
 String_LoadedFiles = md_GUI.load.String_LoadedFiles;
 if numberoffilesselected == 1
 	%unload file.
-    disp('Single file chosen - gets unloaded.')
-    String_FileToUnload = String_LoadedFiles(LoadedFileNumber)
+    String_FileToUnload = String_LoadedFiles(LoadedFileNumber);
     for nn = (LoadedFileNumber + 1):NumberOfLoadedFiles
         filenumber_1 = nn-1;
         filenumber = nn;
@@ -60,7 +59,7 @@ if numberoffilesselected == 1
     %Remove last field (since all other fields have 'moved up 1 step')
     NumberOfLoadedFiles_str = int2str(NumberOfLoadedFiles);
     for nk = 1:(NumberOfLoadedFiles-1)
-       String_LoadedFilesNew(nk) = String_LoadedFiles(nk)
+       String_LoadedFilesNew(nk) = String_LoadedFiles(nk);
        nkk = int2str(nk);
         data_n_new.(['exp', nkk]) = md_GUI.data_n.(['exp', nkk]);
         mdata_n_new.(['exp', nkk]) = md_GUI.mdata_n.(['exp', nkk]);
@@ -130,5 +129,9 @@ else
 	msgbox('Select one file to unload.', 'Warning')
     disp('Select one file to unload.')
 end
+% Message to log_box - cell_to_be_inserted:
+[ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, ['File unloaded: exp', num2str(LoadedFileNumber), ', ', char(String_FileToUnload)] );
+md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+% End of new message to log_box function.
 assignin('base', 'md_GUI', md_GUI)
 end

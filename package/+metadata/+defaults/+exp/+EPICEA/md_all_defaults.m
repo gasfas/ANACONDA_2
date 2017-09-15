@@ -11,33 +11,34 @@ if ~exist('exp_md', 'var')
 end
 
 %% Sample info:
-exp_md = metadata.defaults.Laksman_TOF.sample( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.sample( exp_md );
 
 %% Photon beam information:
-exp_md = metadata.defaults.Laksman_TOF.photon( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.photon( exp_md );
 
 %% Spectrometer info:
-exp_md = metadata.defaults.EPICEA.spec( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.spec( exp_md );
 
 %% Detector info:
-metadata.defaults.EPICEA.det( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.det( exp_md );
 
 %% Correction parameters:
-metadata.defaults.EPICEA.corr( exp_md );
-
-%% Calibration parameters:
-exp_md = metadata.defaults.EPICEA.calib( exp_md );
-
-%% Fitting parameters:
-exp_md = metadata.defaults.Laksman_TOF.fit( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.corr( exp_md );
 
 %% Conversion factors:
 % Which conversions should be performed on the data:
-exp_md = metadata.defaults.Laksman_TOF.conv( exp_md );
+exp_md = metadata.defaults.exp.EPICEA.conv( exp_md );
 
 %% Condition parameters:
-metadata.defaults.EPICEA.cond(exp_md);
+exp_md = metadata.defaults.exp.EPICEA.cond(exp_md);
                                                     
 %% Plot Styles are defined in this file.
-exp_md = metadata.defaults.EPICEA.plot(exp_md);
+exp_md = metadata.defaults.exp.EPICEA.plot(exp_md);
+
+%% Fitting parameters:
+exp_md = metadata.defaults.exp.EPICEA.fit( exp_md );
+
+%% Calibration parameters:
+exp_md = metadata.defaults.exp.EPICEA.calib( exp_md );
+
 end
