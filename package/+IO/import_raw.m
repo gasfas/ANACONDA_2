@@ -5,10 +5,13 @@ function [exp] = import_raw (filename)
 %           If a DLT file is given, a MAT file is searched in the same
 %           folder. If a MAT file is not found, the DLT file is converted 
 %           and saved as .MAT file.
+if ~strcmpi(filename(end-3:end), '.mat') && ~strcmpi(filename(end-3:end), '.dlt')
+	filename = [filename '.mat'];
+end
 
 [dir, file] = fileparts(filename);
 
-if      exist(fullfile(dir, [file '.mat']), 'file')
+if  exist(fullfile(dir, [file '.mat']), 'file')
 	% load mat files:
 	exp = IO.load_exp(dir, file);
     

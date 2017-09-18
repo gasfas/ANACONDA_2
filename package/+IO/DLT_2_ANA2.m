@@ -9,7 +9,8 @@ function [exp, info] = DLT_2_ANA2(dltfilename)
 %% Importing
 disp('Assuming a TOF measurement with Laksman setup: X,Y,T output hits')
 % Make an instant of the DLT class:
-dlt = DLT(dltfilename);
+
+dlt = IO.DLT2ANA.DLT(dltfilename);
 
 dlt.set_detectors(dlt.detectors{1}); % read using DLD only
 dlt.read(); % load data

@@ -7,10 +7,7 @@ function save_exp(exp, dir, b_fn)
 
 savename = fullfile(dir, [b_fn '.mat']);
 
-tic; save(savename, '-struct', 'exp'); toc
-% tic; IO.savefast([savename '_fast'], 'exp'); toc
-% save(savename, 'exp');
+save(savename, '-struct', 'exp','-v7.3');
 
-% TODO: for now, only the data can be stored, not the metadata.
 end
 
