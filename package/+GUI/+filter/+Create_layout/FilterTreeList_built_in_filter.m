@@ -8,7 +8,6 @@
 % Modifier:
 
 function [ UI ] = FilterTreeList_built_in_filter() 
-import uiextras.jTree.*
 %% Create tree nodes
 % Parent's name is always Filter, which is set as root.
 % Creates list of filter names under Filter.
@@ -17,9 +16,10 @@ built_in_filter = md_GUI.filter.built_in_filter;
 UI = md_GUI.UI.UIFilter; % Gives access to the tree layout.
 UI.Tree.Enable = 1;
 expnom = 0;
-built_in_filter_fieldnames = fieldnames(built_in_filter.cond);
-Node.(['Experiment', int2str(expnom)]) = TreeNode('Name','built_in_filter','Parent',UI.Tree);
-[ Node ] = GUI.filter.visualize.NodeCreator(built_in_filter_fieldnames, built_in_filter, Node, expnom);
+%built_in_filter_fieldnames = fieldnames(built_in_filter.cond);
+Node.('built_in_filter') = uiextras.jTree.TreeNode('Name','built_in_filter','Parent',UI.Tree);
+[ Node ] = GUI.filter.visualize.NodeCreator(built_in_filter.cond, Node, 'built_in_filter', 'cond');
+%[ Node ] = GUI.filter.visualize.NodeCreator_old(built_in_filter_fieldnames, built_in_filter, Node, expnom);
 %% Select nodes
 % Strongly recommend having single selection - multi selection not yet supported since filter structure altering has to be exported...
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'. For some reason suggested 'dis'-/'contiguous' ? ? ?

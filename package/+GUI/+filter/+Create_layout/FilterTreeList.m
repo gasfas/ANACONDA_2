@@ -12,7 +12,6 @@
 % Modifier:
 
 function [ UI ] = FilterTreeList( fileloading, filenumber ) 
-import uiextras.jTree.*
 %% Create tree nodes
 % Parent's name is always Filter, which is set as root.
 % Creates list of filter names under Filter.
@@ -36,15 +35,11 @@ if fileloading == 1 % File is being loaded or unloaded
 elseif fileloading == 2 %New subfilter is being created.
     md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_path, new_ans_1);
 end
-if expnom == 1
-    % No nodes are yet present. Create new and load nothing (since there is nothing to load).
-else
-    % Nodes are already present. Load previous ones.
-    Node = md_GUI.filter.Node;
-    %Node = evalin('base', 'Node');
-end
-Node.(['Experiment', int2str(expnom)]) = TreeNode('Name',exp_name_in_tree,'Parent',UI.Tree);
-[ Node ] = GUI.filter.visualize.NodeCreator(metadata_cond_1, exp_md, Node, expnom);
+Node = md_GUI.filter.Node;
+%Node.(['Experiment', int2str(expnom)]) = TreeNode('Name',exp_name_in_tree,'Parent',UI.Tree);
+Node.(['exp', int2str(expnom)]) = uiextras.jTree.TreeNode('Name',exp_name_in_tree,'Parent', UI.Tree);
+%[ Node ] = GUI.filter.visualize.NodeCreator_old(metadata_cond_1, exp_md, Node, expnom);
+[ Node ] = GUI.filter.visualize.NodeCreator(exp_md.cond, Node, exp_name_in_tree, 'cond');
 %% Select nodes
 % Strongly recommend having single selection - multi selection not yet supported since filter structure altering has to be exported...
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'. For some reason suggested 'dis'-/'contiguous' ? ? ?
