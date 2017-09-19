@@ -81,7 +81,7 @@ for i = 1:length(detnames)
 
 	% If the user requests, we calculate the angle of the third momentum
 	% relative to the plane spanned by the first two momenta:
-	if general.struct.probe_field(metadata_in.conv.det1, 'angle_p_corr_C3.ifdo.angle_p3_to_p1p2') & C_nr == 3
+	if general.struct.probe_field(metadata_in.conv, [detname, '.angle_p_corr_C3.ifdo.angle_p3_to_p1p2']) & C_nr == 3
 		% Calculate the normal of p1-p2 plane:
 		dp1		= dp_C_l(:,:,1);
 		dp2		= dp_C_l(:,:,2);

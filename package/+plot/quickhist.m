@@ -2,11 +2,19 @@ function [h_figure, h_axes, h_GraphObj] = quickhist(varargin)
 % This function makes a quick histogram of the given data. The user can
 % supply plot preferences through name value combinations.
 % Inputs:
-%	Input 1		is always assumed the data.
+%	Input 1		is assumed the data. number of columns=number of dimensions
 %	Input 2*n	is the name of the plot preference. e.g. 'axes.Type'
 %				if the name plot_md is given, the entire plot_md is
 %				replaced
 %	Input 2*n+1	is the value of the plot preference. e.g. 'polaraxes'
+%
+% Example:
+% plot.quickhist([1; 1.1; 1.5; 1.3], 'hist.Range', [0 3])
+% Will plot these for datapoints, with the histogram limits between 0 and
+% 3.
+% 
+% Note: plot.quickhist(fig, .....) will plot the figure in the appointed figure
+% Note: plot.quickhist(ax, .....) will plot the figure in the appointed axes
 
 nargin_act = nargin;
 %% Fetch data/metadata:

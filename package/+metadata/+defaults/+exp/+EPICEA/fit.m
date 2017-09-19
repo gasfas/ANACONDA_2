@@ -122,24 +122,5 @@ exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.min    = 0;
 exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.max    = 0.4;
 exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.isfree = false;
 
-%% Abel inversion
-exp_md.fit.det1.Abel_inversion.Type = 'CpBasex';
-exp_md.fit.det1.Abel_inversion.plot = exp_md.plot.det1.dp;
-exp_md.fit.det1.Abel_inversion.plot.axes.Title.String = [];
-
-exp_md.fit.det1.Abel_inversion.Type = 'FOM';
-exp_md.fit.det1.Abel_inversion.Symmetry	= 0;
-exp_md.fit.det1.Abel_inversion.itermode = 1; %itermode = 1: do itmax iterations. 
-							% itermode = 2: stop the iterations when the absolute sum difference between successive iterations stops decreasing
-							% itermode = 3: stop the iterations when the relative sum difference between successive iterations stops decreasing (the maximum no. of iterations is itmax)
-exp_md.fit.det1.Abel_inversion.itmax = 10;%the highest number of iterations that the program can make
-exp_md.fit.det1.Abel_inversion.radfac = 1; % correction factor radial iteration
-exp_md.fit.det1.Abel_inversion.angfac = 1; % correction factor angular iteration
-exp_md.fit.det1.Abel_inversion.filenumber = 1;
-exp_md.fit.det1.Abel_inversion.SampleName = 'Neon';
-exp_md.fit.det1.Abel_inversion.ImageSize = [1000 1000];
-
-
-
 end
 

@@ -6,8 +6,8 @@ function [ exp_md ] = calib ( exp_md )
 %%%%%% TOF:
 signals.TOF.hist.pointer	= 'h.det2.raw(:,3)';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-signals.TOF.hist.binsize	= 1;% [ns] binsize of the variable. 
-signals.TOF.hist.Range	= [0 2.5e4];% [ns] range of the variable. 
+signals.TOF.hist.binsize	= 2;% [ns] binsize of the variable. 
+signals.TOF.hist.Range	= [0 1e4];% [ns] range of the variable. 
 % Axes metadata:
 signals.TOF.axes.Lim		= signals.TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
 signals.TOF.axes.Tick		= 0:1e3:1e5;% [ns] Tick of the axis that shows the variable.
@@ -19,61 +19,55 @@ signals.m2q.hist.binsize	= 0.5;% [Da] binsize of the variable.
 signals.m2q.hist.Range	= [1 400];% [Da] range of the variable. 
 % Axes metadata:
 signals.m2q.axes.Lim		= [0 100];% [Da] Lim of the axis that shows the variable. 
-signals.m2q.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
+signals.m2q.axes.Tick	= sort(exp_md.sample.fragment.masses); % [Da] Tick of the axis that shows the variable. 
 signals.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
-
-%%%%%% Momentum:
-p_Lim				= [-1 1]*1e2;% [au] range of the variable. 
-p_binsize			= 3e0; % [au] binsize of the variable. 
-
-signals.px.hist.pointer	= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
-% Histogram metadata:
-signals.px.hist.binsize	= p_binsize;% [a.u.] binsize of the variable. 
-signals.px.hist.Range		= p_Lim;
-% Axes metadata:
-signals.px.axes.Lim	= signals.px.hist.Range;% [au] Lim of the axis that shows the variable. 
-signals.px.axes.Tick	= hist.bins(p_Lim, 30);% [au] Ticks on the respective axes.
-signals.px.axes.Label.String	= {'$p_x$ [a.u.]'}; %The label of the variable
-
-[signals.py, signals.pz, signals.pnorm] = deal(signals.px, signals.px, signals.px);
-[signals.py.hist.pointer, signals.pz.hist.pointer, signals.pnorm.hist.pointer]				= deal('h.det1.dp(:,2)', 'h.det1.dp(:,3)', 'h.det1.p_norm');
-[signals.py.axes.Label.String, signals.pz.axes.Label.String, signals.pnorm.axes.Label.String]	= deal({'$p_y$ [a.u.]'}, {'$p_z$ [a.u.]'}, {'$|p|$ [a.u.]'});
-
-% The calibration procedure requires parameters.
-
-cd1.R_circle.isplotted			= true ;% Should the calibration procedure be visual (show plot)
-cd1.R_circle.ROI					= [26 32];% [mm] the regions of interest to find the peaks. The first row defines the ROI that is used as global scaling.
-cd1.R_circle.filter_width		= 1; %[mm] width of the median filter applied before maximum finding.
-cd1.R_circle.plot.hist.binsize       = [0.1 0.05]; %[rad, mm] binsize of the m2q variable. 
-cd1.R_circle.plot.hist.Range		= [-pi pi; 20 35]; % [rad, mm] x,y range of the data on y-axis.
-cd1.R_circle.plot.axes.XLabel		= '$\theta$ [rad]'; % label on x-axis.
-cd1.R_circle.plot.axes.YLabel		= 'R [mm]'; % label on y-axis.
-cd1.R_circle.plot.axes.colormap		= plot.custom_RGB_colormap(); % type of colormap
-cd1.R_circle.plot.axes.hold			= 'on'; % type of colormap
-cd1.R_circle.plot.axes.Type			= 'axes';
-
-
 
 %% Define the calibration metadata:
 
+% The calibration procedure requires parameters.
+
+d1.R_circle.isplotted			= true ;% Should the calibration procedure be visual (show plot)
+d1.R_circle.ROI					= [17.6 20; 15.8 17.5; 14 15.5; 12.6 14];% [mm] the regions of interest to find the peaks. The first row defines the ROI that is used as global scaling.
+d1.R_circle.filter_width		= 1; %[mm] width of the median filter applied before maximum finding.
+d1.R_circle.plot.binsize       = [0.05 0.05]; %[rad, mm] binsize of the m2q variable. 
+d1.R_circle.plot.x_range		= [-pi pi]; % [mm] x range of the data on x-axis.
+d1.R_circle.plot.y_range		= [10 25]; % [mm] y range of the data on y-axis.
+d1.R_circle.plot.x_label		= '$\theta$ [rad]'; % label on x-axis.
+d1.R_circle.plot.y_label		= 'R [mm]'; % label on y-axis.
+d1.R_circle.plot.colormap		= 'jet'; % type of colormap
+d1.R_circle.plot.colorbar		= 'yes'; % Do we want to see a colorbar
+d1.R_circle.plot.plottype		= '2D_y_1D';
+d1.R_circle.plot.color			= 'r'; % type of colormap
+d1.R_circle.plot.colormap		= 'custom'; % type of colormap
+d1.R_circle.plot.colormap_r	= [1 1];
+d1.R_circle.plot.colormap_g	= [1 0];
+d1.R_circle.plot.colormap_b	= [1 0];
+
 % TOF to m2q conversion
-cd2.TOF_2_m2q.TOF							= metadata.create.plot.signal_2_plot({signals.TOF});
-cd2.TOF_2_m2q.TOF.hist.Integrated_value	= 1;
-cd2.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
-cd2.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
-cd2.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
-% 
-cd2.momentum.hist.binsize       = [1, 1]*5e0; %[a.u.] binsize of the m2q variable. 
-cd2.momentum.hist.Range			= [-1 1]*3e2; % [a.u.] x range of the data on x-axis.
-cd2.momentum.hist.pointer		= 'h.det1.raw';
+d2.TOF_2_m2q.TOF							= metadata.create.plot.signal_2_plot({signals.TOF});
+d2.TOF_2_m2q.TOF.hist.Integrated_value	= 1;
+d2.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
+d2.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
+d2.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 
 % Plot style for 2D momentum histogram:
-cd2.momentum.labels_to_show = exp_md.sample.fragment.masses;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
-cd2.momentum.binsize       	= [1, 1]*4e0; %[a.u.] binsize of the m2q variable. 
-cd2.momentum.x_range		= [-1 1]*1e2; % [a.u.] x range of the data on x-axis.
-cd2.momentum.y_range		= [-1 1]*1e2; % [a.u.] y range of the data on y-axis.
+d2.momentum.labels_to_show = exp_md.conv.det2.m2q_labels;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
+d2.momentum.binsize       	= [1, 1]*3e0; %[a.u.] binsize of the m2q variable. 
+d2.momentum.x_range			= [-1 1]*1.1e2; % [a.u.] x range of the data on x-axis.
+d2.momentum.y_range			= [-1 1]*1.1e2; % [a.u.] y range of the data on y-axis.
+% d2.momentum.cond.type       = 'discrete';
+% d2.momentum.cond.data_pointer = 'h.det2.m2q_l';
+% d2.momentum.cond.value       = [14];
+% d2.momentum.cond.translate_condition = 'AND';
 
-exp_md.calib.det1 = cd1;
-exp_md.calib.det2 = cd2;
+% metadata for p_res minimization procedure:
+d2.p_res_min.ub_offset 		= 0.2; % relative offset of the lower boundary of solution space
+d2.p_res_min.lb_offset 		= 0.2; % relative offset of the upper boundary of solution space
+d2.p_res_min.hit1.m2q_l		= 17; % The m2q hit label of the first of double coincidence
+d2.p_res_min.hit2.m2q_l		= 41; % The m2q hit label of the second of double coincidence
+d2.p_res_min.total.m2q_l 	= d2.p_res_min.hit1.m2q_l + d2.p_res_min.hit2.m2q_l ; % The total m2q of the double coincidence;
+
+exp_md.calib.det1 = d1;
+exp_md.calib.det2 = d2;
 end
 

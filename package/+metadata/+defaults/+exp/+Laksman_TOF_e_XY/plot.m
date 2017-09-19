@@ -35,7 +35,7 @@ d2.labels_to_show     = exp_md.sample.fragment.masses;
 % exp_md.plot.e.ifdo.m2q_2_KER	= false;
 
 % load the signal plotting metadata:
-exp_md = metadata.defaults.Laksman_TOF_e_XY.plot_signals(exp_md);
+exp_md = my_md.Laksman_TOF_e_XY.plot_signals(exp_md);
 signals = exp_md.plot.signal;
 
 %% %%%%%%%%%%%%%%%%%%%%%%% PLOTTYPE DEFAULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
