@@ -68,35 +68,38 @@ if numberoffilesselected == 1
     % Check if there is more than one loaded files as of now.
     if length(String_LoadedFiles) == 1
         set(UILoad.LoadedFiles, 'Enable', 'off');
+        set(UIPlot.def.PlotButton, 'Enable', 'off');
+        set(UIPlot.def.Popup_plot_type, 'Enable', 'off');
+        set(UIPlot.def.Popup_plot_type, 'String', '-');
         set(UIPlot.LoadedFilesPlotting, 'Enable', 'off');
-        set(UIPlot.Popup_experiment_name, 'String', '-');
-        set(UIPlot.Popup_experiment_name, 'Value', 1);
-        set(UIPlot.Popup_experiment_name, 'Enable', 'off');
-        set(UIPlot.Popup_Hits_or_Events, 'String', '-');
-        set(UIPlot.Popup_Hits_or_Events, 'Value', 1);
-        set(UIPlot.Popup_Hits_or_Events, 'Enable', 'off')
-        set(UIPlot.Popup_detector_choice, 'String', '-');
-        set(UIPlot.Popup_detector_choice, 'Value', 1);
-        set(UIPlot.Popup_detector_choice, 'Enable', 'off')
-        set(UIPlot.Popup_plot_dimensions, 'Value', 1);
-        set(UIPlot.Popup_plot_dimensions, 'Enable', 'off')
-        set(UIPlot.PopupPlotSelected, 'String', '-');
-        set(UIPlot.PopupPlotSelected, 'Value', 1);
-        set(UIPlot.PopupPlotSelected, 'Enable', 'off')
-        set(UIPlot.Popup_graph_type_X, 'String', '-');
-        set(UIPlot.Popup_graph_type_X, 'Value', 1);
-        set(UIPlot.Popup_graph_type_X, 'Enable', 'off')
-        set(UIPlot.Popup_graph_type_Y, 'String', '-');
-        set(UIPlot.Popup_graph_type_Y, 'Value', 1);
-        set(UIPlot.Popup_graph_type_Y, 'Enable', 'off')
+        set(UIPlot.new.Popup_experiment_name, 'String', '-');
+        set(UIPlot.new.Popup_experiment_name, 'Value', 1);
+        set(UIPlot.new.Popup_experiment_name, 'Enable', 'off');
+        set(UIPlot.new.Popup_Hits_or_Events, 'String', '-');
+        set(UIPlot.new.Popup_Hits_or_Events, 'Value', 1);
+        set(UIPlot.new.Popup_Hits_or_Events, 'Enable', 'off')
+        set(UIPlot.new.Popup_detector_choice, 'String', '-');
+        set(UIPlot.new.Popup_detector_choice, 'Value', 1);
+        set(UIPlot.new.Popup_detector_choice, 'Enable', 'off')
+        set(UIPlot.new.Popup_plot_dimensions, 'Value', 1);
+        set(UIPlot.new.Popup_plot_dimensions, 'Enable', 'off')
+        set(UIPlot.new.PopupPlotSelected, 'String', '-');
+        set(UIPlot.new.PopupPlotSelected, 'Value', 1);
+        set(UIPlot.new.PopupPlotSelected, 'Enable', 'off')
+        set(UIPlot.new.Popup_graph_type_X, 'String', '-');
+        set(UIPlot.new.Popup_graph_type_X, 'Value', 1);
+        set(UIPlot.new.Popup_graph_type_X, 'Enable', 'off')
+        set(UIPlot.new.Popup_graph_type_Y, 'String', '-');
+        set(UIPlot.new.Popup_graph_type_Y, 'Value', 1);
+        set(UIPlot.new.Popup_graph_type_Y, 'Enable', 'off')
         set(UILoad.LoadedFiles, 'String', '-');
         set(UILoad.LoadedFiles, 'Enable', 'off');
         set(UIPlot.LoadedFilesPlotting, 'String', '-');
         set(UIPlot.LoadedFilesPlotting, 'Enable', 'off');
-        set(UIPlot.PlotButton, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'String', '-')
-        set(UIPlot.Popup_Filter_Selection, 'Value', 1)
+        set(UIPlot.new.PlotButton, 'Enable', 'off')
+        set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'off')
+        set(UIPlot.new.Popup_Filter_Selection, 'String', '-')
+        set(UIPlot.new.Popup_Filter_Selection, 'Value', 1)
         md_GUI.load = rmfield(md_GUI.load, 'String_LoadedFiles');
         md_GUI.load.filenumber_selected = 1;
     else
@@ -107,14 +110,14 @@ if numberoffilesselected == 1
         md_GUI.load.String_LoadedFiles = String_LoadedFiles;
         set(UILoad.LoadedFiles, 'Value', 1);
         md_GUI.load.filenumber_selected = 1;
-        set(UIPlot.Popup_experiment_name, 'Value', 1);
-        set(UIPlot.Popup_experiment_name, 'String', String_LoadedFiles);
+        set(UIPlot.new.Popup_experiment_name, 'Value', 1);
+        set(UIPlot.new.Popup_experiment_name, 'String', String_LoadedFiles);
         set(UILoad.LoadedFiles, 'String', md_GUI.load.String_LoadedFiles);
         set(UIPlot.LoadedFilesPlotting, 'String', md_GUI.load.String_LoadedFiles);
         set(UILoad.LoadedFiles, 'Value', 1);
         set(UIPlot.LoadedFilesPlotting, 'Value', 1);
-        set(UIPlot.Popup_plot_dimensions, 'Value', 1);
-        set(UIPlot.Popup_experiment_name, 'Value', 1);
+        set(UIPlot.new.Popup_plot_dimensions, 'Value', 1);
+        set(UIPlot.new.Popup_experiment_name, 'Value', 1);
     end
     if NumberOfLoadedFiles > 1
         md_GUI.d_fn = rmfield(md_GUI.d_fn, (['exp', NumberOfLoadedFiles_str]));
@@ -122,8 +125,8 @@ if numberoffilesselected == 1
     NumberOfLoadedFiles = NumberOfLoadedFiles - 1;
     md_GUI.load.NumberOfLoadedFiles = NumberOfLoadedFiles;
     set(UILoad.LoadedFiles, 'Value', 1);
-    set(UIPlot.Popup_experiment_name, 'Enable', 'off');
-    set(UIPlot.Popup_experiment_name, 'String', '-');
+    set(UIPlot.new.Popup_experiment_name, 'Enable', 'off');
+    set(UIPlot.new.Popup_experiment_name, 'String', '-');
 else
 	%Give message that this GUI version supports only one unload per time.
 	msgbox('Select one file to unload.', 'Warning')

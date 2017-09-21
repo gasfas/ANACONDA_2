@@ -45,31 +45,19 @@ end
 [numberofloadedfilesselected, ~] = size(selectedloadedfiles);
 if md_GUI.load.NumberOfLoadedFiles > 0
     if numberofloadedfilesselected == 0 
-
-        set(UIPlot.Popup_experiment_name, 'Enable', 'off');
-        set(UIPlot.Popup_detector_choice, 'Enable', 'off')
-        set(UIPlot.Popup_plot_dimensions, 'Enable', 'off')
-        set(UIPlot.Popup_graph_type_X, 'Enable', 'off')
-        set(UIPlot.Popup_graph_type_Y, 'Enable', 'off')
-        set(UIPlot.PopupPlotSelected, 'Enable', 'off')
-        set(UIPlot.Popup_Hits_or_Events, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
-        set(UIPlot.PlotButton, 'Enable', 'off')
-        set(UIPlot.PlotConfButton, 'Enable', 'off')
-        
-        
-        disp('Select a file. Until then, last selected file(s) will continue being selected. Last loaded file was ')
-        selectedloadedfiles = md_GUI.load.selectedloadedfiles;
-        disp(selectedloadedfiles)
-        disp('which is ')
-
-
-
-        exp_names = md_GUI.load.exp_names;
-        disp(exp_names)
-        disp('in the GUI workspace.')
-        % Basically does nothing but shows last selected file.
+        set(UIPlot.new.Popup_experiment_name, 'Enable', 'off');
+        set(UIPlot.new.Popup_detector_choice, 'Enable', 'off')
+        set(UIPlot.new.Popup_plot_dimensions, 'Enable', 'off')
+        set(UIPlot.new.Popup_graph_type_X, 'Enable', 'off')
+        set(UIPlot.new.Popup_graph_type_Y, 'Enable', 'off')
+        set(UIPlot.new.PopupPlotSelected, 'Enable', 'off')
+        set(UIPlot.new.Popup_Hits_or_Events, 'Enable', 'off')
+        set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'off')
+        set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'off')
+        set(UIPlot.new.PlotButton, 'Enable', 'off')
+        set(UIPlot.new.PlotConfButton, 'Enable', 'off')
+        set(UIPlot.def.Popup_plot_type, 'Enable', 'off')
+        set(UIPlot.def.PlotButton, 'Enable', 'off')
     else
         md_GUI.load.selectedloadedfiles = selectedloadedfiles;
         % Multi selection not yet available.
@@ -88,7 +76,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                 selectedloadedfiles_str = char(selectedloadedfiles);
                 filesextratext = 'Selected file information: \n';
                 %Try to see if experiment has any information:
-                try exps.info
+                try
                     information = exps.info;
                     information_acq_start = information.acquisition_start_str;
                     information_acq_dur = information.acquisition_duration;
@@ -124,17 +112,19 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             end
         end
         if tabval == 2
-            set(UIPlot.Popup_experiment_name, 'Enable', 'on');
-            set(UIPlot.Popup_detector_choice, 'Enable', 'on')
-            set(UIPlot.Popup_plot_dimensions, 'Enable', 'on')
-            set(UIPlot.Popup_graph_type_X, 'Enable', 'on')
-            set(UIPlot.Popup_graph_type_Y, 'Enable', 'on')
-            set(UIPlot.PopupPlotSelected, 'Enable', 'on')
-            set(UIPlot.Popup_Hits_or_Events, 'Enable', 'on')
-            set(UIPlot.Popup_Filter_Selection, 'Enable', 'on')
-            set(UIPlot.Popup_Filter_Selection, 'Enable', 'on')
-            set(UIPlot.PlotButton, 'Enable', 'on')
-            set(UIPlot.PlotConfButton, 'Enable', 'on')
+            set(UIPlot.new.Popup_experiment_name, 'Enable', 'on');
+            set(UIPlot.new.Popup_detector_choice, 'Enable', 'on')
+            set(UIPlot.new.Popup_plot_dimensions, 'Enable', 'on')
+            set(UIPlot.new.Popup_graph_type_X, 'Enable', 'on')
+            set(UIPlot.new.Popup_graph_type_Y, 'Enable', 'on')
+            set(UIPlot.new.PopupPlotSelected, 'Enable', 'on')
+            set(UIPlot.new.Popup_Hits_or_Events, 'Enable', 'on')
+            set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'on')
+            set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'on')
+            set(UIPlot.new.PlotButton, 'Enable', 'on')
+            set(UIPlot.new.PlotConfButton, 'Enable', 'on')
+            set(UIPlot.def.Popup_plot_type, 'Enable', 'on')
+            set(UIPlot.def.PlotButton, 'Enable', 'on')
 
             m2qcheck = 0;
             % Get all field values and set them as ' 2 1 1 ':
@@ -170,96 +160,100 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                 exp_names = ['exp', int2str(filenumber)];
             end
             md_GUI.plot.selected_exp_names = exp_names;
-            
-            % Set filter options for 'All' selected experiments. Default: No filter, value 1.
-            exp_nomb = 1;
-            exp_nomb_str = num2str(exp_nomb);
-            Filters_string.(['exp', exp_nomb_str, '_cond']) = md_GUI.mdata_n.(['exp', exp_nomb_str]).cond;
-            Filters_string_str_1 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']));
-            for sf_1 = 1:length(Filters_string_str_1)
-                Filters_string_str_1_str = char(Filters_string_str_1(sf_1));
-                sff_1(sf_1)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
-                if sff_1(sf_1) == 0
-                    Filters_string.(['numb_', num2str(exp_nomb), '_', num2str(sf_1)]) = Filters_string_str_1_str;
-                else
-                    Filters_string_str_2 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str));
-                    for sf_2 = 1:length(Filters_string_str_2)
-                        Filters_string_str_2_str = char(Filters_string_str_2(sf_2));
-                        sff_2(sf_2)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
-                        if sff_2(sf_2) == 0
-                            Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
-                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
-                        else
-                            Filters_string.names.([Filters_string_str_1_str]) = Filters_string_str_1_str;
-                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_2)]) = Filters_string_str_2_str;
-
-                            Filters_string_str_3 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str));
-                            for sf_3 = 1:length(Filters_string_str_3)
-                                Filters_string_str_3_str = char(Filters_string_str_3(sf_3));
-                                sff_3(sf_3)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
-                                if sff_3(sf_3) == 0
-                                    Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str]) = Filters_string_str_2_str;
-                                    Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_3)]) = Filters_string_str_3_str;
-                                else
-                                    Filters_string_str_4 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str));
-                                    for sf_4 = 1:length(Filters_string_str_4)
-                                        Filters_string_str_4_str = char(Filters_string_str_4(sf_4));
-                                        sff_4(sf_4)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
-                                        if sff_4(sf_4) == 0
-                                            Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str]) = Filters_string_str_3_str;
-                                            Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_4)]) = Filters_string_str_4_str;
-                                        else
-                                            Filters_string_str_5 = fieldnames(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str));
-                                            for sf_5 = 1:length(Filters_string_str_5)
-                                                Filters_string_str_5_str = char(Filters_string_str_5(sf_5));
-                                                sff_5(sf_5)  = isstruct(Filters_string.(['exp', exp_nomb_str, '_cond']).(Filters_string_str_1_str).(Filters_string_str_2_str).(Filters_string_str_3_str).(Filters_string_str_4_str).(Filters_string_str_5_str));
-                                                if sff_5(sf_5) == 0
-                                                    Filters_string.names.([Filters_string_str_1_str, '__', Filters_string_str_2_str, '__', Filters_string_str_3_str, '__', Filters_string_str_4_str]) = Filters_string_str_4_str;
-                                                    Filters_string.(['numb_', num2str(exp_nomb), '_',  num2str(sf_5)]) = Filters_string_str_5_str;
-                                                else
-                                                    disp('uh-oh..')
-                                                    % Now all until 5th level have
-                                                    % fieldnames separated by : __
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
+            if ischar(exp_names)
+                exp_name = exp_names;
+            else
+                exp_name = char(exp_names(1));
+            end
+            Filters_Struct = md_GUI.mdata_n.(exp_name).cond;
+            filter_fieldnames = general.struct.fieldnamesr(Filters_Struct);
+            % Get maximum depth of filters struct:
+            maxdepth = 1;
+            for lxx = 1:length(filter_fieldnames)
+                depth = length(strsplit(char(filter_fieldnames(lxx)), '.'));
+                if depth > maxdepth
+                    maxdepth = depth;
                 end
             end
-
-            filter_fieldnames = fieldnames(Filters_string.names);
+            % Get all filters and combined filters - one by one:
+            numberoffields = 0;
+            for alldepths = 1:maxdepth
+                filter_allfieldnamesstructs.(['s', num2str(alldepths)]) = general.struct.fieldnamesr(Filters_Struct, alldepths);
+            end
+            for alldepths = 1:maxdepth
+                filter_allfieldnamesmaxdepthstruct = filter_allfieldnamesstructs.(['s', num2str(alldepths)]);
+                for depthx = 1:length(filter_allfieldnamesmaxdepthstruct)
+                    if exist('filter_allfieldnames')
+                        nextf = length(filter_allfieldnames) + 1;
+                    else
+                        nextf = 1;
+                    end
+                    filter_allfieldnames(nextf) = filter_allfieldnamesmaxdepthstruct(depthx);
+                end
+            end
+            filter_fieldnames = filter_allfieldnames;
+            
             for sdff = 2:(length(filter_fieldnames) + 1)
                 Filters_string_name(sdff) = filter_fieldnames(sdff-1);
             end
             NoFilterString = 'No_Filter';
             Filters_string_name(1) = cellstr(NoFilterString);
-
+            %% Experiment names:
             if ischar(exp_names)
                 exp_names = cellstr(exp_names);
             end
+            %% Plot types for defined plots tab:
+            nextp = 1;
+            for lx = 1:length(exp_names)
+                current_exp_name = char(exp_names(lx));
+                % Get number of detectors.
+                detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).plot);
+                if ischar(detector_choices)
+                    numberofdetectors = 1;
+                    detector_choices = cellstr(detector_choices);
+                else
+                    numberofdetectors = length(detector_choices);
+                end
+                for ly = 1:numberofdetectors
+                    current_det_name = char(detector_choices(ly));
+                    currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.(current_det_name));
+                    numberofplottypes = length(currentplottypes);
+                    for lz = 1:numberofplottypes
+                        if exist('plottypes_def')
+                            nextp = length(plottypes_def) + 1;
+                        else
+                            nextp = 1;
+                        end
+                        plottypes_def(nextp) = cellstr([current_det_name, '.' char(currentplottypes(lz))]);
+                    end
+                end
+            end
+            %% Values for the different settings in the defined plots tab:
+            set(UIPlot.def.Popup_plot_type, 'String', plottypes_def)
+            
+            % How def plots Plot function works:
+            %macro.plot.create.plot(md_GUI.data_n.exp1, md_GUI.mdata_n.exp1.plot.det1.KER_sum)
+            
+            %% Values for the different settings in the new plots tab:
             valuesforpopups = md_GUI.plot.expsettings.(char(exp_names(1))); % Just set values of first sel. exp.
             md_GUI.plot.experiment_selected_number = 0;
-            set(UIPlot.Popup_Filter_Selection, 'String', Filters_string_name)
-            set(UIPlot.Popup_experiment_name, 'String', selectedloadedfiles);
-            set(UIPlot.Popup_Hits_or_Events, 'String', hits_evs(1, :))
-            set(UIPlot.Popup_detector_choice, 'String', detectornum(1, :))
-            set(UIPlot.Popup_graph_type_X, 'String', plottypes(1, :))
-            set(UIPlot.Popup_graph_type_Y, 'String', plottypes_Y(1, :))
-            set(UIPlot.PopupPlotSelected, 'String', {'Plot all in new figure together', 'Plot all separately', 'Plot selection into pre-existing figure'})
-            set(UIPlot.Popup_Filter_Selection, 'Value', 1)
-            set(UIPlot.Popup_experiment_name, 'Value', 1);
-            set(UIPlot.Popup_detector_choice, 'Value', valuesforpopups(2))
-            set(UIPlot.Popup_plot_dimensions, 'Value', 1)
-            set(UIPlot.Popup_graph_type_X, 'Value', m2qvalue)
-            set(UIPlot.Popup_graph_type_Y, 'Value', 1)
-            set(UIPlot.PopupPlotSelected, 'Value', 1)
-            set(UIPlot.Popup_Filter_Selection, 'Value', 1)
-            set(UIPlot.Popup_Hits_or_Events, 'Value', valuesforpopups(1))
-            set(UIPlot.Popup_Filter_Selection, 'Value', valuesforpopups(3))
+            set(UIPlot.new.Popup_Filter_Selection, 'String', Filters_string_name)
+            set(UIPlot.new.Popup_experiment_name, 'String', selectedloadedfiles);
+            set(UIPlot.new.Popup_Hits_or_Events, 'String', hits_evs(1, :))
+            set(UIPlot.new.Popup_detector_choice, 'String', detectornum(1, :))
+            set(UIPlot.new.Popup_graph_type_X, 'String', plottypes(1, :))
+            set(UIPlot.new.Popup_graph_type_Y, 'String', plottypes_Y(1, :))
+            set(UIPlot.new.PopupPlotSelected, 'String', {'Plot all in new figure together', 'Plot all separately', 'Plot selection into pre-existing figure'})
+            set(UIPlot.new.Popup_Filter_Selection, 'Value', 1)
+            set(UIPlot.new.Popup_experiment_name, 'Value', 1);
+            set(UIPlot.new.Popup_detector_choice, 'Value', valuesforpopups(2))
+            set(UIPlot.new.Popup_plot_dimensions, 'Value', 1)
+            set(UIPlot.new.Popup_graph_type_X, 'Value', m2qvalue)
+            set(UIPlot.new.Popup_graph_type_Y, 'Value', 1)
+            set(UIPlot.new.PopupPlotSelected, 'Value', 1)
+            set(UIPlot.new.Popup_Filter_Selection, 'Value', 1)
+            set(UIPlot.new.Popup_Hits_or_Events, 'Value', valuesforpopups(1))
+            set(UIPlot.new.Popup_Filter_Selection, 'Value', valuesforpopups(3))
         end
     end
     assignin('base', 'md_GUI', md_GUI)

@@ -22,7 +22,8 @@ function [] = Edit_Filter(UIFilter)
     parent.xyx = 0; %simply creating a struct named parent.
     [ parent, SelectedNode ] = GUI.filter.visualize.UI_Tree_selected_node_extract( node_depth, parents_nom_str, parent );
     % From the recursive extractor above, the path is returned as (parent.s(N-1)). ... .(parent.s2).
-    if ~parent == 0
+    if length(fieldnames(parent)) > 1
+    %if ~parent == 0
         nom_parents = length(fieldnames(parent)) - 2; %First fieldname is xyx ('waste'), and last one is the selected node.
         children = md_GUI.UI.UIFilter.Tree.SelectedNodes.Children;
 

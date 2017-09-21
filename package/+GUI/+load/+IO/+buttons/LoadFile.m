@@ -102,8 +102,8 @@ data_n.info.numexps = length(data_n.info.foi);
 %% Exporting to md_GUI.
 md_GUI.data_n = data_n;
 md_GUI.mdata_n = mdata_n;
-set(UIPlot.Popup_experiment_name, 'String', md_GUI.load.String_LoadedFiles);
-md_GUI.mdata_n.(['exp', filenumber]).cond.nofilter = md_GUI.mdata_n.(['exp', filenumber]).cond;
+set(UIPlot.new.Popup_experiment_name, 'String', md_GUI.load.String_LoadedFiles);
+%md_GUI.mdata_n.(['exp', filenumber]).cond.nofilter = md_GUI.mdata_n.(['exp', filenumber]).cond;
 md_GUI.mdata_n.(['exp', filenumber]).filepath = fullfilepath;
 md_GUI.mdata_n.(['exp', filenumber]).dir = md_GUI.load.folder_name;
 md_GUI.plot.expsettings.(['exp', filenumber]) = [2 1 1];

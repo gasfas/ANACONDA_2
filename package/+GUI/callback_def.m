@@ -22,15 +22,18 @@ set(UILoad.UnLoadFileButton, ...
     'Callback', @UnLoadFile)
 %set(UILoad.UseFilesButton, ...
 %    'Callback', @UseFiles)
-set(UIPlot.PlotButton,...
-    'Callback', @Plot_it)
+set(UIPlot.new.PlotButton,...
+    'Callback', @Plot_it_new)
+set(UIPlot.def.PlotButton,...
+    'Callback', @Plot_it_def)
+
 set(UIFilter.EditFilter,...
     'Callback', @EditFilterButton)
 set(UIFilter.RenameFilter,...
     'Callback', @RenameFilterButton)
 set(UIFilter.RemoveFilter,...
     'Callback', @RemoveFilterButton)
-set(UIPlot.PlotConfButton,...
+set(UIPlot.new.PlotConfButton,...
     'Callback', @Plotconf)
 
 % set editboxes
@@ -50,21 +53,21 @@ set(UIFilter.Fieldvalue, ...
     'Callback',@FilterFieldValueCall) %To the filter tab
 
 % set popupboxes
-set(UIPlot.Popup_experiment_name, ...
+set(UIPlot.new.Popup_experiment_name, ...
     'Callback', @Popup_experiment)
-set(UIPlot.Popup_Hits_or_Events, ...
+set(UIPlot.new.Popup_Hits_or_Events, ...
     'Callback', @Popup_HitsEvents)
-set(UIPlot.Popup_Filter_Selection, ...
+set(UIPlot.new.Popup_Filter_Selection, ...
     'Callback', @Popup_FilterSelect)
-set(UIPlot.Popup_detector_choice, ...
+set(UIPlot.new.Popup_detector_choice, ...
     'Callback', @Popup_detector)
-set(UIPlot.Popup_plot_dimensions,...
+set(UIPlot.new.Popup_plot_dimensions,...
     'Callback', @Dimensions)
-set(UIPlot.Popup_graph_type_X,...
+set(UIPlot.new.Popup_graph_type_X,...
     'Callback', @Popup_graph_X)
-set(UIPlot.Popup_graph_type_Y,...
+set(UIPlot.new.Popup_graph_type_Y,...
     'Callback', @Popup_graph_Y)
-set(UIPlot.PopupPlotSelected,...
+set(UIPlot.new.PopupPlotSelected,...
     'Callback', @PlotTypeSel)
 
 %%  Functions for editboxes
@@ -77,7 +80,7 @@ set(UIPlot.PopupPlotSelected,...
         GUI.plot.md_edit.Plotconf();
     end
     function LoadFolder(hObject, eventdata)
-        GUI.load.IO.buttons.LoadFolder( hObject, eventdata, UIPlot, UILoad );
+        GUI.load.IO.buttons.LoadFolder( hObject, eventdata, UIPlot.new, UILoad );
     end
     function SaveButton(hObject, eventdata) %Does nothing now, button for future purposes.
         GUI.work.SaveWork( );
@@ -90,8 +93,11 @@ set(UIPlot.PopupPlotSelected,...
         GUI.load.IO.buttons.LoadFile(UILoad, UIPlot, UIFilter);
         %set(UILoad.LoadFileButton, 'Enable', 'on')
     end
-    function Plot_it(hObject, eventdata)
+    function Plot_it_new(hObject, eventdata)
         GUI.plot.create.Plot();
+    end
+    function Plot_it_def(hObject, eventdata)
+        GUI.plot.create.Plot_def();
     end
     function Reset(hObject, eventdata) %Resets all data
         GUI.load.IO.buttons.Reset
@@ -114,28 +120,28 @@ set(UIPlot.PopupPlotSelected,...
 
 %%  Functions for popupboxes
     function Popup_experiment(hObject, eventdata)
-        GUI.plot.data_selection.Popup_experiment_name(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_experiment_name(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Popup_HitsEvents(hObject, eventdata)
-        GUI.plot.data_selection.Popup_Hits_or_Events(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_Hits_or_Events(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Popup_FilterSelect(hObject, eventdata)
-        GUI.plot.data_selection.Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Popup_detector(hObject, eventdata)
-        GUI.plot.data_selection.Popup_detector_choice(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_detector_choice(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Dimensions(hObject, eventdata)
-        GUI.plot.data_selection.Popup_plot_dimensions(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_plot_dimensions(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Popup_graph_X(hObject, eventdata)
-        GUI.plot.data_selection.Popup_graph_type_X(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_graph_type_X(hObject, eventdata, UILoad, UIPlot.new);
     end
     function Popup_graph_Y(hObject, eventdata)
-        GUI.plot.data_selection.Popup_graph_type_Y(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_graph_type_Y(hObject, eventdata, UILoad, UIPlot.new);
     end
     function PlotTypeSel(hObject, eventdata)
-        GUI.plot.data_selection.Popup_Plot_Selection(hObject, eventdata, UILoad, UIPlot);
+        GUI.plot.data_selection.Popup_Plot_Selection(hObject, eventdata, UILoad, UIPlot.new);
     end
 %%  Functions for listboxes
     function FilesList(hObject, eventdata)
