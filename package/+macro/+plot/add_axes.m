@@ -41,7 +41,7 @@ end
 function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 	switch axestype
 		case 'm2q'
-			ticklabel					= md.m2q_labels';
+			ticklabel					= sort(md.m2q_labels)';
 			Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabel),'%s');
 			Ax_new.([cname 'Tick'])		= round(unique(convert.m2q_2_TOF(ticklabel, ...
 												md.TOF_2_m2q.factor, ...

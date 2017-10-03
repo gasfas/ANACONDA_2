@@ -1114,7 +1114,7 @@ function [wasInterrupted,errstr] = arrow_click(lockStart,H,prop,ax)
 	% if we wanted to click-drag, set the Start point
 	if lockStart & ~wasInterrupted,
 		pt = arrow_point(ARROW_CLICK_AX,ARROW_CLICK_USE_Z);
-		feval(mfilename,H,'Start',pt,'Stop',pt);
+		feval(['plot.' mfilename],H,'Start',pt,'Stop',pt);
 		set(H,'Visible','on');
 		ARROW_CLICK_PROP='Stop';
 		set(fig,'WindowButtonMotionFcn',[mfilename '(''callback'',''motion'');']);
@@ -1126,7 +1126,7 @@ function [wasInterrupted,errstr] = arrow_click(lockStart,H,prop,ax)
 			wasInterrupted = 1;
 		end;
 	end;
-	if ~wasInterrupted, feval(mfilename,'callback','motion'); end;
+	if ~wasInterrupted, feval(['plot.' mfilename],'callback','motion'); end;
 	% restore some things
 	set(gcf,oldFigProps,oldFigValue);
 	set(H,oldArrowProps,oldArrowValue);
@@ -1140,7 +1140,7 @@ function arrow_callback(varargin)
 	if strcmp(s,'motion'),
 		% motion callback
 		global ARROW_CLICK_H ARROW_CLICK_PROP ARROW_CLICK_AX ARROW_CLICK_USE_Z
-		feval(mfilename,ARROW_CLICK_H,ARROW_CLICK_PROP,arrow_point(ARROW_CLICK_AX,ARROW_CLICK_USE_Z));
+		feval(['plot.' mfilename],ARROW_CLICK_H,ARROW_CLICK_PROP,arrow_point(ARROW_CLICK_AX,ARROW_CLICK_USE_Z));
 		drawnow;
 	else,
 		error([upper(mfilename) ' does not recognize ''' str(:).' ''' as a valid Callback option.']);

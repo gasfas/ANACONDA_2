@@ -13,7 +13,7 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
 
 switch ext % If the extension is a known one, we try those:
 	case '.mat'
-		[exp_md, simu_md, th_md] = load_mat(filename);
+		[exp_md, simu_md, th_md] = load_mat(fullfile(dir, [file ext]));
 	case '.m'
 		[exp_md, simu_md, th_md] = load_script(dir, file);
 	otherwise % Otherwise we try two extensions (.mat and then .m): 

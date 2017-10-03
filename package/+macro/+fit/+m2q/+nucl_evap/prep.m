@@ -1,7 +1,7 @@
-function [IG, LB, UB, options] = combined_model_prep(fit_md, PD_t)
+function [IG, LB, UB, options] = prep(fit_md, PD_t)
 % Combined model fitting preparation
 % This is a convenience function to define the boundary conditions to the
-% 'combined model'
+% 'nucleation and evaporation' model
 % Input:
 % fit_md    The fit metadata, struct
 % PD_t      The total probability density

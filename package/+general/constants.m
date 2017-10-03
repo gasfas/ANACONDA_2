@@ -4,6 +4,7 @@ function [ values ] = constants( name )
 % name      1D cell, the names of the physical constants requested.
 % Output:
 % values    array with the values of the requested constants.
+
 if ~iscell(name)
     names{1} = name;
 else
@@ -15,11 +16,11 @@ for i = 1:length(names)
         case {'q','eVtoJ'}
             values(i) = 1.6021766208e-19; % [C] elementary charge or conversion from joule to eV
         case {'JtoeV'}
-            values(i) = 1./(1.6021766208e-19); % [C^-1] elementary charge or conversion from joule to eV
+            values(i) = 1./(general.constants('q')); % [C^-1] elementary charge or conversion from joule to eV
         case {'k_e'}
             values(i) = 8.99*1e9; % [N*m^2 C^-2] Coulomb's constant
         case 'h'
-            values(i) = 6.626176e-34; % [Js] Planck's constant
+            values(i) = 6.62607004081e-34; % [Js] Planck's constant
         case 'hbar'
             values(i) = (6.626176e-34)/(2*pi); % [Js] Planck's constant /2pi
         case 'c'
@@ -47,10 +48,31 @@ for i = 1:length(names)
         case 'Na'
             values(i) = 6.022140857e23;% [mol^-1] Gas constant
         case {'eVtocm-1'}
-            values(i) = 8065.44; % converstion from eV to cm-1 (inverse centimeter)
+            values(i) = 1./(general.constants('h')*general.constants('c').*general.constants('JtoeV')); % converstion from eV to cm-1 (inverse centimeter)
 		case {'kcalmol_to_eV'}
 			values(i) = 0.0433634;
-    end
+		otherwise % We assume that a formula of different constants is given:
+			% TODO
+		const = {'q', ...	% [C] elementary charge or conversion from joule to eV
+			'eVtoJ', ...	% [C] elementary charge or conversion from joule to eV
+			'JtoeV', ...	% [C^-1] elementary charge or conversion from joule to eV
+			'k_e', ...		% [N*m^2 C^-2] Coulomb's constant
+			'h', ...		% [Js] Planck's constant
+			'hbar', ...		% [Js] Planck's constant /2pi
+			'c', ...		% [m/s] speed of light
+			'amu', ...		% [Da] atomic mass unit 
+			'me', ...		% [kg] electron rest mass
+			'mp', ...		% [kg] proton/neutron rest mass
+			'momentum_au', ...% [kg*m/s] atomic momentum unit
+			'eps0', ...		% [F/m] Vacuum permittivity
+			'mu_B', ...% [A m2 or J/T] Bohr magnetron
+			'a_0', ...% [m] Bohr radius
+			'alpha', ...% [-] fine structure constant
+			'kb', ...% [J/K] Boltzmann constant
+			'R', ...% [a.m.u./K (m/s)^2] Gas constant
+			'Na', ...% [mol^-1] Gas constant
+			'eVtocm-1'}; ...% converstion from eV to cm-1 (inverse centimeter)
+	end
 end
 end
 

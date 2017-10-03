@@ -77,7 +77,12 @@ for i = 1:length(detnames)
     data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr)])(all_events_labeled,:) = all_DClabel_angle_rad;
 % 	% Write the sum of all mutual angles:
 %     data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr) '_sum']) = NaN*ones(size(data_out.e.raw,1), 1);
-%     data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr) '_sum'])(all_events_labeled,:) = sum(all_DClabel_angle_rad, 2);
+%     data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr) '_sum'])(all_events_labeled,:) = sum(all_DClabel_angle_rad, 2);	if C_nr > 2
+	if C_nr > 1
+	% Write the average of all mutual angles:
+    data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr) '_mean']) = NaN*ones(size(data_out.e.raw,1), 1);
+    data_out.e.(detname).(['angle_p_corr_C' num2str(C_nr) '_mean'])(all_events_labeled,:) = mean(all_DClabel_angle_rad, 2);
+	end
 
 	% If the user requests, we calculate the angle of the third momentum
 	% relative to the plane spanned by the first two momenta:

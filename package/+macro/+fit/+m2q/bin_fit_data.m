@@ -12,7 +12,7 @@ bins                = hist_range(1):binsize:hist_range(2);
 xdata               = cell2mat(mid)';
 ydata_raw           = m2q_hist;
 
-if fit_md.bgr_subtr.ifdo
+if ~isempty(m2q_bgr)
     % subtracting the background, by using a background measurement:
     [ybgr_unscaled, ~, mid]= hist.histcn(m2q_bgr, bins);
     x_bgrdata           = cell2mat(mid)';

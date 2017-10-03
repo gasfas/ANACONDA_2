@@ -12,8 +12,12 @@ function [ fragment_masses ] = cluster_fragment_masses ( sample_md )
 %                   sample_md.fragment.protonation; [-] Protonation of
 %                   fragments; 1 means 1 proton attached.
 
-fragment_masses 			= general.fragment_masses(sample_md.constituent.masses, max(sample_md.fragment.sizes), ...
+if general.struct.issubfield(sample_md, 'fragment.protonation')
+	fragment_masses 			= general.fragment_masses(sample_md.constituent.masses, max(sample_md.fragment.sizes), ...
 								min(sample_md.fragment.sizes)) + sample_md.fragment.protonation;
-
+else
+	fragment_masses 			= general.fragment_masses(sample_md.constituent.masses, max(sample_md.fragment.sizes), ...
+								min(sample_md.fragment.sizes));
+end
 end
 

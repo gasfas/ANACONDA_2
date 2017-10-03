@@ -1,13 +1,12 @@
-function [ ydata ] = ind_peak_fit(parameters, xdata)
-% binomial_peaks.
-% This function fits a set of close Gaussian peaks, and thereby assumes a
-% binomial distribution (see
-% http://hyperphysics.phy-astr.gsu.edu/hbase/math/dice.html#c2)
-% Input parameters:
-% xdata         [n,1]
-% parameters    [first_peak_centre, last_peak_centre, peak_spacing, peak_height, p_A, sigma_G, sigma_L, noise_level]
-% Output parameters:
-% ydata
+function [ ydata ] = runner(parameters, xdata)
+%  This function fits a set of close Gaussian peaks, and does not assume a
+% certain relation between the peak intensities.
+% Inputs:
+% parameters 	[n,1] array of fitting parameters for this specific fit.
+% 		[first_peak_centre, last_peak_centre, peak_spacing, peak_height, p_A, sigma_G, sigma_L, noise_level]
+% xdata 	[m, 1] the x-data at which to plot the fitting intensity line
+% Outputs:
+% ydata 	[m, 1] the fit at xdata, resulting from the given parameters
 
 %parameters:
 % mu              = repmat(parameters(end-6):parameters(end-4):parameters(end-5), length(xdata), 1);
@@ -22,7 +21,7 @@ rph             = parameters(1:q+1); % The relative peak height.
 
 % calculating ydata:
 X               = repmat(xdata, 1, q+1); % the xdata in useful form
-YV              = macro.fit.m2q.voigt(X, mu, sigma_G, sigma_L); % Voigt profile
+YV              = macro.fit.m2q.PDfunction.voigt(X, mu, sigma_G, sigma_L); % Voigt profile
 PDF             = rph;% the peaks in binomial distribution
 y_norm          = sum(repmat(PDF, size(xdata,1), 1).*YV,2); % the normalized ydata
 ydata           = peak_height./max(y_norm) * y_norm + noise_level; % adding the noise

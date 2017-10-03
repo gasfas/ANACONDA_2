@@ -1,6 +1,11 @@
 function [ ydata ] = evaporation_model ( parameters, xdata )
 % This function projects a smaller cluster group spectrum onto a cluster
-% group one 'q' higher.
+% group one 'q' lower.
+% Inputs:
+% parameters 	[n,1] array of fitting parameters for this specific fit.
+% xdata 	[m, 1] the x-data at which to plot the fitting intensity line
+% Outputs:
+% ydata 	[m, 1] the fit at xdata, resulting from the given parameters
 
 % We fetch the relative peak heights of the previous cluster group:
 %parameters:
@@ -23,7 +28,7 @@ rph = p_evap_m_q*rph_q_pl_1(1:end-1) + (1-p_evap_m_q)*rph_q_pl_1(2:end);
 
 % calculating ydata:
 X               = repmat(xdata, 1, q+1); % the xdata in useful form
-YV              = macro.fit.m2q.voigt(X, mu, sigma_G, sigma_L); % Voigt profile
+YV              = macro.fit.m2q.PDfunction.voigt(X, mu, sigma_G, sigma_L); % Voigt profile
 PDF             = rph;% the peaks in binomial distribution
 y_norm          = sum(repmat(PDF, size(xdata,1), 1).*YV,2); % the normalized ydata
 ydata           = peak_height./max(y_norm) * y_norm + noise_level; % adding the noise

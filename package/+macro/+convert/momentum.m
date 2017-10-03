@@ -45,6 +45,7 @@ for i = 1:length(detnames)
 		[~, data_out.h.(detname).dp_phi]					= cart2sph(data_out.h.(detname).dp(:,1), data_out.h.(detname).dp(:,2), data_out.h.(detname).dp(:,3));
 		% Calculate the momentum norm
 		data_out.h.(detname).dp_norm						= general.vector.norm_vectorarray(data_out.h.(detname).dp, 2);
+
 	
 	else % There is only X, and Y component measured, so 2D momentum:
 		TOF_nominal = metadata_in.conv.(detname).momentum.TOF_nominal;
@@ -60,6 +61,7 @@ for i = 1:length(detnames)
     data_out.e.(detname).dp_sum = convert.event_sum(data_out.h.(detname).dp, data_out.e.raw(:,detnr));
     % calculate the norm of the momentum sum:
     data_out.e.(detname).dp_sum_norm = general.vector.norm_vectorarray(data_out.e.(detname).dp_sum, 2);
+	
 	
 	% remove unused fields for memory saving:
 	data_out.h.(detname) = rmfield(data_out.h.(detname), 'p');

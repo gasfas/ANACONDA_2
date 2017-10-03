@@ -1,0 +1,69 @@
+function [hFig, hAx, hGraphObj] = plot_all(fit_md, fit_param, ax)
+% This function plots all the results of the fitting metadata in an
+% oversight plot. 
+% Input:
+% fit_md	struct with the fitting metadata
+% fit_param struct with the fitting results
+% ax		(optional) axes handle to plot into.
+% Output:
+% hFig		Figure handle
+% hAx		Axes handle
+% hGraphObj	Graphical Object handle
+if ~exist('ax', 'var')
+	hFig = figure;
+	hAx = axes;
+else
+	hFig = ax.Parent;
+	hAx = ax;
+end
+hFig = general.handle.fill_struct(hFig, fit_md.final_plot.figure);
+hAx = general.handle.fill_struct(hAx, fit_md.final_plot.axes);
+hold(hAx, 'on')
+
+if ~isfield(fit_md.final_plot, 'color_low_I')
+fit_md.final_plot.color_low_I	= [1 1 1]; % White background color
+end
+if ~isfield(fit_md.final_plot, 'color_high_I')
+fit_md.final_plot.color_high_I		= [1 0 0];
+end
+if ~isfield(fit_md.final_plot, 'dotsize')
+fit_md.final_plot.dotsize		= 1;
+end
+
+for i = 1:length(fit_param.q)
+	
+	q_cur	= fit_param.q(i);
+	result	= fit_param.result(i, 1:8+q_cur);
+	
+	% The y-axis is symmetrically distributed around zero:
+	y_pos	= -q_cur:2:q_cur;
+	x_pos	= q_cur*ones(size(y_pos));
+	I		= result(1:q_cur+1);
+	
+	full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
+	I_colors		= Intensity_colors(fit_md, full_I_colors, I);
+	
+	
+% 	Int_color = repmat(fit_md.final_plot.color_low_I, numel(I), 1) - repmat(I(:)./ max(max(I)), 1, 3) .* (repmat(fit_md.final_plot.color_low_I-fit_md.final_plot.color_high_I, numel(I), 1));
+	hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
+	hGraphObj.CData = I_colors;
+	hGraphObj = general.handle.fill_struct(hGraphObj, fit_md.final_plot.GraphObj);	
+end
+end
+
+function colors = composition_colors(fit_md, y_pos)
+rel_comp = (y_pos - min(y_pos))./(diff(y_pos([1 end]))); % the relative composition
+% We create a colormap to pick the right color from (component-dependent):
+[cmap_comp] = plot.custom_RGB_colormap(fit_md.final_plot.color_comp_1, fit_md.final_plot.color_comp_2);
+% And we pick the colors from there:
+colors		= interp1(linspace(0,1,256), cmap_comp, rel_comp, 'Nearest');
+end
+
+function colors = Intensity_colors(fit_md, full_I_colors, I)
+
+I_norm			= I./max(I); % normalize the intensity
+color_zero_I	= repmat(fit_md.final_plot.color_low_I, size(full_I_colors,1),1);% Fetch the color at zero intensity
+
+colors	= color_zero_I+(full_I_colors-color_zero_I).*repmat(I_norm', 1, 3);
+
+end

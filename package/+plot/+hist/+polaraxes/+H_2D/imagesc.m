@@ -1,4 +1,4 @@
-function [ hLine ] = imagesc(h_axes, midpoints, Count)
+function [ hLine ] = imagesc(h_axes, midpoints, Count, GraphObj_md)
 
 % Unfortunately, MATLAB (expensive software) does not support the plotting 
 % of surfaces in a PolarAxes.... It is easy in Python (free, matplotlib.pyplot).

@@ -19,7 +19,11 @@ data_out = data_in;
 detnames = fieldnames(metadata_in.det);
 
 for i = 1:length(detnames)
-    detname = detnames{i}; 
+    detname = detnames{i};         
+    % R, theta conversion:
+    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.R_theta']) && all(isfield(data_out.h.(detname), {'X', 'Y'}))
+        [data_out] = macro.convert.R_theta(data_out, metadata_in, detname);
+    end
     
     % Perform the m2q labeling: 
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.m2q']) && all(isfield(data_out.h.(detname), {'TOF'}))
@@ -52,14 +56,9 @@ for i = 1:length(detnames)
     end
     
     % KER conversion:  
-    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.KER']) && all(isfield(data_out.h.(detname), {'dp'}))
+    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.KER']) 
         [data_out] = macro.convert.KER(data_out, metadata_in, detname);
-    end
-        
-    % R, theta conversion:
-    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.R_theta']) && all(isfield(data_out.h.(detname), {'X', 'Y'}))
-        [data_out] = macro.convert.R_theta(data_out, metadata_in, detname);
-    end
+	end
     
     % p_2_p angle, mutual angle between double coincident fragment momenta.
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.angle_p_corr_C2']) && all(isfield(data_out.h.(detname), {'dp'}))
