@@ -41,7 +41,7 @@ end
 function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 	switch axestype
 		case 'm2q'
-			ticklabel					= sort(md.m2q_labels)';
+			ticklabel					= sort(unique(md.m2q_labels))';
 			Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabel),'%s');
 			Ax_new.([cname 'Tick'])		= round(unique(convert.m2q_2_TOF(ticklabel, ...
 												md.TOF_2_m2q.factor, ...
@@ -51,9 +51,18 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 		case 'cluster_size'
 			ticklabel					= md.fragment.sizes';
 			Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabel),'%s');
-			Ax_new.([cname 'Tick'])		= md.fragment.masses;
-			Ax_ori.([cname 'Tick'])			= Ax_new.([cname 'Tick']);
+			if size(md.fragment.sizes) == size(md.fragment.masses)
+				Ax_new.([cname 'Tick'])		= md.fragment.masses;
+				Ax_ori.([cname 'Tick'])			= Ax_new.([cname 'Tick']);
+			else % Multi-component cluster, we take the pure clusters:
+				% Calculate the average fragment mass:
+				Ax_new.([cname 'Tick'])		= mean(md.fragment.pure.masses, 2);
+				% We do not change the original axes tick.
+				Ax_new.grid					= 'off';
+				Ax_ori.grid					= 'on';
+			end
 			Ax_ori.([cname 'TickLabel'])	= Ax_ori.([cname 'Tick']);
+			
 		case 'CSD'
 			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
 			KER_ticks = Ax_ori.([cname 'Tick']);

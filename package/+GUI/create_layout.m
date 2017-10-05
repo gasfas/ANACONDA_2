@@ -117,7 +117,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
             NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
             md_GUI.UI.UIFilter.Tree.Enable = 1;
             if NumberOfLoadedFiles == 0
-                msgbox('No files are loaded.', '0 loaded files')
+                GUI.log.add('Could not display filters, no files loaded')
                 md_GUI.UI.UIFilter.Tree.Enable = 0;
             else
                 [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );

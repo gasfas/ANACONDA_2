@@ -25,4 +25,5 @@ md_GUI.UI.UIFilter = UIFilter;
 md_GUI.UI.UILoad = UILoad;
 md_GUI.UI.UIPlot = UIPlot;
 assignin('base', 'md_GUI', md_GUI);
+GUI.log.add('Session started')
 end

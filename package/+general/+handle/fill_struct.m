@@ -33,7 +33,9 @@ if ~isempty(struct) && ishandle(handle)
 			else
 				% overwrite the found field:
 				for h_nr = 1:nof_h
-					handle(h_nr).(sim_fn{i}) = struct.(sim_fn{i});
+					try handle(h_nr).(sim_fn{i}) = struct.(sim_fn{i});
+					catch warning(['Struct field ' sim_fn{i} ' failed to copy'])
+					end
 				end
 			end
 		end

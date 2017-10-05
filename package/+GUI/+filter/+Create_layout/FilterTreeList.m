@@ -43,14 +43,14 @@ Node.(['exp', int2str(expnom)]) = uiextras.jTree.TreeNode('Name',exp_name_in_tre
 %% Select nodes
 % Strongly recommend having single selection - multi selection not yet supported since filter structure altering has to be exported...
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'. For some reason suggested 'dis'-/'contiguous' ? ? ?
-%% Drag and drop
+% Drag and drop:
 UI.Tree.DndEnabled = true;
-%% Node editing
+% Node editing:
 UI.Tree.Editable = false;
-%% Root visibility - Visible = 1, Invisible = 0.
+% Root visibility - Visible = 1, Invisible = 0:
 UI.Tree.RootVisible = 0;
-%% Text font
-UI.Tree.FontSize = 7;
+% Text font (depending on window pixel size):
+UI.Tree.FontSize = md_GUI.filter.tree.FontSize
 %% Assign new md_GUI into base workspace.
 md_GUI.filter.Node = Node;
 assignin('base', 'md_GUI', md_GUI)
