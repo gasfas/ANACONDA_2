@@ -25,7 +25,8 @@ typesplit = strsplit(det_plottype, '.');
 if length(typesplit) == 2
     for lx = 1:length(selectedexpnumbers)
         exp_name = char(sel_exp_names(lx));
-        detname = char(typesplit(1));
+        % Find which detector is used:
+		detname = ['det' num2str(strfind(char(md_GUI.mdata_n.exp1.spec.det_modes), typesplit(1)))];
         plottype = char(typesplit(2));
         try
             % Plot them separately:
