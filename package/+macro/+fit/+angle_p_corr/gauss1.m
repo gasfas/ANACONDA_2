@@ -1,8 +1,8 @@
-function [FP, theta_containers, theta_hist_norm, theta_fit, f_e] = gauss1(data_in, angle_p_corr_md, fit_metadata, C_nr)
-% This macro plots the angle histogram of the angle between single-event momenta.
+function [FP, theta_containers, theta_hist_norm, theta_fit, f_e] = gauss1(data_in, plot_md, fit_metadata, C_nr)
+% This macro plots and fits the angle histogram of the angle between single-event momenta.
 % Input:
 % data_in       The experimental data, already converted
-% angle_p_corr_md Metadata struct containing binning information
+% plot_md		Metadata struct containing histogram information
 % fit_metadata  Metadata struct containing fitting information
 % C_nr          Integer coincidence number to be studied (can be 2, 3, ...)
 % Output:
@@ -24,8 +24,8 @@ angle_p_fieldname = ['angle_p_corr_C' num2str(C_nr, 1)];
 % Fetch the Ci events and their mutual angles (conversion should 
 % already have been done in the convert macro):
 theta_Ci = data_out.e.det1.(angle_p_fieldname);
-if general.struct.issubfield(angle_p_corr_md, 'cond')
-	f_e = macro.filter.conditions_2_filter(data_out, angle_p_corr_md.cond);
+if general.struct.issubfield(plot_md, 'cond')
+	f_e = macro.filter.conditions_2_filter(data_out, plot_md.cond);
 	theta = theta_Ci(f_e, :);
 else
 	theta = theta_Ci;
@@ -33,7 +33,7 @@ end
 
 %% Plotting
 
-[theta_hist_norm, theta_containers] = hist.H_solid_angle_polar(theta, angle_p_corr_md.binsize, angle_p_corr_md.x_range);
+[theta_hist_norm, theta_containers] = hist.H_solid_angle_polar(theta, plot_md.hist.binsize, plot_md.hist.Range);
 
 % Now we try out the fitting:
 % If requested, the range of theta is decreased:
@@ -47,7 +47,6 @@ else
 end
 fit_param = fit_metadata.fit_param;
 FP = fit.gauss(fit_theta_containers, fit_theta_hist_norm, fit_metadata, fit_param);
-
 
 theta_fit = theory.function.gauss_PDF(theta_containers, FP.mu.value, FP.sigma.value, FP.PH.value) + FP.y_bgr.value;
 
