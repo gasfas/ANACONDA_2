@@ -58,6 +58,8 @@ if md_GUI.load.NumberOfLoadedFiles > 0
         set(UIPlot.new.PlotConfButton, 'Enable', 'off')
         set(UIPlot.def.Popup_plot_type, 'Enable', 'off')
         set(UIPlot.def.PlotButton, 'Enable', 'off')
+		set(UIPlot.def.PlotConfEditButton, 'Enable', 'on')
+
     else
         md_GUI.load.selectedloadedfiles = selectedloadedfiles;
         % Multi selection not yet available.
@@ -123,6 +125,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             set(UIPlot.new.Popup_Filter_Selection, 'Enable', 'on')
             set(UIPlot.new.PlotButton, 'Enable', 'on')
             set(UIPlot.new.PlotConfButton, 'Enable', 'on')
+			set(UIPlot.def.PlotConfEditButton, 'Enable', 'on')
             set(UIPlot.def.Popup_plot_type, 'Enable', 'on')
             set(UIPlot.def.PlotButton, 'Enable', 'on')
 

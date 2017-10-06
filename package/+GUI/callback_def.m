@@ -26,6 +26,8 @@ set(UIPlot.new.PlotButton,...
     'Callback', @Plot_it_new)
 set(UIPlot.def.PlotButton,...
     'Callback', @Plot_it_def)
+set(UIPlot.def.PlotConfEditButton,...
+    'Callback', @Edit_Plot_Conf_def)
 
 set(UIFilter.EditFilter,...
     'Callback', @EditFilterButton)
@@ -98,7 +100,11 @@ set(UIPlot.new.PopupPlotSelected,...
     end
     function Plot_it_def(hObject, eventdata)
         GUI.plot.create.Plot_def();
-    end
+	end
+    function Edit_Plot_Conf_def(hObject, eventdata)
+        GUI.plot.md_edit.open_Variables();
+	end
+
     function Reset(hObject, eventdata) %Resets all data
         GUI.load.IO.buttons.Reset
     end

@@ -43,7 +43,8 @@ for expnum = 1:length(expnames)
                 % If the user wants to plot that plottype:
                 if metadata.plot.(detname).ifdo.(plotname{:})
                     % Create the plot figure and its contents:
-                     [h_figure.(detname).(plotname{:}), h_axes.(detname).(plotname{:}), h_GraphObj.(detname).(plotname{:}), exp] = macro.plot.create.plot(exp, metadata.plot.(detname).(plotname{:}));
+                     [h_figure.(detname).(plotname{:}), h_axes.(detname).(plotname{:}), h_GraphObj.(detname).(plotname{:}), exp] = ...
+						 macro.plot.create.plot(exp, metadata.plot.(detname).(plotname{:}));
                 end
             end
         else % no plots requested:

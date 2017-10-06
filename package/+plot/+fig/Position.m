@@ -14,6 +14,7 @@ if ~exist('pos_code', 'var')
 end
 
 % fetch the screensize of the monitor:
+set(groot, 'Units', 'pixels');
 screensize = get( groot, 'Screensize' );
 
 if isnumeric(pos_code) && length(pos_code) == 4
