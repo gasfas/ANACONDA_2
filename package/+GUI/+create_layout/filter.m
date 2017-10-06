@@ -67,7 +67,6 @@ UI.Tree.Root.Name = 'Filter';
 %UI.Tree.Units = 'normalized';
 UI.Tree.Position = [0.05 0.48 0.9 0.5];
 UI.Tree.Enable = 0;
-UI.Tree.FontSize = 12;
 UI.Tree.NodeDroppedCallback = @(x,y,z) GUI.filter.edit.DnD(x,y);
 UI.Tree.MouseClickedCallback = @(x,y,z) GUI.filter.edit.SetEditFilterBoxValue(x,y);
 end

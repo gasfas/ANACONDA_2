@@ -11,11 +11,11 @@
 function [ h_figure, UIctrl_plot ] = plot( h_figure, pos, h_tabs, tab_plot)
 %% Functions
 % Information about the listbox below
-UI.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.7]);
+UI.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.64]);
 % Def plot tab:
-tab_plot_def = uitab(UI.h_plot_tabs,'Title','Defined plot configurations');
+tab_plot_def = uitab(UI.h_plot_tabs,'Title','Defined plot conf');
 % New lot tab:
-tab_plot_new = uitab(UI.h_plot_tabs,'Title','New plot configuration');
+tab_plot_new = uitab(UI.h_plot_tabs,'Title','New plot conf');
 %% Defined Plotting
 [h_figure, UIctrl_plot.def] = GUI.create_layout.plot.def_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_def);
 %% New Plotting:

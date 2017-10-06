@@ -203,15 +203,17 @@ else
                 operatorexist = 0;
                 childrennames = fieldnames(base_field);
                 for llz = 1:length(childrennames)
-                    if strcmp(char(childrennames(llz)), 'operators')
+                    if strcmp(char(childrennames(llz)), 'operators') || strcmp(char(childrennames(llz)), 'operator')
                         operatorexist = 1;
                     end
                 end
             end
             if operatorexist == 0
                 if strcmp(char(base_fieldvalue(1)), 'Structure.')
-                    set(UIFilter.Fieldvalue, 'Enable', 'off')
-                    set(UIFilter.Fieldname, 'Enable', 'off')
+                    set(UIFilter.Fieldvalue, 'String', 'AND')
+                    set(UIFilter.Fieldname, 'String', 'operator')
+                    set(UIFilter.Fieldvalue, 'Enable', 'on')
+                    set(UIFilter.Fieldname, 'Enable', 'on')
                 else
                     set(UIFilter.Fieldvalue, 'Enable', 'on')
                     set(UIFilter.Fieldname, 'Enable', 'on')
@@ -219,7 +221,7 @@ else
             elseif operatorexist == 1
                 operatorvalue = base_field.operators;
                 set(UIFilter.Fieldvalue, 'String', operatorvalue)
-                set(UIFilter.Fieldname, 'String', 'operators')
+                set(UIFilter.Fieldname, 'String', 'operator')
                 set(UIFilter.Fieldvalue, 'Enable', 'on')
                 set(UIFilter.Fieldname, 'Enable', 'on')
             end

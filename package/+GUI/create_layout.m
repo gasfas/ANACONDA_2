@@ -110,12 +110,15 @@ tab_plot.ButtonDownFcn = @plottabopening;
         md_GUI = evalin('base', 'md_GUI');
         if md_GUI.UI.tabnumber == 3
             % Filter tab was already open.
+        elseif md_GUI.UI.tabnumber == 4
+            md_GUI.UI.UIFilter.Tree.Enable = 1;
         else
             md_GUI.UI.tabnumber = 3;
             % Filter tree is constructed.
             fileloading = 1;
             NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
             md_GUI.UI.UIFilter.Tree.Enable = 1;
+            md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
             if NumberOfLoadedFiles == 0
                 GUI.log.add('Could not display filters, no files loaded')
                 md_GUI.UI.UIFilter.Tree.Enable = 0;
@@ -134,7 +137,6 @@ tab_plot.ButtonDownFcn = @plottabopening;
         if md_GUI.UI.tabnumber == 3
             % Filter tree is destructed.
             UI = md_GUI.UI.UIFilter;
-            UI.Tree.Root.Children.delete
             md_GUI.UI.UIFilter.Tree.Enable = 0;
             md_GUI.UI.tabnumber = 4;
         else
