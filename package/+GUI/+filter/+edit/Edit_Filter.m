@@ -25,31 +25,54 @@ function [] = Edit_Filter(UIFilter)
     if length(fieldnames(parent)) > 1
     %if ~parent == 0
         nom_parents = length(fieldnames(parent)) - 2; %First fieldname is xyx ('waste'), and last one is the selected node.
+        prev_path = parent.s1;
+        for pathway = 2:(nom_parents) % 2 since number 1 is already set to prev_path.
+            prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
+        end
+        selected_node_path = [prev_path, '.', SelectedNode];
+        selected_node_path_cells = strsplit(selected_node_path, '.')
+        [exp_names] = strsplit(selected_node_path,'.');
+        exp_name = char(exp_names(1));
+        exp_parts = strsplit(selected_node_path,[exp_name, '.']);
+        exp_part = char(exp_parts(2));
+        exp_parts_struct = strsplit(exp_part, '.');
+        exp_parent_path = char(exp_parts_struct(1));
+        for llx = 2:length(exp_parts_struct)-1
+            exp_parent_path = [exp_parent_path, '.', char(exp_parts_struct(llx))];
+        end
         children = md_GUI.UI.UIFilter.Tree.SelectedNodes.Children;
 
         if ~isempty(children)
-            msgbox('This field cannot be edited using this function since it is not a filter but a filter folder.')
-        else
-            prev_path = parent.s1;
-            for pathway = 2:(nom_parents) % 2 since number 1 is already set to prev_path.
-                prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
+            base_field = general.struct.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+            if strcmp(md_GUI.UI.UIFilter.Fieldname.String, 'operator')
+                if isfield(base_field, 'operator')
+                    base_fieldvalue = base_field.operator;
+                elseif isfield(base_field, 'operators')
+                    base_fieldvalue = base_field.operators;
+                else
+                    base_fieldvalue = 'AND';
+                end
             end
-            selected_node_path = [prev_path, '.', SelectedNode];
-            selected_node_path_cells = strsplit(selected_node_path, '.')
+            % Now operater can be constructed or changed.
+            valsel = 0;
+            [ base_fieldvalue, valsel ] = GUI.filter.edit.Edit_Operator(base_fieldvalue, valsel);
+            if valsel == 1 % Means constructed or changed - add operator to filter structure.
+                %% Message to log_box - cell_to_be_inserted:
+                cell_to_be_inserted = ['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.cond.', exp_part];
+                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+                % End of new message to log_box function.
+                base_finalpath = ['cond.',exp_part, '.operator'];
+                md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, base_fieldvalue);
+                md_GUI.UI.UIFilter.Fieldvalue.String = base_fieldvalue;
+            end
+        else
             if selected_node_path == 0
                 %Do nothing.
             elseif strcmp(char(selected_node_path_cells(1)), 'built_in_filter') || strcmp(char(selected_node_path_cells(2)), 'built_in_filter')
                 msgbox('Cannot edit common filters.')
             else
-                [exp_names] = strsplit(selected_node_path,'.');
-                exp_name = char(exp_names(1));
-                exp_parts = strsplit(selected_node_path,[exp_name, '.']);
-                exp_part = char(exp_parts(2));
-                exp_parts_struct = strsplit(exp_part, '.');
-                exp_parent_path = char(exp_parts_struct(1));
-                for llx = 2:length(exp_parts_struct)-1
-                    exp_parent_path = [exp_parent_path, '.', char(exp_parts_struct(llx))];
-                end
+                
                 base_value = general.struct.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part); 
                 UI = md_GUI.UI.UIFilter;
                 fieldstoedit = [1 1 1 1 1];

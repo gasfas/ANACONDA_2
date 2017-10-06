@@ -9,7 +9,7 @@
 % Modifier:
 
 
-function [ h_figure, UI ] = new_plot( h_figure, pos, h_tabs, tab_plot)
+function [ h_figure, UI ] = def_plot( h_figure, pos, h_tabs, tab_plot)
 
 % Information about popup menu for plot selection
 UI.InformationText_plot_selection = uicontrol('Parent', tab_plot, ...

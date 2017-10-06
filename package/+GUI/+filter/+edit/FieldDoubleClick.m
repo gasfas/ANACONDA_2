@@ -109,8 +109,14 @@ function [] = FieldDoubleClick(UIFilter)
             valsel = 0;
             [ base_fieldvalue, valsel ] = GUI.filter.edit.Edit_Operator(base_fieldvalue, valsel);
             if valsel == 1 % Means constructed or changed - add operator to filter structure.
-                treatable = 1;
-                
+                treatable = 2;
+                %% Message to log_box - cell_to_be_inserted:
+                cell_to_be_inserted = ['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.', base_path, '.operator'];
+                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
+                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
+                % End of new message to log_box function.
+            else
+                treatable = 0;
             end
         otherwise %hmm what could this be... ?
             %% Message to log_box - cell_to_be_inserted:
@@ -152,6 +158,11 @@ function [] = FieldDoubleClick(UIFilter)
         [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
         md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
         % End of new message to log_box function.
+        assignin('base', 'md_GUI', md_GUI)
+    elseif treatable == 2 % Operator changing
+        base_finalpath = [base_path, '.operator'];
+        md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, base_fieldvalue);
+        md_GUI.UI.UIFilter.Fieldvalue.String = base_fieldvalue;
         assignin('base', 'md_GUI', md_GUI)
     end
 end

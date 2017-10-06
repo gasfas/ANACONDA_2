@@ -238,6 +238,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             end
             %% Values for the different settings in the defined plots tab:
             set(UIPlot.def.Popup_plot_type, 'String', popup_list_names)
+            set(UIPlot.def.Popup_plot_type, 'Value', 1)
             
             % How def plots Plot function works:
             %macro.plot.create.plot(md_GUI.data_n.exp1, md_GUI.mdata_n.exp1.plot.det1.KER_sum)
