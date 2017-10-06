@@ -23,6 +23,7 @@ md_GUI.load.folder_name = pwd;
 %% Filter
 md_GUI.filter.tree.NewNodeLevel = 1;
 md_GUI.filter.tree.NameOfTab = 'filter';
+set(groot,'units','pixels')
 scrsize = get( groot, 'Screensize' );
 %md_GUI.filter.tree.FontSize = max(8, scrsize(3) * 0.7 - 182); % Fontsize of the tree shown.
 md_GUI.filter.tree.FontSize = 40;
