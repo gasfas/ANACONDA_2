@@ -1,4 +1,4 @@
-function [ y ] = gauss_PDF(x, mu, sigma, PH, iscomplete)
+function [ y ] = gauss_PDF(x, mu, sigma, PH, show_components)
 % [ y ] = Gauss_PDF(x, mu, sigma, PH)
 % This function gives the PD from a Normal Gaussian distribution at
 % any point x.
@@ -12,36 +12,33 @@ function [ y ] = gauss_PDF(x, mu, sigma, PH, iscomplete)
 % Outputs:
 % y         [n, 1] The PD at the requested points
 
-if ~exist('iscomplete', 'var')
-    iscomplete = false;
+if ~exist('mu', 'var')
+	mu = zeros(size(x));
 end
-
-if ~iscomplete
-    % If the optional input arguments are not given:
-    if ~exist('sigma', 'var')
+if ~exist('sigma', 'var')
         sigma = 1;
-    end
-    if ~exist('mu', 'var')
-        mu = zeros(size(sigma));
-    end
-    if ~exist('PH', 'var')
-        PH = ones(size(sigma));
-    end
-
-    % we need all inputs to be a column vector:
-    if size(x,2) > 1
-        x = transpose(x);
-    end
-    if size(mu,2) > 1
-        mu = transpose(mu);
-    end
-    if size(sigma,2) > 1
-        sigma = transpose(sigma);
-    end
-    if size(PH,2) > 1
-        PH = transpose(PH);
-    end
 end
+if ~exist('PH', 'var')
+    PH = ones(size(sigma));
+end
+if ~exist('show_components', 'var')
+	show_components = false;
+end
+
+% we need all inputs to be a column vector:
+if size(x,2) > 1
+	x = transpose(x);
+end
+if size(mu,2) > 1
+	mu = transpose(mu);
+end
+if size(sigma,2) > 1
+	sigma = transpose(sigma);
+end
+if size(PH,2) > 1
+	PH = transpose(PH);
+end
+
 % The peak height correction matrix:
 PH_corr = diag(PH);
 
@@ -56,7 +53,9 @@ if ~isempty(x)
 else
 	y = [];
 end
-if length(mu) > 1
+if show_components
+	% We keep y separated for different gaussian peaks.
+else
     % Unite the two curves:
     y = sum(y, 2);
 end

@@ -85,7 +85,7 @@ if ~isempty(xdata) && ~isempty(ydata)
 	%% Reforming the parameter storage form
 	% so that the optimization function can work with it:
 	% We have to reform the struct to a matrix for the Initial guess(IG), the 
-	% Lower Boundary (UB) and the Upper boundary (UB) 
+	% Lower Boundary (LB) and the Upper boundary (UB) 
 
 	% There are several modes the optimization can work in:
 	switch IG.sigma.mode
@@ -134,7 +134,7 @@ if ~isempty(xdata) && ~isempty(ydata)
 
 	if nargout >= 2
 		% The user requests yfitdata:
-		yfitdata = af(FP.value, xdata); % plot(xdata, yfitdata, 'r')
+		yfitdata = af(FP.value, xdata); 
 	end
 else
 % 	No data given, so no fit can be made:

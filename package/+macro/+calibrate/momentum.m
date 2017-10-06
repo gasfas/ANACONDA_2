@@ -54,6 +54,9 @@ for plotnr = 1:rows*cols
     
 end
 subplot(rows,cols,ceil(cols/2))
+if length(labels_2_plot)<5
 title(['labels shown: ' sprintf('%0.0f ', labels_2_plot)])
-
+else
+title(['labels shown: ' sprintf('%0.0f ', labels_2_plot(1)) '-' sprintf('%0.0f ', labels_2_plot(end))])
+end
 end

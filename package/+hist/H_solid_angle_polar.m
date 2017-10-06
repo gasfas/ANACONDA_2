@@ -12,7 +12,7 @@ function [ theta_count, containers_mids ] = H_solid_angle_polar(theta, binsize_m
 
 % specify the bin containers:
 % containers =                plot.make_variable_binsize(binsize_mean, x_range, @(x) 1./sin(x));
-containers =                 hist.bins(x_range, binsize_mean)';
+containers =                 hist.bins(x_range, binsize_mean);
 
 % remove the hits outside the range (to prevent edge effects, and convert 
 % it to a one-dimensional array):
