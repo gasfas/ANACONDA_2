@@ -300,52 +300,59 @@ OK_btn = uicontrol('Parent',d,...
     end
     prevlistdatapointer = 'null';
     function listbox1_datapointer_callback(listbox1_datapointer, event)
-        
-            if ~strcmp(prevlistdatapointer, 'null'); % Means list is at zero-level
-                prevlistdatapointers = strsplit(prevlistdatapointer, '.');
-                if length(prevlistdatapointers) == 1
-                    
-                    listbox2_datapointer.Value = listbox1_datapointer.Value;
-
-                    listbox2_datapointer.String = listbox1_datapointer.String;
-            
-                    prevlistdatapointers = 'null';
-                end
-            end
-            
-        list1sel = listbox1_datapointer.String(listbox1_datapointer.Value);
-        full_datapointer_string = [char(list1sel)];
-        checkchildren = isstruct(datapointers.(char(list1sel)));
-        if checkchildren == 1
-            list2 = general.struct.getsubfield(datapointers, full_datapointer_string);
+        if ~strcmp(prevlistdatapointer, 'null'); % Means list is not at zero-level - make it zero-level.
             setdatapointerbutton.Enable = 'Off';
-            listbox2_datapointer.String = fieldnames(list2);
-            listbox3_datapointer.String = {'-'};
-            listbox4_datapointer.String = {'-'};
-            listbox2_datapointer.Value = 1;
-            listbox3_datapointer.Value = 1;
-            listbox4_datapointer.Value = 1;
-            listbox2_datapointer.Enable = 'On';
-            listbox3_datapointer.Enable = 'Off';
-            listbox4_datapointer.Enable = 'Off';
-        else
-            setdatapointerbutton.Enable = 'On';
+            list1 = fieldnames(datapointers);
+            prevlistdatapointer = 'null';
             listbox2_datapointer.String = {'-'};
-            listbox3_datapointer.String = {'-'};
-            listbox4_datapointer.String = {'-'};
-            listbox2_datapointer.Value = 1;
-            listbox3_datapointer.Value = 1;
-            listbox4_datapointer.Value = 1;
             listbox2_datapointer.Enable = 'Off';
-            listbox3_datapointer.Enable = 'Off';
-            listbox4_datapointer.Enable = 'Off';
+            listbox1_datapointer.Value = 1;
+            listbox1_datapointer.String = list1;
+        else % Means list is at zero-level
+            list1sel = listbox1_datapointer.String(listbox1_datapointer.Value);
+            full_datapointer_string = [char(list1sel)];
+            checkchildren = isstruct(datapointers.(char(list1sel)));
+            if checkchildren == 1
+                list2 = general.struct.getsubfield(datapointers, full_datapointer_string);
+                listbox2_datapointer.String = fieldnames(list2);
+                listbox2_datapointer.Enable = 'On';
+                setdatapointerbutton.Enable = 'Off';
+            else
+                listbox2_datapointer.String = {'-'};
+                listbox2_datapointer.Enable = 'Off';
+                setdatapointerbutton.Enable = 'On';
+            end
         end
+        listbox2_datapointer.Value = 1;
+        listbox3_datapointer.String = {'-'};
+        listbox4_datapointer.String = {'-'};
+        listbox3_datapointer.Value = 1;
+        listbox4_datapointer.Value = 1;
+        listbox3_datapointer.Enable = 'Off';
+        listbox4_datapointer.Enable = 'Off';
+        listbox3_datapointer.String = {'-'};
+        listbox4_datapointer.String = {'-'};
+        listbox3_datapointer.Value = 1;
+        listbox4_datapointer.Value = 1;
+        listbox3_datapointer.Enable = 'Off';
+        listbox4_datapointer.Enable = 'Off';
     end
     function listbox2_datapointer_callback(listbox2_datapointer, event)
         list2sel = listbox2_datapointer.String(listbox2_datapointer.Value);
         list1sel = listbox1_datapointer.String(listbox1_datapointer.Value);
-        full_datapointer_string = [char(list1sel), '.', char(list2sel)];
-        checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)));
+        if strcmp(prevlistdatapointer, 'null');
+            full_datapointer_string = [char(list1sel), '.', char(list2sel)];
+            checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)));
+        else
+            full_datapointer_string = [prevlistdatapointer, char(list1sel), '.', char(list2sel)];
+            prevlistdatapointers = strsplit(prevlistdatapointer, '.');
+            for lz = 1:length(prevlistdatapointers)-1
+                prevlistdatapoint(lz) = prevlistdatapointers(lz);
+            end
+            prevlistdatapointers = strjoin(prevlistdatapoint, '.');
+            preldatapointer = general.struct.getsubfield(datapointers, prevlistdatapointers);
+            checkchildren = isstruct(preldatapointer.(char(list1sel)).(char(list2sel)));
+        end
         if checkchildren == 1
             list3 = general.struct.getsubfield(datapointers, full_datapointer_string);
             setdatapointerbutton.Enable = 'Off';
@@ -369,8 +376,19 @@ OK_btn = uicontrol('Parent',d,...
         list3sel = listbox3_datapointer.String(listbox3_datapointer.Value);
         list2sel = listbox2_datapointer.String(listbox2_datapointer.Value);
         list1sel = listbox1_datapointer.String(listbox1_datapointer.Value);
-        full_datapointer_string = [char(list1sel), '.', char(list2sel), '.', (char(list3sel))];
-        checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)).(char(list3sel)));
+        if strcmp(prevlistdatapointer, 'null');
+            full_datapointer_string = [char(list1sel), '.', char(list2sel), '.', char(list3sel)];
+            checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)).(char(list3sel)));
+        else
+            full_datapointer_string = [prevlistdatapointer, char(list1sel), '.', char(list2sel), '.', char(list3sel)];
+            prevlistdatapointers = strsplit(prevlistdatapointer, '.');
+            for lz = 1:length(prevlistdatapointers)-1
+                prevlistdatapoint(lz) = prevlistdatapointers(lz);
+            end
+            prevlistdatapointers = strjoin(prevlistdatapoint, '.');
+            preldatapointer = general.struct.getsubfield(datapointers, prevlistdatapointers);
+            checkchildren = isstruct(preldatapointer.(char(list1sel)).(char(list2sel)).(char(list3sel)));
+        end
         if checkchildren == 1
             list4 = general.struct.getsubfield(datapointers, full_datapointer_string);
             setdatapointerbutton.Enable = 'Off';
@@ -390,12 +408,20 @@ OK_btn = uicontrol('Parent',d,...
         list2sel = listbox2_datapointer.String(listbox2_datapointer.Value);
         list1sel = listbox1_datapointer.String(listbox1_datapointer.Value);
         full_datapointer_string = [char(list1sel), '.', char(list2sel), '.', (char(list3sel)), '.', (char(list4sel))];
-        if strcmp(prevlistdatapointer, 'null'); % Means list is at zero-level
+        
+        
+        if strcmp(prevlistdatapointer, 'null');
+            full_datapointer_string = [char(list1sel), '.', char(list2sel), '.', char(list3sel), '.', char(list4sel)];
             checkchildren = isstruct(datapointers.(char(list1sel)).(char(list2sel)).(char(list3sel)).(char(list4sel)));
-        else % Means list is already at a non-zero level
+        else
             full_datapointer_string = [prevlistdatapointer, char(list1sel), '.', char(list2sel), '.', char(list3sel), '.', char(list4sel)];
-            list4selstruct = general.struct.getsubfield(datapointers, full_datapointer_string);
-            checkchildren = isstruct(list4selstruct);
+            prevlistdatapointers = strsplit(prevlistdatapointer, '.');
+            for lz = 1:length(prevlistdatapointers)-1
+                prevlistdatapoint(lz) = prevlistdatapointers(lz);
+            end
+            prevlistdatapointers = strjoin(prevlistdatapoint, '.');
+            preldatapointer = general.struct.getsubfield(datapointers, prevlistdatapointers);
+            checkchildren = isstruct(preldatapointer.(char(list1sel)).(char(list2sel)).(char(list3sel)).(char(list4sel)));
         end
         if checkchildren == 1
             if strcmp(prevlistdatapointer, 'null'); % Means list is at zero-level
