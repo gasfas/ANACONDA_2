@@ -219,7 +219,7 @@ else
                     set(UIFilter.Fieldname, 'Enable', 'on')
                 end
             elseif operatorexist == 1
-                operatorvalue = base_field.operators;
+                operatorvalue = base_field.operator;
                 set(UIFilter.Fieldvalue, 'String', operatorvalue)
                 set(UIFilter.Fieldname, 'String', 'operator')
                 set(UIFilter.Fieldvalue, 'Enable', 'on')
