@@ -132,11 +132,12 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             lzz = 1;
             expname(lzz) = cellstr(['exp', num2str(filenumber(lzz))]);
             hits_evs(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))])));
-            detectornum(lzz, :) = cellstr(fieldnames(md_GUI.data_n.([char(expname(lzz))]).(char(hits_evs(lzz, 2)))));
+			% fetch the detector names:
+            detectorname(lzz, :) = cellstr(fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).det));
             % Set 
             expsettings_plot = md_GUI.plot.expsettings.([char(expname(1))]);
             detnom = expsettings_plot(2);
-            plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectornum(1, detnom))));
+            plottypes(lzz, :) = fieldnames(md_GUI.mdata_n.([char(expname(lzz))]).plot.(char(detectorname(1, detnom))));
             plottypes_Y(lzz, 1) =  cellstr('Pre-defined');
             for lxz = 1:length(plottypes(lzz, :))
                 plottypes_Y(lzz, lxz+1) = plottypes(lzz, lxz);
@@ -204,10 +205,11 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             end
             %% Plot types for defined plots tab:
             nextp = 1;
+			plottypes_def = {}; popup_list_names = {};
             for lx = 1:length(exp_names)
                 current_exp_name = char(exp_names(lx));
                 % Get number of detectors.
-                detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).plot);
+                detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).det);
                 if ischar(detector_choices)
                     numberofdetectors = 1;
                     detector_choices = cellstr(detector_choices);
@@ -216,20 +218,26 @@ if md_GUI.load.NumberOfLoadedFiles > 0
                 end
                 for ly = 1:numberofdetectors
                     current_det_name = char(detector_choices(ly));
+					detnr			 = IO.detname_2_detnr(current_det_name);
+					% Find a human-readable detector name:
+					hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
                     currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.(current_det_name));
+					% remove possible 'ifdo' fields:
+					currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
                     numberofplottypes = length(currentplottypes);
-                    for lz = 1:numberofplottypes
-                        if exist('plottypes_def')
-                            nextp = length(plottypes_def) + 1;
-                        else
-                            nextp = 1;
-                        end
-                        plottypes_def(nextp) = cellstr([current_det_name, '.' char(currentplottypes(lz))]);
-                    end
+					
+					% write dots between detectornames and fieldnames:
+					popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
+					plottypes_def(1,end+1:end+numberofplottypes) = currentplottypes;
+					popup_list_names(1,end+1:end+numberofplottypes) = popup_list_names_det;
+% 					general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '')
+%                     for lz = 1:numberofplottypes
+%                         plottypes_def(end+1) = cellstr([current_det_name, '.' char(currentplottypes(lz))]);
+%                     end
                 end
             end
             %% Values for the different settings in the defined plots tab:
-            set(UIPlot.def.Popup_plot_type, 'String', plottypes_def)
+            set(UIPlot.def.Popup_plot_type, 'String', popup_list_names)
             
             % How def plots Plot function works:
             %macro.plot.create.plot(md_GUI.data_n.exp1, md_GUI.mdata_n.exp1.plot.det1.KER_sum)
@@ -240,7 +248,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             set(UIPlot.new.Popup_Filter_Selection, 'String', Filters_string_name)
             set(UIPlot.new.Popup_experiment_name, 'String', selectedloadedfiles);
             set(UIPlot.new.Popup_Hits_or_Events, 'String', hits_evs(1, :))
-            set(UIPlot.new.Popup_detector_choice, 'String', detectornum(1, :))
+            set(UIPlot.new.Popup_detector_choice, 'String', detectorname(1, :))
             set(UIPlot.new.Popup_graph_type_X, 'String', plottypes(1, :))
             set(UIPlot.new.Popup_graph_type_Y, 'String', plottypes_Y(1, :))
             set(UIPlot.new.PopupPlotSelected, 'String', {'Plot all in new figure together', 'Plot all separately', 'Plot selection into pre-existing figure'})

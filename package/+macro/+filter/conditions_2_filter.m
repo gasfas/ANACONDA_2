@@ -60,6 +60,7 @@ function [f, exp_data] = C2F(exp_data, conditions)
 			metaconds = cond_fn(idx_substr);
 			if strcmpi('operator', cond_fn) % We allow the name 'operator' as well:
 				conditions.operators = conditions.operator;
+				conditions	= rmfield(conditions, 'operator');
 			end
 			% Default value if the operators are not defined: 
 			if ~any(strcmpi('operators', cond_fn))

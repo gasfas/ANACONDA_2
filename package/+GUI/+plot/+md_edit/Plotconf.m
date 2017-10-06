@@ -38,6 +38,8 @@ graphtype_X = char(graphtypes(graphnum_X));
 
 
 plotconf_fieldnames = md_GUI.mdata_n.([exp_name]).plot.([detectorname]).([char(graphtype_X)]);
+% Exclude the 'signal' subfield:
+
 % Get name of all properties of the selected plottype. In the future: Also have plot configurations for graphtype_Y.
 nameof_x_fields = fieldnames(plotconf_fieldnames);
 fieldselected = nameof_x_fields(1); % 1 since the first field will be displayed in the popup window.
