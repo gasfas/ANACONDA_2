@@ -81,12 +81,18 @@ function fit_param = fit_m2q(fit_md, data_in, fit_param, j)
         % Fit!
         [result.param,result.residual_norm_lsqc,result.residuals,result.exitflag,result.fit_info] = lsqcurvefit( ...
                     runner_f, IG, xdata, yfitdata, LB, UB, options);
-				
+		
+		% Calculate the goodness of the fit:
+		yfit = runner_f(result.param, xdata);
+		result.goodness = goodnessOfFit(yfit, yfitdata, fit_md.goodness.Cost_func);
+		
         % Fill in the results of this simulation into output struct:
         [fit_param] = macro.fit.m2q.exit_fit_param(fit_param, fit_md, result, j, IG, LB, UB, fit_md.Type);
 
 		if general.struct.probe_field(fit_md.ifdo, 'plots') % Does the user want to see the plots?
-			macro.fit.m2q.plot.after(ax, xdata, runner_f(result.param, xdata));
+			xshowdata			= linspace(xdata(1),xdata(end), numel(xdata)*5)';
+			[y_sum, y_comp]		= runner_f(result.param, xshowdata);
+			macro.fit.m2q.plot.after(ax, xshowdata, y_sum, y_comp);
 		end
 end
 

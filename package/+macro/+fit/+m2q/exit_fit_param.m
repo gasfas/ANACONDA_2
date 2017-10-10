@@ -25,6 +25,7 @@ switch model_Type
 			fit_param.LB(simnr,1:8+fit_md.q)	= LB;
 			fit_param.UB(simnr,1:8+fit_md.q)	= UB;
 			fit_param.p_m_q(simnr)				= fit_param.result(simnr,5);
+			fit_param.goodness(simnr)			= result.goodness;
 	case 'bin'
 	        fit_param.q(simnr)					= fit_md.q;
 			fit_param.result(simnr,:)			= result.param;

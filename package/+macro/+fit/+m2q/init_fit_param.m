@@ -18,6 +18,7 @@ switch model_Type
 		fit_param.IG            = NaN*ones(length(all_q),8+max(all_q));
 		fit_param.LB            = NaN*ones(length(all_q),8+max(all_q));
 		fit_param.UB            = NaN*ones(length(all_q),8+max(all_q));
+		fit_param.goodness		= NaN*ones(length(all_q),1);
 	case 'bin'
 		fit_param.q             = NaN*ones(length(all_q),1);
 		fit_param.result        = NaN*ones(length(all_q),8);
