@@ -28,7 +28,14 @@ set(UIPlot.def.PlotButton,...
     'Callback', @Plot_it_def)
 set(UIPlot.def.PlotConfEditButton,...
     'Callback', @Edit_Plot_Conf_def)
-
+set(UIPlot.new.new_x_signal,...
+    'Callback', @New_X_Signal)
+set(UIPlot.new.new_y_signal,...
+    'Callback', @New_Y_Signal)
+set(UIPlot.new.edit_x_signal,...
+    'Callback', @Edit_X_Signal)
+set(UIPlot.new.edit_y_signal,...
+    'Callback', @Edit_Y_Signal)
 set(UIFilter.EditFilter,...
     'Callback', @EditFilterButton)
 set(UIFilter.RenameFilter,...
@@ -42,6 +49,10 @@ set(UIPlot.new.PlotConfButton,...
 set(UILoad.FiletypeEditBox, ...
     'Callback', @Filetypeselection)
 
+% set checkboxes
+set(UIPlot.new.y_signals_checkbox,...
+    'Callback', @Y_Signals_Checkbox)
+
 % set listboxes
 set(UIPlot.LoadedFilesPlotting, ...
     'Callback',@LoadedFilesCall) %To the plotting tab
@@ -53,22 +64,14 @@ set(UIFilter.Fieldname, ...
     'Callback',@FilterFieldNameCall)
 set(UIFilter.Fieldvalue, ...
     'Callback',@FilterFieldValueCall) %To the filter tab
+set(UIPlot.new.x_signals_list,...
+    'Callback', @X_Signals_List)
+set(UIPlot.new.y_signals_list,...
+    'Callback', @Y_Signals_List)
 
 % set popupboxes
-set(UIPlot.new.Popup_experiment_name, ...
-    'Callback', @Popup_experiment)
-set(UIPlot.new.Popup_Hits_or_Events, ...
-    'Callback', @Popup_HitsEvents)
-set(UIPlot.new.Popup_Filter_Selection, ...
+set(UIPlot.Popup_Filter_Selection, ...
     'Callback', @Popup_FilterSelect)
-set(UIPlot.new.Popup_detector_choice, ...
-    'Callback', @Popup_detector)
-set(UIPlot.new.Popup_plot_dimensions,...
-    'Callback', @Dimensions)
-set(UIPlot.new.Popup_graph_type_X,...
-    'Callback', @Popup_graph_X)
-set(UIPlot.new.Popup_graph_type_Y,...
-    'Callback', @Popup_graph_Y)
 set(UIPlot.new.PopupPlotSelected,...
     'Callback', @PlotTypeSel)
 
@@ -78,22 +81,29 @@ set(UIPlot.new.PopupPlotSelected,...
     end
 
 %%  Functions for buttons
+    function New_X_Signal(hObject, eventdata)
+        %GUI.plot.md_edit.Plotconf();
+    end
+    function New_Y_Signal(hObject, eventdata)
+        %GUI.plot.md_edit.Plotconf();
+    end
+    function Edit_X_Signal(hObject, eventdata)
+        %GUI.plot.md_edit.Plotconf();
+    end
+    function Edit_Y_Signal(hObject, eventdata)
+        %GUI.plot.md_edit.Plotconf();
+    end
     function Plotconf(hObject, eventdata)
         GUI.plot.md_edit.Plotconf();
     end
     function LoadFolder(hObject, eventdata)
         GUI.load.IO.buttons.LoadFolder( hObject, eventdata, UIPlot.new, UILoad );
     end
-    function SaveButton(hObject, eventdata) %Does nothing now, button for future purposes.
+    function SaveButton(hObject, eventdata)
         GUI.work.SaveWork( );
     end
-    function Conf(hObject, eventdata)
-        GUI.load.IO.buttons.Conf();
-    end
     function LoadFile(hObject, eventdata)
-        %set(UILoad.LoadFileButton, 'Enable', 'off')
         GUI.load.IO.buttons.LoadFile(UILoad, UIPlot, UIFilter);
-        %set(UILoad.LoadFileButton, 'Enable', 'on')
     end
     function Plot_it_new(hObject, eventdata)
         GUI.plot.create.Plot();
@@ -105,7 +115,7 @@ set(UIPlot.new.PopupPlotSelected,...
         GUI.plot.md_edit.open_Variables();
 	end
 
-    function Reset(hObject, eventdata) %Resets all data
+    function Reset(hObject, eventdata)
         GUI.load.IO.buttons.Reset
     end
     function UnLoadFile(hObject, eventdata)
@@ -114,9 +124,6 @@ set(UIPlot.new.PopupPlotSelected,...
     function EditFilterButton(hObject, eventdata)
         GUI.filter.edit.Edit_Filter(UIFilter);
     end
-%     function CopyFilterButton(hObject, eventdata)
-%         GUI.filter.edit.Copy_Filter(UIFilter);
-%     end
     function RenameFilterButton(hObject, eventdata)
         GUI.filter.edit.Rename_Filter(UIFilter);
     end
@@ -125,30 +132,26 @@ set(UIPlot.new.PopupPlotSelected,...
     end
 
 %%  Functions for popupboxes
-    function Popup_experiment(hObject, eventdata)
-        GUI.plot.data_selection.Popup_experiment_name(hObject, eventdata, UILoad, UIPlot.new);
-    end
-    function Popup_HitsEvents(hObject, eventdata)
-        GUI.plot.data_selection.Popup_Hits_or_Events(hObject, eventdata, UILoad, UIPlot.new);
-    end
     function Popup_FilterSelect(hObject, eventdata)
         GUI.plot.data_selection.Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot.new);
-    end
-    function Popup_detector(hObject, eventdata)
-        GUI.plot.data_selection.Popup_detector_choice(hObject, eventdata, UILoad, UIPlot.new);
-    end
-    function Dimensions(hObject, eventdata)
-        GUI.plot.data_selection.Popup_plot_dimensions(hObject, eventdata, UILoad, UIPlot.new);
-    end
-    function Popup_graph_X(hObject, eventdata)
-        GUI.plot.data_selection.Popup_graph_type_X(hObject, eventdata, UILoad, UIPlot.new);
-    end
-    function Popup_graph_Y(hObject, eventdata)
-        GUI.plot.data_selection.Popup_graph_type_Y(hObject, eventdata, UILoad, UIPlot.new);
     end
     function PlotTypeSel(hObject, eventdata)
         GUI.plot.data_selection.Popup_Plot_Selection(hObject, eventdata, UILoad, UIPlot.new);
     end
+
+%% Functions for checkboxes
+    function Y_Signals_Checkbox(hObject, eventdata)
+        if UIPlot.new.y_signals_checkbox.Value == 0
+            UIPlot.new.new_y_signal.Enable = 'off';
+            UIPlot.new.edit_y_signal.Enable = 'off';
+            UIPlot.new.y_signals_list.Enable = 'off';
+        else
+            UIPlot.new.new_y_signal.Enable = 'on';
+            UIPlot.new.edit_y_signal.Enable = 'on';
+            UIPlot.new.y_signals_list.Enable = 'on';
+        end
+    end
+
 %%  Functions for listboxes
     function FilesList(hObject, eventdata)
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
@@ -161,5 +164,11 @@ set(UIPlot.new.PopupPlotSelected,...
     end
     function FilterFieldNameCall(hObject, eventdata)
         GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
+    end
+    function X_Signals_List(hObject, eventdata)
+        %GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
+    end
+    function Y_Signals_List(hObject, eventdata)
+        %GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
     end
 end

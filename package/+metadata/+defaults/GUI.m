@@ -37,6 +37,4 @@ md_GUI.filter.built_in_filter.cond.Combined_Filter.HitsFilter.value = [0 5 10 15
 md_GUI.filter.built_in_filter.cond.Combined_Filter.HitsFilter.data_pointer = 'h.det1.m2q_l';
 %% Plot
 md_GUI.plot.filtersel = 'No_Filter';
-md_GUI.plot.expsettings.All = [2 1 1];
-md_GUI.plot.plotsettings = [1 1 1 1];
 end
