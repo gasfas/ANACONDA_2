@@ -24,7 +24,7 @@ for i = 1:numel(signal_md)
 	signal_cur = signal_md{i};
 	% First, we check the data pointers:
 	% Find whether event or hit signals are given:
-	isevent(i)	= metadata.data_pointer.is_event_signal( signal_cur.data_pointer );
+	isevent(i)	= IO.data_pointer.is_event_signal( signal_cur.data_pointer );
 	% Find from which detector the signals come:
 	detnr(i)	= metadata.data_pointer.fetch_det_nr( signal_cur.data_pointer );
 	

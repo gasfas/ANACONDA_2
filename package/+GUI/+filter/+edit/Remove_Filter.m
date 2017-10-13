@@ -91,13 +91,13 @@ function [] = Remove_Filter(UIFilter)
                             if length(FieldToRmvCell) == 1
                                 md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, FieldToRmv);
                             else
-                                md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, FieldToRmv);
+                                md_GUI.filter.built_in_filter.cond = general.struct.rmsubfield(md_GUI.filter.built_in_filter.cond, FieldToRmv);
                             end
                         else
                             if length(FieldToRmvCell) == 1
                                 md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, FieldToRmv);
                             else
-                                md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, FieldToRmv);
+                                md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, FieldToRmv);
                             end
                         end
                         %% Message to log_box - cell_to_be_inserted:

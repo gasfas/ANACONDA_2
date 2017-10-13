@@ -27,6 +27,7 @@ md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
 % End of new message to log_box function.
 newfilter_selected = strrep(filter_selected,'__','.');
 exp_names = md_GUI.load.exp_names;
+if ischar(exp_names); exp_names = {exp_names}; end
 exp_nom = md_GUI.plot.experiment_selected_number;
 exp_selnum = exp_nom;
 if exp_selnum == 0 % User is defining metadata for ALL experiments at the same time.

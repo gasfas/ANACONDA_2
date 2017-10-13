@@ -107,7 +107,7 @@ end
 function hist_data = fetch_data(exp, hist_md, e_filter)
 	
 %% Are we dealing with an event or hit property?
-isevent_signal	= metadata.data_pointer.is_event_signal( hist_md.pointer );
+isevent_signal	= IO.data_pointer.is_event_signal( hist_md.pointer );
 isevent			= any(isevent_signal) || isfield(hist_md, 'hitselect');
 
 %% EVENTS

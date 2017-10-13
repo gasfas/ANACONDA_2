@@ -204,7 +204,7 @@ OK_btn = uicontrol('Parent',d,...
        'fontsize', 12,...
        'Position',[0.85 0.03 0.1 0.06],...
        'String','Ok',...
-       'Callback','delete(gcf)');
+       'Callback',@ok_callback);
     function type_callback(popup_type,event)
         idx = popup_type.Value;
         popup_items = popup_type.String;
@@ -444,14 +444,24 @@ OK_btn = uicontrol('Parent',d,...
         end
     end
     function setdatapointerbutton_callback(setdatapointerbutton, event)
-        txt_datapointer.String = ['Current data pointer:   ', char(full_datapointer_string)];
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['New data pointer set: ', full_datapointer_string];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
+        %% Message to log_box:
+        GUI.log.add(['New data pointer set to: ', full_datapointer_string])
         base_value.data_pointer = full_datapointer_string;
-    end
+	end
+
+    function ok_callback(setdatapointerbutton, event)
+		% Pressing this button tells us that the user thinks the condition
+		% is ready for use. We check the parameters to be sure:
+		if ~IO.data_pointer.is_event_signal(base_value.data_pointer) & ~isfield(base_value, 'translate_condition')
+			% This means it is a hit condition, without translate
+			% condition. This will cause an error, and we add a default AND
+			% as a translate condition:
+			base_value.translate_condition = 'AND';
+			% Message to log_box:
+			GUI.log.add('Translate condition missing, set to default ´AND´');
+		end
+        delete(gcf)
+	end
 % Wait for d to close before running to completion
 uiwait(d);
 end

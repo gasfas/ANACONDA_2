@@ -92,7 +92,7 @@ function signal = fetch_signal (exp, name)
 if general.struct.issubfield(exp, name)
 	signal = general.struct.probe_field(exp, name);
 	 % If it does not exist, and it is an event sum property, we can create it from the hit data:
-elseif IO.is_event_pointer(name) && strcmp(name(end-3:end), '_sum') && general.struct.issubfield(exp, ['h.' name(3:end-4)])
+elseif IO.data_pointer.is_event_signal(name) && strcmp(name(end-3:end), '_sum') && general.struct.issubfield(exp, ['h.' name(3:end-4)])
 	hit_signal = general.struct.probe_field(exp, ['h.' name(3:end-4)]);
 	e_raw = exp.e.raw(:,IO.det_nr_from_fieldname(name));
 	signal	= convert.event_sum(hit_signal, e_raw);

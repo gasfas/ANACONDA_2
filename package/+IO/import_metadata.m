@@ -2,7 +2,7 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
  %  This macro imports the metadata from a filename.
  %  input:
 % filename  The directory and filename to the metadatafile of interest.
-%           If no file extension is given, a MAT file is searched. if not
+%           If no file extension is given, a MAT file is searched. if no
 %           MAT file is found, a .m script is attempted to be loaded.
  
  [dir, file, ext] = fileparts(filename);
