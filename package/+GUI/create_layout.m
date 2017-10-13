@@ -125,7 +125,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
             md_GUI.UI.UIFilter.Tree.Enable = 1;
             md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
             if NumberOfLoadedFiles == 0
-                GUI.log.add('Could not display filters, no files loaded')
+                GUI.log.add('Could not display filters, no files loaded');
                 md_GUI.UI.UIFilter.Tree.Enable = 0;
             else
                 [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
