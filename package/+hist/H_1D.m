@@ -19,4 +19,8 @@ if length(Count) ~= length(x_midpoints)
 	[Count, edges] = histcounts(x_data, x_edges);
 	x_midpoints = hist.edges_2_mids(edges);
 end
-
+% For some strange reason, the histogram function transposes when x_data is
+% empty:
+if isempty(x_data)
+	Count = transpose(Count);
+end

@@ -13,7 +13,12 @@ hold(ax, 'on')
 if any(size(I_bgr) ~= size(xdata))
 	I_bgr = I_bgr(1)*ones(size(xdata));
 end
-plot(ax, xdata, [I_data, I_bgr, I_IG])
+hLines = plot(ax, xdata, [I_data, I_bgr, I_IG]);
+hLines(1).LineStyle = 'none';
+hLines(1).Marker = '*';
+hLines(1).Color = 'r';
+hLines(2).LineStyle = ':';
+hLines(3).LineStyle = ':';
 legend(ax, 'Raw data', 'Background level', 'Initial guess')
 set (ax.Parent, 'Position', plot.fig.Position('se'));
 xlim([min(xdata), max(xdata)])

@@ -1,6 +1,6 @@
 function [ DF, FP ] = gauss(xdata, ydata, nof_peaks)
 %This function lists the defaults for a Gaussian fit simulation. Defaults
-%are used when the user ha not specified certain needed parameters.
+%are used when the user has not specified certain needed parameters.
 % Input:
 % xdata         [n, 1] The input data x
 % ydata         [n, 1] The input data y

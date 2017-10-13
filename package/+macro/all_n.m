@@ -20,11 +20,11 @@ exp_names		 = ds.info.foi;
 for i = 1:ds.info.numexps
     exp_name			= exp_names{i};
 	data(i)				= ds.(exp_name);
-	md(i)				= mds.(exp_name);
+	md{i}				= mds.(exp_name);
 end
 
 for i = 1:ds.info.numexps
-	data(i) = macro.all(data(i), md(i), procedure_spec);
+	data(i) = macro.all(data(i), md{i}, procedure_spec);
 end
 
 for i = 1:ds.info.numexps

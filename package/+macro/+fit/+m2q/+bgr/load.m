@@ -6,7 +6,7 @@ if general.struct.issubfield(fit_md, 'bgr_subtr.filename')
 	% We load the background measurement data:
 	bgr =   IO.import_raw(fit_md.bgr_subtr.filename);
 	bgr_md = IO.import_metadata(fit_md.bgr_subtr.filename);
-	[bgr, bgr_md] = all(bgr, bgr_md, {'correct', 'convert'});
+	[bgr, bgr_md] = macro.all(bgr, bgr_md, {'correct', 'convert'});
 	bgr_data	= bgr.h.(detname).m2q;
 else % no background data defined, so we do it without:
 	bgr_data = [];

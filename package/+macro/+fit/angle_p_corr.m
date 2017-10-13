@@ -1,4 +1,4 @@
-function  [fit_param] = angle_p_corr(data_in, metadata_in, C_nr, det_name)
+function  [fit_param, hFig, hAx, hLine] = angle_p_corr(data_in, metadata_in, C_nr, det_name)
 % This macro executes momentum angle fits.
 % Input:
 % data_in        The experimental data, already converted
@@ -23,8 +23,8 @@ for i = 1:length(detnames)
 	
 	%% Fitting the curves with gaussian peaks:
 	[fit_param, theta_containers, theta_hist_norm, theta_fit] = macro.fit.angle_p_corr.gauss1(data_in, fit_md.plot, fit_md.gauss, C_nr);
-    
-    hLine = p1_2_p2_data_and_fit(polaraxes, theta_containers, theta_hist_norm, fit_param, fit_md.plot);
+    hFig = figure; hAx = polaraxes;
+    hLine = p1_2_p2_data_and_fit(hAx, theta_containers, theta_hist_norm, fit_param, fit_md.plot);
 % 	%% calculate the relative intensities in hits:
 % 	% calculate the total:
 % 	[~, I_hits_total]= macro.fit.angle_p_corr.I_solid_angle_2_cart(theta_containers, theta_hist_norm);
@@ -49,8 +49,11 @@ hLine			= macro.hist.create.GraphObj(ax, hist, plot_md.GraphObj);
 ax				= general.handle.fill_struct(ax, plot_md.axes);
 
 hold on
-% The fitted curve:
+% The fitted curve(s):
 y = theory.function.gauss_PDF(theta_containers, fit_param.mu.value, fit_param.sigma.value, fit_param.PH.value, true);
+if size(y, 2) > 1 % more than one curve fitted, so we give a total as well:
+	y(:, end+1) = sum(y, 2);
+end
 polarplot(ax, theta_containers, y, 'LineStyle', '-'); 
 
 end

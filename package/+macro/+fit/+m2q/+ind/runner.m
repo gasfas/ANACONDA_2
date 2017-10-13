@@ -1,4 +1,4 @@
-function [ ydata ] = runner(parameters, xdata)
+function [ ydata, y_comp] = runner(parameters, xdata)
 %  This function fits a set of close Gaussian peaks, and does not assume a
 % certain relation between the peak intensities.
 % Inputs:
@@ -22,7 +22,13 @@ rph             = parameters(1:q+1); % The relative peak height.
 % calculating ydata:
 X               = repmat(xdata, 1, q+1); % the xdata in useful form
 YV              = macro.fit.m2q.PDfunction.voigt(X, mu, sigma_G, sigma_L); % Voigt profile
-PDF             = rph;% the peaks in binomial distribution
-y_norm          = sum(repmat(PDF, size(xdata,1), 1).*YV,2); % the normalized ydata
-ydata           = peak_height./max(y_norm) * y_norm + noise_level; % adding the noise
+PDF             = rph; % relative peak heights
+y_norm			= repmat(PDF, size(xdata,1), 1).*YV;
+y_sum			= sum(y_norm,2); % the normalized ydata
+
+ydata           = peak_height./max(y_sum) * y_sum + noise_level; % adding the noise
+
+if nargin > 1
+	y_comp		= peak_height./max(y_sum) * y_norm + noise_level;
+end
 end
