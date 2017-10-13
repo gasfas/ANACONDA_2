@@ -107,7 +107,7 @@ end
 function hist_data = fetch_data(exp, hist_md, e_filter)
 	
 %% Are we dealing with an event or hit property?
-isevent_signal	= IO.is_event_pointer(hist_md.pointer);
+isevent_signal	= metadata.data_pointer.is_event_signal( hist_md.pointer );
 isevent			= any(isevent_signal) || isfield(hist_md, 'hitselect');
 
 %% EVENTS
@@ -143,7 +143,7 @@ if isevent
 			hist_data(:,col_nr:col_nr+nof_cols-1) = event_data(hitnr_filter,:);
 		else % we deal with a hit signal, accompanied with hitselect:
 			hitnr = hist_md.hitselect(sign_nr);
-			hit_data		= read_data_pointer(hist_md.pointer{sign_nr}, exp);
+			hit_data		= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(hit_data, 2);
 			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hist_data(:,col_nr:col_nr+nof_cols-1) = hit_data(exp.e.raw(hitnr_filter, detnr)+hitnr-1);
