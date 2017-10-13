@@ -14,10 +14,14 @@ data = IO.read_data_pointer(data_pointer, exp);
 
 % Then, we define the signal metadata:
 % Histogram data:
-signal_md.hist.range	= [min(data, [], 1)' max(data, [], 1)'];%  range of the variable.
-signal_md.hist.binsize	= diff(signal_md.hist.range, 1, 2)./100;% binsize of the variable. 
+signal_md.hist.pointer	= data_pointer;
+% We determine the histogram range, such that a large percentage (at least 70%) of the
+% data will be within that range. To do so, we calculate the standard deviation and mean:
+[data_std, data_mean]	= deal(std(data, 'omitnan'), mean(data, 'omitnan'));
+signal_md.hist.Range	= [(data_mean - 1.2*data_std)' (data_mean + 1.2*data_std)'];%  range of the variable.
+signal_md.hist.binsize	= diff(signal_md.hist.Range, 1, 2)./500;% binsize of the variable. 
 % Axes metadata:
-signal_md.axes.XLim		= [0 1e5];% [ns] XLim of the axis that shows the variable
+signal_md.axes.XLim		= signal_md.hist.Range;% [ns] XLim of the axis that shows the variable
 signal_md.axes.XLabel	= data_pointer_fieldname(data_pointer); %The label of the variable
 
 end

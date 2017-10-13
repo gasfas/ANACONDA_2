@@ -126,7 +126,7 @@ if isevent
 			hitnr_filter = hitnr_filter & filter.events.multiplicity(exp.e.raw(:,detnr), hitnr, Inf, nof_hits_det(detnr));
 		end
 	else
-		hitnr_filter = true(size(eval(['exp.' hist_md.pointer{1}]), 1), 1);
+		hitnr_filter = true(size(IO.read_data_pointer(hist_md.pointer{1}, exp), 1), 1);
 	end
 	if exist('e_filter', 'var') % apply external event filter if requested:
 		hitnr_filter = hitnr_filter & e_filter;
@@ -138,7 +138,7 @@ if isevent
 	for sign_nr = 1:length(hist_md.pointer)
 		detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 		if isevent_signal(sign_nr) % we deal with an event signal:
-			event_data = read_data_pointer(hist_md.pointer{sign_nr}, exp);
+			event_data = IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(event_data, 2);
 			hist_data(:,col_nr:col_nr+nof_cols-1) = event_data(hitnr_filter,:);
 		else % we deal with a hit signal, accompanied with hitselect:
