@@ -1,5 +1,5 @@
 function plot_md = signal_2_plot(signal_md, plot_md)
-% This convenience function creates metadata from a signal plotting metadata
+% This function creates metadata from a signal plotting metadata
 % Inputs: 
 % signal_md		The metadata concerned with the signal. can be a cell of
 % different structs, if multiple signals are plotted in one.

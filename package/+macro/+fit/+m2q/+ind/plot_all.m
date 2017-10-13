@@ -30,26 +30,44 @@ if ~isfield(fit_md.final_plot, 'dotsize')
 fit_md.final_plot.dotsize		= 1;
 end
 
-for i = 1:length(fit_param.q)
+switch fit_md.final_plot.Type
+	case 'scatter'
+	for i = 1:length(fit_param.q)
+
+		q_cur	= fit_param.q(i);
+		result	= fit_param.result(i, 1:8+q_cur);
+
+		% The y-axis is symmetrically distributed around zero:
+		y_pos	= -q_cur:2:q_cur;
+		x_pos	= q_cur*ones(size(y_pos));
+		I		= result(1:q_cur+1);
+
+		full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
+		I_colors		= Intensity_colors(fit_md, full_I_colors, I);
+		hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
+		hGraphObj.CData = I_colors;
+	end
+case {'Y_peak', 'Y_mean'}
+	% Fetch the intensity values:
+	[fit_results, midpoints.dim2] = calculate_fit_results(fit_md, fit_param);
+% 	rownrs	= general.matrix.vector_colon(ones(size(fit_param.q)), 1+fit_param.q);
+% 	colnrs	= zeros(size(rownrs));colnrs([true; diff(rownrs)~= 1]) = 1; colnrs = cumsum(colnrs);
+% 	ind		= sub2ind(size(fit_param.result), colnrs, rownrs);
+% 	% Make a Count map:
+% 	Count_h	= NaN*zeros(length(fit_param.q), 1+max(fit_param.q));
+% 	Count_h(ind) = fit_param.result(ind);
+	% collect the corresponding X,Y-positions:
+	midpoints.dim1 = fit_param.q;
+	switch fit_md.final_plot.Type
+		case 'Y_peak'
+				hGraphObj = plot.hist.axes.H_2D.Y_peak(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);
+		case 'Y_mean'
+				hGraphObj = plot.hist.axes.H_2D.Y_mean(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);
+	end
 	
-	q_cur	= fit_param.q(i);
-	result	= fit_param.result(i, 1:8+q_cur);
-	
-	% The y-axis is symmetrically distributed around zero:
-	y_pos	= -q_cur:2:q_cur;
-	x_pos	= q_cur*ones(size(y_pos));
-	I		= result(1:q_cur+1);
-	
-	full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
-	I_colors		= Intensity_colors(fit_md, full_I_colors, I);
-	
-	
-% 	Int_color = repmat(fit_md.final_plot.color_low_I, numel(I), 1) - repmat(I(:)./ max(max(I)), 1, 3) .* (repmat(fit_md.final_plot.color_low_I-fit_md.final_plot.color_high_I, numel(I), 1));
-	hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
-	hGraphObj.CData = I_colors;
-	hGraphObj = general.handle.fill_struct(hGraphObj, fit_md.final_plot.GraphObj);	
 end
-end
+hGraphObj = general.handle.fill_struct(hGraphObj, fit_md.final_plot.GraphObj);
+end	
 
 function colors = composition_colors(fit_md, y_pos)
 rel_comp = (y_pos - min(y_pos))./(diff(y_pos([1 end]))); % the relative composition
@@ -63,7 +81,19 @@ function colors = Intensity_colors(fit_md, full_I_colors, I)
 
 I_norm			= I./max(I); % normalize the intensity
 color_zero_I	= repmat(fit_md.final_plot.color_low_I, size(full_I_colors,1),1);% Fetch the color at zero intensity
-
 colors	= color_zero_I+(full_I_colors-color_zero_I).*repmat(I_norm', 1, 3);
-
 end
+
+function [fit_results, nof_m] = calculate_fit_results(fit_md, fit_param)
+try probe_width = fit_md.final_plot.probe_width; catch probe_width = 10; end
+mass_qmax	= (max(fit_param.q)*fit_md.m.mass):probe_width:(max(fit_param.q)*fit_md.n.mass);
+nof_m		= (min(fit_param.q):probe_width:max(fit_param.q))';
+fit_results = NaN*ones(length(fit_param.q), length(mass_qmax));
+for i = 1:length(fit_param.q)
+	q_cur = fit_param.q(i);
+	runner_f = str2func(['macro.fit.m2q.' fit_md.Type '.runner']);
+	massdata = ((q_cur*fit_md.m.mass):probe_width:(q_cur*fit_md.n.mass))'+fit_md.H.mass;
+	fit_results(i,1:length(massdata)) = runner_f(fit_param.result(i,1:end-(max(fit_param.q)-q_cur)), massdata);
+end
+end
+

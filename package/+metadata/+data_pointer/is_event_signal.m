@@ -5,9 +5,9 @@ function [ isevent ] = is_event_signal( data_pointer )
 % Output:
 % isevent		boolean whether the signal is an event (true) or not
 % (false)
-	if strcmp(data_pointer(1:2), 'e.')
+	if strcmp(data_pointer(1:2), 'e.') || contains(data_pointer, '.e.')
 		isevent = true;
-	elseif strcmp(data_pointer(1:2), 'h.')
+	elseif strcmp(data_pointer(1:2), 'h.') || contains(data_pointer, '.h.')
 		isevent = false;
 	else
 		error(['no valid data pointer given: ' data_pointer ' is not recognized'])

@@ -5,8 +5,8 @@ function [y_peak, FWHM] = H_2D(histgr, y_values)
 %	histgr:			[n, m] matrix with the 2D histogram
 %	xy_values:		[m, 1] column array with the y-value of each histogram column.
 % Output: 
-%   avg:			[m, 1] The average value at corresponding x_value.
-%   stddv:			[m, 1] The standard deviation at corresponding x_value (as defined in MATLAB).
+%   y_peak:			[m, 1] The peak value at corresponding x_value.
+%   FWHM:			[m, 1] The Full Width Half Maximum at corresponding x_value.
 	total_nof_hits = (sum(histgr,2,'omitnan'));
 	if ~isempty(histgr)
 		[I_peak, loc] = max(histgr,[], 2,'omitnan');

@@ -13,7 +13,7 @@ function [ h_figure, UIctrl_plot ] = plot( h_figure, pos, h_tabs, tab_plot)
 % Information about the listbox below
 UI.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.64]);
 % Def plot tab:
-tab_plot_def = uitab(UI.h_plot_tabs,'Title','Defined plot conf');
+tab_plot_def = uitab(UI.h_plot_tabs,'Title','Pre-defined plot conf');
 % New lot tab:
 tab_plot_new = uitab(UI.h_plot_tabs,'Title','New plot conf');
 %% Defined Plotting
