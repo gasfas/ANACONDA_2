@@ -110,9 +110,14 @@ tab_plot.ButtonDownFcn = @plottabopening;
         md_GUI = evalin('base', 'md_GUI');
         if md_GUI.UI.tabnumber == 3
             % Filter tab was already open.
+            constructtree = 0;
         elseif md_GUI.UI.tabnumber == 4
             md_GUI.UI.UIFilter.Tree.Enable = 1;
+            constructtree = 0;
         else
+            constructtree = 1;
+        end
+        if constructtree == 1
             md_GUI.UI.tabnumber = 3;
             % Filter tree is constructed.
             fileloading = 1;
@@ -135,12 +140,34 @@ tab_plot.ButtonDownFcn = @plottabopening;
     function plottabopening(hObject, eventdata)
         md_GUI = evalin('base', 'md_GUI');
         if md_GUI.UI.tabnumber == 3
-            % Filter tree is destructed.
+            % Filter tree is disabled - not destructed.
             UI = md_GUI.UI.UIFilter;
             md_GUI.UI.UIFilter.Tree.Enable = 0;
             md_GUI.UI.tabnumber = 4;
+            constructtree = 0;
+        elseif md_GUI.UI.tabnumber == 4
+            % Do nothing - it was already opened.
+            constructtree = 0;
         else
+            constructtree = 1;
             md_GUI.UI.tabnumber = 4;
+        end
+        if constructtree == 1
+            md_GUI.UI.tabnumber = 3;
+            % Filter tree is constructed.
+            fileloading = 1;
+            NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
+            md_GUI.UI.UIFilter.Tree.Enable = 1;
+            md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
+            if NumberOfLoadedFiles == 0
+                md_GUI.UI.UIFilter.Tree.Enable = 0;
+            else
+                [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
+                for nn = 1:NumberOfLoadedFiles
+                    UI = md_GUI.UI.UIFilter;
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                end
+            end
         end
         assignin('base', 'md_GUI', md_GUI);
     end
