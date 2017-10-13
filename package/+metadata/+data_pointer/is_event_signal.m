@@ -5,6 +5,11 @@ function [ isevent ] = is_event_signal( data_pointer )
 % Output:
 % isevent		boolean whether the signal is an event (true) or not
 % (false)
+if iscell(data_pointer)
+	for i = 1:numel(data_pointer)
+		isevent(i) = metadata.data_pointer.is_event_signal(data_pointer{i});
+	end
+else
 	if strcmp(data_pointer(1:2), 'e.') || contains(data_pointer, '.e.')
 		isevent = true;
 	elseif strcmp(data_pointer(1:2), 'h.') || contains(data_pointer, '.h.')
@@ -14,3 +19,4 @@ function [ isevent ] = is_event_signal( data_pointer )
 	end
 end
 
+end
