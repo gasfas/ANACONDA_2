@@ -99,7 +99,7 @@ end
 function f = condition_2_filter(exp_data, condition)
 % This function calculates the filter from a single condition.
 % Read the data from the pointer:
-condition_data = eval(['exp_data.' condition.data_pointer]);
+condition_data = IO.read_data_pointer(condition.data_pointer, exp_data);
 % And read the value of the actual condition:
 condition_value = condition.value;
 % In case the value is depending on another variable, we send it out:

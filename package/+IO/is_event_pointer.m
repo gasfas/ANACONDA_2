@@ -6,5 +6,5 @@ if iscell(pointer)
 		isevent(i) = IO.is_event_pointer(pointer{i});
 	end
 else
-	isevent = any(strfind(pointer, 'e.'));
+	isevent = any(strfind(pointer, '.e.'));
 end
