@@ -448,6 +448,8 @@ OK_btn = uicontrol('Parent',d,...
         GUI.log.add(['New data pointer set to: ', full_datapointer_string])
         base_value.data_pointer = full_datapointer_string;
 	end
+% Wait for d to close before running to completion
+uiwait(d);
 
     function ok_callback(setdatapointerbutton, event)
 		% Pressing this button tells us that the user thinks the condition
@@ -462,6 +464,5 @@ OK_btn = uicontrol('Parent',d,...
 		end
         delete(gcf)
 	end
-% Wait for d to close before running to completion
-uiwait(d);
+
 end
