@@ -47,7 +47,9 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             set(UIPlot.new.new_y_signal, 'Enable', 'off');
             set(UIPlot.new.edit_x_signal, 'Enable', 'off');
             set(UIPlot.new.edit_y_signal, 'Enable', 'off');
-            set(UIPlot.new.x_signals_list, 'Enable', 'off');
+            set(UIPlot.new.signals_list, 'Enable', 'off');
+            set(UIPlot.new.btn_set_x_sign_pointer, 'Enable', 'off');
+            set(UIPlot.new.btn_set_y_sign_pointer, 'Enable', 'off');
             set(UIPlot.new.y_signals_checkbox, 'Enable', 'off');
             set(UIPlot.new.PopupPlotSelected, 'Enable', 'off')
             set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
@@ -111,9 +113,11 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             end
         end
         if tabval == 2
-            set(UIPlot.new.new_x_signal, 'Enable', 'on');
-            set(UIPlot.new.edit_x_signal, 'Enable', 'on');
-            set(UIPlot.new.x_signals_list, 'Enable', 'on');
+            set(UIPlot.new.new_signal, 'Enable', 'on');
+            set(UIPlot.new.edit_signal, 'Enable', 'on');
+            set(UIPlot.new.remove_signal, 'Enable', 'on');
+            set(UIPlot.new.signals_list, 'Enable', 'on');
+            set(UIPlot.new.btn_set_x_sign_pointer, 'Enable', 'on');
             set(UIPlot.new.y_signals_checkbox, 'Enable', 'on');
             set(UIPlot.new.PopupPlotSelected, 'Enable', 'on')
             set(UIPlot.Popup_Filter_Selection, 'Enable', 'on')
@@ -210,8 +214,7 @@ if md_GUI.load.NumberOfLoadedFiles > 0
             signals_list = fieldnames(md_GUI.mdata_n.([char(exp_names(expnum))]).plot.signal);
             
             %% Values for the different settings in the defined plots tab:
-            set(UIPlot.new.x_signals_list, 'String', signals_list)
-            set(UIPlot.new.y_signals_list, 'String', signals_list)
+            set(UIPlot.new.signals_list, 'String', signals_list)
             set(UIPlot.def.Popup_plot_type, 'String', popup_list_names)
             set(UIPlot.def.Popup_plot_type, 'Value', 1)
             

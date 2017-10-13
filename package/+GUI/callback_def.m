@@ -28,14 +28,12 @@ set(UIPlot.def.PlotButton,...
     'Callback', @Plot_it_def)
 set(UIPlot.def.PlotConfEditButton,...
     'Callback', @Edit_Plot_Conf_def)
-set(UIPlot.new.new_x_signal,...
-    'Callback', @New_X_Signal)
-set(UIPlot.new.new_y_signal,...
-    'Callback', @New_Y_Signal)
-set(UIPlot.new.edit_x_signal,...
-    'Callback', @Edit_X_Signal)
-set(UIPlot.new.edit_y_signal,...
-    'Callback', @Edit_Y_Signal)
+set(UIPlot.new.new_signal,...
+    'Callback', @New_Signal)
+set(UIPlot.new.edit_signal,...
+    'Callback', @Edit_Signal)
+set(UIPlot.new.remove_signal,...
+    'Callback', @Remove_Signal)
 set(UIFilter.EditFilter,...
     'Callback', @EditFilterButton)
 set(UIFilter.RenameFilter,...
@@ -57,17 +55,19 @@ set(UIPlot.new.y_signals_checkbox,...
 set(UIPlot.LoadedFilesPlotting, ...
     'Callback',@LoadedFilesCall) %To the plotting tab
 set(UILoad.ListOfFilesInFolder, ...
-	'Callback', @FilesList) 
+	'Callback', @FilesList)
 set(UILoad.LoadedFiles, ...
     'Callback',@LoadedFilesCall) %To the loading tab
 set(UIFilter.Fieldname, ...
     'Callback',@FilterFieldNameCall)
 set(UIFilter.Fieldvalue, ...
     'Callback',@FilterFieldValueCall) %To the filter tab
-set(UIPlot.new.x_signals_list,...
-    'Callback', @X_Signals_List)
-set(UIPlot.new.y_signals_list,...
-    'Callback', @Y_Signals_List)
+set(UIPlot.new.signals_list,...
+    'Callback', @Signals_List)
+set(UIPlot.new.btn_set_x_sign_pointer,...
+    'Callback', @set_x_signal_button)
+set(UIPlot.new.btn_set_y_sign_pointer,...
+    'Callback', @set_y_signal_button)
 
 % set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
@@ -81,16 +81,13 @@ set(UIPlot.new.PopupPlotSelected,...
     end
 
 %%  Functions for buttons
-    function New_X_Signal(hObject, eventdata)
+    function New_Signal(hObject, eventdata)
         %GUI.plot.md_edit.Plotconf();
     end
-    function New_Y_Signal(hObject, eventdata)
+    function Edit_Signal(hObject, eventdata)
         %GUI.plot.md_edit.Plotconf();
     end
-    function Edit_X_Signal(hObject, eventdata)
-        %GUI.plot.md_edit.Plotconf();
-    end
-    function Edit_Y_Signal(hObject, eventdata)
+    function Remove_Signal(hObject, eventdata)
         %GUI.plot.md_edit.Plotconf();
     end
     function Plotconf(hObject, eventdata)
@@ -142,16 +139,18 @@ set(UIPlot.new.PopupPlotSelected,...
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
         if UIPlot.new.y_signals_checkbox.Value == 0
-            UIPlot.new.new_y_signal.Enable = 'off';
-            UIPlot.new.edit_y_signal.Enable = 'off';
-            UIPlot.new.y_signals_list.Enable = 'off';
+            UIPlot.new.btn_set_y_sign_pointer.Enable = 'off';
+            UIPlot.new.y_signal_pointer.String = '-';
         else
-            UIPlot.new.new_y_signal.Enable = 'on';
-            UIPlot.new.edit_y_signal.Enable = 'on';
-            UIPlot.new.y_signals_list.Enable = 'on';
+            UIPlot.new.btn_set_y_sign_pointer.Enable = 'on';
         end
     end
-
+    function set_x_signal_button(hObject, eventdata)
+        UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+    end
+    function set_y_signal_button(hObject, eventdata)
+        UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+    end
 %%  Functions for listboxes
     function FilesList(hObject, eventdata)
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
@@ -165,10 +164,7 @@ set(UIPlot.new.PopupPlotSelected,...
     function FilterFieldNameCall(hObject, eventdata)
         GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
     end
-    function X_Signals_List(hObject, eventdata)
-        %GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
-    end
-    function Y_Signals_List(hObject, eventdata)
+    function Signals_List(hObject, eventdata)
         %GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
     end
 end

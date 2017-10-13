@@ -96,6 +96,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
     function calibtabopening(hObject, eventdata)
         md_GUI = evalin('base', 'md_GUI');
         if md_GUI.UI.tabnumber == 3
+            
             % Filter tree is destructed.
             UI = md_GUI.UI.UIFilter;
             UI.Tree.Root.Children.delete

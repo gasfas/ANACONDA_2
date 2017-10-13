@@ -68,20 +68,14 @@ if numberoffilesselected == 1
     % Check if there is more than one loaded files as of now.
     if length(String_LoadedFiles) == 1
         set(UILoad.LoadedFiles, 'Enable', 'off');
-        
         set(UIPlot.new.y_signals_checkbox, 'Enable', 'off');
-        set(UIPlot.new.x_signals_list, 'Enable', 'off');
-        set(UIPlot.new.y_signals_list, 'Enable', 'off');
-        set(UIPlot.new.x_signals_list, 'String', '-');
-        set(UIPlot.new.y_signals_list, 'String', '-');
-        set(UIPlot.new.x_signals_list, 'Value', 1);
-        set(UIPlot.new.y_signals_list, 'Value', 1);
-        
-        
-        set(UIPlot.new.new_x_signal, 'Enable', 'off');
-        set(UIPlot.new.new_y_signal, 'Enable', 'off');
-        set(UIPlot.new.edit_x_signal, 'Enable', 'off');
-        set(UIPlot.new.edit_y_signal, 'Enable', 'off');
+        set(UIPlot.new.signals_list, 'Enable', 'off');
+        set(UIPlot.new.signals_list, 'String', '-');
+        set(UIPlot.new.signals_list, 'Value', 1);
+        set(UILoad.UnLoadFileButton, 'Enable', 'off');
+        set(UIPlot.new.new_signal, 'Enable', 'off');
+        set(UIPlot.new.remove_signal, 'Enable', 'off');
+        set(UIPlot.new.edit_signal, 'Enable', 'off');
         set(UIPlot.def.PlotButton, 'Enable', 'off');
         set(UIPlot.def.Popup_plot_type, 'Enable', 'off');
         set(UIPlot.def.Popup_plot_type, 'String', '-');
@@ -111,8 +105,6 @@ if numberoffilesselected == 1
         set(UIPlot.LoadedFilesPlotting, 'String', md_GUI.load.String_LoadedFiles);
         set(UILoad.LoadedFiles, 'Value', 1);
         set(UIPlot.LoadedFilesPlotting, 'Value', 1);
-        set(UIPlot.new.Popup_plot_dimensions, 'Value', 1);
-        set(UIPlot.new.Popup_experiment_name, 'Value', 1);
         set(UIPlot.LoadedFilesPlotting, 'String', '-');
     end
     if NumberOfLoadedFiles > 1
