@@ -113,6 +113,7 @@ if numberoffilesselected == 1
         set(UIPlot.LoadedFilesPlotting, 'Value', 1);
         set(UIPlot.new.Popup_plot_dimensions, 'Value', 1);
         set(UIPlot.new.Popup_experiment_name, 'Value', 1);
+        set(UIPlot.LoadedFilesPlotting, 'String', '-');
     end
     if NumberOfLoadedFiles > 1
         md_GUI.d_fn = rmfield(md_GUI.d_fn, (['exp', NumberOfLoadedFiles_str]));
@@ -120,8 +121,6 @@ if numberoffilesselected == 1
     NumberOfLoadedFiles = NumberOfLoadedFiles - 1;
     md_GUI.load.NumberOfLoadedFiles = NumberOfLoadedFiles;
     set(UILoad.LoadedFiles, 'Value', 1);
-    set(UIPlot.new.Popup_experiment_name, 'Enable', 'off');
-    set(UIPlot.new.Popup_experiment_name, 'String', '-');
 else
 	%Give message that this GUI version supports only one unload per time.
 	msgbox('Select one file to unload.', 'Warning')
