@@ -63,7 +63,9 @@ else
 	if isfield(axes_md, 'camroll')% If a camroll is defined:
 		camroll(h_axes, axes_md.camroll);
 	end
-	
+	if isfield(axes_md, 'colorbar')% If a colorbar is defined:
+		colorbar('peer', h_axes);
+	end
 	h_axes = general.handle.fill_struct(h_axes, axes_md);
 end
 

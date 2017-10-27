@@ -97,7 +97,13 @@ end
 if general.struct.probe_field(hist_md, 'Intensity_scaling')
 	switch hist_md.Intensity_scaling
 		case 'log'
+			
+			if min(histogram.Count(:)) < 0 % Make sure there are no negative values:
+				histogram.Count(histogram.Count<0) = 0;
+				disp('Warning: negative values in histogram ignored in log scale')
+			end
 			histogram.Count = log(histogram.Count);	end
+			histogram.Count(histogram.Count == -Inf) = 0;
 end
 
 end

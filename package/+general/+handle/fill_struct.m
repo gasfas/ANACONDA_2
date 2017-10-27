@@ -25,7 +25,7 @@ if ~isempty(struct) && ishandle(handle)
 	sim_fn = h_fn(loc_h);
 	for i = 1:length(sim_fn)
 		if ~any(strcmp(sim_fn{i}, read_only_fields))
-			if any(ishandle(handle(1).(sim_fn{i}))) && ~isnumeric(handle(1).(sim_fn{i}))
+			if any(ishandle(handle(1).(sim_fn{i}))) & ~isnumeric(handle(1).(sim_fn{i}))
 				% Overwrite the found subfield:
 				for h_nr = 1:nof_h
 					handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct.(sim_fn{i}));

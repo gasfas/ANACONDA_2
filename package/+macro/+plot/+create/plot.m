@@ -17,7 +17,7 @@ if ishandle(varargin{1})
 	handle	= varargin{1};
 	exp		= varargin{2};
 	plot_md	= varargin{3};
-	if isgraphics(handle, 'Axes')
+	if isgraphics(handle, 'Axes') || isgraphics(handle, 'polaraxes')
 		h_axes = handle;
 		h_figure = h_axes.Parent;
 	elseif isgraphics(handle, 'Figure')
@@ -29,6 +29,7 @@ else
 	exp		= varargin{1};
 	plot_md	= varargin{2};
 end
+
 
 % Create the new figure:
 if ~exist('h_figure', 'var')
