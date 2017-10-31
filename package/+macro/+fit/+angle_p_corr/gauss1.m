@@ -24,16 +24,20 @@ angle_p_fieldname = ['angle_p_corr_C' num2str(C_nr, 1)];
 % Fetch the Ci events and their mutual angles (conversion should 
 % already have been done in the convert macro):
 theta_Ci = data_out.e.det1.(angle_p_fieldname);
+% Calculate the histogram:
 if general.struct.issubfield(plot_md, 'cond')
 	f_e = macro.filter.conditions_2_filter(data_out, plot_md.cond);
-	theta = theta_Ci(f_e, :);
+	histogram = macro.hist.create.hist(data_out, plot_md.hist, f_e);
 else
-	theta = theta_Ci;
+	histogram = macro.hist.create.hist(data_out, plot_md.hist);
 end
 
-%% Plotting
-
-[theta_hist_norm, theta_containers] = hist.H_solid_angle_polar(theta, plot_md.hist.binsize, plot_md.hist.Range);
+theta_containers	= histogram.midpoints;
+theta_hist_norm		= histogram.Count;
+%
+% [theta_hist_norm, theta_containers] = hist.H_solid_angle_polar(theta, plot_md.hist.binsize, plot_md.hist.Range);
+% 
+% macro.hist.create.hist
 
 % Now we try out the fitting:
 % If requested, the range of theta is decreased:

@@ -88,10 +88,11 @@ for kk=1:nfnameS1
                 Fcall = dbstack;callnames = {Fcall.name};
                 tabstr = blanks(ntab*sum(ismember(callnames, {'structcmp'}))-1);
         end % check number of recursive calls
+		% RSi is the content of a subfield in Si (struct number i):
         try RS1 = S1.(sortfnameS1{kk});
-		catch Lvalue(kk) = false; end
+		catch RS1 = []; Lvalue(kk) = false; end
         try RS2 = S2.(sortfnameS2{kk});
-		catch Lvalue(kk) = false; end
+		catch RS2 = []; Lvalue(kk) = false; end
         if isstruct(RS1) && isstruct(RS2)
                 if strcmpi(p.Results.Report, 'on')
                         fprintf('%sComparing sub-structures "%s" and "%s" : \n', tabstr, sortfnameS1{kk}, sortfnameS2{kk});
