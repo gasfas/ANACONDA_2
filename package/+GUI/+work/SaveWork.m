@@ -10,12 +10,10 @@
 
 function [ ] = SaveWork()
     md_GUI = evalin('base', 'md_GUI');
-    metadata = md_GUI.mdata_n;
-    exp_fullfilepaths = md_GUI.d_fn;
     expnames = fieldnames(metadata);
     save_mode = questdlg('Replace or update metadata?', 'Save workspace', 'Replace', 'Update', 'Cancel', 'Cancel');
     for ll = 1:length(expnames)
-        exp_fullfilepath = exp_fullfilepaths.(char(expnames(ll)));
+        exp_fullfilepath = md_GUI.mdata_n.(char(expnames(ll))).filepath;
         [exp_path, exp_filename] = fileparts(exp_fullfilepath);
         md_fullfilepath = fullfile(exp_path, ['md_', exp_filename, '.m']);
         exp_md = metadata.(char(expnames(ll)));

@@ -40,21 +40,15 @@ function [] = FieldDoubleClick(UIFilter)
     end
     switch char(base_selectedfieldtype)
         case 'char'
-            %% Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Fieldtype selected to edit: Character.'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
+            %% Message to log_box
+            GUI.log.add(['Fieldtype selected to edit: Character.'])
             new_ans = inputdlg(prompt,['Change: ', fieldselected], 1, {previous_ans});
             new_ans_char = char(new_ans);
             filteroutputvalue = new_ans_char;
             treatable = 1;
         case 'numeric'
-            %% Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Fieldtype selected to edit: Numeric.'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
+            %% Message to log_box
+            GUI.log.add(['Fieldtype selected to edit: Numeric.'])
             new_ans = inputdlg(prompt,['Change: ', fieldselected], 1, {previous_ans});
             new_ans_char = char(new_ans);
             if onerowcheck == 1
@@ -84,11 +78,8 @@ function [] = FieldDoubleClick(UIFilter)
                 end
             end
         case 'logical'
-            %% Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Fieldtype selected to edit: Logical.'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
+            %% Message to log_box
+            GUI.log.add(['Fieldtype selected to edit: Logical.'])
             new_ans = inputdlg(prompt,['Change: ', fieldselected], 1, {previous_ans});
             new_ans_char = char(new_ans);
             new_ans_double = str2double(new_ans_char);
@@ -110,20 +101,14 @@ function [] = FieldDoubleClick(UIFilter)
             [ base_fieldvalue, valsel ] = GUI.filter.edit.Edit_Operator(base_fieldvalue, valsel);
             if valsel == 1 % Means constructed or changed - add operator to filter structure.
                 treatable = 2;
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.', base_path, '.operator'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.', base_path, '.operator'])
             else
                 treatable = 0;
             end
         otherwise %hmm what could this be... ?
-            %% Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Fieldtype selected to edit: Unknown!'];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
+            %% Message to log_box
+            GUI.log.add(['Fieldtype selected to edit: Unknown!'])
             treatable = 0;
             msgbox('Check the datatype. It is not a char, numeric, logical nor struct.', 'Unknown error.')
     end
@@ -143,21 +128,12 @@ function [] = FieldDoubleClick(UIFilter)
         base_fieldvalue(condition_number) = cellstr(new_ans_char);
         md_GUI.filter.base_fieldvalue(condition_number) = base_fieldvalue(condition_number);
         set(UIFilter.Fieldvalue, 'String', cellstr(base_fieldvalue))
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['Previous value(s) for ', fieldselected, ': ', previous_val];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['New value(s) for ', fieldselected, ': ', new_ans_char];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['Saved.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
+        %% Message to log_box
+        GUI.log.add(['Previous value(s) for ', fieldselected, ': ', previous_val])
+        %% Message to log_box
+        GUI.log.add(['New value(s) for ', fieldselected, ': ', new_ans_char])
+        %% Message to log_box
+        GUI.log.add(['Saved.'])
         assignin('base', 'md_GUI', md_GUI)
     elseif treatable == 2 % Operator changing
         base_finalpath = [base_path, '.operator'];

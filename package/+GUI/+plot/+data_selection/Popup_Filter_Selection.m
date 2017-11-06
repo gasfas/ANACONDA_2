@@ -20,17 +20,17 @@ handles.filetype = get(hObject, 'String');
 filter_selected_number = get(hObject, 'Val');
 filter_selected = handles.filetype(filter_selected_number);
 filter_selected = char(filter_selected);
-%% Message to log_box - cell_to_be_inserted:
-cell_to_be_inserted = ['Filter selected: ', filter_selected];
-[ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-% End of new message to log_box function.
+%% Message to log_box
+GUI.log.add(['Filter selected: ', filter_selected])
 newfilter_selected = strrep(filter_selected,'__','.');
 exp_names = md_GUI.load.exp_names;
 if ischar(exp_names); exp_names = {exp_names}; end
-exp_nom = md_GUI.plot.experiment_selected_number;
-exp_selnum = exp_nom;
-if exp_selnum == 0 % User is defining metadata for ALL experiments at the same time.
+exp_nom = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
+if length(exp_nom) == 1 % User is defining metadata for ALL experiments at the same time.
+    exp_name_def = exp_names(exp_nom);
+    md_GUI.plot.expsettings.(char(exp_name_def))(3) = filter_selected_number;
+    md_GUI.plot.filterpath.(char(exp_name_def)) = newfilter_selected;
+else
     md_GUI.plot.expsettings.All(3) = filter_selected_number;
 	md_GUI.plot.filterpath.All = newfilter_selected;
     for lxzz = 1:length(exp_names)
@@ -38,10 +38,6 @@ if exp_selnum == 0 % User is defining metadata for ALL experiments at the same t
         md_GUI.plot.expsettings.(char(exp_name_def))(3) = filter_selected_number;
         md_GUI.plot.filterpath.(char(exp_name_def)) = newfilter_selected;
     end
-else
-    exp_name_def = exp_names(exp_selnum);
-    md_GUI.plot.expsettings.(char(exp_name_def))(3) = filter_selected_number;
-    md_GUI.plot.filterpath.(char(exp_name_def)) = newfilter_selected;
 end
 assignin('base', 'md_GUI', md_GUI);
 end

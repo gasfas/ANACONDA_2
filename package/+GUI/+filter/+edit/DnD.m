@@ -33,24 +33,17 @@ elseif strcmp(SourceName, 'built_in_filter')
 	msgbox('Cannot copy a common filters struct - choose children.', 'Warning')
     DropAction = 'Nothing';
 else
-    % Message to log_box - cell_to_be_inserted:
-    cell_to_be_inserted = ['Condition/filter source: ', SourceName];
-    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-    cell_to_be_inserted = ['Condition/filter target: ', TargetName];
-    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-    % End of new message to log_box function.
+    %% Message to log_box
+	GUI.log.add(['Condition/filter source: ', SourceName])
+    %% Message to log_box
+	GUI.log.add(['Condition/filter target: ', TargetName])
     if strcmp(NameOfSourceParentParent, 'built_in_filter') || strcmp(NameOfSourceParent, 'built_in_filter')
         DropAction = 'copy';
     else
         DropAction = questdlg(['Copy or move ' SourceName ' to ' TargetName '?'], 'Drag and drop', 'copy', 'move', 'move');
     end
-    % Message to log_box - cell_to_be_inserted:
-    cell_to_be_inserted = ['Drag and Drop action: ', DropAction, ' ', SourceName, ' to ', TargetName];
-    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-    % End of new message to log_box function.
+    %% Message to log_box
+	GUI.log.add(['Drag and Drop action: ', DropAction, ' ', SourceName, ' to ', TargetName])
     % Extracting the selected nodes:
     % Get the path of the origin:
     if isempty(DropAction)
@@ -86,11 +79,8 @@ else
         if isempty(filtercontcheck)
             targetpath = TargetNode.Parent.Name;
             TargetNode = TargetNode.Parent;
-            % Message to log_box - cell_to_be_inserted:
-            cell_to_be_inserted = ['Target found to be a condition. Parent selected to be target, which is a filter: ', targetpath];
-            [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-            md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-            % End of new message to log_box function.
+            %% Message to log_box
+            GUI.log.add(['Target found to be a condition. Parent selected to be target, which is a filter: ', targetpath])
         end
         depth = 0;
         [ ~, ~, depth ] = GUI.filter.visualize.targetdepthfinder( TargetNode, targetpath, depth );
@@ -136,7 +126,7 @@ else
                 UI = md_GUI.UI.UIFilter;
                 clear Node
                 UI.Tree.Root.Children.delete
-                NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
+                NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
                 fileloading = 1;
                 [ UI ] = GUI.filter.Create_layout.FilterTreeList_commonfilter();
                 for nn = 1:NumberOfLoadedFiles

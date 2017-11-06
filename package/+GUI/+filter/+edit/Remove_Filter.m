@@ -100,15 +100,13 @@ function [] = Remove_Filter(UIFilter)
                                 md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, FieldToRmv);
                             end
                         end
-                        %% Message to log_box - cell_to_be_inserted:
+
                         FilterName = UIFilter.Tree.SelectedNodes.Name;
                         FilterName = char(FilterName);
                         FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
                         FilterParentName = char(FilterParentName);
-                        cell_to_be_inserted = ['Filter [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                        % End of new message to log_box function.
+                        %% Message to log_box:
+                        GUI.log.add(['Filter [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'])
                         %%
                         SelNode = UIFilter.Tree.SelectedNodes.Parent;
                         UIFilter.Tree.SelectedNodes.delete
@@ -132,15 +130,12 @@ function [] = Remove_Filter(UIFilter)
                                     else
                                         md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                     end
-                                    %% Message to log_box - cell_to_be_inserted:
                                     FilterName = UIFilter.Tree.SelectedNodes.Name;
                                     FilterName = char(FilterName);
                                     FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
                                     FilterParentName = char(FilterParentName);
-                                    cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                    % End of new message to log_box function.
+                                    %% Message to log_box
+                                    GUI.log.add(['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'])
                                     %%
                                     SelNode = UIFilter.Tree.SelectedNodes.Parent;
                                     UIFilter.Tree.SelectedNodes.delete
@@ -155,15 +150,12 @@ function [] = Remove_Filter(UIFilter)
                                         else
                                             md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                         end
-                                        %% Message to log_box - cell_to_be_inserted:
                                         FilterName = UIFilter.Tree.SelectedNodes.Name;
                                         FilterName = char(FilterName);
                                         FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
                                         FilterParentName = char(FilterParentName);
-                                        cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                        % End of new message to log_box function.
+                                        %% Message to log_box
+                                        GUI.log.add(['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'])
                                         %%
                                         SelNode = UIFilter.Tree.SelectedNodes.Parent;
                                         UIFilter.Tree.SelectedNodes.delete
@@ -180,15 +172,12 @@ function [] = Remove_Filter(UIFilter)
                                     else
                                         md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                     end
-                                    %% Message to log_box - cell_to_be_inserted:
                                     FilterName = UIFilter.Tree.SelectedNodes.Name;
                                     FilterName = char(FilterName);
                                     FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
                                     FilterParentName = char(FilterParentName);
-                                    cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                    [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                    md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                    % End of new message to log_box function.
+                                    %% Message to log_box
+                                    GUI.log.add(['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'])
                                     %%
                                     SelNode = UIFilter.Tree.SelectedNodes.Parent;
                                     UIFilter.Tree.SelectedNodes.delete
@@ -203,15 +192,12 @@ function [] = Remove_Filter(UIFilter)
                                         else
                                             md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                         end
-                                        %% Message to log_box - cell_to_be_inserted:
                                         FilterName = UIFilter.Tree.SelectedNodes.Name;
                                         FilterName = char(FilterName);
                                         FilterParentName = UIFilter.Tree.SelectedNodes.Parent.Name;
                                         FilterParentName = char(FilterParentName);
-                                        cell_to_be_inserted = ['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'];
-                                        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                                        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                                        % End of new message to log_box function.
+                                        %% Message to log_box
+                                        GUI.log.add(['Filter combination [ ', FilterName, ' ] removed from [ ', FilterParentName, ' ].'])
                                         %%
                                         SelNode = UIFilter.Tree.SelectedNodes.Parent;
                                         UIFilter.Tree.SelectedNodes.delete

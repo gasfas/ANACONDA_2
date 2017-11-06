@@ -54,7 +54,7 @@ else
 end
 % If more than 1 experiment - ask user which experiment to insert the filter into.
 if errornum == 0
-    if md_GUI.load.NumberOfLoadedFiles == 1
+    if length(md_GUI.UI.UILoad.LoadedFiles.String) == 1
         if ischar(md_GUI.load.exp_names)
             exp_name = md_GUI.load.exp_names;
         else
@@ -69,7 +69,7 @@ if errornum == 0
             errornum = 1;
             msgbox('Not a number.', 'Error')
         else    % check if number is not too large.
-            if exp_nom > md_GUI.load.NumberOfLoadedFiles
+            if exp_nom > length(md_GUI.UI.UILoad.LoadedFiles.String)
                 % Too large number inserted. Error.
                 msgbox('Number too large.', 'Error')
                 errornum = 1;

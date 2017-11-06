@@ -57,11 +57,8 @@ function [] = Edit_Filter(UIFilter)
             valsel = 0;
             [ base_fieldvalue, valsel ] = GUI.filter.edit.Edit_Operator(base_fieldvalue, valsel);
             if valsel == 1 % Means constructed or changed - add operator to filter structure.
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.cond.', exp_part];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['New operator set: [ ', base_fieldvalue, ' ] for ', exp_name, '.cond.', exp_part])
                 base_finalpath = ['cond.',exp_part, '.operator'];
                 md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, base_fieldvalue);
                 md_GUI.UI.UIFilter.Fieldvalue.String = base_fieldvalue;
@@ -130,16 +127,10 @@ function [] = Edit_Filter(UIFilter)
                         md_GUI.UI.UIFilter.Fieldvalue.String(llx) = cellstr(vaal);
                     end
                 end
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['The filter ', exp_part, ' for ',parent.s2, ' has been edited.'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
-                        %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['New filter conditions saved.'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['The filter ', exp_part, ' for ',parent.s2, ' has been edited.'])
+                %% Message to log_box
+                GUI.log.add(['New filter conditions saved.'])
             end
         end
         assignin('base', 'md_GUI', md_GUI)
