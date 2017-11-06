@@ -73,7 +73,13 @@ end
 [mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])] = exp_md;
 %% Load the experimental data.
 [data_n.(['exp', num2str(NumberOfLoadedFiles+1)])]   = IO.import_raw(file);
-data_n.info.foi = fieldnames(md_GUI.mdata_n);
+d_fn.(['exp', num2str(NumberOfLoadedFiles+1)]) = fullfile(fullfilepath);
+if NumberOfLoadedFiles > 0
+    for lx = 1:NumberOfLoadedFiles
+        d_fn.(['exp', num2str(lx)]) = md_GUI.mdata_n.(['exp', num2str(lx)]).filepath;
+    end
+end
+data_n.info.foi = fieldnames(d_fn);
 data_n.info.numexps = length(data_n.info.foi);
 [data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])] = macro.all(data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])); % Look into data_n <-- 
 

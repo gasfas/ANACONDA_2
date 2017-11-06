@@ -71,8 +71,8 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         md_GUI.data_n = data_n_new;
         md_GUI.mdata_n = mdata_n_new;
         md_GUI.load.exp_names = exp_names_new;
-        set(UILoad.LoadedFiles, 'String', String_LoadedFilesNew(nk));
-        set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFilesNew(nk));
+        set(UILoad.LoadedFiles, 'String', String_LoadedFilesNew);
+        set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFilesNew);
         set(UIPlot.LoadedFilesPlotting, 'String', '-');
     end
     set(UILoad.LoadedFiles, 'Value', 1);
@@ -82,6 +82,20 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
 else
     %% Message to log_box
 	GUI.log.add(['Load a file.'])
+end
+if ~isempty(md_GUI.UI.UILoad.LoadedFiles)
+    exps = md_GUI.data_n.exp1;
+    try % Try to get information of experiment 1:
+        information = exps.info;
+        information_acq_start = information.acquisition_start_str;
+        information_acq_dur = information.acquisition_duration;
+        information_acq_dur = num2str(information_acq_dur);
+        information_comment = information.comment; %in experimental data, exps.info field has a variable: comment - which contains experiment information.
+        informationbox = sprintf(['Selected file information: \n', char(md_GUI.UI.UILoad.LoadedFiles.String(1)), '\nExperiment: exp1', '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
+    catch
+        informationbox = sprintf(['Selected file information: \n', char(md_GUI.UI.UILoad.LoadedFiles.String(1)), '\nExperiment: exp1', '\nNo info found.']);
+    end
+    set(UILoad.SelectedFileInformation, 'String', informationbox);
 end
 assignin('base', 'md_GUI', md_GUI)
 end
