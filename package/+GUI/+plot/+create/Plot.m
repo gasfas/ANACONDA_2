@@ -19,7 +19,6 @@ md_GUI = evalin('base', 'md_GUI');
 exp_in = md_GUI.data_n;
 metadata_in = md_GUI.mdata_n;
 expsettings_in = md_GUI.plot.expsettings; % e/h/.. , det#, filter
-plotsettings = md_GUI.plot.plotsettings; % dimensions, abscissa, ordinate, destination
 expnames = md_GUI.plot.selected_exp_names;
 
 for expnum = 1:length(expnames)
