@@ -10,12 +10,17 @@ function  [data_out] = angle_p_2_eps(data_in, metadata_in, det_name)
 data_out = data_in;
 
 if exist('det_name', 'var')
-    detnames = det_name;
+    switch iscell(det_name)
+		case true
+			detnames = det_name;
+		case false
+			detnames = {det_name};
+	end
 else % No detector name is given, so we fetch all detector names:
     detnames = fieldnames(metadata_in.det);
 end
 
-for i = 1:length(detnames);
+for i = 1:length(detnames)
     detname = detnames{i}; 
     
     % Conversion to the shortest great circle path between

@@ -16,7 +16,7 @@ if exist('GraphObj_md', 'var')
 end
 
 if ~isempty(Count)
-	h_GraphObj = imagesc(midpoints.dim1([1 end]), midpoints.dim2([1 end]), permute(Count, [2 1]), 'Parent', h_axes);
+	h_GraphObj = imagesc(h_axes, midpoints.dim1([1 end]), midpoints.dim2([1 end]), permute(Count, [2 1]), 'Parent', h_axes);
 else
 	h_GraphObj = imagesc(h_axes, [0 1], [0 1], [0]);
 end

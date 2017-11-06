@@ -105,6 +105,7 @@ function [] = Edit_Filter(UIFilter)
                         md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('data_pointer');
                     end
                     if strcmp(allfields(llz), 'value')
+						% Check if is numeric or string
                         md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {strjoin(strsplit(char(num2str(base_value.value))), '  ')};
                         md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('value');
                     end

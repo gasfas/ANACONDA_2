@@ -18,6 +18,10 @@ function [ Ax ] = add_axes(Ax_ori, Ax_new, md, axestype, coor)
 % Outputs:
 % Ax				The combined axes, original and newly produced overlay axes.
 
+if numel(Ax_ori) > 1 % If the axes is larger, we only take the first element:
+	Ax_ori_full		= Ax_ori;
+	Ax_ori			= Ax_ori(1);
+end
 
 % Copy the orginal over to the new axes:
 Ax_new					= general.struct.catstruct(Ax_ori, Ax_new);
@@ -35,7 +39,14 @@ else
 		 [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, 'Z', axestype);
 	end
 end
-Ax = [Ax_ori, Ax_new];
+
+if exist('Ax_ori_full', 'var') % If the axes is larger, we merge it again:
+	Ax_ori_full(1)	= Ax_ori;
+	Ax				= [Ax_ori_full, Ax_new];
+else
+	Ax = [Ax_ori, Ax_new];
+end
+
 end
 
 function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)

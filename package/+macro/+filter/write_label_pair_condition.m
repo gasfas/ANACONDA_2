@@ -21,7 +21,13 @@ signal_names = cell(length(data_pointer), 1);
 for i = 1:length(data_pointer)
 	% Make names for the signals:
 	signal_names{i} = select_signal_name(data_pointer{i});
-	signal_names{i} = [signal_names{i} '_' num2str(value{i})];
+	name_value		= value{i};
+	switch length(name_value)
+		case 1
+			signal_names{i} = [signal_names{i} '_' num2str(name_value)];
+		otherwise
+			signal_names{i} = [signal_names{i} '_' num2str(name_value(1)) '_to_' num2str(name_value(end))];
+	end
 	% Check if the name is already taken:
 	if i > 1
 		signal_name_ori = signal_names{i}; j = 2;

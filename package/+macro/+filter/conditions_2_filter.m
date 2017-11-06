@@ -65,11 +65,11 @@ function [f, exp_data] = C2F(exp_data, conditions)
 			% Default value if the operators are not defined: 
 			if ~any(strcmpi('operators', cond_fn))
 				conditions.operators = repmat({'AND'}, 1, length(metaconds)-1);
-			elseif length(general.struct.probe_field(conditions, 'operator')) < (length(metaconds)-1)
+			elseif length(general.struct.probe_field(conditions, 'operators')) < (length(metaconds)-1)
 				% If there are not enough operators defined, we fill it up with the first given operator to
 				% the required size:
 				operators_ori			= conditions.operators;
-				conditions.operators	= repmat(operators_ori{1}, 1, length(metaconds)-1);
+				conditions.operators	= repmat(operators_ori(1), 1, length(metaconds)-1);
 			end
 			for metacond_nr = 1:length(metaconds) % loop over all metaconditions:
 				metacond_cur = metaconds{metacond_nr};
