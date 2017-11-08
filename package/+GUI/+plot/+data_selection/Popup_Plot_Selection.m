@@ -15,11 +15,8 @@ guidata(hObject);
 handles = guidata(hObject);
 handles.filetype = get(hObject, 'String');
 plot_type_value = get(hObject, 'Val');
-%% Message to log_box - cell_to_be_inserted:
-cell_to_be_inserted = ['How to plot: ', char(handles.filetype(plot_type_value))];
-[ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-% End of new message to log_box function.
+%% Message to log_box
+GUI.log.add(['How to plot: ', char(handles.filetype(plot_type_value))])
 % The plot function now only works for first two possibilities (together 
 % in new figure or separately in individual new figures). If 3 is
 % selected, make it number 1 instead.

@@ -20,10 +20,10 @@ UI = md_GUI.UI.UIFilter; %Gives access to the tree layout.
 UI.Tree.Enable = 1;
 % Opening the 'Filter' tab enables the UI Tree.
 if fileloading == 1 % File is being loaded or unloaded
-    if filenumber == 0 % No idea yet - check if needed.
-%         filenumber = md_GUI.load.NumberOfLoadedFiles;
+    if filenumber == 0 % Not yet needed...
+%         filenumber = length(md_GUI.UI.UILoad.LoadedFiles.String);
 %         filenumber = int2str(filenumber);
-%         expnom = md_GUI.load.NumberOfLoadedFiles;
+%         expnom = length(md_GUI.UI.UILoad.LoadedFiles.String);
     else % Filter tab has opened.
         expnom = filenumber;
         filenumber = int2str(filenumber);
@@ -49,8 +49,8 @@ UI.Tree.DndEnabled = true;
 UI.Tree.Editable = false;
 % Root visibility - Visible = 1, Invisible = 0:
 UI.Tree.RootVisible = 0;
-% Text font (depending on window pixel size):
-UI.Tree.FontSize = md_GUI.filter.tree.FontSize
+% Text font size:
+%UI.Tree.FontSize = md_GUI.filter.tree.FontSize;
 %% Assign new md_GUI into base workspace.
 md_GUI.filter.Node = Node;
 assignin('base', 'md_GUI', md_GUI)

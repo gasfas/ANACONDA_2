@@ -15,7 +15,7 @@
 
 function [ ] = Plot_def( ) 
 md_GUI = evalin('base', 'md_GUI');
-selectedexpnumbers = md_GUI.plot.filenumber_selected;
+selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
 for lx = 1:length(selectedexpnumbers)
     sel_exp_names(lx) = cellstr(['exp', num2str(selectedexpnumbers(lx))]);
 end

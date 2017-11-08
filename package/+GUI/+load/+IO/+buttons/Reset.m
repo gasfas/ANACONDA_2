@@ -8,15 +8,19 @@
 % Modifier:
 
 function Reset
+md_GUI = evalin('base', 'md_GUI');
 check_to_reset = questdlg('Are you sure you want to reset the whole work session? All MATLAB windows / figures will be closed and values cleared. The GUI will then be restarted.',...
     'Reset all', 'Yes', 'No', 'No');
 switch check_to_reset
     case 'Yes'
-        disp('Reset/Start Button pressed');
+        %% Message to log_box
+        GUI.log.add(['Reset/Start Button pressed'])
         close all
         clear all
         GUI.main
     otherwise
-        disp('Reset cancelled.')
+        %% Message to log_box
+        GUI.log.add(['Reset cancelled.'])
+        assigning('base', 'md_GUI');
 end
 end

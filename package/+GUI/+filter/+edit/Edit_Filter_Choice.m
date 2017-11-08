@@ -460,7 +460,7 @@ uiwait(d);
 			% as a translate condition:
 			base_value.translate_condition = 'AND';
 			% Message to log_box:
-			GUI.log.add('Translate condition missing, set to default ´AND´');
+			GUI.log.add('Translate condition missing, set to default AND');
 		end
         delete(gcf)
 	end

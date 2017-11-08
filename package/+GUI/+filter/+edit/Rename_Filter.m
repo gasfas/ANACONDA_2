@@ -31,18 +31,12 @@ function [] = Rename_Filter(UIFilter)
     selected_node_path_cells = strsplit(selected_node_path, '.');
     if nom_parents == 0
         % Name is NOT editable! This is an experimental parameter.
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['This field cannot be renamed! This is a filter parent for an experiment.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
+        %% Message to log_box
+        GUI.log.add(['This field cannot be renamed! This is a filter parent for an experiment.'])
     elseif strcmp(char(selected_node_path_cells(1)), 'built_in_filter') || strcmp(char(selected_node_path_cells(2)), 'built_in_filter')
         % A built-in filter cannot be renamed.
-        %% Message to log_box - cell_to_be_inserted:
-        cell_to_be_inserted = ['Cannot rename a built-in filter.'];
-        [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-        md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-        % End of new message to log_box function.
+        %% Message to log_box
+        GUI.log.add(['Cannot rename a built-in filter.'])
     else
         if selected_node_path == 0
             %Do nothing.
@@ -63,18 +57,12 @@ function [] = Rename_Filter(UIFilter)
             NewName = char(NewName);
             if strcmp(NewName, OldName)
                 % Do nothing since old name is same as new name.
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['New name is the same as the old name.'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['New name is the same as the old name.'])
             elseif strcmp(NewName, 'operator') || strcmp(NewName, 'operators')
                 % Do nothing since 'operator' or 'operators' as name will result in an error.
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['New name of filter cannot be [ operator ] nor [ operators ].'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['New name of filter cannot be [ operator ] nor [ operators ].'])
             else
                 parentpath = strsplit(exp_part, '.');
                 pathdepth = length(parentpath);
@@ -88,11 +76,8 @@ function [] = Rename_Filter(UIFilter)
                 else
                     md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
                 end
-                %% Message to log_box - cell_to_be_inserted:
-                cell_to_be_inserted = ['Filter was renamed from [ ', OldName, ' ] to [ ', NewName, ' ].'];
-                [ md_GUI.UI.log_box_string ] = GUI.multitab.insertCell ( md_GUI.UI.log_box_string, cell_to_be_inserted );
-                md_GUI.UI.UImultitab.log_box.String = md_GUI.UI.log_box_string;
-                % End of new message to log_box function.
+                %% Message to log_box
+                GUI.log.add(['Filter was renamed from [ ', OldName, ' ] to [ ', NewName, ' ].'])
                 UI.Tree.SelectedNodes.Name = NewName;
             end
         end

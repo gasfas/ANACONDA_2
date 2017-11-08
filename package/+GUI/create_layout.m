@@ -122,9 +122,9 @@ tab_plot.ButtonDownFcn = @plottabopening;
             md_GUI.UI.tabnumber = 3;
             % Filter tree is constructed.
             fileloading = 1;
-            NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
+            NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
             md_GUI.UI.UIFilter.Tree.Enable = 1;
-            md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
+            %md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
             if NumberOfLoadedFiles == 0
                 GUI.log.add('Could not display filters, no files loaded');
                 md_GUI.UI.UIFilter.Tree.Enable = 0;
@@ -157,9 +157,9 @@ tab_plot.ButtonDownFcn = @plottabopening;
             md_GUI.UI.tabnumber = 3;
             % Filter tree is constructed.
             fileloading = 1;
-            NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
+            NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
             md_GUI.UI.UIFilter.Tree.Enable = 1;
-            md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
+            %md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
             if NumberOfLoadedFiles == 0
                 md_GUI.UI.UIFilter.Tree.Enable = 0;
             else
