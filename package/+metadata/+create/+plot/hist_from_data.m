@@ -21,8 +21,9 @@ def = [];
 for coor_nr = 1:dim
 	try 
 		signal_md.hist.Range = plot_md.hist.Range(dim, :);
-	catch
-		signal_md.hist.Range	= [min(data(:,coor_nr)), max(data(~isinf(data),coor_nr))]; % Full range of data.
+    catch
+        data(~isfinite(data)) = NaN;
+		signal_md.hist.Range	= [min(data(:,coor_nr), [], 1, 'omitnan'), max(data(:,coor_nr),[], 1, 'omitnan')]; % Full range of data.
 	end
 	
 	signal_md.hist.binsize	= min(diff(signal_md.hist.Range)*nthroot(nof_bins, dim), diff(signal_md.hist.Range)/100); % at least 100 bins.

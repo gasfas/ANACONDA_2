@@ -16,7 +16,12 @@ function [X_0, Y_0, T_0] = zero_dp_splat_position(TOF_no_dp, labels_mass, labels
 % T_0				The T-value of zero dp particles
 
 % The most probable velocities are calculated for all the labels:
-v_p                 = sample_md.Mach_number * theory.Boltzmann_root_mean_square_speed(sample_md.T, sample_md.m_avg);
+
+% The user can define the velocity directly, or a combination of mass,
+% temperature and heat capacity ratio:
+try v_p				= sample_md.v_MB;
+catch v_p           = sample_md.Mach_number * theory.Boltzmann.sound_speed(sample_md.T, sample_md.m_avg, sample_md.Heat_capac_ratio);
+end
 % The radii where the these velocity/mass particles will splat:
 X_0                 = sample_md.v_direction(1)*v_p.*TOF_no_dp*1e-6;
 Y_0                 = sample_md.v_direction(2)*v_p.*TOF_no_dp*1e-6;

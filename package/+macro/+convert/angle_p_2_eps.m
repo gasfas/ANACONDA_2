@@ -32,7 +32,7 @@ for i = 1:length(detnames)
     % Fetch the polarization direction:
     eps     = metadata_in.det.det1.pol_direction;
     % Making sure that the hits have their momenta defined:
-    f_def   = all(~isnan(dp),2);        
+    f_def   = all(~isnan(dp),2);    
     dp_def  = dp(f_def,:);
     % Calculating the angle between them:
     angle_dp_to_eps = convert.vector_angle(dp_def, eps);

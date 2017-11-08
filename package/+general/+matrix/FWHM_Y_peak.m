@@ -2,7 +2,8 @@ function [FWHM_below, FWHM_above]= FWHM_Y_peak(I, y_values, loc, I_peak)
 % This function calculates the Full Width at Half Maximum (FWHM) of a peak
 % found in a two-dimensional image along the x-axis.
 % Inputs:
-% I			[n, m] matrix with intensities
+% I			[n, m] matrix with intensities. n: number of x values, m:
+% number of y-values.
 % y_values	[m, 1] array with the y-values associated for every column.
 % loc		[m, 1] locations in I that belong to the peak that is of
 %			interest.
@@ -13,7 +14,8 @@ function [FWHM_below, FWHM_above]= FWHM_Y_peak(I, y_values, loc, I_peak)
 % FWHM_above The Full width at half maximum (in y-units) above the peak.
 
 if ~exist('I_peak', 'var')
-	I_peak = I(:,loc);
+	sub_peaks = sub2ind(size(I), loc, 1:size(I,2));
+	I_peak = I(sub_peaks);
 end
 
 % calculate the y-values at the peaks:
@@ -22,8 +24,8 @@ y_peak = y_values(loc);
 % Now we normalize the Intensity to the peak values:
 I_norm	= I./(repmat(I_peak, 1, size(I,2)));
 
-% idx_peak = interp1(1:length(y_values), y_values, y_peak, 'Nearest');
 idx_peak = interp1(y_values, 1:length(y_values), y_peak, 'Nearest');
+
 % Split the histogram in two parts: below and above the peak value, 
 % and to avoid problems of non-singular interpolations, we remove other peaks
 % if present

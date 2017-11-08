@@ -16,8 +16,8 @@ else
 	hFig = ax.Parent;
 	hAx = ax;
 end
-hFig = general.handle.fill_struct(hFig, fit_md.final_plot.figure);
-hAx = general.handle.fill_struct(hAx, fit_md.final_plot.axes);
+try hFig = general.handle.fill_struct(hFig, fit_md.final_plot.figure); end
+try hAx = general.handle.fill_struct(hAx, fit_md.final_plot.axes); end
 hold(hAx, 'on')
 
 if ~isfield(fit_md.final_plot, 'color_low_I')
@@ -30,41 +30,33 @@ if ~isfield(fit_md.final_plot, 'dotsize')
 fit_md.final_plot.dotsize		= 1;
 end
 
-switch fit_md.final_plot.Type
+switch fit_md.final_plot.GraphObj.Type
 	case 'scatter'
-	for i = 1:length(fit_param.q)
+		for i = 1:length(fit_param.q)
 
-		q_cur	= fit_param.q(i);
-		result	= fit_param.result(i, 1:8+q_cur);
+			q_cur	= fit_param.q(i);
+			result	= fit_param.result(i, 1:8+q_cur);
 
-		% The y-axis is symmetrically distributed around zero:
-		y_pos	= -q_cur:2:q_cur;
-		x_pos	= q_cur*ones(size(y_pos));
-		I		= result(1:q_cur+1);
+			% The y-axis is symmetrically distributed around zero:
+			y_pos	= -q_cur:2:q_cur;
+			x_pos	= q_cur*ones(size(y_pos));
+			I		= result(1:q_cur+1);
 
-		full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
-		I_colors		= Intensity_colors(fit_md, full_I_colors, I);
-		hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
-		hGraphObj.CData = I_colors;
-	end
-case {'Y_peak', 'Y_mean'}
-	% Fetch the intensity values:
-	[fit_results, midpoints.dim2] = calculate_fit_results(fit_md, fit_param);
-% 	rownrs	= general.matrix.vector_colon(ones(size(fit_param.q)), 1+fit_param.q);
-% 	colnrs	= zeros(size(rownrs));colnrs([true; diff(rownrs)~= 1]) = 1; colnrs = cumsum(colnrs);
-% 	ind		= sub2ind(size(fit_param.result), colnrs, rownrs);
-% 	% Make a Count map:
-% 	Count_h	= NaN*zeros(length(fit_param.q), 1+max(fit_param.q));
-% 	Count_h(ind) = fit_param.result(ind);
-	% collect the corresponding X,Y-positions:
-	midpoints.dim1 = fit_param.q;
-	switch fit_md.final_plot.Type
-		case 'Y_peak'
-				hGraphObj = plot.hist.axes.H_2D.Y_peak(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);
-		case 'Y_mean'
-				hGraphObj = plot.hist.axes.H_2D.Y_mean(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);
-	end
-	
+			full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
+			I_colors		= Intensity_colors(fit_md, full_I_colors, I);
+			hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
+			hGraphObj.CData = I_colors;
+		end
+	otherwise
+		% Fetch the intensity values:
+		[fit_results, midpoints.dim2] = calculate_fit_results(fit_md, fit_param);
+
+		midpoints.dim1 = fit_param.q;
+
+		plot_f = str2func(['plot.hist.axes.H_2D.' fit_md.final_plot.GraphObj.Type]);
+		
+		hGraphObj = plot_f(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);
+
 end
 hGraphObj = general.handle.fill_struct(hGraphObj, fit_md.final_plot.GraphObj);
 end	

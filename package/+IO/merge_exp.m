@@ -8,7 +8,7 @@ function [ merged_exp ] = merge_exp(sep_exps)
 % merged_exp The merged experiments.
 
 % removing extra unnecessary fields:
-sep_exps = rmfield(sep_exps, 'info');
+try sep_exps = rmfield(sep_exps, 'info'); end
 
 expnames = fieldnames(sep_exps);
 nof_exps = length(expnames);

@@ -24,6 +24,9 @@ if size(vec2, 1) == 1 && size(vec1, 1) > 1
  % multiple. This means we multiply the vector to the same size:
 vec2 = repmat(vec2, size(vec1, 1), 1);
 end
+if any(size(vec1) == 0) || any(size(vec2) == 0)
+	angle_rad = NaN*ones(size(vec1, 1), 1);
+else
 	angle_rad = atan2(sqrt(sum(abs(cross(vec1,vec2,2)).^2,2)),dot(vec1,vec2,2));
 end
 

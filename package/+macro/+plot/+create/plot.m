@@ -17,7 +17,7 @@ if ishandle(varargin{1})
 	handle	= varargin{1};
 	exp		= varargin{2};
 	plot_md	= varargin{3};
-	if isgraphics(handle, 'Axes') || isgraphics(handle, 'polaraxes')
+	if isgraphics(handle(1), 'Axes') || isgraphics(handle(1), 'polaraxes')
 		h_axes = handle;
 		h_figure = h_axes.Parent;
 	elseif isgraphics(handle, 'Figure')

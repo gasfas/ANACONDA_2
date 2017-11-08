@@ -1,6 +1,5 @@
-function [h_GraphObj] = Y_mean(h_axes, midpoints, Count, GraphObj_md)
-% This function plots an average Y-value of a 2D histogram of given x- and 
-% y-data.
+function [h_GraphObj] = XY_peak(h_axes, midpoints, Count, GraphObj_md)
+% This function plots the X and Y-value with highest intensity of a 2D histogram of given x- and y-data.
 % Input:
 % h_axes:    The axis handle to plot the figure into
 % midpoints		since dim ==2, struct with the field:
@@ -10,7 +9,6 @@ function [h_GraphObj] = Y_mean(h_axes, midpoints, Count, GraphObj_md)
 % Output:
 % h_GraphObj	The Graphical Object handle (Patch)
 
-[h_GraphObj] = plot.hist.axes.H_2D.Y_line(h_axes, midpoints, Count, GraphObj_md, 'mean');
-
+[h_GraphObj] = plot.hist.axes.H_2D.XY_dot(h_axes, midpoints, Count, GraphObj_md, 'peak');
 
 end

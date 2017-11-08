@@ -44,6 +44,8 @@ if exist('Ax_ori_full', 'var') % If the axes is larger, we merge it again:
 	Ax_ori_full(1)	= Ax_ori;
 	Ax				= [Ax_ori_full, Ax_new];
 else
+	% If the added axes misses fields that the original has, we fill those
+	% up with the same value of the original axes:
 	Ax = [Ax_ori, Ax_new];
 end
 

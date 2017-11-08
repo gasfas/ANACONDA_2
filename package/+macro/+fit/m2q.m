@@ -20,16 +20,22 @@ for i = 1:length(detnames)
 	
     fit_md = metadata_in.fit.(detname).m2q;
 
+		
+	% Load background data:
+	[bgr_m2q, bgr_data] = macro.fit.m2q.bgr.load(fit_md, detname);		
+	
 	if general.struct.issubfield(fit_md, 'cond') % condition applied:
 		e_f = macro.filter.conditions_2_filter(data_in, fit_md.cond);
-		h_f = filter.events_2_hits_det(e_f, data_in.e.raw, size(data_in.h.(detname).m2q,1));
-		m2q_data = data_in.h.(detname).m2q(h_f);
+		h_f_s = filter.events_2_hits_det(e_f, data_in.e.raw, size(data_in.h.(detname).m2q,1));
+		m2q_data = data_in.h.(detname).m2q(h_f_s);
+		
+		% Do the same for the background data:
+		e_f_bgr = macro.filter.conditions_2_filter(bgr_data, fit_md.cond);
+		h_f_bgr = filter.events_2_hits_det(e_f_bgr, bgr_data.e.raw, size(bgr_data.h.(detname).m2q,1));
+		bgr_m2q = bgr_m2q(h_f_bgr);
 	else % just raw m2q data:
 		m2q_data = data_in.h.(detname).m2q;
 	end
-	
-	% Load background data:
-	[bgr_data] = macro.fit.m2q.bgr.load(fit_md, detname);		
 
     % Fit parameters preparation (different for different types of fitting):
     [all_q, fit_param] = macro.fit.m2q.init_fit_param(fit_md, fit_md.Type);
@@ -72,7 +78,7 @@ function fit_param = fit_m2q(fit_md, data_in, fit_param, j)
 		% fit runners, depending on which fitting method is used:
 		runner_f = str2func(['macro.fit.m2q.' fit_md.Type '.runner']);
 		% fetch the fit parameters (different for different types of fitting):
-        [xdata, yfitdata, ybgr, IG, LB, UB, options] = prep_f(fit_md, m2q_data, bgr_data, fit_param);
+        [xdata, yfitdata, ybgr, IG, LB, UB, options] = prep_f(fit_md, m2q_data, bgr_m2q, fit_param);
         
 		if general.struct.probe_field(fit_md.ifdo, 'plots') % Does the user want to see the plots?
 			macro.fit.m2q.plot.before(ax, xdata, yfitdata, ybgr, runner_f(IG, xdata));

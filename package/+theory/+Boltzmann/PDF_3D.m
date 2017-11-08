@@ -1,4 +1,4 @@
-function [ PDF ] = Boltzmann_PDF_3D(E_eV, Temp)
+function [ PDF ] = PDF_3D(E_eV, Temp)
 %This function gives the normalized Maxwell-Boltzmann 
 % Probability Density Function (PDF), from a given momentum vector 2-norm.
 % Input:
