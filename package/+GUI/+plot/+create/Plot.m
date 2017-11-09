@@ -135,12 +135,10 @@ else
                 d1.([signal_x, '_', signal_y]).GraphObj.Marker  = 'o';
                 d1.([signal_x, '_', signal_y]).GraphObj.MarkerEdgeColor = 'r';
                 % d1.([signal_x, '_', signal_y]).axes         = macro.plot.add_axes(d1.([signal_x, '_', signal_y]).axes(1), signals.(exp_name).add_m2q.axes, md_GUI.mdata_n.(exp_name).conv.det1, signal_x, signal_y);
-                
-                
                 try
                     macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_', signal_y]) );
                 catch
-                    msgbox('GUI.plot.create.Plot: Could not plot - data error.', 'error')
+                    msgbox(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot [ ', signal_y '?] vs [ ', signal_x, ' ].'], 'error')
                 end
             end
         end
