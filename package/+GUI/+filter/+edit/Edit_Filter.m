@@ -69,7 +69,6 @@ function [] = Edit_Filter(UIFilter)
             elseif strcmp(char(selected_node_path_cells(1)), 'built_in_filter') || strcmp(char(selected_node_path_cells(2)), 'built_in_filter')
                 msgbox('Cannot edit common filters.')
             else
-                
                 base_value = general.struct.getsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part); 
                 UI = md_GUI.UI.UIFilter;
                 fieldstoedit = [1 1 1 1 1];
@@ -105,7 +104,14 @@ function [] = Edit_Filter(UIFilter)
                         md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('data_pointer');
                     end
                     if strcmp(allfields(llz), 'value')
-						% Check if is numeric or string
+                        % check dimensions of numerical input - ensure [x, y] = [N, 1] -> N*1 matrix.
+                        [size_y, ~] = size(base_value.value);
+                        if size_y > 1
+                            for ll = 1:size_y % Convert vertical matrix to horizontal matrix
+                                new_val(ll) = base_value.value(ll, 1);
+                            end
+                            base_value.value = new_val;
+                        end
                         md_GUI.UI.UIFilter.Fieldvalue.String(llz) = {strjoin(strsplit(char(num2str(base_value.value))), '  ')};
                         md_GUI.UI.UIFilter.Fieldname.String(llz) = cellstr('value');
                     end
