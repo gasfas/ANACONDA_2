@@ -113,7 +113,7 @@ set(UIPlot.Popup_Filter_Selection, ...
         %GUI.plot.md_edit.Plotconf();
     end
     function remove_plot_conf(hObject, eventdata)
-        %GUI.plot.md_edit.Plotconf();
+        GUI.plot.md_edit.PlotConf.RemovePlotConf;
     end
     function Plotconf(hObject, eventdata)
         GUI.plot.md_edit.PlotConf.SavePlotConf();
