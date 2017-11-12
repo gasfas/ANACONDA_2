@@ -77,18 +77,23 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         end
     end
     if tabval == 2
-        set(UIPlot.new.new_signal, 'Enable', 'on');
-        set(UIPlot.new.edit_signal, 'Enable', 'on');
-        set(UIPlot.new.remove_signal, 'Enable', 'on');
+        set(UIPlot.new.save_plot_conf, 'Enable', 'on');
+        set(UIPlot.new.edit_plot_conf, 'Enable', 'on');
+        set(UIPlot.new.remove_plot_conf, 'Enable', 'on');
+        set(UIPlot.new_signal.new_signal, 'Enable', 'on');
+        set(UIPlot.new_signal.edit_signal, 'Enable', 'on');
+        set(UIPlot.new_signal.remove_signal, 'Enable', 'on');
         set(UIPlot.new.signals_list, 'Enable', 'on');
+        set(UIPlot.new_signal.signals_list, 'Enable', 'on');
         set(UIPlot.new.btn_set_x_sign_pointer, 'Enable', 'on');
         set(UIPlot.new.y_signals_checkbox, 'Enable', 'on');
-        set(UIPlot.new.PopupPlotSelected, 'Enable', 'on')
         set(UIPlot.Popup_Filter_Selection, 'Enable', 'on')
         set(UIPlot.new.PlotButton, 'Enable', 'on')
         set(UIPlot.new.PlotConfButton, 'Enable', 'on')
         set(UIPlot.def.PlotConfEditButton, 'Enable', 'on')
         set(UIPlot.def.Popup_plot_type, 'Enable', 'on')
+        set(UIPlot.def.pre_def_plot_radiobutton_built_in, 'Enable', 'on')
+        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'on')
         set(UIPlot.def.PlotButton, 'Enable', 'on')
 
         if numberofloadedfilesselected > 1
@@ -180,14 +185,18 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         
         %% Values for the different settings in the defined plots tab:
         set(UIPlot.new.signals_list, 'String', signals_list)
-        set(UIPlot.def.Popup_plot_type, 'String', popup_list_names)
+        set(UIPlot.new_signal.signals_list, 'String', signals_list)
+        if UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1
+            set(UIPlot.def.Popup_plot_type, 'String', popup_list_names)
+        end
+        if UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+            set(UIPlot.def.Popup_plot_type, 'String', {' - '})
+        end
         set(UIPlot.def.Popup_plot_type, 'Value', 1)
 
         %% Values for the different settings in the new plots tab:
         set(UIPlot.Popup_Filter_Selection, 'String', Filters_string_name)
-        set(UIPlot.new.PopupPlotSelected, 'String', {'Plot all in new figure together', 'Plot all separately', 'Plot selection into pre-existing figure'})
         set(UIPlot.Popup_Filter_Selection, 'Value', 1)
-        set(UIPlot.new.PopupPlotSelected, 'Value', 1)
     end
     assignin('base', 'md_GUI', md_GUI)
 end

@@ -48,17 +48,22 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.new.signals_list, 'Enable', 'off');
         set(UIPlot.new.signals_list, 'String', '-');
         set(UIPlot.new.signals_list, 'Value', 1);
+        set(UIPlot.new_signal.signals_list, 'Enable', 'off');
+        set(UIPlot.new_signal.signals_list, 'String', '-');
+        set(UIPlot.new_signal.signals_list, 'Value', 1);
         set(UILoad.UnLoadFileButton, 'Enable', 'off');
-        set(UIPlot.new.new_signal, 'Enable', 'off');
-        set(UIPlot.new.remove_signal, 'Enable', 'off');
-        set(UIPlot.new.edit_signal, 'Enable', 'off');
+        set(UIPlot.new.save_plot_conf, 'Enable', 'off');
+        set(UIPlot.new.remove_plot_conf, 'Enable', 'off');
+        set(UIPlot.new.edit_plot_conf, 'Enable', 'off');
+        set(UIPlot.new_signal.new_signal, 'Enable', 'off');
+        set(UIPlot.new_signal.edit_signal, 'Enable', 'off');
+        set(UIPlot.new_signal.remove_signal, 'Enable', 'off');
         set(UIPlot.def.PlotButton, 'Enable', 'off');
         set(UIPlot.def.Popup_plot_type, 'Enable', 'off');
+        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off')
+        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off')
         set(UIPlot.def.Popup_plot_type, 'String', '-');
         set(UIPlot.LoadedFilesPlotting, 'Enable', 'off');
-        set(UIPlot.new.PopupPlotSelected, 'String', '-');
-        set(UIPlot.new.PopupPlotSelected, 'Value', 1);
-        set(UIPlot.new.PopupPlotSelected, 'Enable', 'off')
         set(UILoad.LoadedFiles, 'String', '-');
         set(UILoad.LoadedFiles, 'Enable', 'off');
         set(UIPlot.LoadedFilesPlotting, 'String', '-');

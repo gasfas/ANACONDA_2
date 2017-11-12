@@ -1,20 +1,23 @@
 % Description: Set up parameters used for the plotting.
 %   - inputs:
-%           Selected experiment(s) name(s)     	(selected_exp_names)
-%           Selected experiment(s) number(s)    (filenumber_selected)
-%           Selected experiment(s) data         (data_n)
+%           Selected exp. number                (experiment_selected_number)
 %           Selected experiment(s) metadata     (mdata_n)
-%           Plot settings                       (plotsettings)
 %           Experiment settings                 (expsettings)
-%   - outputs:
-%           Plot(s)
+%           Plot settings                       (plotsettings)
+
+%           Old field values in struct <-- Fix it.
+
+%   - outputs: (into PlotConfSetButton)
+%           Field selected              (fieldselected)
+%           Field selected value      	(fieldselectedvalue)
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
 
-function [ ] = Plot( ) 
+function [  ] = SavePlotConf()
 md_GUI = evalin('base', 'md_GUI');
+newPlotConfName = inputdlg('New plot configuration name:', 'Save to md');
 signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String;
 signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
 selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
@@ -132,48 +135,15 @@ else
                 d1.([signal_x, '_', signal_y]).GraphObj.SizeData = 150;
                 d1.([signal_x, '_', signal_y]).GraphObj.Marker  = 'o';
                 d1.([signal_x, '_', signal_y]).GraphObj.MarkerEdgeColor = 'r';
-                % d1.([signal_x, '_', signal_y]).axes         = macro.plot.add_axes(d1.([signal_x, '_', signal_y]).axes(1), signals.(exp_name).add_m2q.axes, md_GUI.mdata_n.(exp_name).conv.det1, signal_x, signal_y);
-                try
-                    macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_', signal_y]) );
-                catch
-                    msgbox(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot [ ', signal_y '?] vs [ ', signal_x, ' ].'], 'error')
-                end
-            end
-        end
-    else % Plot x signal as pre-defined (vs. Intensity?) selected
-        if length(typesplit_x) == 2
-            for lx = 1:length(selectedexpnumbers)
-                exp_name = char(sel_exp_names(lx));
-                try
-                    macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
-                catch
-                    msgbox(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot only [ ', signal_x '?].'], 'error')
-                end
+                md_GUI.mdata_n.(exp_name).plot.(detname).(char(newPlotConfName)) = d1.([signal_x, '_', signal_y]);
+                numberofplottypes = length(currentplottypes)+1;
+                currentplottypes(numberofplottypes) = newPlotConfName;
+                % write dots between detectornames and fieldnames:
+                popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
+                md_GUI.UI.UIPlot.def.Popup_plot_type.String = popup_list_names_det;
             end
         end
     end
 end
-
-function plot_md = replace_condition(plot_md, cond_md, name)
-% This function replaces a condition in the plot metadata, whether there has been a
-% condition defined previously or not.
-% Replace this condition to the existing field, with the original name:
-plot_md.cond = cond_md;
-end
-
-% function plot_md = add_condition(plot_md, cond_md, name)
-% % This function adds a condition to plot metadata, whether there has been a
-% % condition defined previously or not.
-% if general.struct.issubfield(plot_md, ['cond.' name])
-% 	% Add this condition to the existing field, with an adapted name:
-%     plot_md.cond = general.struct.setsubfield(plot_md.cond, [name, '_2'], cond_md);
-% else
-% 	% Add this condition to the existing field, with the original name:
-%     if ~general.struct.issubfield(plot_md, 'cond.')
-%         plot_md.cond = struct();
-%     end
-%     plot_md.cond = general.struct.setsubfield(plot_md.cond, name, cond_md);
-% end
-% end
-
+assignin('base', 'md_GUI', md_GUI)
 end

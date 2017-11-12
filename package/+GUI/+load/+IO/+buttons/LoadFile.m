@@ -48,13 +48,13 @@ end
 file = fullfile(dir, filename);
 md_def_setting = md_GUI.UI.UILoad.md_default_radiobuttongroup.SelectedObject.String;
 switch md_def_setting
-    case 'Local metadata'
+    case 'Local configurations'
 	[exp_md, islocal, md_loading_message] = read_local_md(dir, filename, md_GUI);
-    case 'System metadata'
+    case 'System configurations'
     exp_md = GUI.load.IO.buttons.LoadFile_system_md(md_GUI);
 	% Message to log_box
     md_loading_message = 'System metadata used.';
-    case 'Combined metadata'
+    case 'Combined configurations'
 	[exp_md_local, islocal, md_loading_message] = read_local_md(dir, filename, md_GUI);
     if islocal
         exp_md_system = GUI.load.IO.buttons.LoadFile_system_md(md_GUI);
@@ -113,7 +113,7 @@ set(UILoad.LoadedFiles, 'Enable', 'on');
 set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFiles);
 set(UIPlot.LoadedFilesPlotting, 'Enable', 'on');
 
-GUI.log.add(['File loaded: exp', num2str(NumberOfLoadedFiles), ', ', char(filename)])
+GUI.log.add(['File loaded: exp', num2str(NumberOfLoadedFiles+1), ', ', char(filename)])
 
 end
 

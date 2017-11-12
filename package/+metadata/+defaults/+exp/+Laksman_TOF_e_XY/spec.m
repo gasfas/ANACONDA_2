@@ -2,7 +2,7 @@ function [ exp_md ] = spec ( exp_md )
 % This convenience funciton lists the default spectrometer metadata, and can be
 % read by other experiment-specific metadata files.
 
-exp_md.spec.name = 'Laksman';
+exp_md.spec.name = 'Laksman_e_XY';
 
 % Voltages
 exp_md.spec.volt.Ve2s			= 300; %[V] Voltage of grid separating electron side and source region,'pusher'
@@ -17,7 +17,7 @@ exp_md.spec.dist.d 			= 0.094;% [m] length of accelation region
 exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 
 % detection modes:
-exp_md.spec.det_modes = {'ion'}; % The detection mode for detector 1, 2, etc.
+exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 
 exp_md.spec.volt.V_created 		= exp_md.spec.volt.Ve2s + exp_md.spec.dist.s0/exp_md.spec.dist.s * (exp_md.spec.volt.Vs2a - exp_md.spec.volt.Ve2s); % [V]The voltage at light interaction point
 

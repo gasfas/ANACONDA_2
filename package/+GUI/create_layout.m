@@ -132,7 +132,16 @@ tab_plot.ButtonDownFcn = @plottabopening;
                 [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
                 for nn = 1:NumberOfLoadedFiles
                     UI = md_GUI.UI.UIFilter;
+                    try
                     [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    catch
+                        try 
+                            md_GUI.mdata;
+                            msgbox('Error within md_GUI metadata (mdata_n)', 'Error')
+                        catch
+                            msgbox('Please load a file.', 'Error')
+                        end
+                    end
                 end
             end
         end
@@ -166,7 +175,16 @@ tab_plot.ButtonDownFcn = @plottabopening;
                 [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
                 for nn = 1:NumberOfLoadedFiles
                     UI = md_GUI.UI.UIFilter;
+                    try
                     [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    catch
+                        try 
+                            md_GUI.mdata;
+                            msgbox('Error within md_GUI metadata (mdata_n)', 'Error')
+                        catch
+                            msgbox('Please load a file.', 'Error')
+                        end
+                    end
                 end
             end
         end

@@ -35,7 +35,7 @@ d2.labels_to_show     = exp_md.sample.fragment.masses;
 % exp_md.plot.e.ifdo.m2q_2_KER	= false;
 
 % load the signal plotting metadata:
-exp_md = my_md.Laksman_TOF_e_XY.plot_signals(exp_md);
+exp_md = metadata.defaults.exp.Laksman_TOF_e_XY.plot_signals(exp_md);
 signals = exp_md.plot.signal;
 
 %% %%%%%%%%%%%%%%%%%%%%%%% PLOTTYPE DEFAULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,7 +76,7 @@ d2.TOF.axes						= macro.plot.add_axes(d2.TOF.axes(1), signals.add_m2q.axes, exp
 
 d2.TOF_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.i_TOF, signals.i_TOF});
 d2.TOF_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-d2.TOF_hit1_hit2.hist.binsize	= 2*d2.TOF_hit1_hit2.hist.binsize;
+d2.TOF_hit1_hit2.hist.binsize	= d2.TOF_hit1_hit2.hist.binsize;
 % d2.TOF_hit1_hit2.hist.Range		= [1.05e4 1.1e4; 1.3e4 1.32e4];
 % d2.TOF_hit1_hit2.axes.XLim		= d2.TOF_hit1_hit2.hist.Range(1,:);
 % d2.TOF_hit1_hit2.axes.YLim		= d2.TOF_hit1_hit2.hist.Range(2,:);

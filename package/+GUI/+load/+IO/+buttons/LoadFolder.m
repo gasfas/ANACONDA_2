@@ -14,7 +14,7 @@ function [ ] = LoadFolder( hObject, eventdata, UIPlot, UILoad)
 md_GUI = evalin('base', 'md_GUI');
 
 %% Specify location:
-fformat = md_GUI.UI.UILoad.FiletypeEditBox.String;
+fformat = UILoad.FiletypeEditBox.String;
 
 try 
     [pathname] = uigetdir(md_GUI.load.folder_name, 'Select folder');

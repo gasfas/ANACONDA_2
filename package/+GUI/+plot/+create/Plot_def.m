@@ -33,7 +33,7 @@ if length(typesplit) == 2
 		if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
 			cond_name	= char(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value));
 			cond_md     = general.struct.getsubfield( md_GUI.mdata_n.(exp_name).cond, cond_name);
-			md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = add_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
+			md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
         end
 		
         try
@@ -45,29 +45,24 @@ if length(typesplit) == 2
 end
 end
 
-function plot_md = add_condition(plot_md, cond_md, name)
-% This function adds a condition to plot metadata, whether there has been a
-% condition defined previously or not.
-if general.struct.issubfield(plot_md, ['cond.' name])
-	% Add this condition to the existing field, with an adapted name:
-    plot_md.cond = general.struct.setsubfield(plot_md.cond, [name, '_2'], cond_md);
-else
-	% Add this condition to the existing field, with the original name:
-    if ~general.struct.issubfield(plot_md, 'cond.')
-        plot_md.cond = struct();
-    end
-    plot_md.cond = general.struct.setsubfield(plot_md.cond, name, cond_md);
-end
-% 
-% 
-% Previous code here:
+% function plot_md = add_condition(plot_md, cond_md, name)
 % % This function adds a condition to plot metadata, whether there has been a
 % % condition defined previously or not.
 % if general.struct.issubfield(plot_md, ['cond.' name])
 % 	% Add this condition to the existing field, with an adapted name:
-% 	plot_md.cond.([name '_2']) = cond_md;
+%     plot_md.cond = general.struct.setsubfield(plot_md.cond, [name, '_2'], cond_md);
 % else
 % 	% Add this condition to the existing field, with the original name:
-% 	plot_md.cond.(name) = cond_md;
+%     if ~general.struct.issubfield(plot_md, 'cond.')
+%         plot_md.cond = struct();
+%     end
+%     plot_md.cond = general.struct.setsubfield(plot_md.cond, name, cond_md);
 % end
+% end
+
+function plot_md = replace_condition(plot_md, cond_md, name)
+% This function replaces a condition in the plot metadata, whether there has been a
+% condition defined previously or not.
+% Replace this condition to the existing field, with the original name:
+plot_md.cond = cond_md;
 end

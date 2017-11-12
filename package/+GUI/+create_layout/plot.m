@@ -13,13 +13,17 @@ function [ h_figure, UIctrl_plot ] = plot( h_figure, pos, h_tabs, tab_plot)
 % Information about the listbox below
 UI.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.64]);
 % Def plot tab:
-tab_plot_def = uitab(UI.h_plot_tabs,'Title','Pre-defined plot conf');
-% New lot tab:
+tab_plot_def = uitab(UI.h_plot_tabs,'Title','Pre-defined plots');
+% New plot tab:
 tab_plot_new = uitab(UI.h_plot_tabs,'Title','New plot conf');
+% New signal tab:
+tab_signal_new = uitab(UI.h_plot_tabs,'Title','New signal conf');
 %% Defined Plotting
-[h_figure, UIctrl_plot.def] = GUI.create_layout.plot.def_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_def);
+[h_figure, UIctrl_plot.def]         = GUI.create_layout.plot.def_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_def);
 %% New Plotting:
-[h_figure, UIctrl_plot.new] = GUI.create_layout.plot.new_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_new);
+[h_figure, UIctrl_plot.new]         = GUI.create_layout.plot.new_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_new);
+%% New Signal:
+[h_figure, UIctrl_plot.new_signal]  = GUI.create_layout.plot.new_signal(h_figure, pos, UI.h_plot_tabs, tab_signal_new);
 
 % Information about popup menu for filters
 UIctrl_plot.InformationText_Filter_Selection = uicontrol('Parent', tab_plot, ...
@@ -28,7 +32,7 @@ UIctrl_plot.InformationText_Filter_Selection = uicontrol('Parent', tab_plot, ...
 'FontSize', 14, ...
 'Position',[0.02 0.65 0.37 0.06],...
 'HorizontalAlignment', 'right', ...
-'String','Select filter:');
+'String','Select external filter:');
 
 % Popup for filter selection
 UIctrl_plot.Popup_Filter_Selection = uicontrol('Parent', tab_plot, ...
@@ -46,6 +50,7 @@ UIctrl_plot.InformationText_LoadedFilesPlotting = uicontrol('Parent', tab_plot, 
 'Position',[0.02 0.96 0.96 0.03],...
 'FontSize', 12, ...
 'String','Select experiment(s) to plot:');
+
 UIctrl_plot.LoadedFilesPlotting = uicontrol('Parent', tab_plot, ...
 'Style', 'listbox', ...
 'Units', 'normalized', ...
