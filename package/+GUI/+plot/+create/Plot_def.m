@@ -30,16 +30,19 @@ if length(typesplit) == 2
 		detname = ['det' num2str(find(strcmp(char(typesplit(1)), md_GUI.mdata_n.(exp_name).spec.det_modes)))];
         plottype = char(typesplit(2));
         % See if a condition is defined:
-		if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
+        if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
 			cond_name	= char(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value));
 			cond_md     = general.struct.getsubfield( md_GUI.mdata_n.(exp_name).cond, cond_name);
-			md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
+            try
+                md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
+            catch
+                GUI.log.add(['Failed to apply external filter ', cond_name, ' to experiment.'])
+            end
         end
-		
         try
             macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
         catch
-            msgbox('GUI.plot.create.Plot_def: Could not plot.', 'error')
+            GUI.log.add(['GUI.plot.create.Plot_def: Could not plot ', plottype, '.'])
         end
     end
 end
