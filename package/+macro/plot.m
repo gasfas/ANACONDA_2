@@ -10,13 +10,15 @@ function [h_figure, h_axes, h_GraphObj, exp] = plot(exp, metadata)
 
 % we fetch the detector names:
 detnames            = fieldnames(metadata.det);
+% we add the cross detector name:
+detnames			= {detnames{:}, 'crossdet'};
 
 % We check all the detectors:
 for i = 1:length(detnames)
 	detname		= detnames{i};
 	detnr		= IO.det_nr_from_fieldname(detname);
 	% We check all the plotnames of this detector:
-	plotnames = general.struct.probe_field(metadata.plot.(detname), 'ifdo');
+	plotnames = general.struct.probe_field(metadata, ['plot.' detname '.ifdo']);
 	if isstruct(plotnames)
 		for plotname = fieldnames(plotnames)'
 			% If the user wants to plot that plottype:

@@ -58,7 +58,7 @@ catch % If some values are not given, we don't perform the MB correction:
 	% The radii where the these velocity/mass particles will splat:
 	X_0                 = zeros(m,1);
 	Y_0                 = zeros(m,1);
-	T_0                 = zeros(m,1);
+	T_0                 = TOF_no_dp;
 end
 
 % p_0 is determined from the difference between these two:

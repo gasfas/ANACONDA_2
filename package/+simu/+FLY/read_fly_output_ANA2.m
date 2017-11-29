@@ -61,6 +61,7 @@ end
 %%
 
 %% Export in ANACONDA 2 format:
+% TODO: make possible to detect on two electrons
 starts      = find(Event_in_data == 1);
 ends        = find(Event_in_data == 4);
 nof_hits    = length(starts);
@@ -70,7 +71,7 @@ X_unf       = data{find(strcmp(var_name_stor, 'X'))}(ends);
 Y_unf       = data{find(strcmp(var_name_stor, 'Y'))}(ends);
 Z_unf       = data{find(strcmp(var_name_stor, 'Z'))}(ends);
 TOF_unf     = data{find(strcmp(var_name_stor, 'TOF'))}(ends);
-% Filter out the missed electrons (will never be registered in real
+% Filter out the missed ions (will never be registered in real
 % experiment): 
 % Find the detector dimensions:
 fill_nr = find(settings.GEM.data.el.el_nr == settings.GEM.data.el_nr_det);
@@ -89,5 +90,6 @@ miss_f          = X_unf < (x_min_detector - settings.GEM.x_tol) | ...
 % ANACONDA 2.
 
 exp.h.det1.raw = [Y_unf(~miss_f), Z_unf(~miss_f), TOF_unf(~miss_f)*1e3];
-
+% make some fake events, to prevent problems in the data analysis:
+exp.e.raw = (1:size(exp.h.det1.raw,1))';
 end

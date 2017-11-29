@@ -128,7 +128,7 @@ if isevent
 		% now we know the detector numbers and their highest hit number requested, we calculate the event filters:
 		hitnr_filter = true(size(exp.e.raw, 1),1); nof_hits_det = IO.count_nof_hits(exp.h);
 		for j = 1:length(unique_detnrs)
-			[detnr, hitnr] = deal(unique_detnrs, max_hitnrs);
+			[detnr, hitnr] = deal(unique_detnrs(j), max_hitnrs(j));
 			hitnr_filter = hitnr_filter & filter.events.multiplicity(exp.e.raw(:,detnr), hitnr, Inf, nof_hits_det(detnr));
 		end
 	else
@@ -142,12 +142,12 @@ if isevent
 	% The hitnr filter will be applied to all signals:
 	col_nr = 1;
 	for sign_nr = 1:length(hist_md.pointer)
-		detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 		if isevent_signal(sign_nr) % we deal with an event signal:
 			event_data = IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(event_data, 2);
 			hist_data(:,col_nr:col_nr+nof_cols-1) = event_data(hitnr_filter,:);
 		else % we deal with a hit signal, accompanied with hitselect:
+			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hitnr = hist_md.hitselect(sign_nr);
 			hit_data		= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(hit_data, 2);
@@ -169,8 +169,11 @@ elseif ~isevent%% This means we are dealing with hits:
 	end
 	hist_data = NaN*zeros(sum(hit_filter), hist_md.dim);
 	col_nr = 1;
-	for sign_nr = 1:length(hist_md.pointer)
-		hit_data	= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
+	for sign_nr	= 1:length(hist_md.pointer)
+		hit_data		= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
+		if size(hit_data, 1) ~= size(hit_data1, 1)
+			error('different size data-arrays given, cannot be plotted')
+		end
 		hit_data		= hit_data(hit_filter,:);
 		nof_cols		= size(hit_data, 2);
 		hist_data(:,col_nr:col_nr+nof_cols-1) = hit_data;

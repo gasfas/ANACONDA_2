@@ -28,6 +28,9 @@ if numel(axes_md)>1
 	end
 else
 	% Create the new axes:
+	if ~isfield(axes_md, 'Type')
+		axes_md.Type = 'axes';
+	end
 	switch axes_md.Type
 		case 'polaraxes'
 			h_axes = polaraxes('Parent', h_figure);

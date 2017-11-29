@@ -16,7 +16,7 @@ exp_md.conv.det1.ifdo.R_theta					= true;% Does the user want to convert to R-th
 exp_md.conv.det1.ifdo.angle_p_corr_C2			= true;% Does the user want to calculate mutual momentum angles of double coindicence?
 exp_md.conv.det1.ifdo.angle_p_corr_C3			= true;% Does the user want to calculate mutual momentum angles of triple coincidence?
 exp_md.conv.det1.ifdo.q_label					= false;% Does the user want to convert to have q-labels defined?
-exp_md.conv.det1.ifdo.CSD						= true;% Does the user want to convert to CSD?
+exp_md.conv.det1.ifdo.CSD						= false;% Does the user want to convert to CSD?
 % Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1
 
 % Time Of Flight to Mass to Charge values

@@ -1,4 +1,4 @@
-function [h_figure, h_axes, h_GraphObj] = quickhist(varargin)
+function [h_figure, h_axes, h_GraphObj, plot_md] = quickhist(varargin)
 % This function makes a quick histogram of the given data. The user can
 % supply plot preferences through name value combinations.
 % Inputs:

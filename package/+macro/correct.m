@@ -14,7 +14,7 @@ for i = 1:length(detnames)
     detname     = detnames{i};
     
     % Check the log, which corrections have already been performed:
-    corr_log    = general.struct.probe_field(data_out.h.(detname), 'corr_log');
+    corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
     % if no corrections have been performed, add the empty field:
     if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
     
@@ -29,6 +29,13 @@ for i = 1:length(detnames)
     % Detector image translation:
     if ~isempty(idx_X) && ~isempty(idx_Y) && general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dXdY') 
         data_out = macro.correct.dXdY(data_out, metadata_in, detname);
+	else
+		if idx_X % If the signal X is requested without correction:
+			data_out.h.(detname).X = data_out.h.(detname).raw(:,idx_X);
+		end
+		if idx_Y % If the signal Y is requested without correction:
+			data_out.h.(detname).Y = data_out.h.(detname).raw(:,idx_Y);
+		end
     end
     
     % Detector image rotation:
@@ -44,6 +51,8 @@ for i = 1:length(detnames)
     % TOF dead time correction
     if ~isempty(idx_TOF) && general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dTOF') 
         data_out = macro.correct.dTOF(data_out, metadata_in, detname);
+	elseif idx_TOF % If the signal TOF is requested without correction:
+			data_out.h.(detname).TOF = data_out.h.(detname).raw(:,idx_TOF);
     end
     
     % Energy correction

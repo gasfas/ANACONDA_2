@@ -26,8 +26,8 @@ for i = 1:length(detnames)
         factor          = metadata_in.conv.(detname).TOF_2_m2q.factor;
         t0              = metadata_in.conv.(detname).TOF_2_m2q.t0;
         data_out.h.(detname).m2q = convert.TOF_2_m2q(TOF, factor, t0);
-		% Calculate the sum of masses, to the event property:
-        data_out.e.(detname).m2q_sum = convert.event_sum(data_out.h.(detname).m2q, data_in.e.raw(:, detnr));
+		% Calculate the sum of masses, to the event property (if possible):
+        try data_out.e.(detname).m2q_sum = convert.event_sum(data_out.h.(detname).m2q, data_in.e.raw(:, detnr)); catch; end
         disp(['Log: m2q conversion performed on ' detname])
     end
 end
