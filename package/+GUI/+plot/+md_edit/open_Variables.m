@@ -10,7 +10,11 @@ try
     for ll = 1:length(md_GUI.UI.UIPlot.LoadedFilesPlotting.Value)
         exp_name(ll) = cellstr(['exp', num2str(md_GUI.UI.UIPlot.LoadedFilesPlotting.Value(ll))]);
         det_name(ll) = cellstr(['det' num2str(find(strcmp(char(typesplit(1)), md_GUI.mdata_n.(char(exp_name(ll))).spec.det_modes)))]);
-        confname(ll) = cellstr(['md_GUI.mdata_n.' char(exp_name(ll)) '.plot.' char(det_name(ll)) '.' plottype]);
+        if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+            confname(ll) = cellstr(['md_GUI.mdata_n.' char(exp_name(ll)) '.plot.user.' char(det_name(ll)) '.' plottype]);
+        elseif md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1
+            confname(ll) = cellstr(['md_GUI.mdata_n.' char(exp_name(ll)) '.plot.' char(det_name(ll)) '.' plottype]);
+        end
         openvar(char(confname(ll)))
     end
 catch

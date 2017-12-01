@@ -14,7 +14,11 @@ for l2 = 2:length(exps)
     memberindex.([char(exps(l2))]) = ismember(fields1, fields2);
 end
 % combine memberindices:
-memberindices = horzcat(memberindex.([char(exps(2))]), memberindex.([char(exps(3))]));
+if length(fieldnames(memberindex)) == 1
+    memberindices = memberindex.(char(fieldnames(memberindex(1))));
+else
+    memberindices = horzcat(memberindex.([char(exps(2))]), memberindex.([char(exps(3))]));
+end
 if length(exps) > 3
     for l3 = 3:length(exps)
         memberindices = horzcat(memberindices, memberindex.([char(exps(l3))]));

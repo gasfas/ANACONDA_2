@@ -15,9 +15,8 @@
 % Modification date:
 % Modifier:
 
-function [  ] = SavePlotConf()
+function [  ] = SavePlotConf(newPlotConfName)
 md_GUI = evalin('base', 'md_GUI');
-newPlotConfName = inputdlg('New plot configuration name:', 'Save to md');
 if ~isempty(newPlotConfName)
     signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String;
     signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;

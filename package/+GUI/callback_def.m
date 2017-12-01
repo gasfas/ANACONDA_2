@@ -107,10 +107,11 @@ set(UIPlot.Popup_Filter_Selection, ...
         assignin('base', 'md_GUI', md_GUI)
     end
     function save_plot_conf(hObject, eventdata)
-        GUI.plot.md_edit.PlotConf.SavePlotConf;
+        newPlotConfName = inputdlg('New plot configuration name:', 'Save to md');
+        GUI.plot.md_edit.PlotConf.SavePlotConf(newPlotConfName);
     end
     function edit_plot_conf(hObject, eventdata)
-        %GUI.plot.md_edit.Plotconf();
+        GUI.plot.md_edit.PlotConf.EditPlotConf('open_editor');
     end
     function remove_plot_conf(hObject, eventdata)
         GUI.plot.md_edit.PlotConf.RemovePlotConf;
@@ -135,8 +136,7 @@ set(UIPlot.Popup_Filter_Selection, ...
 	end
     function Edit_Plot_Conf_def(hObject, eventdata)
         GUI.plot.md_edit.open_Variables();
-	end
-
+    end
     function Reset(hObject, eventdata)
         GUI.load.IO.buttons.Reset
     end
@@ -162,7 +162,14 @@ set(UIPlot.Popup_Filter_Selection, ...
         md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.UI.UIFilter.Tree.FontSize / 1.5;
         assignin('base', 'md_GUI', md_GUI)
     end
-
+    function set_x_signal_button(hObject, eventdata)
+        UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
+    end
+    function set_y_signal_button(hObject, eventdata)
+        UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
+    end
 %%  Functions for popupboxes
     function Popup_FilterSelect(hObject, eventdata)
         GUI.plot.data_selection.Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot.new);
@@ -173,127 +180,10 @@ set(UIPlot.Popup_Filter_Selection, ...
 
 %%  Functions for radiobuttons
     function pre_def_plot_radiobutton_customized(hObject, eventdata)
-        md_GUI = evalin('base', 'md_GUI');
-        try
-            filenumber = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
-            exp_names = cellstr('');
-            for lx = 1:length(filenumber)
-                exp_names(lx) = cellstr(['exp', int2str(filenumber(lx))]);
-            end        
-            plottypes_def = {}; 
-            popup_list_names = {};
-            for lx = 1:length(exp_names)
-                current_exp_name = char(exp_names(lx));
-                % Get number of detectors.
-                detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).det);
-                if ischar(detector_choices)
-                    numberofdetectors = 1;
-                    detector_choices = cellstr(detector_choices);
-                else
-                    numberofdetectors = length(detector_choices);
-                end
-                for ly = 1:numberofdetectors
-                    current_det_name = char(detector_choices(ly));
-                    detnr			 = IO.detname_2_detnr(current_det_name);
-                    % Find a human-readable detector name:
-                    hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
-                    currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
-                    % remove possible 'ifdo' fields:
-                    currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
-                    numberofplottypes = length(currentplottypes);
-
-                    % write dots between detectornames and fieldnames:
-                    popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
-                    plottypes_def(1,end+1:end+numberofplottypes) = currentplottypes;
-                    popup_list_names(1,end+1:end+numberofplottypes) = popup_list_names_det;
-                end
-                if length(exp_names) > 1
-                    list_struct.([char(exp_names(lx))]) = popup_list_names_det;
-                end
-            end
-            if length(exp_names) > 1 % check so that all exps have plot confs:
-                value = 0;
-                for llz = 1:length(exp_names)
-                    if length(list_struct.([char(exp_names(llz))])) > 0
-                        value = value + 1;
-                    end
-                end
-                popup_list_names = cellstr('');
-                if value > length(exp_names)-1 % Do the fields comparison.
-                    popup_list_names = GUI.general_functions.CommonFields(list_struct);
-                else % At least one exp has zero fields - do nothing.
-                    GUI.log.add(['At least one experiment has no pre-defined plots for selected plot setting.'])
-                end
-            end
-            set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'String', popup_list_names)
-            set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'on')
-            
-        catch
-            set(UIPlot.def.Popup_plot_type, 'String', {' - '})
-            set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'off')
-        end
-        if isempty(popup_list_names)
-            set(UIPlot.def.Popup_plot_type, 'String', {' - '})
-            set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'off')
-        end
-        set(UIPlot.def.Popup_plot_type, 'Value', 1)
-        assignin('base', 'md_GUI', md_GUI)
+        GUI.plot.data_selection.Radiobutton_Custom;
     end
     function pre_def_plot_radiobutton_built_in(hObject, eventdata)
-        md_GUI = evalin('base', 'md_GUI');
-        set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'on')
-        filenumber = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
-        exp_names = cellstr('');
-        for lx = 1:length(filenumber)
-            exp_names(lx) = cellstr(['exp', int2str(filenumber(lx))]);
-        end        
-        plottypes_def = {}; 
-        popup_list_names = {};
-        for lx = 1:length(exp_names)
-            current_exp_name = char(exp_names(lx));
-            % Get number of detectors.
-            detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).det);
-            if ischar(detector_choices)
-                numberofdetectors = 1;
-                detector_choices = cellstr(detector_choices);
-            else
-                numberofdetectors = length(detector_choices);
-            end
-            for ly = 1:numberofdetectors
-                current_det_name = char(detector_choices(ly));
-                detnr			 = IO.detname_2_detnr(current_det_name);
-                % Find a human-readable detector name:
-                hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
-                currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.(current_det_name));
-                % remove possible 'ifdo' fields:
-                currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
-                numberofplottypes = length(currentplottypes);
-
-                % write dots between detectornames and fieldnames:
-                popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
-                plottypes_def(1,end+1:end+numberofplottypes) = currentplottypes;
-                popup_list_names(1,end+1:end+numberofplottypes) = popup_list_names_det;
-            end
-                if length(exp_names) > 1
-                    list_struct.([char(exp_names(lx))]) = popup_list_names_det;
-                end
-            end
-            if length(exp_names) > 1 % check so that all exps have plot confs:
-                value = 0;
-                for llz = 1:length(exp_names)
-                    if length(list_struct.([char(exp_names(llz))])) > 0
-                        value = value + 1;
-                    end
-                end
-                popup_list_names = cellstr('');
-                if value > length(exp_names)-1 % Do the fields comparison.
-                    popup_list_names = GUI.general_functions.CommonFields(list_struct);
-                else % At least one exp has zero fields - do nothing.
-                    GUI.log.add(['At least one experiment has no pre-defined plots for selected plot setting.'])
-                end
-            end
-        set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'String', popup_list_names)
-        assignin('base', 'md_GUI', md_GUI)
+        GUI.plot.data_selection.Radiobutton_PreDef;
     end
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
@@ -303,19 +193,15 @@ set(UIPlot.Popup_Filter_Selection, ...
         else
             UIPlot.new.btn_set_y_sign_pointer.Enable = 'on';
         end
+        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
     end
-    function set_x_signal_button(hObject, eventdata)
-        UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
-    end
-    function set_y_signal_button(hObject, eventdata)
-        UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
-    end
-%%  Functions for listboxes
+%%  Functions for listboxesedi
     function FilesList(hObject, eventdata)
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
     end
     function LoadedFilesCall(hObject, eventdata)
        GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot);
+       GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
     end
     function FilterFieldValueCall(hObject, eventdata)
         GUI.filter.edit.FieldValueList(hObject, eventdata, UIFilter);

@@ -40,7 +40,11 @@ if length(typesplit) == 2
             end
         end
         try
-            macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
+            if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+                macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.user.(detname).(plottype));
+            elseif md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1
+                macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
+            end
         catch
             GUI.log.add(['GUI.plot.create.Plot_def: Could not plot ', plottype, '.'])
         end

@@ -1,19 +1,8 @@
 % Description: Unloads the selected file from memory. 
 %   - inputs: 
-%           Experiment names                    (exp_names)
-%           Loaded file number                  (filenumber_selected)
-%           Number of loaded files in total     (NumberOfLoadedFiles)
-%           Number of loaded files selected     (numberofloadedfilesselected)
-%           Names of the loaded files           (String_LoadedFiles)
-%           File data.                          (data_n)
-%           File metadata.                      (mdata_n)
+%
 %   - outputs: 
-%           Experiment names        (exp_names)
-%           Name of loaded files    (String_LoadedFiles)
-%           File data.              (data_n)
-%           File metadata.          (mdata_n)
-%           Experiment settings.    (expsettings)
-%           Number of loaded files. (NumberOfLoadedFiles)
+%
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -102,5 +91,6 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles)
     end
     set(UILoad.SelectedFileInformation, 'String', informationbox);
 end
+md_GUI.UI.UIPlot.def.Popup_plot_type.Value = 1;
 assignin('base', 'md_GUI', md_GUI)
 end

@@ -111,49 +111,52 @@ else
             end
         end
     end
-    if signal_y_exist == 1
+    if signal_y_exist == 1 % Plot x signal vs y signal selected - construct new plot specie
         typesplit_y = strsplit(det_plottype_y, '.');
         if length(typesplit_y) == 2
             for lx = 1:length(selectedexpnumbers)
                 exp_name = char(sel_exp_names(lx));
                 % Find which detector is used:
-                detname_y = ['det' num2str(find(strcmp(char(typesplit_y(1)), md_GUI.mdata_n.(exp_name).spec.det_modes)))];
-                plottype_y = char(typesplit_y(2));
-                % See if a condition is defined - could be different for the x-axis and the y-axis - how to specify for each axis?
-                if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
-                    cond_name	= char(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value));
-                    cond_md     = general.struct.getsubfield( md_GUI.mdata_n.(exp_name).cond, cond_name);
-                    try
-                        md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y), cond_md, cond_name);
-                    catch
-                        GUI.log.add(['Failed to apply external filter ', cond_name, ' to experiment on y-axis.'])
-                    end
-                end
-                % Plot x signal vs y signal selected - construct new plot specie
+%                 detname_y = ['det' num2str(find(strcmp(char(typesplit_y(1)), md_GUI.mdata_n.(exp_name).spec.det_modes)))];
+%                 plottype_y = char(typesplit_y(2));
+%                % See if a condition is defined - could be different for the x-axis and the y-axis - how to specify for each axis?
+%                 if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
+%                     cond_name	= char(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value));
+%                     cond_md     = general.struct.getsubfield( md_GUI.mdata_n.(exp_name).cond, cond_name);
+%                     try
+%                         md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y), cond_md, cond_name);
+%                     catch
+%                         GUI.log.add(['Failed to apply external filter ', cond_name, ' to experiment on y-axis.'])
+%                     end
+%                 end
                 signals.(exp_name)                              = md_GUI.mdata_n.(exp_name).plot.signal;
-                d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).(signal_y)});
-                d1.([signal_x, '_', signal_y]).hist.binsize     = d1.([signal_x, '_', signal_y]).hist.binsize;
-                if strcmp(signal_x, signal_y)
-                    d1.([signal_x, '_', signal_y]).axes.axis	= 'equal';
-                end
-                d1.([signal_x, '_', signal_y]).GraphObj.Type    = 'imagesc';
-                d1.([signal_x, '_', signal_y]).GraphObj.SizeData = 150;
-                d1.([signal_x, '_', signal_y]).GraphObj.Marker  = 'o';
-                d1.([signal_x, '_', signal_y]).GraphObj.MarkerEdgeColor = 'r';
-                % d1.([signal_x, '_', signal_y]).axes         = macro.plot.add_axes(d1.([signal_x, '_', signal_y]).axes(1), signals.(exp_name).add_m2q.axes, md_GUI.mdata_n.(exp_name).conv.det1, signal_x, signal_y);
                 try
+                    d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).(signal_y)});
+                    d1.([signal_x, '_', signal_y]).hist.binsize     = d1.([signal_x, '_', signal_y]).hist.binsize;
+                    if strcmp(signal_x, signal_y)
+                        d1.([signal_x, '_', signal_y]).axes.axis	= 'equal';
+                    end
+                    d1.([signal_x, '_', signal_y]).GraphObj.Type    = 'imagesc';
+                    d1.([signal_x, '_', signal_y]).GraphObj.SizeData = 150;
+                    d1.([signal_x, '_', signal_y]).GraphObj.Marker  = 'o';
+                    d1.([signal_x, '_', signal_y]).GraphObj.MarkerEdgeColor = 'r';
+                    % d1.([signal_x, '_', signal_y]).axes         = macro.plot.add_axes(d1.([signal_x, '_', signal_y]).axes(1), signals.(exp_name).add_m2q.axes, md_GUI.mdata_n.(exp_name).conv.det1, signal_x, signal_y);
                     macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_', signal_y]) );
                 catch
                     GUI.log.add(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot [ ', signal_y '?] vs [ ', signal_x, ' ].'])
                 end
             end
         end
-    else % Plot x signal as pre-defined (vs. Intensity?) selected
+    else % Plot x signal vs Intensity (y signal has not been selected)
         if length(typesplit_x) == 2
             for lx = 1:length(selectedexpnumbers)
                 exp_name = char(sel_exp_names(lx));
+                % Plot x signal vs y signal selected - construct new plot specie
+                signals.(exp_name)                                  = md_GUI.mdata_n.(exp_name).plot.signal;
                 try
-                    macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
+                    d1.([signal_x, '_intensity'])                   = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x)});
+                    d1.([signal_x, '_intensity']).GraphObj.SizeData = 150;
+                    macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_intensity']));
                 catch
                     GUI.log.add(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot only [ ', signal_x '?].'])
                 end

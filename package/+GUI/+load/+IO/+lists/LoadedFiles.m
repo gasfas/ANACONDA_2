@@ -193,23 +193,29 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
             if length(exp_names) > 1
                 list_struct.([char(exp_names(lx))]) = popup_list_names_det;
             end
+            signals_list_struct.([char(exp_names(lx))]) = fieldnames(md_GUI.mdata_n.([char(exp_names(lx))]).plot.signal);
         end
         if length(exp_names) > 1 % check so that all exps have plot confs:
-            value = 0;
+            value_conf = 0;
+            value_signals = 0;
             for llz = 1:length(exp_names)
                 if length(list_struct.([char(exp_names(llz))])) > 0
-                    value = value + 1;
+                    value_conf = value_conf + 1;
+                end
+                if length(signals_list_struct.([char(exp_names(llz))])) > 0
+                    value_signals = value_signals + 1;
                 end
             end
             popup_list_names = cellstr('');
-            if value > length(exp_names)-1 % Do the fields comparison.
+            signals_list = GUI.general_functions.CommonFields(signals_list_struct);
+            if value_conf > length(exp_names)-1 % Do the fields comparison.
                 popup_list_names = GUI.general_functions.CommonFields(list_struct);
             else % At least one exp has zero fields - do nothing.
                 GUI.log.add(['At least one experiment has no pre-defined plots for selected plot setting.'])
             end
+        else
+            signals_list = fieldnames(md_GUI.mdata_n.([char(exp_names(1))]).plot.signal);
         end
-        expnum = 1;
-        signals_list = fieldnames(md_GUI.mdata_n.([char(exp_names(expnum))]).plot.signal);
         %% Values for the different settings in the defined plots tab:
         set(UIPlot.new.signals_list, 'String', signals_list)
         set(UIPlot.new_signal.signals_list, 'String', signals_list)

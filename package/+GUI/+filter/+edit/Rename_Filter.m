@@ -74,7 +74,7 @@ function [] = Rename_Filter(UIFilter)
                 if length(FieldToRmvCell) == 1
                     md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
                 else
-                    md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+                    md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
                 end
                 %% Message to log_box
                 GUI.log.add(['Filter was renamed from [ ', OldName, ' ] to [ ', NewName, ' ].'])
