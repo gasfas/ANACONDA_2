@@ -7,4 +7,6 @@ Documentation
 !/package/+fit/+Abel_inversion/+CpBasex/gData
 /package/+fit/+Abel_inversion/+CpBasex/gData/*
 /package/+fit/+Abel_inversion/+CpBasex/CPBASEX/*
+/package/+simu/+rundir/*
+/package/+simu/+rundir_bck/*
 **/*.m~

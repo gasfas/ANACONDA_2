@@ -4,13 +4,13 @@ function [data, md] = all(data, md, procedure_spec)
 % ds	struct with different experiment data as fields
 % mds	struct with different experiment metadata as fields
 % procedure_spec (optional) cell with strings that specify which procedure to execute.
-%	Default: procedure_spec = {'correct', 'convert', 'filter'}
+%	Default: procedure_spec = {'correct', 'convert', 'filter', 'fit'}
 % Output:
 % ds	struct with different experiment data as fields, now after the 
 %		procedures have been applied.
 
 if ~exist('procedure_spec', 'var')
-	procedure_spec = {'correct', 'convert', 'filter'};
+	procedure_spec = {'correct', 'convert', 'filter', 'fit'};
 end
 
 for j = 1:length(procedure_spec)

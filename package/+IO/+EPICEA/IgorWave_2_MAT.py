@@ -4,17 +4,69 @@ Created on Tue Nov  1 09:30:37 2016
 
 @author: tbarillot
 """
-# Import the needed packages:
+
 import numpy as np
 import scipy.io as sio
 import glob
+import sys
 import os
+
+
+# git clone https://github.com/wking/igor/
+# cd igor
+# pip install -e .
+
 import igor.binarywave as ibw
+import igor.packed as pxp
+
 import argparse
+
+#This is done by running 'python Preprocessdata.py **arguments**' in the command line. The arguments you can specify are as follows:
+#
+#--base-path (shorthand -b): the path in which the raw data is saved. The program expects this directory to contain a
+# configuration file saved as cfg.txt, along with a further directory called 'rawdata' in which the Igor binary wave
+# files themselves are stored.
+#--save-path (shorthand -s): the path in which to save the processed data.
+#
+#--max-n: the maximum number of events to be read in, default=all
+#--n-files: the maximum number of Igor binary wave files to be read in (useful for debugging etc.), default=all
+#--max-ions (shorthand -mi): maximum number of ions you want to save data for for each event, default=4
+#--max-electrons (shorthand -me): maximum number of ions you want to save data for for each event, default=2
+#
+#If you have your file structure set up such that you have your raw data saved in some directory:
+# '*base_path*/RawData/*name_for_run*' (where, as described above, the folder '*name_for_run*' holds the cfg.txt file
+# and another folder called 'rawdata'), then you can save some time by simply specifying '*name_for_run*' instead of
+# the base path and save path. This argument is accessed by:
+#--name (shorthand -n)
+#and if you provide this, the program saves the processed data in a folder called '*base_path*/ProcessedData/*name_for_run*'
+# (and creates this folder if it doesn't already exist).
+#
+#Finally, a couple of things about the output of the program. The program saves both a .mat matlab file, and a .npz
+# Numpy (Python) file in the specified folder when it is finished. Both these files have the same basic structure,
+# with data saved in the following fields (N is the number of events in each run):
+#
+#'idx': 1D array with index of each event, dims.=(N)
+#'itof': time-of-flight for each ion, dims.=(N, max_ions)
+#'iXuv': x-coordinate of each ion according to delay lines u and v, dims.=(N,max_ions)
+#'iXuw': x-coordinate of each ion according to delay lines u and w, dims.=(N,max_ions)
+#'iXvw': x-coordinate of each ion according to delay lines v and w, dims.=(N,max_ions)
+#'iYuv': y-coordinate of each ion according to delay lines u and v, dims.=(N,max_ions)
+#'iYuw': y-coordinate of each ion according to delay lines u and w, dims.=(N,max_ions)
+#'iYvw': y-coordinate of each ion according to delay lines v and w, dims.=(N,max_ions)
+#'eX': x-coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
+#'eY': y-coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
+#'eR': radial coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
+#'ePhi': angular coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
+#'rand': Boolean array, denoting whether event is 'random' (True) or electron-triggered (False), dims.=(N,max_electrons)
+#'timestamps': timestamp for each event, dims.=(N).
+
+# example:
+#  python Preprocessdata.py --name /home/bart/PhD/Pedagogy/Courses/Python/scripts/EPICEA_import/ --n-files 2
 
 class ConfigParser():
     def __init__(self,path):
         self.path=path
+        print path
         f=open(self.path,'r')
         self.cfg={}
         for line in f:
@@ -35,6 +87,7 @@ class ConfigParser():
                 raise ValueError('Not recognized config entry')
             self.cfg[name]=value
         f.close()
+
 
     def GetValue(self,name,varname='VAL',default=None):
         value=self.cfg[name]
@@ -154,7 +207,6 @@ class Client():
         
         itofp=np.zeros((Nevt,MIH),dtype=np.float32)*np.nan
 
-        # Initialize the empty X, Y matrices:
         iXuvp=np.zeros((Nevt,MIH),dtype=np.float32)*np.nan
         iXuwp=np.zeros((Nevt,MIH),dtype=np.float32)*np.nan
         iXvwp=np.zeros((Nevt,MIH),dtype=np.float32)*np.nan
@@ -287,13 +339,13 @@ class Client():
             iTW1=evt[1][evt[0]==10]
             iTW2=evt[1][evt[0]==11]
 
-            # Time to position conversion HEX (ion) detector:
+
             iXuv=(iTU1-iTU2)*ifu+ioffsetx
             iXuw=(iTU1-iTU2)*ifu+ioffsetx
             iXvw=(iTV1-iTV2)*ifv + (iTW1-iTW2)*ifw+ioffsetx
-            iYuv=((iTU1-iTU2)*ifu - 2.0*(iTV1-iTV2)*ifv)/np.sqrt(3.0)+ioffsety
-            iYuw=(2.0*(iTW1-iTW2)*ifw - (iTU1-iTU2)*ifu)/np.sqrt(3.0)+ioffsety
-            iYvw=((iTW1-iTW2)*ifw - (iTV1-iTV2)*ifv)/np.sqrt(3.0)+ioffsety
+            iYuv=((iTU1-iTU2)*ifu - 2.0*(iTV1-iTV2)*ifv)/np.sqrt(3)+ioffsety
+            iYuw=(2*(iTW1-iTW2)*ifw - (iTU1-iTU2)*ifu)/np.sqrt(3)+ioffsety
+            iYvw=((iTW1-iTW2)*ifw - (iTV1-iTV2)*ifv)/np.sqrt(3)+ioffsety
             
         except:
             #print 'error iXY'
@@ -321,8 +373,6 @@ class Client():
             eTU2=evt[1][evt[0]==13]
             eTV1=evt[1][evt[0]==14]
             eTV2=evt[1][evt[0]==15]
-            
-             # Time to position conversion DLD (electron) detector:           
             eX=(eTU1-eTU2)*efu+eoffsetx
             eY=(eTV1-eTV2)*efv+eoffsety
             eR=np.sqrt(eX**2+eY**2)

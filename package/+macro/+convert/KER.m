@@ -26,8 +26,8 @@ for i = 1:length(detnames)
 			dp			= data_out.h.(detname).dp;
 			% Calculate the kinetic energy:
 			data_out.h.(detname).KER	= convert.p_2_KE(0, dp, m_l);
-			% The sum of all Kinetic energies in one event:
-			data_out.e.(detname).KER_sum = convert.event_sum(data_out.h.(detname).KER, data_out.e.raw(:,detnr));
+			% The sum of all Kinetic energies in one event (if possible):
+			try data_out.e.(detname).KER_sum = convert.event_sum(data_out.h.(detname).KER, data_out.e.raw(:,detnr)); catch; end
 		case 'electron' % we assume that we need to calculate KE with a custom formula for each spectrometer:
 			switch metadata_in.spec.name
 				case 'EPICEA'

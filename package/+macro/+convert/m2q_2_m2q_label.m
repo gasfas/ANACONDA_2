@@ -41,8 +41,8 @@ for i = 1:length(detnames)
 	[data_out.h.(detname).m2q_l]   = convert.signal_2_label(data_out.h.(detname).m2q, expected_m2q_labels, search_radius_m2q);
 	% creating the mass labels as well:
 	[data_out.h.(detname).m_l]     = convert.label_2_label(data_out.h.(detname).m2q_l, expected_m2q_labels, expected_m_labels, NaN);
-	% Write the event-summed m2q:
-	data_out.e.(detname).m2q_l_sum	= convert.event_sum(data_out.h.(detname).m2q_l, data_out.e.raw(:,detnr));
+	% Write the event-summed m2q (if possible):
+	try data_out.e.(detname).m2q_l_sum	= convert.event_sum(data_out.h.(detname).m2q_l, data_out.e.raw(:,detnr)); catch; end
 			
     disp(['Log: m2q labeling performed on ' detname])
 end

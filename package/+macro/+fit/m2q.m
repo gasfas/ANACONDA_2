@@ -69,6 +69,9 @@ if general.struct.probe_field(fit_md.ifdo, 'final_plot')% If the user wants to s
 	fin_plot_f(fit_md, fit_param);
 end
 
+% add the metadata to the fit parameters:
+fit_param.md = fit_md;
+
 %% Local subfunctions % Local subfunctions % Local subfunctions % Local subfunctions:
 function fit_param = fit_m2q(fit_md, data_in, fit_param, j)
 

@@ -99,7 +99,7 @@ end
 function f = condition_2_filter(exp_data, condition)
 % This function calculates the filter from a single condition.
 % Read the data from the pointer:
-condition_data = IO.read_data_pointer(condition.data_pointer, exp_data);
+[condition_data, data_form] = IO.read_data_pointer(condition.data_pointer, exp_data);
 % And read the value of the actual condition:
 condition_value = condition.value;
 % In case the value is depending on another variable, we send it out:
@@ -121,8 +121,8 @@ switch general.struct.probe_field(condition, 'value_type')
 	end
 	% We have calculated the filter from the given conditions.
 	% Check whether the conditions are event or hit properties:
-	switch condition.data_pointer(1)
-		case 'h'% Hits. We have to translate the hit filter to an event filter
+	switch data_form
+		case 'hits'% Hits. We have to translate the hit filter to an event filter
 			translate_condition = condition.translate_condition;
 			nof_hits            = size(f,1);
 			detnr               = IO.det_nr_from_fieldname(condition.data_pointer);

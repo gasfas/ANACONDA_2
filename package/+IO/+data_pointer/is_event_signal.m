@@ -10,7 +10,7 @@ if iscell(data_pointer)
 		isevent(i) = IO.data_pointer.is_event_signal(data_pointer{i});
 	end
 else
-	if strcmp(data_pointer(1:2), 'e.') || contains(data_pointer, '.e.')
+	if strcmp(data_pointer(1:2), 'e.') || contains(data_pointer, '.e.') || contains(data_pointer, 'select_only_hit_')
 		isevent = true;
 	elseif strcmp(data_pointer(1:2), 'h.') || contains(data_pointer, '.h.')
 		isevent = false;

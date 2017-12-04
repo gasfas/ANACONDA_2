@@ -7,7 +7,7 @@ exp_md.fit.det1.ifdo.m2q_1	= false;% Do we need to perform the first (pure binom
 exp_md.fit.det1.ifdo.m2q_2	= false;% Do we need to perform the second (nucleation model) fitting
 exp_md.fit.det1.ifdo.m2q_3	= false;% Do we need to perform the third (evaporation model) fitting
 exp_md.fit.det1.ifdo.m2q_4	= false;% Do we need to perform the fourth (combined model) fitting
-exp_md.fit.det1.ifdo.Abel_inversion	= true;% Do we need to perform the fourth (combined model) fitting
+exp_md.fit.det1.ifdo.Abel_inversion	= false;% Do we need to perform the fourth (combined model) fitting
 
 % Binary cluster fitting procedure
 exp_md.fit.det1.m2q.q = [2:12]; % number of units in cluster: q = m+n, with m = 0, 1, 2, .... q and n = q, q-1, ..0; Warning: for model 4, q needs to be uniformly, monotonically increasing with 1 as stepsize.
