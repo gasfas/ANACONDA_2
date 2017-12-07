@@ -200,8 +200,10 @@ set(UIPlot.Popup_Filter_Selection, ...
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
     end
     function LoadedFilesCall(hObject, eventdata)
-       GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot);
-       GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
+        GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot);
+        if UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+            GUI.plot.data_selection.Radiobutton_Custom;
+        end
     end
     function FilterFieldValueCall(hObject, eventdata)
         GUI.filter.edit.FieldValueList(hObject, eventdata, UIFilter);

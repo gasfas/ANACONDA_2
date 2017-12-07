@@ -36,7 +36,11 @@ for lx = 1:length(exp_names)
         detnr			 = IO.detname_2_detnr(current_det_name);
         % Find a human-readable detector name:
         hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
-        currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
+        if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1
+            currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.(current_det_name));
+        elseif md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+            currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
+        end
         % remove possible 'ifdo' fields:
         currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
         % write dots between detectornames and fieldnames:
@@ -51,17 +55,22 @@ for lx = 1:length(exp_names)
 end
 for ly = 1:length(exp_names)
     detmodes = md_GUI.mdata_n.(char(exp_names(ly))).spec.det_modes;
-    selectedconf = strsplit(char(selected_confs(ly)), '.');
-    selectedconfplot = char(selectedconf(2));
-    selectedconfdetname = char(selectedconf(1));
-    for lz = 1:length(detmodes)
-        if strcmp(selectedconfdetname, char(detmodes(lz)))
-            detnum = lz;
-        end
-    end
     detname = fieldnames(md_GUI.mdata_n.(char(exp_names(ly))).plot);
-    detname = char(detname(detnum));
-    confname(ly) = cellstr(['md_GUI.mdata_n.' char(exp_names(ly)) '.plot.user.' detname '.' selectedconfplot]);
+    if strcmp(selectedconf, 'In_Workspace')
+        detname = char(detname(detnr));
+        confname(ly) = cellstr(['md_GUI.mdata_n.' char(exp_names(ly)) '.plot.user.' detname '.In_Workspace']);
+    else
+        selectedconf = strsplit(char(selected_confs(ly)), '.');
+        selectedconfplot = char(selectedconf(2));
+        selectedconfdetname = char(selectedconf(1));
+        for lz = 1:length(detmodes)
+            if strcmp(selectedconfdetname, char(detmodes(lz)))
+                detnum = lz;
+            end
+        end
+        detname = char(detname(detnum));
+        confname(ly) = cellstr(['md_GUI.mdata_n.' char(exp_names(ly)) '.plot.user.' detname '.' selectedconfplot]);
+    end
     switch inputval
         case 'open_editor'
             % Open up the variables reader to view and/or edit the plotting configuration.

@@ -18,11 +18,16 @@
 function [  ] = SavePlotConf(newPlotConfName)
 md_GUI = evalin('base', 'md_GUI');
 if ~isempty(newPlotConfName)
-    signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String;
+    signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String; % signal for x has not been chosen if signal_x = '-';
     signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
     selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
-    if strcmp(signal_x, '-') % signal for x has not been chosen.
-        msgbox('A signal for [ x ] has not been chosen.', 'error')
+    if strcmp(signal_x, '-')
+        if strcmp(md_GUI.UI.UIPlot.h_plot_tabs.SelectedTab.Title, 'New plot conf')
+            msgbox('A signal for [ x ] has not been chosen.', 'error')
+        end
+        md_GUI.UI.UIPlot.def.Popup_plot_type.Value = 1;
+        md_GUI.UI.UIPlot.def.Popup_plot_type.String = '-';
+        md_GUI.UI.UIPlot.def.Popup_plot_type.Enable = 'off';
     else
         for lx = 1:length(selectedexpnumbers)
             sel_exp_names(lx) = cellstr(['exp', num2str(selectedexpnumbers(lx))]);

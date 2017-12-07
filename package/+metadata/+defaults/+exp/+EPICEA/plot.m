@@ -40,7 +40,7 @@ d2.ifdo.BR_Ci							= true;
 % exp_md.plot.e.ifdo.m2q_2_KER	= false;
 
 % load the signal plotting metadata:
-exp_md = my_md.EPICEA.plot_signals(exp_md);
+exp_md = metadata.defaults.exp.EPICEA.plot_signals(exp_md);
 signals = exp_md.plot.signal;
 
 %% %%%%%%%%%%%%%%%%%%%%%%% PLOTTYPE DEFAULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

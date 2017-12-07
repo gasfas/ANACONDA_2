@@ -11,19 +11,19 @@
 function [ h_figure, UIctrl_plot ] = plot( h_figure, pos, h_tabs, tab_plot)
 %% Functions
 % Information about the listbox below
-UI.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.64]);
+UIctrl_plot.h_plot_tabs = uitabgroup(tab_plot,'Position',[0 0 1 0.64]);
 % Def plot tab:
-tab_plot_def = uitab(UI.h_plot_tabs,'Title','Pre-defined plots');
+UIctrl_plot.tab_plot_def = uitab(UIctrl_plot.h_plot_tabs,'Title','Pre-defined plots');
 % New plot tab:
-tab_plot_new = uitab(UI.h_plot_tabs,'Title','New plot conf');
+UIctrl_plot.tab_plot_new = uitab(UIctrl_plot.h_plot_tabs,'Title','New plot conf');
 % New signal tab:
-tab_signal_new = uitab(UI.h_plot_tabs,'Title','New signal conf');
+UIctrl_plot.tab_signal_new = uitab(UIctrl_plot.h_plot_tabs,'Title','New signal conf');
 %% Defined Plotting
-[h_figure, UIctrl_plot.def]         = GUI.create_layout.plot.def_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_def);
+[h_figure, UIctrl_plot.def]         = GUI.create_layout.plot.def_plot(h_figure, pos, UIctrl_plot.h_plot_tabs, UIctrl_plot.tab_plot_def);
 %% New Plotting:
-[h_figure, UIctrl_plot.new]         = GUI.create_layout.plot.new_plot(h_figure, pos, UI.h_plot_tabs, tab_plot_new);
+[h_figure, UIctrl_plot.new]         = GUI.create_layout.plot.new_plot(h_figure, pos, UIctrl_plot.h_plot_tabs, UIctrl_plot.tab_plot_new);
 %% New Signal:
-[h_figure, UIctrl_plot.new_signal]  = GUI.create_layout.plot.new_signal(h_figure, pos, UI.h_plot_tabs, tab_signal_new);
+[h_figure, UIctrl_plot.new_signal]  = GUI.create_layout.plot.new_signal(h_figure, pos, UIctrl_plot.h_plot_tabs, UIctrl_plot.tab_signal_new);
 
 % Information about popup menu for filters
 UIctrl_plot.InformationText_Filter_Selection = uicontrol('Parent', tab_plot, ...
