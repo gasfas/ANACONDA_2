@@ -12,7 +12,15 @@ function [ Ax ] = add_axes(Ax_ori, Ax_new, md, axestype, coor)
 % AxisName			(optional) which ordinate should be added: 'X', 'Y' or 'Z'
 % 					Default: 'X'
 % axestype			string describing the type of axes that is added. Possible values: 'm2q',
-%					'CSD', 'cluster_size'
+%					'CSD', 'cluster_size', 'p_ratio'
+% md				metadata needed to calculate the values of the new
+%					axes. Different information is needed for different
+%					axestypes:
+%					'm2q' : exp_md.conv.det1
+%					'CSD' : struct with the fields: eps_m (permittivity),
+%					mult (multiplicity), charge(charge state).
+%					'p_ratio' : struct of different experiments, with their
+%					operation pressures in the sample metadata.
 % coor				(Optional) String representing the coordinate name,
 %					e.g. 'X'. Default: all Tick names defined.
 % Outputs:
@@ -81,6 +89,25 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 			KER_ticks = Ax_ori.([cname 'Tick']);
 			ticklabel = round(theory.Coulomb.distance(md.eps_m, md.mult*ones(size(KER_ticks)), md.charge, KER_ticks),1);
 			Ax_new.([cname 'TickLabel']) = strread(num2str(ticklabel),'%s');
+		case 'p_ratio' % this is a multi-experiment axes
+			exp_names = fieldnames(md); % Check out all experiment names
+			p_ratio = []; p_total = [];
+			for i = 1:length(exp_names)
+				exp_name = exp_names{i};
+				try 
+					p_ratio = [p_ratio md.(exp_name).sample.constituent.p(1)/md.(exp_name).sample.constituent.p(2)];
+					p_total = [p_total md.(exp_name).sample.p];
+				end
+			end
+			% remove duplicates:
+			[p_tot_un, idx_un] = unique(p_total);
+			p_ratio_un = p_ratio(idx_un);
+			% Map the total pressures onto the pressure ratio:
+			tickvalues	= Ax_ori.([cname 'Tick']);
+			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
+			Ax_new.([cname 'TickLabel']) = arrayfun(@num2str, round(interp1(p_tot_un, p_ratio_un, tickvalues, 'linear', 'extrap'),1), 'un', 0);
+			Ax_ori.([cname 'TickLabel']) = Ax_ori.([cname 'Tick']);
+			
 	end
 	Ticklabels_rm_Inf = Ax_new.([cname 'TickLabel']);
 	try Ticklabels_rm_Inf{cell2mat(strfind(Ticklabels_rm_Inf, 'Inf'))} = '\infty';

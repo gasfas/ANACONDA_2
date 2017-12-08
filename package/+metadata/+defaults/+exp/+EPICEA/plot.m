@@ -96,18 +96,10 @@ d2.TOF_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.i_TOF, signals
 d2.TOF_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
 d2.TOF_hit1_hit2.hist.bgr		= metadata.create.plot.signal_2_plot({signals.i_TOF_bgr, signals.i_TOF_bgr});
 d2.TOF_hit1_hit2.hist.bgr.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-% d2.TOF_hit1_hit2.hist.bgr.hist.Range		= [4000 5500; 7000 8000];
-d2.TOF_hit1_hit2.hist.binsize	= 2*d2.TOF_hit1_hit2.hist.binsize;
 d2.TOF_hit1_hit2.hist.bgr.weight	= 0;
 d2.TOF_hit1_hit2.hist.Intensity_scaling = 'linear';
-% d2.TOF_hit1_hit2.hist.Range		= [4000 5500; 7000 8000];
-d2.TOF_hit1_hit2.hist.Range		= [3275 4075; 7094 7892];
-d2.TOF_hit1_hit2.axes.XLim		= d2.TOF_hit1_hit2.hist.Range(1,:);
-d2.TOF_hit1_hit2.axes.YLim		= d2.TOF_hit1_hit2.hist.Range(2,:);
 d2.TOF_hit1_hit2.axes.axis		= 'equal';
 d2.TOF_hit1_hit2.axes			= macro.plot.add_axes(d2.TOF_hit1_hit2.axes(1), signals.add_m2q.axes, exp_md.conv.det2, 'm2q');
-% d2.TOF_hit1_hit2.cond			= exp_md.cond.C2Hx_CF3;
-d2.TOF_hit1_hit2.cond			= exp_md.cond.CHx_CF3;
 
 d2.TOF_X						= metadata.create.plot.signal_2_plot({signals.i_TOF, signals.i_X});
 d2.TOF_X.figure.Position		= plot.fig.Position('N');
@@ -129,8 +121,6 @@ d2.m2q_hit1_hit2.hist.bgr.hist.hitselect = [1, 2]; %hitselect can be used to sel
 d2.m2q_hit1_hit2.hist.bgr.weight	= 0.01;
 
 d2.m2q_hit1_hit2.axes.axis		= 'equal';
-d2.m2q_hit1_hit2.axes.XLim		= [10 47];
-d2.m2q_hit1_hit2.axes.YLim		= [17 75];
 d2.m2q_hit1_hit2.axes.XTick		= d2.m2q_hit1_hit2.axes.XTick(d2.m2q_hit1_hit2.axes.XTick ~= 31);
 d2.m2q_hit1_hit2.axes.XTickLabel	= d2.m2q_hit1_hit2.axes.XTickLabel(d2.m2q_hit1_hit2.axes.XTickLabel ~= 31);
 d2.m2q_hit1_hit2.axes.FontSize	= 12;

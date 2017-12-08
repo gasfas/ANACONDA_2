@@ -62,7 +62,7 @@ for i = 1:length(detnames)
         % add the correction name to the log:
         data_out.h.(detname).corr_log.detectorabb = true;
     elseif general.struct.probe_field(data_in.h.(detname).corr_log, 'detectorabb')
-        disp('Detector abberation correction already performed earlier')
+        disp('Log: Detector abberation correction already performed earlier')
     else
         % no correction needed
         data_out.h.(detname).corr_log.detectorabb = false;

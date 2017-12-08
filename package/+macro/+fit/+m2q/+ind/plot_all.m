@@ -41,7 +41,7 @@ switch fit_md.final_plot.GraphObj.Type
 			y_pos	= -q_cur:2:q_cur;
 			x_pos	= q_cur*ones(size(y_pos));
 			I		= result(1:q_cur+1);
-
+			
 			full_I_colors	= composition_colors(fit_md, y_pos); %(local function)
 			I_colors		= Intensity_colors(fit_md, full_I_colors, I);
 			hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
@@ -49,8 +49,10 @@ switch fit_md.final_plot.GraphObj.Type
 		end
 	otherwise
 		% Fetch the intensity values:
-		[fit_results, midpoints.dim2] = calculate_fit_results(fit_md, fit_param);
+		[fit_results, midpoints.dim2] = macro.fit.m2q.I_at_q(fit_param.q, fit_md, fit_param);
 
+% 		I		= macro.fit.m2q.ind.I_afo_q(q_cur, result, 
+			
 		midpoints.dim1 = fit_param.q;
 
 		plot_f = str2func(['plot.hist.axes.H_2D.' fit_md.final_plot.GraphObj.Type]);
@@ -76,16 +78,18 @@ color_zero_I	= repmat(fit_md.final_plot.color_low_I, size(full_I_colors,1),1);% 
 colors	= color_zero_I+(full_I_colors-color_zero_I).*repmat(I_norm', 1, 3);
 end
 
-function [fit_results, nof_m] = calculate_fit_results(fit_md, fit_param)
-try probe_width = fit_md.final_plot.probe_width; catch probe_width = 10; end
-mass_qmax	= (max(fit_param.q)*fit_md.m.mass):probe_width:(max(fit_param.q)*fit_md.n.mass);
-nof_m		= (min(fit_param.q):probe_width:max(fit_param.q))';
-fit_results = NaN*ones(length(fit_param.q), length(mass_qmax));
-for i = 1:length(fit_param.q)
-	q_cur = fit_param.q(i);
-	runner_f = str2func(['macro.fit.m2q.' fit_md.Type '.runner']);
-	massdata = ((q_cur*fit_md.m.mass):probe_width:(q_cur*fit_md.n.mass))'+fit_md.H.mass;
-	fit_results(i,1:length(massdata)) = runner_f(fit_param.result(i,1:end-(max(fit_param.q)-q_cur)), massdata);
-end
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,4 +1,4 @@
-function [] = load_treat_save(filenames, procedure_spec, savename)
+function [exps, mds] = load_treat_save(filenames, procedure_spec, savenames)
 % macro to correct, convert and fit (if requested) the data, and save it to
 % a new (or existing) datafile. 
 
@@ -8,8 +8,15 @@ function [] = load_treat_save(filenames, procedure_spec, savename)
 [mds] = IO.import_metadata_n(filenames);
 
 % treat the data:
-try macro.all_n(exps, mds, procedure_spec)
-catch macro.all_n(exps, mds); end
+try 
+	exps = macro.all_n(exps, mds, procedure_spec);
+catch
+	exps = macro.all_n(exps, mds);
+end
 
 % save the data:
-IO.save_exp_n(exps, filenames);
+try 
+	IO.save_exp_n(exps, savenames);
+catch
+	IO.save_exp_n(exps, filenames);
+end

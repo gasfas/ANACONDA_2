@@ -57,7 +57,7 @@ for i = 1:length(detnames);
         % add the correction name to the log:
         data_out.h.(detname).corr_log.lensabb = true;
     elseif general.struct.probe_field(data_in.h.(detname).corr_log, 'lensabb')
-        disp('Lens abberation correction already performed earlier')
+        disp('Log: Lens abberation correction already performed earlier')
     else
         % no correction needed
         data_out.h.(detname).corr_log.lensabb = false;

@@ -8,7 +8,7 @@ function after(ax, xdata, I_fit_total, I_fit_comp)
 
 hold(ax, 'on'); grid(ax, 'on')			
 % plot.textul(['$p_m = ' num2str(fit_param.result(groupnr,5),2) '$'], 0.18, 0.05, 'k');
-hlgd = findobj(gcf, 'Type','legend','Tag','legend');
+hlgd = findobj(ax.Parent, 'Type','legend','Tag','legend');
 if size(I_fit_comp, 2) > 1
 	hLines = plot(xdata, [I_fit_comp, I_fit_total], 'LineStyle', '-.');
 	nof_comps = size(I_fit_comp, 2);

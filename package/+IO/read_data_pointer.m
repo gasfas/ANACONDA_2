@@ -64,7 +64,7 @@ function [data, data_form]= read_data_pointer(pointer, exp)
 			data(e_f_all) = eval(pointer);
 			data_form	= 'events';
 		else
-		data		=  eval(pointer);
+			data		=  eval(pointer);
 		end
 end
 if ~exist('data_form', 'var') 

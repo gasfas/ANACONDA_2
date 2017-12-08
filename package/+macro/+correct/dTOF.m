@@ -28,7 +28,7 @@ for i = 1:length(detnames)
 %         write in the log:
         data_out.h.(detname).corr_log.dTOF = true;
     elseif general.struct.probe_field(data_in.h.(detname).corr_log, 'dTOF')
-        disp(['Delta TOF correction already performed earlier on ' detname])
+        disp(['Log: Delta TOF correction already performed earlier on ' detname])
     else
         % no correction needed
         data_out.h.(detname).TOF      = data_in.h.(detname).raw(:,idx_TOF);

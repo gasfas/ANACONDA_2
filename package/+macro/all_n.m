@@ -11,7 +11,7 @@ function [ds, exp_names] = all_n(ds, mds, procedure_spec)
 %		procedures have been applied.
 
 if ~exist('procedure_spec', 'var')
-	procedure_spec = {'correct', 'convert', 'filter', 'fit'};
+	procedure_spec = {'correct', 'convert', 'filter'};
 end
 
 try 
@@ -23,18 +23,8 @@ catch
 end
 
 for i = 1:numexps
-    exp_name			= exp_names{i};
-	data(i)				= ds.(exp_name);
-	md{i}				= mds.(exp_name);
-end
-
-for i = 1:numexps
-	data(i) = macro.all(data(i), md{i}, procedure_spec);
-end
-
-for i = 1:numexps
-    exp_name			= exp_names{i};
-	ds.(exp_name)		= data(i); 
+	exp_name			= exp_names{i};
+	ds.(exp_name)		= macro.all(ds.(exp_name), mds.(exp_name), procedure_spec);
 end
 
 end

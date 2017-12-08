@@ -49,7 +49,7 @@ UB_ps           = IG_ps; % peak spacing
 UB_ph           = (1+fit_md.dpeak_height)*max(yfitdata); % peak height
 UB_sigma_G      = max(0, IG_sigma_G + fit_md.dsigma_G); % For the Gaussian standard deviations (must be positive)
 UB_sigma_L      = max(0, IG_sigma_L + fit_md.dsigma_L); % For the Lorentzian standard deviations (must be positive)
-UB_noise_level  = IG_noise_level + fit_md.dnoise_level;
+UB_noise_level  = max(100, IG_noise_level + fit_md.dnoise_level);
 % pack up in one array:
 UB = [UB_rph UB_fpc UB_lpc UB_ps UB_ph UB_sigma_G UB_sigma_L UB_noise_level];        
 

@@ -17,7 +17,7 @@ for i = 1:numexps
     d		= ds.(exp_names{i});
 	fullpath= d_fns.(exp_names{i});
 	[path, name] = fileparts(fullpath);
-	IO.save_exp(d, name, path)
+	IO.save_exp(d, path, name)
 end
 end
 

@@ -17,8 +17,16 @@ if ~exist('low_value', 'var');	low_value	= 0; end
 if ~exist('high_value', 'var'); high_value	= 1; end
 
 % First translate the colors given to RGB values, if they aren't already:
-c_low_RGB	= plot.color.convert_2_RGB(color_low);
-c_high_RGB	= plot.color.convert_2_RGB(color_high);
+if length(color_low) ~= 3
+	c_low_RGB	= plot.color.convert_2_RGB(color_low);
+else
+	c_low_RGB = color_low;
+end
+if length(color_high) ~= 3
+	c_high_RGB	= plot.color.convert_2_RGB(color_high);
+else
+	c_high_RGB = color_high;
+end
 
 % Create a simple linear array from 0 to 1:
 C = linspace(0, 1, 256)';
