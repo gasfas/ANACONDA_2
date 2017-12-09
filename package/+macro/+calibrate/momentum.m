@@ -45,7 +45,7 @@ for plotnr = 1:rows*cols
     ylabel(names{y_data_idx(plotnr)});
     xlim(ranges(x_data_idx(plotnr),:)); 
     ylim(ranges(y_data_idx(plotnr),:)); 
-    plot.colored_minor_grid('w')
+%     plot.colored_minor_grid('w')
     hold on; 
     if plot_circle(plotnr) % If we need to plot a reference circle in the plot:
         circle_radius = (0:0.2:1) * min([plot_metadata.x_range plot_metadata.y_range]); 
