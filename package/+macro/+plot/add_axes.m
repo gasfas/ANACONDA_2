@@ -33,6 +33,8 @@ end
 
 % Copy the orginal over to the new axes:
 Ax_new					= general.struct.catstruct(Ax_ori, Ax_new);
+% add missing fields to the original axes:
+Ax_ori					= general.struct.catstruct(Ax_new, Ax_ori);
 
 if exist('coor', 'var')
 	[Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, coor, axestype);
@@ -56,7 +58,6 @@ else
 	% up with the same value of the original axes:
 	Ax = [Ax_ori, Ax_new];
 end
-
 end
 
 function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
@@ -79,8 +80,8 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 				% Calculate the average fragment mass:
 				Ax_new.([cname 'Tick'])		= mean(md.fragment.pure.masses, 2);
 				% We do not change the original axes tick.
-				Ax_new.grid					= 'off';
-				Ax_ori.grid					= 'on';
+				Ax_new.grid					= 'on';
+				Ax_ori.grid					= 'off';
 			end
 			Ax_ori.([cname 'TickLabel'])	= Ax_ori.([cname 'Tick']);
 			

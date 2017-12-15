@@ -10,11 +10,11 @@ else
 	det_prefix = 'det';
 	st_idx      = strfind(fieldname,'det') + length(det_prefix);
 	if any(strfind(fieldname, '.'))
-		end_idx     = strfind(fieldname(st_idx:end), '.') - 2 + st_idx;
+		end_idx     = strfind(fieldname(st_idx(1):end), '.') - 2 + st_idx(1);
 	else
 		end_idx = length(fieldname);
 	end
-	det_nr      = str2double(fieldname(st_idx:end_idx(1)));
+	det_nr      = str2double(fieldname(st_idx(1):end_idx(1)));
 end
 
 end

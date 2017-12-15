@@ -1,4 +1,4 @@
-function [X_0, Y_0, T_0] = zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md)
+function [X_0, Y_0, T_0, v_p0] = zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md)
 % This function calculates the splat position in the case a hypothetical 
 % particle that experienced no momentum shift upon ionization, hits the detector. 
 % Inputs:
@@ -17,14 +17,10 @@ function [X_0, Y_0, T_0] = zero_dp_splat_position(TOF_no_dp, labels_mass, labels
 
 % The most probable velocities are calculated for all the labels:
 
-% The user can define the velocity directly, or a combination of mass,
-% temperature and heat capacity ratio:
-try v_p				= sample_md.v_MB;
-catch v_p           = sample_md.Mach_number * theory.Boltzmann.sound_speed(sample_md.T, sample_md.m_avg, sample_md.Heat_capac_ratio);
-end
+v_p0				= macro.convert.momentum.fetch_v_MB(sample_md);
 % The radii where the these velocity/mass particles will splat:
-X_0                 = sample_md.v_direction(1)*v_p.*TOF_no_dp*1e-6;
-Y_0                 = sample_md.v_direction(2)*v_p.*TOF_no_dp*1e-6;
-T_0                 = sample_md.v_direction(3)*v_p.*labels_mass./(labels_charge.*E_ER) + TOF_no_dp;
+X_0                 = sample_md.v_direction(1)*v_p0.*TOF_no_dp*1e-6;
+Y_0                 = sample_md.v_direction(2)*v_p0.*TOF_no_dp*1e-6;
+T_0                 = sample_md.v_direction(3)*v_p0.*labels_mass./(labels_charge.*E_ER) + TOF_no_dp;
 
 end

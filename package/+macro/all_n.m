@@ -24,7 +24,10 @@ end
 
 for i = 1:numexps
 	exp_name			= exp_names{i};
-	ds.(exp_name)		= macro.all(ds.(exp_name), mds.(exp_name), procedure_spec);
+	if ~strcmp(exp_name, 'info')
+		ds.(exp_name)		= macro.all(ds.(exp_name), mds.(exp_name), procedure_spec);
+		plot.printpng(gcf, ['/home/bart/PhD/articles/mixed_H2O_NH3/Overleaf/Graphics/construction_site/dication/m2q_spectra/dication_' exp_name])
+	end
 end
 
 end

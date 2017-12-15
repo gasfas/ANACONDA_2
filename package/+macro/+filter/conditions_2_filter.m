@@ -56,14 +56,15 @@ function [f, exp_data] = C2F(exp_data, conditions)
 		% Find the metaconditions, if defined:
 		[idx_substr cond_fn] = general.struct.issubstruct(conditions);
 	%% Metaconditions
-		if any(idx_substr) % there is at least one meta-condition defined:
+		if any(idx_substr) % there is at least one meta(sub)-condition defined:
 			metaconds = cond_fn(idx_substr);
-			if strcmpi('operator', cond_fn) % We allow the name 'operator' as well:
+			% Deal with the operator between subconditions:
+			if any(strcmpi('operator', cond_fn)) % We allow the name 'operator' as well:
 				conditions.operators = conditions.operator;
 				conditions	= rmfield(conditions, 'operator');
 			end
 			% Default value if the operators are not defined: 
-			if ~any(strcmpi('operators', cond_fn))
+			if ~any(strcmpi('operators', fieldnames(conditions)))
 				conditions.operators = repmat({'AND'}, 1, length(metaconds)-1);
 			elseif length(general.struct.probe_field(conditions, 'operators')) < (length(metaconds)-1)
 				% If there are not enough operators defined, we fill it up with the first given operator to
@@ -71,7 +72,7 @@ function [f, exp_data] = C2F(exp_data, conditions)
 				operators_ori			= conditions.operators;
 				conditions.operators	= repmat(operators_ori(1), 1, length(metaconds)-1);
 			end
-			for metacond_nr = 1:length(metaconds) % loop over all metaconditions:
+			for metacond_nr = 1:length(metaconds) % loop over all subconditions:
 				metacond_cur = metaconds{metacond_nr};
 				f_cur = C2F(exp_data, conditions.(metacond_cur));
 				switch metacond_nr
@@ -83,7 +84,7 @@ function [f, exp_data] = C2F(exp_data, conditions)
 			end
 		end
 	%% Conditions
-		if isfield(conditions, 'data_pointer')% Now we treat the conditions
+		if isfield(conditions, 'data_pointer')% Now we treat the conditions (not the subconditions)
 			conditions.data_pointer;
 			f_cur = condition_2_filter(exp_data, conditions);
 			% Now combine the filters:
@@ -115,10 +116,6 @@ switch general.struct.probe_field(condition, 'value_type')
 		case 'continuous'
 			f = filter.hits.range(condition_data, condition_value(1), condition_value(2));
 	end
-	% Check whether the filter should be inverted:
-	if general.struct.probe_field(condition, 'invert_filter')
-		f = ~f;
-	end
 	% We have calculated the filter from the given conditions.
 	% Check whether the conditions are event or hit properties:
 	switch data_form
@@ -128,6 +125,10 @@ switch general.struct.probe_field(condition, 'value_type')
 			detnr               = IO.det_nr_from_fieldname(condition.data_pointer);
 			events				= exp_data.e.raw;
 			f					= filter.hits_2_events(f, events(:,detnr), nof_hits, translate_condition);
+	end
+	% Lastly, check whether the filter should be inverted:
+	if general.struct.probe_field(condition, 'invert_filter')
+		f = ~f;
 	end
 end
 end
@@ -140,5 +141,7 @@ switch operator
 			f = or(f,f_cur);
 		case 'AND'
 			f = and(f, f_cur);
+		case 'NAND'
+			f = ~and(f, f_cur);
 end
 end

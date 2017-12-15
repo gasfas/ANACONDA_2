@@ -12,7 +12,12 @@ for i = 1:length(detnames)
 	
 	% m2q fitting:
 	if general.struct.probe_field(metadata_in, ['fit.' detname '.ifdo.m2q'])		
-		data_out.fit.(detname).m2q.param= macro.fit.m2q(data_in, metadata_in, detname);
+		data_out.fit.(detname).m2q.param = macro.fit.m2q(data_in, metadata_in, detname);
+	end
+		
+	% Find the appearance size of a signal series (e.g. cluster dication):
+	if general.struct.probe_field(metadata_in, ['fit.' detname '.ifdo.app_size'])		
+		data_out.fit.(detname).app_size.param = macro.fit.app_size(data_in, metadata_in, detname);
 	end
 	
     % momentum angle correlation fitting (angle_p_corr or mutual angle)

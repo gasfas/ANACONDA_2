@@ -46,6 +46,6 @@ elseif ischar(pos_code)
 	elseif	any(strcmpi(pos_code, {'SEE', 'SouthEastEast'}))
 		Pos = [0.7000    0.1826    0.1900    0.2930];
 	elseif	any(strcmpi(pos_code, {'Full'}))
-		Pos = [0.1 0.2 0.8 0.6];
+		Pos = [0.2 0.2 0.6 0.6];
 	end
 end

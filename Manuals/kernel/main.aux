@@ -1,0 +1,132 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Data structure}{3}{section.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The synchronization of events by a common 'clock'.\relax }}{3}{figure.caption.2}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{event_synchronization}{{1}{3}{The synchronization of events by a common 'clock'.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Schematic of the data structure used in the software. The `event pointers' array on the left stores the indeces of the first hit of the event, for each different detector used (in this case two detectors). On the right, the hit arrays are drawn, with the hits coming from these detectors. Note that each detector can give another number of hits, and a different number of signals (e.g. X, Y, T, Intensity). In this example, there are no hits recorded on detector 2 during event 1, which is denoted by `NaN' (not-a-number).\relax }}{4}{figure.caption.3}}
+\newlabel{Data_structure_schematic_intro}{{2}{4}{Schematic of the data structure used in the software. The `event pointers' array on the left stores the indeces of the first hit of the event, for each different detector used (in this case two detectors). On the right, the hit arrays are drawn, with the hits coming from these detectors. Note that each detector can give another number of hits, and a different number of signals (e.g. X, Y, T, Intensity). In this example, there are no hits recorded on detector 2 during event 1, which is denoted by `NaN' (not-a-number).\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Metadata structure}{4}{section.2}}
+\@writefile{toc}{\contentsline {paragraph}{sample}{5}{section*.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}storage}{5}{subsection.2.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data flow}{6}{section.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Example of data flow\relax }}{6}{figure.caption.5}}
+\newlabel{Data_flow}{{3}{6}{Example of data flow\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}The package}{7}{section.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Input Output (IO)}{8}{subsection.4.1}}
+\@writefile{toc}{\contentsline {paragraph}{Importing DLT files}{8}{section*.6}}
+\@writefile{toc}{\contentsline {paragraph}{Importing KoboldPC (LMF) files}{8}{section*.7}}
+\@writefile{toc}{\contentsline {paragraph}{handling of multiple files}{8}{section*.8}}
+\@writefile{toc}{\contentsline {subparagraph}{Combining two files}{8}{section*.9}}
+\@writefile{toc}{\contentsline {subparagraph}{Comparing two files}{8}{section*.10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Definition of coordinate system used in this Software. The x-axis aligns with the polarization and the molecular beam, the Y-direction aligns with the photon beam, and Z aligns with the detector axis.\relax }}{9}{figure.caption.11}}
+\newlabel{fig:test1}{{4}{9}{Definition of coordinate system used in this Software. The x-axis aligns with the polarization and the molecular beam, the Y-direction aligns with the photon beam, and Z aligns with the detector axis.\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}correct}{9}{subsection.4.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}detection image translation}{9}{subsubsection.4.2.1}}
+\@writefile{toc}{\contentsline {paragraph}{Metadata parameters used by the detector image translation:}{9}{section*.13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Detector image of all hits before centring\relax }}{10}{figure.caption.12}}
+\newlabel{fig:test1}{{5}{10}{Detector image of all hits before centring\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Detector image of all hits after centring. Final values: dX = -0.5 mm, dY = 3mm\relax }}{10}{figure.caption.12}}
+\newlabel{fig:test2}{{6}{10}{Detector image of all hits after centring. Final values: dX = -0.5 mm, dY = 3mm\relax }{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}detector image rotation}{10}{subsubsection.4.2.2}}
+\@writefile{toc}{\contentsline {paragraph}{Metadata parameters used by the detector image rotation:}{10}{section*.15}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Absolute TOF translation}{10}{subsubsection.4.2.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The detector image rotated such that the molecular beam is aligned with the x-axis. In this case, it means an anti-clockwise rotation of 44 degrees.\relax }}{11}{figure.caption.14}}
+\newlabel{Data_structure_schematic}{{7}{11}{The detector image rotated such that the molecular beam is aligned with the x-axis. In this case, it means an anti-clockwise rotation of 44 degrees.\relax }{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {paragraph}{Metadata parameters used by the absolute TOF translation:}{11}{section*.16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}TOF deviation due to detector-drift tube voltage mismatch}{11}{subsubsection.4.2.4}}
+\@writefile{toc}{\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{11}{section*.18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Ray traces showing the non-uniform field around the detector due to the voltage mismatch. In this case, the drift tube is kept at -4 kV and the detector front at -2 kV\relax }}{12}{figure.caption.17}}
+\newlabel{detector_abberation_ray_traces}{{8}{12}{Ray traces showing the non-uniform field around the detector due to the voltage mismatch. In this case, the drift tube is kept at -4 kV and the detector front at -2 kV\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The Voltage and TOF dimensionless variables plotted for different absolute drift tube voltages. Similar behaviour for varying particle masses, and extraction field strengths.\relax }}{13}{figure.caption.19}}
+\newlabel{dTOF_vs_dV}{{9}{13}{The Voltage and TOF dimensionless variables plotted for different absolute drift tube voltages. Similar behaviour for varying particle masses, and extraction field strengths.\relax }{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{13}{section*.20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces The difference in TOF due to a difference in field distortion at different radii. In this example the curve is fitted with $p_2 = -6.32e-3$ and $p_3 = -1.88e-3$. \relax }}{14}{figure.caption.21}}
+\newlabel{dTOF_dR_nd}{{10}{14}{The difference in TOF due to a difference in field distortion at different radii. In this example the curve is fitted with $p_2 = -6.32e-3$ and $p_3 = -1.88e-3$. \relax }{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{15}{section*.22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces The splat radius correction needed, as a funtion of detector front voltage.\relax }}{15}{figure.caption.23}}
+\newlabel{Radius_correction_det_abb}{{11}{15}{The splat radius correction needed, as a funtion of detector front voltage.\relax }{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {paragraph}{Metadata parameters used by the detector abberation correction}{15}{section*.25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces The momenta histograms ($\mathaccentV {vec}17E{p_x}$, $\mathaccentV {vec}17E{p_z}$) and KER histogram without detector abberation correction (top) and with correction (bottom). SIMION simulations, m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV, 50000 particles. Drift tube @ -4kV, detector front @ -2kV.\relax }}{16}{figure.caption.24}}
+\newlabel{Radius_correction_det_abb}{{12}{16}{The momenta histograms ($\vec {p_x}$, $\vec {p_z}$) and KER histogram without detector abberation correction (top) and with correction (bottom). SIMION simulations, m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV, 50000 particles. Drift tube @ -4kV, detector front @ -2kV.\relax }{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {paragraph}{TOF lens abberation correction}{16}{section*.26}}
+\@writefile{toc}{\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{17}{section*.27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces The Voltage and TOF dimensionless variables plotted for different absolute drift tube voltages. The fit shown uses the parameters $p_3 = 1.13e-3$, $p_2 = 3.48e-3$ $p_4 = 10.4 e-3$\relax }}{17}{figure.caption.28}}
+\newlabel{Radius_correction_det_abb}{{13}{17}{The Voltage and TOF dimensionless variables plotted for different absolute drift tube voltages. The fit shown uses the parameters $p_3 = 1.13e-3$, $p_2 = 3.48e-3$ $p_4 = 10.4 e-3$\relax }{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{17}{section*.29}}
+\@writefile{toc}{\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{18}{section*.30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces The linearity correction due to the lens abberation.\relax }}{18}{figure.caption.31}}
+\newlabel{dR_correction_fit}{{14}{18}{The linearity correction due to the lens abberation.\relax }{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces The momenta histograms ($\mathaccentV {vec}17E{p_x}$, $\mathaccentV {vec}17E{p_z}$) and KER histogram without lens abberation correction (top) and with correction (bottom). SIMION simulations, m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV, 50000 particles. Drift tube @ -4kV, lens @ -3270V.\relax }}{19}{figure.caption.32}}
+\newlabel{SIMION_lens_corr_both}{{15}{19}{The momenta histograms ($\vec {p_x}$, $\vec {p_z}$) and KER histogram without lens abberation correction (top) and with correction (bottom). SIMION simulations, m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV, 50000 particles. Drift tube @ -4kV, lens @ -3270V.\relax }{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}convert}{19}{subsection.4.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}TOF $\rightarrow m/q$}{19}{subsubsection.4.3.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Signal labeling - single coincidence}{19}{subsubsection.4.3.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Signal labeling - double coincidence}{20}{subsubsection.4.3.3}}
+\@writefile{toc}{\contentsline {paragraph}{circle}{20}{section*.33}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces example of a `circle' filter around the nominal mass-over-charge values. Circle radius of 0.25 mass-over-charge units. Example of water-ammonia clusters.\relax }}{20}{figure.caption.34}}
+\newlabel{labeling_C2}{{16}{20}{example of a `circle' filter around the nominal mass-over-charge values. Circle radius of 0.25 mass-over-charge units. Example of water-ammonia clusters.\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {paragraph}{line}{21}{section*.35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Example of a `line' filter around the nominal mass-over-charge values. Circle radius of 0.2 mass-over-charge units. Example of ammonia clusters.\relax }}{21}{figure.caption.36}}
+\newlabel{labeling_C2}{{17}{21}{Example of a `line' filter around the nominal mass-over-charge values. Circle radius of 0.2 mass-over-charge units. Example of ammonia clusters.\relax }{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}Branching ratio's}{21}{subsubsection.4.3.4}}
+\@writefile{toc}{\contentsline {paragraph}{Single-label Branching ratio's}{21}{section*.37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Example of a branching ratio plot. This example: NH$_3$ clusters, filename called `20091115\_NH3\_n17'\relax }}{22}{figure.caption.38}}
+\newlabel{BR_2D}{{18}{22}{Example of a branching ratio plot. This example: NH$_3$ clusters, filename called `20091115\_NH3\_n17'\relax }{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {paragraph}{Double-label Branching ratio's}{22}{section*.39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Example of a branching ratio plot for double labels (double coincidence). The color of the dots represents the branching ratio of that set of labels. This example: NH$_3$ clusters, filename called `20091115\_NH3\_n17'\relax }}{23}{figure.caption.40}}
+\newlabel{BR_1D}{{19}{23}{Example of a branching ratio plot for double labels (double coincidence). The color of the dots represents the branching ratio of that set of labels. This example: NH$_3$ clusters, filename called `20091115\_NH3\_n17'\relax }{figure.caption.40}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}Momentum}{23}{subsubsection.4.3.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Schematic of the Momentum along the molecular beam, $\mathaccentV {vec}17E{p}_{0}$\relax }}{23}{figure.caption.41}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Radius vs TOF, showing the shift of hits outward. The line is plotted with a prediction from a Maxwell-Boltzmann expectation value of the velocity ($T_{sample} = $ 38 [deg]). Example: Ammonia/Water clusters at 450 eV. (20130903\_008.dlt)\relax }}{24}{figure.caption.42}}
+\newlabel{p_z_2_TOF}{{17}{25}{Momentum}{equation.4.17}{}}
+\@writefile{toc}{\contentsline {paragraph}{$\mathaccentV {vec}17E{p_0}$ determination}{25}{section*.43}}
+\@writefile{toc}{\contentsline {paragraph}{$\mathaccentV {vec}17E{p}$ determination}{25}{section*.44}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces The total momentum ($p$) and the total minus the zero-time momentum ($p - p_0$) compared. In this example, the molecular beam is directed along the x-axis, coming from the left. It is seen that the mean value of total momentum shifts along the molecular beam axis, which is Example of pure NH3 clusters for cluster sizes of n = 1, 5, 10 in (NH$_3$)$_n^+$H\relax }}{26}{figure.caption.45}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.6}Kinetic Energy Release}{26}{subsubsection.4.3.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces The kinetic energy release does not change for different angular distributions ($\beta $-values). Fake data created with the parameters: m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV. Polarization is horizontal in the screen.\relax }}{27}{figure.caption.46}}
+\newlabel{TS}{{23}{27}{The kinetic energy release does not change for different angular distributions ($\beta $-values). Fake data created with the parameters: m = 18 a.m.u, singly charged, KE = 3 eV, $\sigma $(KE) = 0.1eV. Polarization is horizontal in the screen.\relax }{figure.caption.46}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.7}Mutual momentum angle}{27}{subsubsection.4.3.7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces The shortest great circle path between two three-dimensional momentum vectors is called $\theta $.\relax }}{28}{figure.caption.47}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.8}Asymmetry parameter $\beta $}{28}{subsubsection.4.3.8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.9}Interaction point}{28}{subsubsection.4.3.9}}
+\newlabel{X_CM}{{21}{28}{Interaction point}{equation.4.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Example of how the change in dZ affects the effective (TOF Laksman). Two examples of ion `pusher' voltages are shown. The 400 Volt example meets the Wiley-McLaren condition, but the 450 Volt example does not. In this treatment, the correlation is assumed linear. $m/q = 1$, Drift tube voltage = -4kV.\relax }}{29}{figure.caption.48}}
+\newlabel{dZ_vs_dTOF_Laksman}{{25}{29}{Example of how the change in dZ affects the effective (TOF Laksman). Two examples of ion `pusher' voltages are shown. The 400 Volt example meets the Wiley-McLaren condition, but the 450 Volt example does not. In this treatment, the correlation is assumed linear. $m/q = 1$, Drift tube voltage = -4kV.\relax }{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.10}Oversight of signals}{30}{subsubsection.4.3.10}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Input and output array for a filter only approving input values between and including 4 to 9. ($4 \leq x \leq 9$)\relax }}{31}{table.caption.49}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}filter}{31}{subsection.4.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces The translation of an example event filter to a hit filter.\relax }}{32}{figure.caption.50}}
+\newlabel{Data_structure_schematic}{{26}{32}{The translation of an example event filter to a hit filter.\relax }{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}plot}{32}{subsection.4.5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Mass to charge}{32}{subsubsection.4.5.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}momentum}{32}{subsubsection.4.5.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces The translation of an example hit filter to an event filter.\relax }}{33}{figure.caption.51}}
+\newlabel{Data_structure_schematic}{{27}{33}{The translation of an example hit filter to an event filter.\relax }{figure.caption.51}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}calibrate}{33}{subsection.4.6}}
+\@writefile{toc}{\contentsline {paragraph}{TOF $\rightarrow m/q$ factor}{33}{section*.53}}
+\@writefile{toc}{\contentsline {paragraph}{detection center position}{33}{section*.54}}
+\@writefile{toc}{\contentsline {paragraph}{detector rotation}{33}{section*.55}}
+\@writefile{toc}{\contentsline {paragraph}{residual momentum minimualization}{33}{section*.56}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}general}{35}{subsection.4.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Diagnostics}{36}{section.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Theory}{36}{subsection.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}SIMION}{36}{subsection.5.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Installation}{36}{section.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Example of a mass-to-charge histogram of pure NH$_3$-clusters from a molecular beam.\relax }}{37}{figure.caption.52}}

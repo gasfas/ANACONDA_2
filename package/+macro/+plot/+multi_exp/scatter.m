@@ -83,6 +83,7 @@ elseif general.struct.probe_field(GraphObj_md, 'ifdo.interp2')
 	colormap(h_axes(2), plot.custom_RGB_colormap([1 1 1], [0.6 0.6 0.6]))
 	uistack(h_GraphObj(2), 'bottom');
 	h_GraphObj(2).LevelList = linspace(h_GraphObj(2).LevelList(1), h_GraphObj(2).LevelList(end), 50);
+	h_axes(1).Color = 'none';
 end
 
 if ~general.struct.issubfield(plot_md, 'axes.Title')
