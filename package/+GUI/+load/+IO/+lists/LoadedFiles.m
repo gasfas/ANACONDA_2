@@ -78,23 +78,25 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
     if tabval == 2
         set(UIPlot.new.save_plot_conf, 'Enable', 'on');
         set(UIPlot.new.edit_plot_conf, 'Enable', 'on');
-        set(UIPlot.new.remove_plot_conf, 'Enable', 'on');
-        set(UIPlot.new_signal.new_signal, 'Enable', 'on');
-        set(UIPlot.new_signal.edit_signal, 'Enable', 'on');
-        set(UIPlot.new_signal.remove_signal, 'Enable', 'on');
+        set(UIPlot.new_signal.duplicate_signal, 'Enable', 'on');
         set(UIPlot.new.signals_list, 'Enable', 'on');
         set(UIPlot.new_signal.signals_list, 'Enable', 'on');
         set(UIPlot.new.btn_set_x_sign_pointer, 'Enable', 'on');
         set(UIPlot.new.y_signals_checkbox, 'Enable', 'on');
         set(UIPlot.Popup_Filter_Selection, 'Enable', 'on')
         set(UIPlot.new.PlotButton, 'Enable', 'on')
-        set(UIPlot.new.PlotConfButton, 'Enable', 'on')
         set(UIPlot.def.PlotConfEditButton, 'Enable', 'on')
         set(UIPlot.def.Popup_plot_type, 'Enable', 'on')
         set(UIPlot.def.pre_def_plot_radiobutton_built_in, 'Enable', 'on')
         set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'on')
         set(UIPlot.def.PlotButton, 'Enable', 'on')
-
+        set(UIPlot.def.PlotConfDuplButton, 'Enable', 'on')
+        if UIPlot.new_signal.signals_radiobutton_built_in.Value == 1
+            GUI.plot.data_selection.Radiobutton_PreDef_Signal;
+        elseif UIPlot.new_signal.signals_radiobutton_customized.Value == 1
+            GUI.plot.data_selection.Radiobutton_Custom_Signal;
+        end
+        
         if numberofloadedfilesselected > 1
             for lx = 1:numberofloadedfilesselected
                 exp_names(lx) = cellstr(['exp', int2str(filenumber(lx))]);
@@ -218,7 +220,6 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         end
         %% Values for the different settings in the defined plots tab:
         set(UIPlot.new.signals_list, 'String', signals_list)
-        set(UIPlot.new_signal.signals_list, 'String', signals_list)
         if isempty(popup_list_names) || length(popup_list_names) == 1
             if strcmp(popup_list_names, '')
                 set(UIPlot.def.Popup_plot_type, 'String', {' - '})

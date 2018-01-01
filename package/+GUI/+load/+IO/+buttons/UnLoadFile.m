@@ -61,6 +61,7 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
         set(UIPlot.Popup_Filter_Selection, 'String', '-')
         set(UIPlot.Popup_Filter_Selection, 'Value', 1)
+        set(UIPlot.def.PlotConfDuplButton, 'Enable', 'off')
     else
         md_GUI.data_n = data_n_new;
         md_GUI.mdata_n = mdata_n_new;

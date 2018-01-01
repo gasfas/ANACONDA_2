@@ -8,7 +8,7 @@
 \title{Manual for the {\it GUI\/} of {\it ANACONDA2\/}} 
 \author{Benjamin Bolling,$^{1\ast}$}
 \maketitle
-$^{1\ast}$Lund University, Lund, Sweden.
+$^{1\ast}$Department of Physics, Lund University, Lund, Sweden.
 
 
 \clearpage
@@ -40,18 +40,27 @@ Plotting
 
 
 \clearpage
-\section*{Introduction}
-\subsection*{New terms?}
-Graphical and command-line layer for ANACONDA2; Kernel only: Refer to Bart's documents.\\
+\section*{Introduction to the ANACONDA2 GUI}
+\subsection*{Aim of this document}
+The aim of this document is..... %%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Central concepts}
+In the ANACONDA2 package, there are two layers for the users: A command-line (kernel-only) layer and a graphical layer. The graphical layer is built upon the command-line layer in order to enable users with a lack of coding (or MATLAB) experience to use the ANACONDA2 package. For the documentation of the kernel-only layer of the ANACONDA2 package, see ref. \cite{Bart_Documentation}.\\
 \\
-Filters: What is it... Filter is built upon one or a set of logical condition(s). Built-in. User-defined for every experiment.\\
+Metadata is, as described and defined by ref. \cite[chapter 2, pp.~4--6]{Bart_Documentation}, a set of information defined for each experiment which is "needed to correct, convert, fit and visualize the data". The description of the metadata structure can be found in ref. \cite[chapter 2, pp.~4--5]{Bart_Documentation}, and will not be elaborated any further in this document, since the aim of this document is, as previously described, to describe how to use the ANACONDA2 package graphically via the ANACONDA2 GUI.\\
 \\
-What is a signal? - Values for every event: Could be raw from spectrometer, or have a physical quantity (e.g. mass-over-charge, kinetic energy, ...)
+A concept that is very central to the ANACONDA2 GUI is data filters. A data filter is built upon one or a set of logical condition(s). An example of a data filter built upon one logical condition for e.g. a mass-spectrometry experiment is a 'hits-filter' that only allows hit detections of single molecular fragments (hits) which have a mass-over-charge between 20-40 Da, or an 'events-filter' which only allows events having a total mass-over-charge between 40-50 Da (where the event's mass-over-charge is the sum of the mass-over-charge of the individual hits associated with the specific event). An example of a data filter built upon a set of logical conditions is e.g. a filter which combines the previously described hit- and event filter with different translate conditions, such as 'AND' and 'OR', where 'AND' means that both conditions have to be fulfilled and 'OR' means that at least one of the conditions have to be fulfilled, in order for the data to be allowed through for e.g. plotting. This can be described as data selection, where the user defines the data points of interest such that the data-points of no interest are neglected.\\
+\\
+The filters are constructed as metadata for each experiment individually, based either on locally defined metadata and/or metadata pre-defined by the ANACONDA2's spectrometer settings (during the loading of the files). There are hard-coded built-in filters that are not connected to any experiment, which cannot be edited directly but can be added to different experiments and then edited. The filters associated with the various experiments are further on referred to as user-defined filters.\\
+\\
+A signal is defined as...\\%%%%%%%%%%%%
+\\
+- Signal: Values for every event: Could be raw from spectrometer, or have a physical quantity (e.g. mass-over-charge, kinetic energy, ...)
 
 \subsection*{System requirements}
 - A computer which can run the latest$^*$ version of MATLAB.\\
 - A licensed and verified version of MATLAB.\\
-- ANACONDA2\\
+- The ANACONDA2 package.\\
 \\
 The following toolboxes are required:\\
 Neural Network Toolbox, \\
@@ -60,7 +69,7 @@ $^*$R2017a is required in this instance. Since ANACONDA2 is and will be continuo
 
 \subsection*{Setup of ANACONDA2 and ANACONDA2 GUI}
 1. Download the ANACONDA2 package to the preferred folder.\\
-2. Change to or add this folder to MATLAB path.\\ %%% more elaborate - graphical and command way.
+2. Change to or add this folder to MATLAB path.\footnote{There are two ways to change/add a folder to the MATLAB path: Graphically or by using commands. By using commands; type [ addpath 'dirname' ] and press enter (replace 'dirname' with the path of the package, e.g.: /home/user/matlab on Mac OS X. Graphically; browse into the location of the ANACONDA2 package, open the ANACONDA2 folder, right-click on the 'package' folder and select 'Add to Path' $\rightarrow$ 'Selected Folders'. Note: Do not select 'Selected Folders and Subfolders'!}.\\
 3. In order to start the GUI; write [ GUI.main ] and press enter.
 \begin{figure}[h]
 \centering
@@ -199,7 +208,22 @@ In order to demonstrate how data can be selected by using various data filters, 
 
 \clearpage
 \section*{Table ...}
-Table showing the meaning of e.g. m2q, m2q\_l 
+Table showing the meaning of e.g. m2q, m2q\_l
+
+\clearpage
+\section*{References}
+\begin{thebibliography}{9}
+
+\bibitem{Bart_Documentation}
+  Bart Oostenrijk,
+  \textit{Description of the Coincidence data analysis software},
+  Department of Physics at Lund University,
+  2nd edition,
+  2018.
+
+\end{thebibliography}
+
+
 \end{document}
 
 

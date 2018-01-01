@@ -90,6 +90,9 @@ if yesorno == 1
             catch
                 GUI.log.add(['User plot configuration ', selectedconfplot, ' was not removed from ', char(exp_names(ly)), '.']);
             end
+            
+            
+            
         end
     end
     for lx = 1:length(exp_names)

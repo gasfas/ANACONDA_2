@@ -26,12 +26,16 @@ set(UIPlot.def.PlotButton,...
     'Callback', @Plot_it_def)
 set(UIPlot.def.PlotConfEditButton,...
     'Callback', @Edit_Plot_Conf_def)
+set(UIPlot.def.PlotConfRmvButton,...
+    'Callback', @Rmv_Plot_Conf_def)
+set(UIPlot.def.PlotConfDuplButton,...
+    'Callback', @Dupl_Plot_Conf_def)
 set(UIPlot.new.save_plot_conf,...
     'Callback', @save_plot_conf)
 set(UIPlot.new.edit_plot_conf,...
     'Callback', @edit_plot_conf)
-set(UIPlot.new.remove_plot_conf,...
-    'Callback', @remove_plot_conf)
+set(UIPlot.new_signal.duplicate_signal,...
+    'Callback', @duplicate_signal_conf)
 set(UIPlot.new_signal.new_signal,...
     'Callback', @new_signal_conf)
 set(UIPlot.new_signal.edit_signal,...
@@ -48,8 +52,6 @@ set(UIFilter.IncreaseFont_Tree,...
     'Callback', @IncreaseTreeFontsizeButton)
 set(UIFilter.DecreaseFont_Tree,...
     'Callback', @DecreaseTreeFontsizeButton)
-set(UIPlot.new.PlotConfButton,...
-    'Callback', @Plotconf)
 
 %%  set editboxes
 set(UILoad.FiletypeEditBox, ...
@@ -76,11 +78,16 @@ set(UIPlot.new.btn_set_x_sign_pointer,...
     'Callback', @set_x_signal_button)
 set(UIPlot.new.btn_set_y_sign_pointer,...
     'Callback', @set_y_signal_button)
+
+%% set radiobuttons
 set(UIPlot.def.pre_def_plot_radiobutton_built_in,...
     'Callback', @pre_def_plot_radiobutton_built_in)
 set(UIPlot.def.pre_def_plot_radiobutton_customized,...
     'Callback', @pre_def_plot_radiobutton_customized)
-
+set(UIPlot.new_signal.signals_radiobutton_built_in,...
+    'Callback', @signals_radiobutton_built_in)
+set(UIPlot.new_signal.signals_radiobutton_customized,...
+    'Callback', @signals_radiobutton_customized)
 %%  set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
     'Callback', @Popup_FilterSelect)
@@ -91,33 +98,24 @@ set(UIPlot.Popup_Filter_Selection, ...
     end
 
 %%  Functions for buttons
+    function duplicate_signal_conf(hObject, eventdata)
+        GUI.plot.md_edit.new_signals.duplicate_signal;
+    end
     function new_signal_conf(hObject, eventdata)
-        md_GUI = evalin('base', 'md_GUI');
-        
-        assignin('base', 'md_GUI', md_GUI)
+        GUI.plot.md_edit.new_signals.new_signal;
     end
     function edit_signal_conf(hObject, eventdata)
-        md_GUI = evalin('base', 'md_GUI');
-        
-        assignin('base', 'md_GUI', md_GUI)
+        GUI.plot.md_edit.new_signals.edit_signal;
     end
     function remove_signal_conf(hObject, eventdata)
-        md_GUI = evalin('base', 'md_GUI');
-        
-        assignin('base', 'md_GUI', md_GUI)
+        GUI.plot.md_edit.new_signals.remove_signal;
     end
     function save_plot_conf(hObject, eventdata)
         newPlotConfName = inputdlg('New plot configuration name:', 'Save to md');
         GUI.plot.md_edit.PlotConf.SavePlotConf(newPlotConfName);
     end
     function edit_plot_conf(hObject, eventdata)
-        GUI.plot.md_edit.PlotConf.EditPlotConf('open_editor');
-    end
-    function remove_plot_conf(hObject, eventdata)
-        GUI.plot.md_edit.PlotConf.RemovePlotConf;
-    end
-    function Plotconf(hObject, eventdata)
-        GUI.plot.md_edit.PlotConf.SavePlotConf();
+        GUI.plot.md_edit.PlotConf.EditPlotConf();
     end
     function LoadFolder(hObject, eventdata)
         GUI.load.IO.buttons.LoadFolder( hObject, eventdata, UIPlot.new, UILoad );
@@ -136,6 +134,14 @@ set(UIPlot.Popup_Filter_Selection, ...
 	end
     function Edit_Plot_Conf_def(hObject, eventdata)
         GUI.plot.md_edit.open_Variables();
+    end
+    function Dupl_Plot_Conf_def(hObject, eventdata)
+        GUI.plot.md_edit.duplicate_plotconf();
+    end
+    function Rmv_Plot_Conf_def(hObject, eventdata)
+        if UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+            GUI.plot.md_edit.remove_plotconf();
+        end
     end
     function Reset(hObject, eventdata)
         GUI.load.IO.buttons.Reset
@@ -164,11 +170,11 @@ set(UIPlot.Popup_Filter_Selection, ...
     end
     function set_x_signal_button(hObject, eventdata)
         UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
-        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
+        %GUI.plot.md_edit.PlotConf.EditPlotConf();
     end
     function set_y_signal_button(hObject, eventdata)
         UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
-        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
+        %GUI.plot.md_edit.PlotConf.EditPlotConf();
     end
 %%  Functions for popupboxes
     function Popup_FilterSelect(hObject, eventdata)
@@ -180,11 +186,18 @@ set(UIPlot.Popup_Filter_Selection, ...
 
 %%  Functions for radiobuttons
     function pre_def_plot_radiobutton_customized(hObject, eventdata)
-        GUI.plot.data_selection.Radiobutton_Custom;
+        GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
     end
     function pre_def_plot_radiobutton_built_in(hObject, eventdata)
-        GUI.plot.data_selection.Radiobutton_PreDef;
+        GUI.plot.data_selection.Radiobutton_PreDef_Plotconf;
     end
+    function signals_radiobutton_customized(hObject, eventdata)
+        GUI.plot.data_selection.Radiobutton_Custom_Signal;
+    end
+    function signals_radiobutton_built_in(hObject, eventdata)
+        GUI.plot.data_selection.Radiobutton_PreDef_Signal;
+    end
+
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
         if UIPlot.new.y_signals_checkbox.Value == 0
@@ -193,7 +206,6 @@ set(UIPlot.Popup_Filter_Selection, ...
         else
             UIPlot.new.btn_set_y_sign_pointer.Enable = 'on';
         end
-        GUI.plot.md_edit.PlotConf.EditPlotConf('edit_only');
     end
 %%  Functions for listboxesedi
     function FilesList(hObject, eventdata)

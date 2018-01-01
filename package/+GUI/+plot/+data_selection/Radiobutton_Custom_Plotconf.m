@@ -1,4 +1,4 @@
-function [] = Radiobutton_Custom()
+function [] = Radiobutton_Custom_Plotconf()
 md_GUI = evalin('base', 'md_GUI');
 UIPlot = md_GUI.UI.UIPlot;
 try
@@ -24,15 +24,16 @@ try
             detnr			 = IO.detname_2_detnr(current_det_name);
             % Find a human-readable detector name:
             hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
-            currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
-            % remove possible 'ifdo' fields:
-            currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
-            numberofplottypes = length(currentplottypes);
-
-            % write dots between detectornames and fieldnames:
-            popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
-            plottypes_def(1,end+1:end+numberofplottypes) = currentplottypes;
-            popup_list_names(1,end+1:end+numberofplottypes) = popup_list_names_det;
+            try
+                currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
+                % remove possible 'ifdo' fields:
+                currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
+                numberofplottypes = length(currentplottypes);
+                % write dots between detectornames and fieldnames:
+                popup_list_names_det = general.cell.pre_postscript_to_cellstring(currentplottypes, [hr_detname '.' ], '');
+                plottypes_def(1,end+1:end+numberofplottypes) = currentplottypes;
+                popup_list_names(1,end+1:end+numberofplottypes) = popup_list_names_det;
+            end
         end
         if length(exp_names) > 1
             list_struct.([char(exp_names(lx))]) = popup_list_names_det;
@@ -54,14 +55,19 @@ try
     end
     set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'String', popup_list_names)
     set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'on')
-
+    set(md_GUI.UI.UIPlot.def.PlotConfEditButton, 'Enable', 'on')
+    set(md_GUI.UI.UIPlot.def.PlotConfRmvButton, 'Enable', 'on')
 catch
     set(UIPlot.def.Popup_plot_type, 'String', {' - '})
     set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'off')
+    set(md_GUI.UI.UIPlot.def.PlotConfEditButton, 'Enable', 'off')
+    set(md_GUI.UI.UIPlot.def.PlotConfRmvButton, 'Enable', 'off')
 end
 if isempty(popup_list_names)
     set(UIPlot.def.Popup_plot_type, 'String', {' - '})
     set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'off')
+    set(md_GUI.UI.UIPlot.def.PlotConfEditButton, 'Enable', 'off')
+    set(md_GUI.UI.UIPlot.def.PlotConfRmvButton, 'Enable', 'off')
 end
 set(UIPlot.def.Popup_plot_type, 'Value', 1)
 assignin('base', 'md_GUI', md_GUI)

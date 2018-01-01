@@ -36,7 +36,8 @@ if length(typesplit) == 2
             try
                 md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
             catch
-                GUI.log.add(['Failed to apply external filter ', cond_name, ' to experiment.'])
+                GUI.log.add(['Failed to apply external filter ', cond_name, ' to ', exp_name, '.'])
+                assignin('base', 'md_GUI', md_GUI)
             end
         end
         try
@@ -46,7 +47,20 @@ if length(typesplit) == 2
                 macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp_name).plot.(detname).(plottype));
             end
         catch
-            GUI.log.add(['GUI.plot.create.Plot_def: Could not plot ', plottype, '.'])
+            % A fail in the trial above means that there is either an
+            % error in the plot configuration for the experiment or that
+            % the plot configuration does not exist for this experiment.
+            % If it does not exist - the below section tries to copy it.
+            exp1_name = char(sel_exp_names(1));
+            if ~strcmp(exp1_name, exp_name) == 1
+                if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+                    macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp1_name).plot.user.(detname).(plottype));
+                elseif md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1
+                    macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp1_name).plot.(detname).(plottype));
+                end
+            end
+            GUI.log.add(['GUI.plot.create.Plot_def: Could not plot ', plottype, ' for ', exp_name, '.'])
+            assignin('base', 'md_GUI', md_GUI)
         end
     end
 end

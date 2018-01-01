@@ -1,5 +1,6 @@
-function [] = Radiobutton_PreDef()
+function [] = Radiobutton_PreDef_Plotconf()
 md_GUI = evalin('base', 'md_GUI');
+try md_GUI.mdata_n;
 UIPlot = md_GUI.UI.UIPlot;
 set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'Enable', 'on')
 filenumber = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
@@ -53,6 +54,10 @@ for lx = 1:length(exp_names)
         end
     end
 set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'String', popup_list_names)
+set(md_GUI.UI.UIPlot.def.PlotConfEditButton, 'Enable', 'off')
+set(md_GUI.UI.UIPlot.def.PlotConfRmvButton, 'Enable', 'off')
 assignin('base', 'md_GUI', md_GUI)
-
+catch
+    GUI.log.add(['No experiment metadata found.'])
+end
 end
