@@ -91,12 +91,23 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'on')
         set(UIPlot.def.PlotButton, 'Enable', 'on')
         set(UIPlot.def.PlotConfDuplButton, 'Enable', 'on')
+        set(UIPlot.new.x_signal_pointer, 'String', '-')
+        set(UIPlot.new.y_signal_pointer, 'String', '-')
+        set(UIPlot.def.pre_def_plot_radiobutton_built_in, 'Value', 1);
+        set(UIPlot.new.signals_radiobutton_built_in, 'Value', 1);
+        set(UIPlot.new.y_signals_checkbox, 'Value', 0);
+        set(UIPlot.new.btn_set_y_sign_pointer, 'Enable', 'off');
+        set(md_GUI.UI.UIPlot.new_signal.signals_radiobutton_built_in, 'Value', 1);
         if UIPlot.new_signal.signals_radiobutton_built_in.Value == 1
             GUI.plot.data_selection.Radiobutton_PreDef_Signal;
         elseif UIPlot.new_signal.signals_radiobutton_customized.Value == 1
             GUI.plot.data_selection.Radiobutton_Custom_Signal;
         end
-        
+        if UIPlot.new.signals_radiobutton_built_in.Value == 1
+            GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
+        elseif UIPlot.new.signals_radiobutton_customized.Value == 1
+            GUI.plot.data_selection.Radiobutton_Custom_PlotConf_New;
+        end
         if numberofloadedfilesselected > 1
             for lx = 1:numberofloadedfilesselected
                 exp_names(lx) = cellstr(['exp', int2str(filenumber(lx))]);

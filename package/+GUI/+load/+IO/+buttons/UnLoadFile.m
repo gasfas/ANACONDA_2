@@ -42,7 +42,6 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.new_signal.signals_list, 'Value', 1);
         set(UILoad.UnLoadFileButton, 'Enable', 'off');
         set(UIPlot.new.save_plot_conf, 'Enable', 'off');
-        set(UIPlot.new.remove_plot_conf, 'Enable', 'off');
         set(UIPlot.new.edit_plot_conf, 'Enable', 'off');
         set(UIPlot.new_signal.new_signal, 'Enable', 'off');
         set(UIPlot.new_signal.edit_signal, 'Enable', 'off');

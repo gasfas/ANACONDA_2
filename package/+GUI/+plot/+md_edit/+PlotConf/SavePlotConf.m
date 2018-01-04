@@ -17,9 +17,23 @@
 
 function [  ] = SavePlotConf(newPlotConfName)
 md_GUI = evalin('base', 'md_GUI');
+userdef_x_test = strsplit(char(md_GUI.UI.UIPlot.new.x_signal_pointer.String), '.');
+userdef_y_test = strsplit(char(md_GUI.UI.UIPlot.new.y_signal_pointer.String), '.');
 if ~isempty(newPlotConfName)
-    signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String; % signal for x has not been chosen if signal_x = '-';
-    signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
+    if strcmp(char(userdef_x_test(1)), 'user')
+        signal_x = char(userdef_x_test(2));
+        x_userval = 1;
+    else
+        signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String; % signal for x has not been chosen if signal_x = '-';
+        x_userval = 0;
+    end
+    if strcmp(char(userdef_y_test(1)), 'user')
+        signal_y = char(userdef_y_test(2));
+        y_userval = 1;
+    else
+        signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
+        y_userval = 0;
+    end
     selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
     if strcmp(signal_x, '-')
         if strcmp(md_GUI.UI.UIPlot.h_plot_tabs.SelectedTab.Title, 'New plot conf')
@@ -55,6 +69,8 @@ if ~isempty(newPlotConfName)
                 end
                 % remove possible 'ifdo' fields:
                 current_user_plottypes(find(ismember(current_user_plottypes,'ifdo'))) = [];
+                % remove possible 'user' fields:
+                current_user_plottypes(find(ismember(current_user_plottypes,'user'))) = [];
                 for lz = 1:length(signals_list.(['exp', num2str(lx)]))
                     if strcmp(char(signals_list.(['exp', num2str(lx)])(lz)), signal_x)
                         try
@@ -118,7 +134,19 @@ if ~isempty(newPlotConfName)
                 for lx = 1:length(selectedexpnumbers)
                     exp_name = char(sel_exp_names(lx));
                     signals.(exp_name)                              = md_GUI.mdata_n.(exp_name).plot.signal;
-                    d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).(signal_y)});
+                    % If signal x is customized and signal y is built-in:
+                    if x_userval == 1 && y_userval == 0
+                        d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).user.(signal_x), signals.(exp_name).(signal_y)});
+                    % If signal x and signal y are both customized
+                    elseif x_userval == 1 && y_userval == 1
+                        d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).user.(signal_x), signals.(exp_name).user.(signal_y)});
+                    % If signal x is built-in and signal y is customized:
+                    elseif x_userval == 0 && y_userval == 1
+                        d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).user.(signal_y)});
+                    % If signal x and signal y are both built-in:
+                    elseif x_userval == 0 && y_userval == 0
+                        d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).(signal_y)});
+                    end
                     d1.([signal_x, '_', signal_y]).hist.binsize     = d1.([signal_x, '_', signal_y]).hist.binsize;
                     if strcmp(signal_x, signal_y)
                         d1.([signal_x, '_', signal_y]).axes.axis	= 'equal';
@@ -130,15 +158,16 @@ if ~isempty(newPlotConfName)
                     md_GUI.mdata_n.(exp_name).plot.user.(detname).(char(newPlotConfName)) = d1.([signal_x, '_', signal_y]);
                     numberofplottypes = length(current_user_plottypes)+1;
                     current_user_plottypes(numberofplottypes) = newPlotConfName;
-                    % write dots between detectornames and fieldnames:
-                    popup_list_names_det = general.cell.pre_postscript_to_cellstring(current_user_plottypes, [hr_detname '.' ], '');
-                    md_GUI.UI.UIPlot.def.Popup_plot_type.String = popup_list_names_det;
-                    md_GUI.UI.UIPlot.def.Popup_plot_type.Enable = 'on';
-                    GUI.log.add(['User plot configuration ', char(newPlotConfName), ' saved for ', exp_name, '.']);
+                    GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
                 end
             end
         end
     end
     assignin('base', 'md_GUI', md_GUI)
+    if strcmp(char(newPlotConfName), 'In_Workspace')
+        GUI.log.add(['User plot configuration autosaved as In_Workspace for ', exp_name, '.']);
+    else
+        GUI.log.add(['User plot configuration ', char(newPlotConfName), ' saved for ', exp_name, '.']);
+    end
 end
 end

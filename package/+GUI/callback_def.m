@@ -88,6 +88,11 @@ set(UIPlot.new_signal.signals_radiobutton_built_in,...
     'Callback', @signals_radiobutton_built_in)
 set(UIPlot.new_signal.signals_radiobutton_customized,...
     'Callback', @signals_radiobutton_customized)
+set(UIPlot.new.signals_radiobutton_built_in,...
+    'Callback', @plotconfs_radiobutton_built_in)
+set(UIPlot.new.signals_radiobutton_customized,...
+    'Callback', @plotconfs_radiobutton_customized)
+
 %%  set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
     'Callback', @Popup_FilterSelect)
@@ -169,11 +174,19 @@ set(UIPlot.Popup_Filter_Selection, ...
         assignin('base', 'md_GUI', md_GUI)
     end
     function set_x_signal_button(hObject, eventdata)
-        UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        if UIPlot.new.signals_radiobutton_customized.Value == 1
+            UIPlot.new.x_signal_pointer.String = ['user.', char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value))];
+        else
+            UIPlot.new.x_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        end
         GUI.plot.md_edit.PlotConf.SavePlotConf(cellstr('In_Workspace'));
     end
     function set_y_signal_button(hObject, eventdata)
-        UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        if UIPlot.new.signals_radiobutton_customized.Value == 1
+            UIPlot.new.y_signal_pointer.String = ['user.', char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value))];
+        else
+            UIPlot.new.y_signal_pointer.String = char(UIPlot.new.signals_list.String(UIPlot.new.signals_list.Value));
+        end
         GUI.plot.md_edit.PlotConf.SavePlotConf(cellstr('In_Workspace'));
     end
 %%  Functions for popupboxes
@@ -197,6 +210,12 @@ set(UIPlot.Popup_Filter_Selection, ...
     function signals_radiobutton_built_in(hObject, eventdata)
         GUI.plot.data_selection.Radiobutton_PreDef_Signal;
     end
+    function plotconfs_radiobutton_customized(hObject, eventdata)
+        GUI.plot.data_selection.Radiobutton_Custom_PlotConf_New;
+    end
+    function plotconfs_radiobutton_built_in(hObject, eventdata)
+        GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
+    end
 
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
@@ -213,9 +232,6 @@ set(UIPlot.Popup_Filter_Selection, ...
     end
     function LoadedFilesCall(hObject, eventdata)
         GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot);
-        if UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
-            GUI.plot.data_selection.Radiobutton_Custom;
-        end
     end
     function FilterFieldValueCall(hObject, eventdata)
         GUI.filter.edit.FieldValueList(hObject, eventdata, UIFilter);
@@ -224,6 +240,6 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
     end
     function Signals_List(hObject, eventdata)
-        % No callback defined yet.
+        % No callback defined.
     end
 end
