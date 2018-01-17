@@ -1,4 +1,4 @@
-function I = I_fitted(m2q, fit_param, ifnoise)
+function [I, I_comp] = I_fitted(m2q, fit_param, ifnoise)
 % This function returns the fitted intensity as a result of the m2q fitting
 % procedure. 
 % Inputs:
@@ -13,7 +13,7 @@ function I = I_fitted(m2q, fit_param, ifnoise)
 % fit intensity calculators, depending on which fitting method is used:
 runner_f = str2func(['macro.fit.m2q.' fit_param.md.Type '.runner']);
 
-I = zeros(size(m2q));
+I = zeros(size(m2q)); I_comp = [];%zeros(length(m2q), sum(fit_param.q)+length(fit_param.q));
 for i = 1:length(fit_param.q)
 	q_cur = fit_param.q(i);
 	switch fit_param.md.Type
@@ -25,9 +25,12 @@ for i = 1:length(fit_param.q)
 		otherwise
 			error('TODO: implement other fitting types')
 	end
-		
-	[y_q]		= runner_f(fit_param_q, m2q);
+	
+	[y_q, y_q_comp]	= runner_f(fit_param_q, m2q);
 	I = I + y_q;
+	if nargout>1
+		I_comp = [I_comp y_q_comp];
+	end
 end
 
 end

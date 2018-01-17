@@ -10,13 +10,13 @@ hold(ax, 'on'); grid(ax, 'on')
 % plot.textul(['$p_m = ' num2str(fit_param.result(groupnr,5),2) '$'], 0.18, 0.05, 'k');
 hlgd = findobj(ax.Parent, 'Type','legend','Tag','legend');
 if size(I_fit_comp, 2) > 1
-	hLines = plot(xdata, [I_fit_comp, I_fit_total], 'LineStyle', '-.');
+	hLines = plot(ax, xdata, [I_fit_comp, I_fit_total], 'LineStyle', '-.');
 	nof_comps = size(I_fit_comp, 2);
 	hlgd.String(end-nof_comps:end-1) = general.cell.pre_postscript_to_cellstring(num2cell(1:nof_comps), 'fit', '');
 	hLines(end).LineStyle = '-';
 	hLines(end).Color = 'k';
 else
-	plot(xdata, I_fit_total);
+	plot(ax, xdata, I_fit_total);
 end
 legend boxoff
 hlgd.String{end} = 'Fit Total';

@@ -34,5 +34,9 @@ fit_md.noise_level  = mean(sorted_ydata(1:floor(fit_md.rel_noise_hits*length(xda
 % background subtraction
 yfitdata        = ydata - fit_md.noise_level;
 
-end
+% If the user wants to cut the histograms on the sides of the main peak:
+% if general.struct.probe_field(fit_md, 'ifdo.sidecuts')
+% 	fit_md.sidecuts.q_width
+% end
 
+end

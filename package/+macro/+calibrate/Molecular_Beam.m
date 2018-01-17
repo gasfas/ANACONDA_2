@@ -28,4 +28,6 @@ for i = 1:2
 	
 end
 
+linkaxes(ax, 'x')
+
 end
