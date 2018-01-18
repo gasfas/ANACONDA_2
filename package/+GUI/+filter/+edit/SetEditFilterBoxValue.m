@@ -1,5 +1,5 @@
 % Description: Sets the FieldnameList and FieldValueList to have the names
-% resp. the values of the selected filter.
+% resp. the associated values of the selected filter.
 %   - inputs: 
 %           Experiment name                     (exp_name)
 %           Selected experiment metadata        (mdata_n)
@@ -7,7 +7,6 @@
 %   - outputs: 
 %           Field names                         (FieldnameList)
 %           Field values                        (FieldValueList)
-%           FieldnameList & FieldValueList associated values.
 % Date of creation: 2017-07-03.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -23,29 +22,25 @@ if isempty(treePath)
     set(UIFilter.Fieldname, 'String', {' - - Name - - ', ' - - Name - - '})
 else
     md_GUI = evalin('base', 'md_GUI');
-    node_depth = 0; %At start 0 since penetration has not begun.
+    node_depth = 0; %At start 0 since structure penetration has not begun; i.e. starting parameter
     parents_nom_str = 'Parent.Name'; %Starting parental path.
     parent.xyx = 0; %simply creating a struct named parent.
     [ parent, SelectedNode ] = GUI.filter.visualize.UI_Tree_selected_node_extract( node_depth, parents_nom_str, parent );
     % From the recursive extractor above, the path is returned as (parent.s(N-1)). ... .(parent.s2).
-    if isnumeric(parent)
-        % No node selected or no proper node is selected.
-    else
-        nom_parents = length(fieldnames(parent)) - 2; %First fieldname is xyx ('waste'), and last one is the selected node.
+    if ~isnumeric(parent)
+        nom_parents = length(fieldnames(parent)) - 2; %First fieldname is xyx (an identifier), and last one is the selected node.
         prev_path = parent.s1;
         for pathway = 2:(nom_parents) % 2 since number 1 is already set to prev_path.
             prev_path = [(parent.(['s', num2str(pathway)])), '.', prev_path, ];
         end
         selected_node_path = [prev_path, '.', SelectedNode];
         if selected_node_path == 0
-            %Do nothing.
             base_fieldtype = cellstr('Nothing');
         else
         exp_parts = strsplit(selected_node_path,'.');
         exp_name = exp_parts(1);
         md_GUI.filter.filterexpname = char(exp_name);
-        if strcmp(char(exp_parts(1)), 'Filter')
-            % Do nothing - experiment was selected.
+        if strcmp(char(exp_parts(1)), 'Filter') % Experiment was selected
             base_fieldtype = cellstr('Experiment');
             filtertreatable = 0;
         elseif strcmp(char(exp_parts(1)), 'built_in_filter')
@@ -146,16 +141,15 @@ else
                             md_GUI.filter.onerow(fieldnumbervalue) = 1;
                             filtertreatable = 1;
                         else
-                            %Check if there is also more than one column. If yes, not
-                            %possible to use vallues.
+                            %Check if there is also more than one column. Yes means it's not possible to use values.
                             if xxcolumns == 1
-                                % Then good - let's convert rows to columns.
+                                % Convert rows to columns
                                 % Important to remember this for the filter.
                                 md_GUI.filter.onerow(fieldnumbervalue) = 0;
                                 filtertreatable = 1;
                                 base_fieldvaluex = base_fieldvaluex.';
                             else
-                                % This means that the matrix cannot be treated.
+                                % Matrix cannot be treated.
                                 filtertreatable = 0;
                                 md_GUI.filter.onerow(fieldnumbervalue) = 0;
                                 disp('Matrix too large.')
@@ -196,9 +190,6 @@ else
             set(UIFilter.Fieldname, 'String', base_fieldnames)
             set(UIFilter.Fieldvalue, 'Value', 1)
             set(UIFilter.Fieldname, 'Value', 1)
-
-            % Check if base_fieldvaluex is struct. If yes, check if one child is
-            % the 'operators'.
             if isstruct(base_field)
                 operatorexist = 0;
                 childrennames = fieldnames(base_field);
@@ -225,7 +216,6 @@ else
                 set(UIFilter.Fieldvalue, 'Enable', 'on')
                 set(UIFilter.Fieldname, 'Enable', 'on')
             end
-            %set(UIFilter.EditFilter, 'Enable', 'on')
         elseif filtertreatable == 0
             set(UIFilter.Fieldvalue, 'Enable', 'off')
             set(UIFilter.Fieldname, 'Enable', 'off')

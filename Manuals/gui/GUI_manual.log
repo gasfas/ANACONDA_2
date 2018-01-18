@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.7.22)  11 DEC 2017 17:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.7.22)  18 JAN 2018 11:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -213,419 +213,659 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 16--19
+Underfull \hbox (badness 10000) in paragraph at lines 15--18
 
  []
 
 [2
 
-] [3
+] (./GUI_manual.toc)
+\tf@toc=\write3
+\openout3 = `GUI_manual.toc'.
+
+ [3
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 48--59
+Missing character: There is no   in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--59
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--59
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--59
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--59
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--49
 
  []
 
 [4
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 61--69
+Underfull \hbox (badness 10000) in paragraph at lines 51--59
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--69
+Underfull \hbox (badness 10000) in paragraph at lines 51--59
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 72.
+(Font)              <5> on input line 62.
 Missing character: There is no   in font cmr10!
+[5]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_1_star
+tup.png, id=27, 410.53375pt x 936.49875pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_1
+_startup.png Graphic file (type png)
 
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/0_1_startup.png, id=
-23, 106.3975pt x 30.1125pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/0_1_startup.png
- Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/0_1_startup.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/0_1_startup.png used on input line 76.
-(pdftex.def)             Requested size: 85.9996pt x 24.34088pt.
-[5 </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/0_1_startup.png>]
-
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_1_startup.png, id=
-30, 410.53375pt x 936.49875pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_1_startup.png
- Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_1_startup.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/1_1_startup.png used on input line 84.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_1_
+startup.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/1_1_startup.png used on input line 69.
 (pdftex.def)             Requested size: 129.00269pt x 294.26988pt.
 
-Underfull \hbox (badness 5189) in paragraph at lines 85--85
-[]\OT1/cmr/m/n/12 Figure 2: The start
+Underfull \hbox (badness 5189) in paragraph at lines 70--70
+[]\OT1/cmr/m/n/12 Figure 1: The start
  []
 
 
-Underfull \hbox (badness 4291) in paragraph at lines 85--85
+Underfull \hbox (badness 4291) in paragraph at lines 70--70
 \OT1/cmr/m/n/12 screen when launch-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 3199) in paragraph at lines 87--102
+Underfull \hbox (badness 3199) in paragraph at lines 72--87
 \OT1/cmr/m/n/12 since this is where files are loaded (resp. un-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 2126) in paragraph at lines 87--102
+Underfull \hbox (badness 2126) in paragraph at lines 72--87
 \OT1/cmr/m/n/12 where raw data files com-ing di-rectly from ex-per-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 87--102
+Underfull \hbox (badness 2626) in paragraph at lines 72--87
 \OT1/cmr/m/n/12 The third tab is a fil-ter tab in which data fil-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--102
+Underfull \hbox (badness 10000) in paragraph at lines 72--87
 
  []
 
 [6
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_1_startup.png>]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_2_choosefolder.png
-, id=35, 718.685pt x 416.55624pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_2_choosefolde
-r.png Graphic file (type png)
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_1_sta
+rtup.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_2_choo
+sefolder.png, id=33, 718.685pt x 416.55624pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_2
+_choosefolder.png Graphic file (type png)
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_2_choosefolder
-.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/1_2_choosefolder.png used on input line 107.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_2_
+choosefolder.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/1_2_choosefolder.png used on input line 92.
 (pdftex.def)             Requested size: 171.99922pt x 99.68951pt.
 
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_3_choosefile.png, 
-id=36, 413.545pt x 938.50626pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_3_choosefile.
-png Graphic file (type png)
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_3_choo
+sefile.png, id=34, 413.545pt x 938.50626pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_3
+_choosefile.png Graphic file (type png)
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_3_choosefile.p
-ng>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/1_3_choosefile.png used on input line 113.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_3_
+choosefile.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/1_3_choosefile.png used on input line 98.
 (pdftex.def)             Requested size: 129.00269pt x 292.76695pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--115
+Underfull \hbox (badness 10000) in paragraph at lines 95--100
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 119.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 104.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 119.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 104.
  [7
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_2_choosefolder.pn
-g> </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_3_choosefile.pn
-g>]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_4_loadfile_specset
-.png, id=43, 316.18124pt x 234.8775pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_4_loadfile_sp
-ecset.png Graphic file (type png)
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_2_cho
+osefolder.png> </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/S
+creens/1_3_choosefile.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_4_load
+file_specset.png, id=41, 316.18124pt x 234.8775pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_4
+_loadfile_specset.png Graphic file (type png)
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_4_loadfile_spe
-cset.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/1_4_loadfile_specset.png used on input line 126.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_4_
+loadfile_specset.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/1_4_loadfile_specset.png used on input line 111.
 (pdftex.def)             Requested size: 171.99922pt x 127.77095pt.
 
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_5_filesloaded.png,
- id=44, 412.54124pt x 940.51375pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_5_filesloaded
-.png Graphic file (type png)
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_5_file
+sloaded.png, id=42, 412.54124pt x 940.51375pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_5
+_filesloaded.png Graphic file (type png)
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_5_filesloaded.
-png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/1_5_filesloaded.png used on input line 131.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_5_
+filesloaded.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/1_5_filesloaded.png used on input line 116.
 (pdftex.def)             Requested size: 129.00269pt x 294.09639pt.
 
-Underfull \hbox (badness 4713) in paragraph at lines 134--142
+Underfull \hbox (badness 4713) in paragraph at lines 119--126
 [][]\OT1/cmr/m/n/12 There are cur-rently three avail-able spec-trom-e-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--142
+Underfull \hbox (badness 3179) in paragraph at lines 119--126
+\OT1/cmr/m/n/12 Their prop-er-ties and dif-fer-ences can be found in
+ []
+
+
+Underfull \hbox (badness 3713) in paragraph at lines 119--126
+\OT1/cmr/m/n/12 the at-tach-ment 'ANA-CONDA2 built-in Spec-trom-e-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--126
 
  []
 
 
-Underfull \hbox (badness 1509) in paragraph at lines 134--142
+Underfull \hbox (badness 1509) in paragraph at lines 119--126
 \OT1/cmr/m/n/12 be-ing loaded into mem-ory, they will be vis-i-ble in
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 134--142
+Underfull \hbox (badness 1496) in paragraph at lines 119--126
 \OT1/cmr/m/n/12 ma-tion will be shown in the file in-for-ma-tion win-
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 134--142
+Underfull \hbox (badness 1803) in paragraph at lines 119--126
 \OT1/cmr/m/n/12 dow, which ex-ists if it has been prop-erly de-fined
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 134--142
+Underfull \hbox (badness 1496) in paragraph at lines 119--126
 \OT1/cmr/m/n/12 ma-tion will be shown in the file in-for-ma-tion win-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--142
+Underfull \hbox (badness 10000) in paragraph at lines 119--126
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--142
+Underfull \hbox (badness 10000) in paragraph at lines 119--126
 
  []
 
 [8
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_4_loadfile_specse
-t.png> </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/1_5_filesload
-ed.png>]
-Missing character: There is no   in font cmr12!
- [9
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/1_4_loa
+dfile_specset.png> </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/g
+ui/Screens/1_5_filesloaded.png>] [9
 
 ]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_1_filter_sel.png, 
-id=53, 413.545pt x 938.50626pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_1_filter_sel.
-png Graphic file (type png)
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_1_filt
+er_sel.png, id=51, 413.545pt x 938.50626pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_1
+_filter_sel.png Graphic file (type png)
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_1_filter_sel.p
-ng>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/3_1_filter_sel.png used on input line 151.
-(pdftex.def)             Requested size: 129.00269pt x 292.76695pt.
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_1_
+filter_sel.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/3_1_filter_sel.png used on input line 136.
+(pdftex.def)             Requested size: 146.2pt x 331.79013pt.
 
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_2_filter_cond_edit
-.png, id=54, 191.71625pt x 129.48375pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_2_filter_cond
-_edit.png Graphic file (type png)
+Underfull \hbox (badness 5403) in paragraph at lines 133--138
+\OT1/cmr/m/n/12 can be in-creased resp. de-creased by click-ing on [A+] resp. [
+A-].
+ []
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_2_filter_cond_
-edit.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/3_2_filter_cond_edit.png used on input line 163.
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_2_filt
+er_cond_edit.png, id=52, 191.71625pt x 129.48375pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_2
+_filter_cond_edit.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_2_
+filter_cond_edit.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/3_2_filter_cond_edit.png used on input line 151.
 (pdftex.def)             Requested size: 129.00269pt x 87.133pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--166
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_3_filt
+er_edit.png, id=53, 578.16pt x 560.0925pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_3
+_filter_edit.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_3_
+filter_edit.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/3_3_filter_edit.png used on input line 156.
+(pdftex.def)             Requested size: 344.005pt x 333.2549pt.
+
+Underfull \hbox (badness 1496) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 By open-ing up the tree of data fil-ters for the
+ []
+
+
+Underfull \hbox (badness 3386) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 that all its con-di-tions will be shown. If a
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 com-bined fil-ter is se-lected, the op-er-a-tor of the
+ []
+
+
+Underfull \hbox (badness 3989) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 com-bined fil-ter will be shown. If no op-er-
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 a-tor has been de-fined, the stan-dard con-di-tion
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 'AND' will be shown as op-er-a-tor. To edit a
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 138--162
+\OT1/cmr/m/n/12 field, double-click on the field to edit, which
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--162
 
  []
 
 
-Underfull \hbox (badness 1546) in paragraph at lines 154--166
-\OT1/cmr/m/n/12 opens up a win-dow with the pre-vi-ous value (Fig-
- []
-
-
-Underfull \hbox (badness 1389) in paragraph at lines 154--166
-\OT1/cmr/m/n/12 ure 8[]) that can be edited and stored by press-ing
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--166
+Underfull \hbox (badness 10000) in paragraph at lines 138--162
 
  []
 
 
-Underfull \hbox (badness 1199) in paragraph at lines 154--166
-\OT1/cmr/m/n/12 To con-struct a new fil-ter, se-lect one of the built-
+Underfull \hbox (badness 10000) in paragraph at lines 138--162
+
  []
 
 
-Underfull \hbox (badness 2073) in paragraph at lines 154--166
-\OT1/cmr/m/n/12 and-drop it to the de-sired ex-per-i-ment. The pa-
+Underfull \hbox (badness 10000) in paragraph at lines 138--162
+
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 154--166
-\OT1/cmr/m/n/12 also be drag-and-dropped be-tween dif-fer-ent ex-per-i-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--166
+Underfull \hbox (badness 10000) in paragraph at lines 138--162
 
  []
 
 [10
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_1_filter_sel.png>
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_2_filter_cond_edi
-t.png>]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_3_filter_edit.png,
- id=60, 578.16pt x 560.0925pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_3_filter_edit
-.png Graphic file (type png)
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_1_fil
+ter_sel.png>]
 
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_3_filter_edit.
-png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/3_3_filter_edit.png used on input line 169.
-(pdftex.def)             Requested size: 344.005pt x 333.2549pt.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Underfull \hbox (badness 10000) in paragraph at lines 172--175
+[11 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/3_2_
+filter_cond_edit.png>] [12 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/M
+anuals/gui/Screens/3_3_filter_edit.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_6_plot
+_tabs.png, id=66, 720.291pt x 542.025pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_6
+_plot_tabs.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_6_
+plot_tabs.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_6_plot_tabs.png used on input line 168.
+(pdftex.def)             Requested size: 387.00153pt x 291.21696pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--180
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--180
 
  []
 
-[11
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/3_3_filter_edit.png
->]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_1_plot_no_filter.p
-ng, id=65, 1111.15125pt x 941.5175pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_1_plot_no_fil
-ter.png Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_1_plot_no_filt
-er.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/4_1_plot_no_filter.png used on input line 182.
-(pdftex.def)             Requested size: 344.005pt x 291.47952pt.
- [12
-
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_1_plot_no_filter.
-png>]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_4_plot_new_conf.pn
-g, id=70, 1267.73625pt x 936.49875pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_4_plot_new_co
-nf.png Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_4_plot_new_con
-f.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/4_4_plot_new_conf.png used on input line 189.
-(pdftex.def)             Requested size: 344.005pt x 254.11554pt.
- [13
-
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_4_plot_new_conf.p
-ng>]
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_2_plot_hits_filter
-.png, id=76, 1112.155pt x 939.51pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_2_plot_hits_f
-ilter.png Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_2_plot_hits_fi
-lter.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/4_2_plot_hits_filter.png used on input line 200.
-(pdftex.def)             Requested size: 258.00539pt x 217.9464pt.
-
-</Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_3_plot_hits_events
-_filter.png, id=77, 1120.185pt x 943.525pt>
-File: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_3_plot_hits_e
-vents_filter.png Graphic file (type png)
-
-<use /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_3_plot_hits_ev
-ents_filter.png>
-Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Scre
-ens/4_3_plot_hits_events_filter.png used on input line 205.
-(pdftex.def)             Requested size: 258.00539pt x 217.30852pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 195--208
+Underfull \hbox (badness 10000) in paragraph at lines 165--180
 
  []
+
+[13
+
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_6_plo
+t_tabs.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 182--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--195
+
+ []
+
+[14]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_7_dupl
+_new_signal.png, id=75, 1084.05pt x 1300.3782pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_7
+_dupl_new_signal.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_7_
+dupl_new_signal.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_7_dupl_new_signal.png used on input line 198.
+(pdftex.def)             Requested size: 430.00462pt x 515.81648pt.
+ [15] [16 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screen
+s/4_7_dupl_new_signal.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 204--211
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--211
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--211
+
+ []
+
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_4_new_
+plotconf.png, id=83, 1125.003pt x 705.3552pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_4
+_new_plotconf.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_4_
+new_plotconf.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_4_new_plotconf.png used on input line 214.
+(pdftex.def)             Requested size: 430.00462pt x 269.59837pt.
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_8_bad_
+plot.png, id=84, 746.3082pt x 542.025pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_8
+_bad_plot.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_8_
+bad_plot.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_8_bad_plot.png used on input line 220.
+(pdftex.def)             Requested size: 215.0023pt x 156.14938pt.
+ [17
+
+] [18 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_
+4_new_plotconf.png> </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/
+gui/Screens/4_8_bad_plot.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 226--231
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--231
+
+ []
+
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_9_vari
+able_editor.png, id=94, 963.6pt x 239.9364pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_9
+_variable_editor.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_9_
+variable_editor.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_9_variable_editor.png used on input line 249.
+(pdftex.def)             Requested size: 344.005pt x 85.65579pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14
 
- </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_2_plot_hits_filte
-r.png>] [15 </Users/benjaminbolling/Dokument/FYSB06/GUI_manual/Screens/4_3_plot
-_hits_events_filter.png>] [16
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_10_var
+iable_editor_axes.png, id=95, 916.8654pt x 540.0978pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+0_variable_editor_axes.png Graphic file (type png)
 
-] [17
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_10
+_variable_editor_axes.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_10_variable_editor_axes.png used on input line 254.
+(pdftex.def)             Requested size: 344.005pt x 202.64331pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[19
+
+] [20 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_
+9_variable_editor.png> </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manua
+ls/gui/Screens/4_10_variable_editor_axes.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_11_new
+plot_badbin.png, id=105, 748.7172pt x 539.1342pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+1_newplot_badbin.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_11
+_newplot_badbin.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_11_newplot_badbin.png used on input line 261.
+(pdftex.def)             Requested size: 322.50346pt x 232.23451pt.
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_12_new
+plot_goodbin.png, id=106, 746.3082pt x 538.1706pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+2_newplot_goodbin.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_12
+_newplot_goodbin.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_12_newplot_goodbin.png used on input line 266.
+(pdftex.def)             Requested size: 322.50346pt x 232.56671pt.
+ [21 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+1_newplot_badbin.png> </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manual
+s/gui/Screens/4_12_newplot_goodbin.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_5_inte
+rnal_plot_process.png, id=112, 440.64626pt x 442.65375pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_5
+_internal_plot_process.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_5_
+internal_plot_process.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_5_internal_plot_process.png used on input line 275.
+(pdftex.def)             Requested size: 215.0023pt x 215.98363pt.
+
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_14_dou
+blecomb_filt.png, id=113, 138.5175pt x 129.48375pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+4_doublecomb_filt.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_14
+_doublecomb_filt.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_14_doublecomb_filt.png used on input line 287.
+(pdftex.def)             Requested size: 141.9023pt x 132.64857pt.
+
+Underfull \hbox (badness 1622) in paragraph at lines 288--288
+\OT1/cmr/m/n/12 of the two com-bined fil-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--289
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--289
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--289
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--289
+
+ []
+
+[22
+
+
+ </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_5_int
+ernal_plot_process.png>]
+Underfull \hbox (badness 1009) in paragraph at lines 289--293
+\OML/cmm/m/it/12 m\OT1/cmr/m/n/12 2\OML/cmm/m/it/12 q < \OT1/cmr/m/n/12 27\OML/
+cmm/m/it/12 :\OT1/cmr/m/n/12 5$, and an events con-di-tion: $78\OML/cmm/m/it/12
+ :\OT1/cmr/m/n/12 5 \OML/cmm/m/it/12 <
+ []
+
+
+Underfull \hbox (badness 1460) in paragraph at lines 289--293
+\OT1/cmr/m/n/12 'FiltNo3' and have an 'AND' op-er-a-tor, see Fig-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--293
+
+ []
+
+[23 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_14
+_doublecomb_filt.png>]
+</Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_13_Fil
+ters.png, id=122, 685.6014pt x 680.7834pt>
+File: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+3_Filters.png Graphic file (type png)
+
+<use /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_13
+_Filters.png>
+Package pdftex.def Info: /Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manu
+als/gui/Screens/4_13_Filters.png used on input line 297.
+(pdftex.def)             Requested size: 430.00462pt x 426.98444pt.
+ [24 </Users/benjaminbolling/Dokument/FYSB06/ANACONDA_2/Manuals/gui/Screens/4_1
+3_Filters.png>] [25
+
+
+] [26
+
+] [27
+
+] [28
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+
+ []
+
+[29
 
 ] (./GUI_manual.aux) ) 
 Here is how much of TeX's memory you used:
- 2139 strings out of 492995
- 34815 string characters out of 6132704
- 98515 words of memory out of 5000000
- 5670 multiletter control sequences out of 15000+600000
- 9195 words of font info for 32 fonts, out of 8000000 for 9000
+ 2181 strings out of 492995
+ 38082 string characters out of 6132704
+ 101599 words of memory out of 5000000
+ 5703 multiletter control sequences out of 15000+600000
+ 9502 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,8n,25p,1168b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,8n,25p,1260b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
-.pfb>
-Output written on GUI_manual.pdf (17 pages, 1500714 bytes).
+fonts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
+pfb>
+Output written on GUI_manual.pdf (29 pages, 3151072 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
+ 176 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

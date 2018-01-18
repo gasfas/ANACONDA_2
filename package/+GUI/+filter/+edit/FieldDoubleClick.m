@@ -1,16 +1,14 @@
 % Description: Modifies the fieldvalue of a filter.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
-%           Tree node -> filter 'fieldvalue'    (base_fieldvalue)
-%           Tree node -> filter 'field'         (base_field
-%           Loaded file metadata                (mdata_n)
-%           Experiment name                     (exp_name)
+%           Selected node (filter)
+%           Selected filter's file metadata
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
-% Date of creation: 2017-07-03.
+%           Modified loaded file metadata
+% Date of creation: 2017-07-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
+
 function [] = FieldDoubleClick(UIFilter)
     md_GUI = evalin('base', 'md_GUI');
     base_field = md_GUI.filter.base_field;

@@ -1,7 +1,7 @@
 % Description: Selects which field to manipulate for the plot
 % configuration (binsize, labels, etc.).
 %   - inputs: none.
-%   - outputs: (into PlotConfSetButton)
+%   - outputs:
 %           Field selected that user wants to edit      (fieldselected)
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.

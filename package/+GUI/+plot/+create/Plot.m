@@ -4,8 +4,6 @@
 %           Selected experiment(s) number(s)    (filenumber_selected)
 %           Selected experiment(s) data         (data_n)
 %           Selected experiment(s) metadata     (mdata_n)
-%           Plot settings                       (plotsettings)
-%           Experiment settings                 (expsettings)
 %   - outputs:
 %           Plot(s)
 % Date of creation: 2017-07-10.
@@ -17,15 +15,39 @@ function [ ] = Plot( )
 md_GUI = evalin('base', 'md_GUI');
 signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String;
 signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
+userdef_x_test = strsplit(char(md_GUI.UI.UIPlot.new.x_signal_pointer.String), '.');
+userdef_y_test = strsplit(char(md_GUI.UI.UIPlot.new.y_signal_pointer.String), '.');
+if strcmp(char(userdef_x_test(1)), 'user')
+    signal_x = char(userdef_x_test(2));
+    x_userval = 1;
+else
+    signal_x = md_GUI.UI.UIPlot.new.x_signal_pointer.String; % signal for x has not been chosen if signal_x = '-';
+    x_userval = 0;
+end
+if strcmp(char(userdef_y_test(1)), 'user')
+    signal_y = char(userdef_y_test(2));
+    y_userval = 1;
+else
+    signal_y = md_GUI.UI.UIPlot.new.y_signal_pointer.String;
+    y_userval = 0;
+end
 selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
 if strcmp(signal_x, '-') % signal for x has not been chosen.
     msgbox('A signal for [ x ] has not been chosen.', 'error')
 else
     for lx = 1:length(selectedexpnumbers)
         sel_exp_names(lx) = cellstr(['exp', num2str(selectedexpnumbers(lx))]);
-        signals_list.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
-        plottypes_def.(char(sel_exp_names(lx))) = {}; 
-        % % %
+        if x_userval == 0
+            signals_list_x.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
+        elseif x_userval == 1
+            signals_list_x.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal.user);
+        end
+        if y_userval == 0
+            signals_list_y.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
+        elseif y_userval == 1
+            signals_list_y.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal.user);
+        end
+        plottypes_def.(char(sel_exp_names(lx))) = {};
         current_exp_name = char(sel_exp_names(lx));
         % Get number of detectors.
         detector_choices = fieldnames(md_GUI.mdata_n.(current_exp_name).det);
@@ -43,8 +65,8 @@ else
             currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.(current_det_name));
             % remove possible 'ifdo' fields:
             currentplottypes(find(ismember(currentplottypes,'ifdo'))) = [];
-            for lz = 1:length(signals_list.(['exp', num2str(lx)]))
-                if strcmp(char(signals_list.(['exp', num2str(lx)])(lz)), signal_x)
+            for lz = 1:length(signals_list_x.(['exp', num2str(lx)]))
+                if strcmp(char(signals_list_x.(['exp', num2str(lx)])(lz)), signal_x)
                     try
                         hr_detname_found_x2(1) = hr_detname_found_x;
                         hr_detname_found_x2(2) = hr_detname(ly);
@@ -53,13 +75,13 @@ else
                         hr_detname_found_x = hr_detname;
                     end
                     % write dots between detectornames and fieldnames:
-                    list_names_det_x = general.cell.pre_postscript_to_cellstring(signals_list.(['exp', num2str(lx)])(lz), [hr_detname_found_x '.' ], '');
+                    list_names_det_x = general.cell.pre_postscript_to_cellstring(signals_list_x.(['exp', num2str(lx)])(lz), [hr_detname_found_x '.' ], '');
                 end
                 if strcmp(signal_y, '-') % signal for x has not been chosen.
                     signal_y_exist = 0;
                 else
                     signal_y_exist = 1;
-                    if strcmp(char(signals_list.(['exp', num2str(lx)])(lz)), signal_y)
+                    if strcmp(char(signals_list_y.(['exp', num2str(lx)])(lz)), signal_y)
                         try 
                             hr_detname_found_y2(1) = hr_detname_found_y;
                             hr_detname_found_y2(2) = hr_detname(ly);
@@ -68,7 +90,7 @@ else
                             hr_detname_found_y = hr_detname;
                         end
                         % write dots between detectornames and fieldnames:
-                        list_names_det_y = general.cell.pre_postscript_to_cellstring(signals_list.(['exp', num2str(lx)])(lz), [hr_detname_found_y '.' ], '');
+                        list_names_det_y = general.cell.pre_postscript_to_cellstring(signals_list_y.(['exp', num2str(lx)])(lz), [hr_detname_found_y '.' ], '');
                     else
                         if numberofdetectors == 1
                             hr_detname_found_y = hr_detname;
@@ -116,19 +138,6 @@ else
         if length(typesplit_y) == 2
             for lx = 1:length(selectedexpnumbers)
                 exp_name = char(sel_exp_names(lx));
-                % Find which detector is used:
-%                 detname_y = ['det' num2str(find(strcmp(char(typesplit_y(1)), md_GUI.mdata_n.(exp_name).spec.det_modes)))];
-%                 plottype_y = char(typesplit_y(2));
-%                % See if a condition is defined - could be different for the x-axis and the y-axis - how to specify for each axis?
-%                 if ~strcmpi(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value), 'No_Filter')
-%                     cond_name	= char(md_GUI.UI.UIPlot.Popup_Filter_Selection.String(md_GUI.UI.UIPlot.Popup_Filter_Selection.Value));
-%                     cond_md     = general.struct.getsubfield( md_GUI.mdata_n.(exp_name).cond, cond_name);
-%                     try
-%                         md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname_y).(plottype_y), cond_md, cond_name);
-%                     catch
-%                         GUI.log.add(['Failed to apply external filter ', cond_name, ' to experiment on y-axis.'])
-%                     end
-%                 end
                 signals.(exp_name)                              = md_GUI.mdata_n.(exp_name).plot.signal;
                 try
                     d1.([signal_x, '_', signal_y])                  = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x), signals.(exp_name).(signal_y)});
@@ -140,7 +149,6 @@ else
                     d1.([signal_x, '_', signal_y]).GraphObj.SizeData = 150;
                     d1.([signal_x, '_', signal_y]).GraphObj.Marker  = 'o';
                     d1.([signal_x, '_', signal_y]).GraphObj.MarkerEdgeColor = 'r';
-                    % d1.([signal_x, '_', signal_y]).axes         = macro.plot.add_axes(d1.([signal_x, '_', signal_y]).axes(1), signals.(exp_name).add_m2q.axes, md_GUI.mdata_n.(exp_name).conv.det1, signal_x, signal_y);
                     macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_', signal_y]) );
                 catch
                     GUI.log.add(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot [ ', signal_y '?] vs [ ', signal_x, ' ].'])

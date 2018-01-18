@@ -30,8 +30,7 @@ if md_GUI.UI.UIFilter.Tree.Enable == 1
     else
         nodeminusone = node_depth - 1;
     end
-    % path is returned of the selected object in the above algorithm as
-    % parent.subfields
+    % path is returned of the selected object in the above algorithm as parent.subfields
 else
     msgbox('The FilterTreeList is empty.')
     path = 0;

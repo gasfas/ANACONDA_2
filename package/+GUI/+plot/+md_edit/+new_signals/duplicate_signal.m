@@ -1,3 +1,14 @@
+% Description: Duplicate the selected signal for the selected experiment(s)
+%   - inputs:
+%           Selected signal name
+%           Experiment metadata
+%   - outputs:
+%           New experiment metadata
+% Date of creation: 2017-08-18.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
 function [] = duplicate_signal()
 md_GUI = evalin('base', 'md_GUI');
 signal_sel_name = char(md_GUI.UI.UIPlot.new_signal.signals_list.String(md_GUI.UI.UIPlot.new_signal.signals_list.Value));

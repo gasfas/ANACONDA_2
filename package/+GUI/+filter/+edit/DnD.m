@@ -1,19 +1,15 @@
-% Description: Restructures the Filter Tree (UIFilter.Tree) as a drag and
-% drop function. Function is being called at from uiextras.jTree.Tree, use
-% ctrl + f or cmd + f and paste GUI.filter.edit.DnD to find its location in
-% the Tree function. This is a modification which was not included in the
-% original Tree function.
+% Description: Restructures the Filter Tree (UIFilter.Tree) by using a drag and drop function (DnD). Function is being called at from uiextras.jTree.Tree, use ctrl + f or cmd + f and paste GUI.filter.edit.DnD to find its location in the Tree function. This is a modification which was not included in the original Tree function. The action is then performed also for the associated experiments' filter metadata structure.
 %   - inputs:
-%           Nodes           (TargetNode, SourceNode)
+%           Selected nodes              (TargetNode, SourceNode)
 %   - outputs:
-%           Modified tree.                      (UIFilter.Tree, UI.Tree)
+%           Modified tree.              (UIFilter.Tree, UI.Tree)
+%           Modified filter metadata of experiment(s) involved in DnD action.
 % Date of creation: 2017-07-03.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
 
 function [ ] = DnD(Tree, DropInfo)
-%%
 TargetNode = DropInfo.Target;
 SourceNode = DropInfo.Source;
 TargetName = TargetNode.Name;
@@ -103,13 +99,18 @@ else
         Replacement = 0;
         for tchildren = 1:length(targetchildren)
             targetname = char(targetchildren(tchildren));
-            if strcmp(targetname, SelectedNode)
-                replacetarget = questdlg('Filter with same name found in target. Replace?', 'Warning', 'yes', 'no', 'no');
-                switch replacetarget
-                    case 'yes'
-                        Replacement = 1;
-                    case 'no'
-                        DropAction = 'Nothing';
+            if strcmp(exp_name_out, 'built_in_filter')
+                GUI.log.add('Cannot replace a hard-coded filter.');
+                DropAction = 'Nothing';
+            else
+                if strcmp(targetname, SelectedNode)
+                    replacetarget = questdlg('Filter with same name found in target. Replace?', 'Warning', 'yes', 'no', 'no');
+                    switch replacetarget
+                        case 'yes'
+                            Replacement = 1;
+                        case 'no'
+                            DropAction = 'Nothing';
+                    end
                 end
             end
         end
@@ -127,10 +128,9 @@ else
                 clear Node
                 UI.Tree.Root.Children.delete
                 NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
-                fileloading = 1;
-                [ UI ] = GUI.filter.Create_layout.FilterTreeList_commonfilter();
+                [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
                 for nn = 1:NumberOfLoadedFiles
-                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( nn );
                 end
             end
         case 'move'
@@ -142,26 +142,23 @@ else
             FieldToRmv = char(FieldToRmv(2));
             FieldToRmvCell = strsplit(FieldToRmv, '.');
             if length(FieldToRmvCell) == 1
-                md_GUI.mdata_n.(exp_name_out).cond = rmfield(md_GUI.mdata_n.exp1.cond, FieldToRmv);
+                md_GUI.mdata_n.(NameOfSourceParent).cond = rmfield(md_GUI.mdata_n.(NameOfSourceParent).cond, FieldToRmv);
             else
-                md_GUI.mdata_n.(exp_name_out).cond = general.rmsubfield(md_GUI.mdata_n.exp1.cond, FieldToRmv);
+                
+                md_GUI.mdata_n.(NameOfSourceParent).cond = general.struct.rmsubfield(md_GUI.mdata_n.(NameOfSourceParent).cond, FieldToRmv);
             end
             % Always reload the tree if a previous node is replaced.
             if Replacement == 1
                 UI = md_GUI.UI.UIFilter;
                 clear Node
                 UI.Tree.Root.Children.delete
-                NumberOfLoadedFiles = md_GUI.load.NumberOfLoadedFiles;
-                fileloading = 1;
+                NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
+                [ UI ] = GUI.filter.Create_layout.FilterTreeList_built_in_filter( );
                 for nn = 1:NumberOfLoadedFiles
-                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( nn );
                 end
-                expand(TargetNode)
-                expand(SourceNode)
             end
             assignin('base', 'md_GUI', md_GUI)
-        otherwise
-            % Do nothing
     end
 end
 end

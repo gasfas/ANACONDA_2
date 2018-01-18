@@ -1,5 +1,4 @@
-% Description: Sets the location of the md_defaults file for files to be 
-% loaded. 
+% Description: Loads another Default metadata file.
 %   - inputs: None.
 %   - outputs: Filepath of md_defaults      (exp_md)
 % Date of creation: 2017-07-03.

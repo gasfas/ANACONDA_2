@@ -1,4 +1,3 @@
-function merged_exp = merge_and_save_exp(varargin)
 % GUI function that merges experiments.
 % If no filename is specified, the function will open a file browser for
 % the user to select the files manually.
@@ -14,7 +13,7 @@ function merged_exp = merge_and_save_exp(varargin)
 % exps.exp2 = '/home/user/file2.mat';
 % Or it could be: exps.exp1 is the experimental data of measurement 1(contains e and h
 % field) and exps.exp2 is the experimental data of measurement 2.
-
+function merged_exp = merge_and_save_exp(varargin)
 %% Data fetching
 datapath = pwd;
 % Check whether an experimental name is specified:
@@ -37,29 +36,26 @@ else % no file specified, so we load the file explorer:
 	% Change from (cell) format to struct format:
 	exp_names		= change_fieldname_format(exp_names_cell);
 end
-
 if ~exist('exps_data', 'var')
 	% Load the files to memory:
 		[exps_data]			= IO.import_raw_n(exp_names); 
 		[default_savename, datapath]	= create_merged_default_name(exp_names, 'value');
 end
-
 %% Merge the files:
 [ merged_exp ] = IO.merge_exp(exps_data);
 % add info field:
 merged_exp.info.log = ['merged from files: ' default_savename];
 %% Save the files:
 [FileName,PathName] = uiputfile('*.mat' , 'Specify path and name to save the merged file to', fullfile(datapath, default_savename));
-IO.save_exp(merged_exp, PathName, FileName)
-
+IO.save_exp(merged_exp, PathName, FileName);
 end
+
 %% Subfunctions
 function exp_names_struct = change_fieldname_format(exp_names_cell)
 	for i = 1:length(exp_names_cell)
 		exp_names_struct.(['exp' num2str(i)]) = exp_names_cell{i};
 	end
 end
-
 function [default_name, datapath] = create_merged_default_name(exp_names, nametype)
 	default_name = '';	
 	fieldnames_exps = fieldnames(exp_names);

@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Introduction to the ANACONDA2 GUI}{4}
+\contentsline {section}{\numberline {2}Data treatment part 1: File Handler}{7}
+\contentsline {section}{\numberline {3}Data treatment part 2: Data Calibration}{9}
+\contentsline {section}{\numberline {4}Data treatment part 3: Data Filters}{10}
+\contentsline {section}{\numberline {5}Data treatment part 4: Plotting}{13}
+\contentsline {subsection}{\numberline {5.1}Constructing a new signal}{14}
+\contentsline {subsection}{\numberline {5.2}Constructing a new plot configuration}{17}
+\contentsline {subsection}{\numberline {5.3}Editing with the variable editor}{19}
+\contentsline {section}{\numberline {6}Data treatment part 5: Plot data selection}{22}
+\contentsline {section}{\numberline {7}Experiment 1: Pyridine molecules}{25}
+\contentsline {section}{\numberline {8}Experiment 2: Pyridine and water clusters}{26}
+\contentsline {section}{\numberline {9}Experiment 3: Helium}{27}

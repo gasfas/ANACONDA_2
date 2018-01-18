@@ -7,7 +7,7 @@
 
 %           Old field values in struct <-- Fix it.
 
-%   - outputs: (into PlotConfSetButton)
+%   - outputs:
 %           Field selected              (fieldselected)
 %           Field selected value      	(fieldselectedvalue)
 % Date of creation: 2017-07-10.
@@ -45,7 +45,16 @@ if ~isempty(newPlotConfName)
     else
         for lx = 1:length(selectedexpnumbers)
             sel_exp_names(lx) = cellstr(['exp', num2str(selectedexpnumbers(lx))]);
-            signals_list.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
+            if x_userval == 0
+                signals_list_x.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
+            elseif x_userval == 1
+                signals_list_x.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal.user);
+            end
+            if y_userval == 0
+                signals_list_y.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal);
+            elseif y_userval == 1
+                signals_list_y.(['exp', num2str(lx)]) = fieldnames(md_GUI.mdata_n.([char(sel_exp_names(lx))]).plot.signal.user);
+            end
             plottypes_def.(char(sel_exp_names(lx))) = {};
             % % %
             current_exp_name = char(sel_exp_names(lx));
@@ -71,8 +80,8 @@ if ~isempty(newPlotConfName)
                 current_user_plottypes(find(ismember(current_user_plottypes,'ifdo'))) = [];
                 % remove possible 'user' fields:
                 current_user_plottypes(find(ismember(current_user_plottypes,'user'))) = [];
-                for lz = 1:length(signals_list.(['exp', num2str(lx)]))
-                    if strcmp(char(signals_list.(['exp', num2str(lx)])(lz)), signal_x)
+                for lz = 1:length(signals_list_x.(['exp', num2str(lx)]))
+                    if strcmp(char(signals_list_x.(['exp', num2str(lx)])(lz)), signal_x)
                         try
                             hr_detname_found_x2(1) = hr_detname_found_x;
                             hr_detname_found_x2(2) = hr_detname(ly);
@@ -81,13 +90,13 @@ if ~isempty(newPlotConfName)
                             hr_detname_found_x = hr_detname;
                         end
                         % write dots between detectornames and fieldnames:
-                        list_names_det_x = general.cell.pre_postscript_to_cellstring(signals_list.(['exp', num2str(lx)])(lz), [hr_detname_found_x '.' ], '');
+                        list_names_det_x = general.cell.pre_postscript_to_cellstring(signals_list_x.(['exp', num2str(lx)])(lz), [hr_detname_found_x '.' ], '');
                     end
                     if strcmp(signal_y, '-') % signal for x has not been chosen.
                         signal_y_exist = 0;
                     else
                         signal_y_exist = 1;
-                        if strcmp(char(signals_list.(['exp', num2str(lx)])(lz)), signal_y)
+                        if strcmp(char(signals_list_y.(['exp', num2str(lx)])(lz)), signal_y)
                             try 
                                 hr_detname_found_y2(1) = hr_detname_found_y;
                                 hr_detname_found_y2(2) = hr_detname(ly);
@@ -96,7 +105,7 @@ if ~isempty(newPlotConfName)
                                 hr_detname_found_y = hr_detname;
                             end
                             % write dots between detectornames and fieldnames:
-                            list_names_det_y = general.cell.pre_postscript_to_cellstring(signals_list.(['exp', num2str(lx)])(lz), [hr_detname_found_y '.' ], '');
+                            list_names_det_y = general.cell.pre_postscript_to_cellstring(signals_list_y.(['exp', num2str(lx)])(lz), [hr_detname_found_y '.' ], '');
                         else
                             if numberofdetectors == 1
                                 hr_detname_found_y = hr_detname;
@@ -118,7 +127,11 @@ if ~isempty(newPlotConfName)
                 det_plottype_y = char(list_names_det_y(1));
             end
         catch
-            signal_y_exist = 0;
+            if numberofdetectors == 1
+                det_plottype_y = [hr_detname_found_y, '.', signal_y];
+            elseif numberofdetectors > 1
+                signal_y_exist = 0;
+            end
         end
         typesplit_x = strsplit(det_plottype_x, '.');
         if length(typesplit_x) == 2
@@ -161,9 +174,27 @@ if ~isempty(newPlotConfName)
                     GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
                 end
             end
+        else % Plot x signal vs Intensity (y signal has not been selected)
+            if length(typesplit_x) == 2
+                for lx = 1:length(selectedexpnumbers)
+                    exp_name = char(sel_exp_names(lx));
+                    % Plot x signal vs y signal selected - construct new plot specie
+                    signals.(exp_name)                                  = md_GUI.mdata_n.(exp_name).plot.signal;
+                    try
+                        d1.([signal_x, '_intensity'])                   = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x)});
+                        d1.([signal_x, '_intensity']).GraphObj.SizeData = 150;
+                        macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_intensity']));
+                    catch
+                        GUI.log.add(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot only [ ', signal_x '?].'])
+                    end
+                end
+            end
         end
     end
     assignin('base', 'md_GUI', md_GUI)
+    if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
+        GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
+    end
     if strcmp(char(newPlotConfName), 'In_Workspace')
         GUI.log.add(['User plot configuration autosaved as In_Workspace for ', exp_name, '.']);
     else

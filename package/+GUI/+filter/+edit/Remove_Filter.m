@@ -1,12 +1,9 @@
 % Description: Removes the selected filter.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
-%           Tree node -> filter 'fieldvalue'    (base_fieldvalue)
-%           Tree node -> filter 'field'         (base_field
-%           Loaded file metadata                (mdata_n)
-%           Experiment name                     (exp_name)
+%           Selected node (filter)
+%           Selected filter's file metadata
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
+%           Modified loaded file metadata
 % Date of creation: 2017-07-18.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -128,7 +125,7 @@ function [] = Remove_Filter(UIFilter)
                                     if length(fieldcheckCell) == 1
                                         md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                     else
-                                        md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
+                                        md_GUI.filter.built_in_filter.cond = general.struct.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                     end
                                     FilterName = UIFilter.Tree.SelectedNodes.Name;
                                     FilterName = char(FilterName);
@@ -148,7 +145,7 @@ function [] = Remove_Filter(UIFilter)
                                         if length(fieldcheckCell) == 1
                                             md_GUI.filter.built_in_filter.cond = rmfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                         else
-                                            md_GUI.filter.built_in_filter.cond = general.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
+                                            md_GUI.filter.built_in_filter.cond = general.struct.rmsubfield(md_GUI.filter.built_in_filter.cond, fieldcheck);
                                         end
                                         FilterName = UIFilter.Tree.SelectedNodes.Name;
                                         FilterName = char(FilterName);
@@ -170,7 +167,7 @@ function [] = Remove_Filter(UIFilter)
                                     if length(fieldcheckCell) == 1
                                         md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                     else
-                                        md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
+                                        md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                     end
                                     FilterName = UIFilter.Tree.SelectedNodes.Name;
                                     FilterName = char(FilterName);
@@ -190,7 +187,7 @@ function [] = Remove_Filter(UIFilter)
                                         if length(fieldcheckCell) == 1
                                             md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                         else
-                                            md_GUI.mdata_n.(exp_name).cond = general.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
+                                            md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, fieldcheck);
                                         end
                                         FilterName = UIFilter.Tree.SelectedNodes.Name;
                                         FilterName = char(FilterName);

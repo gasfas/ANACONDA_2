@@ -1,12 +1,10 @@
-% Description: Set up parameters used for the plotting.
+% Description: Sets the selected user defined/customized plot configurations for the selected experiment(s)
 %   - inputs:
-%           Field selected                      (fieldselected)
-%           Field selected value                (fieldselectedvalue)
-%           Selected experiment(s) name(s)     	(selected_exp_names)
-%           Selected experiment(s) metadata     (mdata_n)
+%           Selected signal name
+%           Experiment metadata
 %   - outputs:
-%           Selected experiment(s) metadata     (mdata_n)
-% Date of creation: 2017-07-10.
+%           New experiment metadata
+% Date of creation: 2017-08-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:

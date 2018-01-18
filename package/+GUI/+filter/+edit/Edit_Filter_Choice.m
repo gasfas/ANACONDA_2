@@ -1,18 +1,19 @@
-% Description: Creates a dialog to gather input needed for the new filter.
+% Description: Constructs the dialog with all editable conditions and
+% previously defined conditions pre-set as the values.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
+%           fields to edit (now checks if translate conditions or invert filter are turned on or off)
+%           base_value (previously defined values of selected filter)
+%           Loaded file metadata.
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
+%           Modified loaded file metadata.
 % Date of creation: 2017-08-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
-%function [ ] = Edit_Filter_Choice()
 function [ base_value ] = Edit_Filter_Choice(fieldstoedit, base_value, datapointers)
 md_GUI = evalin('base', 'md_GUI');
 %function choice = choosedialog
 screensize = md_GUI.UI.screensize;
-numberoffieldstoedit = sum(fieldstoedit);
 d = dialog('Position',[screensize(3)/4 screensize(4)/5 screensize(3)/3 screensize(4)/2],'Name','Edit filter');
 txt_type = uicontrol('Parent',d,...
        'Style','text',...

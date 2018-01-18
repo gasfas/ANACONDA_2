@@ -1,9 +1,12 @@
-% Description: Save function...
+% Description: Save function that save all experiments' metadata.
 %   - inputs:
-%           UI controls.
+%           All experiments' metadata structure.
 %   - outputs:
-%           Callback functions for the UI controls.
-% Date of creation: 2017-07-11.
+%           None.
+% All experiments' metadata structures are saved in the file folder in
+% which the experiments' data files are located with file name:
+%       md_[ exp_filename ].m
+% Date of creation: 2017-09-12.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:

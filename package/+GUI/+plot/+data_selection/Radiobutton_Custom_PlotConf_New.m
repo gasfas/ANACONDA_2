@@ -1,3 +1,15 @@
+% Description: Show user customized/constructed plot configurations for selected experiment(s). 
+%   - inputs:
+%           None.
+%   - outputs:
+%           New list of plot configurations
+% Date of creation: 2017-12-30.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
+%% The user customized/constructed plot configurations radiobutton function
+% Subtab: New plot conf
 function [] = Radiobutton_Custom_PlotConf_New()
 md_GUI = evalin('base', 'md_GUI');
 UIPlot = md_GUI.UI.UIPlot;

@@ -1,9 +1,12 @@
 % Description: Finds the depth of the target.
 %   - inputs: 
-%           Nodes                           (TargetNode)
-%           Targetpath                      (targetpath)
+%           Current node                    (TargetNode)
+%           Current target path             (targetpath)
+%           Current depth of target path    (depth)
 %   - outputs: 
-%           Depth                           (targetDepth)
+%           Next level node                 (TargetNode)
+%           New target path                 (targetpath)
+%           New depth of target path        (depth)
 % Date of creation: 2017-07-14.
 % Author: Benjamin Bolling.
 % Modification date:

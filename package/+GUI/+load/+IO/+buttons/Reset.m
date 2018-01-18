@@ -19,8 +19,7 @@ switch check_to_reset
         clear all
         GUI.main
     otherwise
-        %% Message to log_box
-        GUI.log.add(['Reset cancelled.'])
-        assigning('base', 'md_GUI');
+        %% Messages to log_box
+        GUI.log.add(['GUI has been reset and restarted.'])
 end
 end

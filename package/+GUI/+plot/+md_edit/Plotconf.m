@@ -23,7 +23,6 @@ if ischar(selected_exp_names)
 else
     exp_name = char(selected_exp_names(1)); % since the first selected exp file will be visible in the popup window.
 end
-
 detectornum = md_GUI.plot.expsettings.All(2);
 detectorname = fieldnames(md_GUI.mdata_n.([exp_name]).plot);
 detectorname = char(detectorname(detectornum));
@@ -34,12 +33,7 @@ end
 graphnum_X = md_GUI.plot.plotsettings(2);
 graphtypes = fieldnames(md_GUI.mdata_n.([exp_name]).plot.([detectorname]));
 graphtype_X = char(graphtypes(graphnum_X));
-%graphtype_Y = graphtype_X; % % % % Add when 2D plotting is available.
-
-
 plotconf_fieldnames = md_GUI.mdata_n.([exp_name]).plot.([detectorname]).([char(graphtype_X)]);
-% Exclude the 'signal' subfield:
-
 % Get name of all properties of the selected plottype. In the future: Also have plot configurations for graphtype_Y.
 nameof_x_fields = fieldnames(plotconf_fieldnames);
 fieldselected = nameof_x_fields(1); % 1 since the first field will be displayed in the popup window.
@@ -75,10 +69,7 @@ screen = [400 (screensize(4) / 2) 200 200];
 pos = struct('xpos', screen(1), 'ypos', screen(2), 'width', screen(3), 'height', screen(4));
 % Construction of figure......................
 PlotConfFig = figure('Name', 'PlotConfFig', 'NumberTitle','off', 'MenuBar', 'none', 'Position', [ pos.xpos pos.ypos pos.width pos.height ]);
-%% 
 % Above was only starting conditions for figure. Below are the dynamical functions and the creation of the uicontrols of the plotconf figure.
-%%
-% Field selection:
 PlotConfFigPopup = uicontrol('Parent', PlotConfFig, ...
 'Style','popupmenu', ...
 'Enable', 'on', ...
@@ -105,10 +96,6 @@ function PlotConfSel(hObject, eventdata)
         structure_true = 0;
         set(PlotConfFigSetButton, 'Enable', 'on')
     elseif isstruct(fieldselectedvalue)
-        %Create recursive function? Probably not needed but might be good to have.
-        disp('It is a structure. Not yet possible to edit.')
-%         structend = fieldnames(plotconf_fieldnames.([char(fieldselected)]))
-%         fieldselectedvalue_2 = plotconf_fieldnames.([char(fieldselected)]).([char(structend)]);
          structure_true = 1;
          set(PlotConfFigSetButton, 'Enable', 'off')
     end
@@ -119,7 +106,6 @@ function PlotConfSel(hObject, eventdata)
         assignin('base', 'fieldselectedvalue', fieldselectedvalue); 
     end
 end
-%%
 % Field edit:
 if ischar(fieldselectedvalue)
     fieldselectedvalue_str = fieldselectedvalue;

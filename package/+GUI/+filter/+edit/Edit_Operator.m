@@ -1,13 +1,12 @@
-% Description: Creates a dialog to gather input needed for the new filter.
+% Description: Creates a dialog to get (if set) and/or modify/set the operator value.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
+%           Loaded file metadata.
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
+%           Modified loaded file metadata.
 % Date of creation: 2017-08-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
-%function [ ] = Edit_Filter_Choice()
 function [ operator, valsel ] = Edit_Operator(operator, valsel)
 md_GUI = evalin('base', 'md_GUI');
 %function choice = choosedialog

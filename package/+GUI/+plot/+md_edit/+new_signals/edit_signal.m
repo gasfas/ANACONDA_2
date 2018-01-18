@@ -1,3 +1,14 @@
+% Description: Edits the selected user defined/customized signal for the selected experiment(s)
+%   - inputs:
+%           Selected signal name
+%           Experiment metadata
+%   - outputs:
+%           New experiment metadata
+% Date of creation: 2017-08-18.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
 function [] = edit_signal()
 disp('edit')
 md_GUI = evalin('base', 'md_GUI');

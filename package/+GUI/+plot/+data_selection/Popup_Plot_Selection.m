@@ -3,7 +3,7 @@
 % in a pre-existing figure.
 %   - inputs: none.
 %   - outputs:
-%           Plot settings       	(plotsettings)
+%           GUI metadata.
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -17,12 +17,5 @@ handles.filetype = get(hObject, 'String');
 plot_type_value = get(hObject, 'Val');
 %% Message to log_box
 GUI.log.add(['How to plot: ', char(handles.filetype(plot_type_value))])
-% The plot function now only works for first two possibilities (together 
-% in new figure or separately in individual new figures). If 3 is
-% selected, make it number 1 instead.
-if plot_type_value == 3
-    plot_type_value = 1;
-end
-md_GUI.plot.plotsettings(4) = plot_type_value;
 assignin('base', 'md_GUI', md_GUI);
 end

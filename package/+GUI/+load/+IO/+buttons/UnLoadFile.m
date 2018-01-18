@@ -1,8 +1,11 @@
 % Description: Unloads the selected file from memory. 
 %   - inputs: 
-%
+%       Location of experimental data file (folder name, fullfilepath)
+%       Experimental data file
+%       Ev. associated experimental metadata file
 %   - outputs: 
-%
+%       Experimental data       (data_n)
+%       Experimental metadata   (mdata_n)
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -11,7 +14,6 @@
 %% UnLoadFile function
 function [ ] = UnLoadFile(UILoad, UIPlot, UIFilter)
 md_GUI = evalin('base', 'md_GUI');
-%Get the filenumber of the selected file - if exists.
 if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
     NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
     String_LoadedFiles = md_GUI.UI.UILoad.LoadedFiles.String;
@@ -30,7 +32,7 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         mdata_n_new.(['exp', nkk]) = md_GUI.mdata_n.(['exp', nkk]);
         exp_names_new(nk) = md_GUI.load.exp_names(nk);
     end
-    % Check if there is more than one loaded files as of now.
+    % If there are no more files to unload - reset GUI parameters.
     if length(md_GUI.UI.UILoad.LoadedFiles.String) == 1
         set(UILoad.LoadedFiles, 'Enable', 'off');
         set(UIPlot.new.y_signals_checkbox, 'Enable', 'off');
