@@ -4,7 +4,7 @@
 %           Selected experiment(s) metadata     (mdata_n)
 %           Experiment settings                 (expsettings)
 %           Plot settings                       (plotsettings)
-%   - outputs: (into PlotConfSetButton)
+%   - outputs:
 %           Field selected              (fieldselected)
 %           Field selected value      	(fieldselectedvalue)
 % Date of creation: 2017-07-10.

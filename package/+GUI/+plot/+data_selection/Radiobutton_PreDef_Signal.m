@@ -1,3 +1,14 @@
+% Description: Show pre-defined signals for selected experiment(s). 
+%   - inputs:
+%           None.
+%   - outputs:
+%           New list of signals
+% Date of creation: 2017-12-30.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
+%% The pre-defined signals radiobutton function
 function [] = Radiobutton_PreDef_Signal()
 md_GUI = evalin('base', 'md_GUI');
 UIPlot = md_GUI.UI.UIPlot;

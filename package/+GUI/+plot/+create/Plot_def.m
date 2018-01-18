@@ -4,8 +4,6 @@
 %           Selected experiment(s) number(s)    (filenumber_selected)
 %           Selected experiment(s) data         (data_n)
 %           Selected experiment(s) metadata     (mdata_n)
-%           Plot settings                       (plotsettings)
-%           Experiment settings                 (expsettings)
 %   - outputs:
 %           Plot(s)
 % Date of creation: 2017-07-10.
@@ -19,7 +17,6 @@ selectedexpnumbers = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
 for lx = 1:length(selectedexpnumbers)
     sel_exp_names(lx) = cellstr(['exp', num2str(selectedexpnumbers(lx))]);
 end
-	
 det_plottype_val = md_GUI.UI.UIPlot.def.Popup_plot_type.Value;
 det_plottype = char(md_GUI.UI.UIPlot.def.Popup_plot_type.String(det_plottype_val));
 typesplit = strsplit(det_plottype, '.');
@@ -37,7 +34,6 @@ if length(typesplit) == 2
                 md_GUI.mdata_n.(exp_name).plot.(detname).(plottype) = replace_condition(md_GUI.mdata_n.(exp_name).plot.(detname).(plottype), cond_md, cond_name);
             catch
                 GUI.log.add(['Failed to apply external filter ', cond_name, ' to ', exp_name, '.'])
-                assignin('base', 'md_GUI', md_GUI)
             end
         end
         try
@@ -60,7 +56,6 @@ if length(typesplit) == 2
                 end
             end
             GUI.log.add(['GUI.plot.create.Plot_def: Could not plot ', plottype, ' for ', exp_name, '.'])
-            assignin('base', 'md_GUI', md_GUI)
         end
     end
 end

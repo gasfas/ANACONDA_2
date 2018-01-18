@@ -5,7 +5,6 @@
 %           Filter tree information             (filter_fieldnames)
 %   - outputs:
 %           Filter selected             (filterpath)
-%           Experiment settings         (expsettings)
 % Date of creation: 2017-07-11.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -13,14 +12,14 @@
 
 function [ ] = Popup_Filter_Selection(hObject, eventdata, UILoad, UIPlot)
 md_GUI = evalin('base', 'md_GUI');
-%Gives: Experiment type; hits or events. Can also show information about 
+% Gives: Experiment type; hits or events. Can also show information about 
 guidata(hObject);
 handles = guidata(hObject);
 handles.filetype = get(hObject, 'String');
 filter_selected_number = get(hObject, 'Val');
 filter_selected = handles.filetype(filter_selected_number);
 filter_selected = char(filter_selected);
-%% Message to log_box
+% Message to log_box
 GUI.log.add(['Filter selected: ', filter_selected])
 newfilter_selected = strrep(filter_selected,'__','.');
 exp_names = md_GUI.load.exp_names;

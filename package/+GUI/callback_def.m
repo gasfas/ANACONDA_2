@@ -1,8 +1,8 @@
 % Description: Definitions of all the callbacks (nested functions).
 %   - inputs:
-%           UI controls.
+%           UI tabs for the GUI.
 %   - outputs:
-%           Callback functions for the UI controls.
+%           Callback functions for the UI functions.
 % Date of creation: 2017-07-11.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -226,7 +226,8 @@ set(UIPlot.Popup_Filter_Selection, ...
             UIPlot.new.btn_set_y_sign_pointer.Enable = 'on';
         end
     end
-%%  Functions for listboxesedi
+
+%%  Functions for listboxes
     function FilesList(hObject, eventdata)
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
     end
@@ -240,6 +241,6 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
     end
     function Signals_List(hObject, eventdata)
-        % No callback defined.
+        % No callback defined nor needed yet.
     end
 end

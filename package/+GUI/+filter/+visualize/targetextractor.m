@@ -2,7 +2,6 @@
 % a prespecified depth.
 %   - inputs: 
 %           Nodes                           (TargetNode)
-%           Targetpath                      (targetpath)
 %           Depth                           (targetDepth)
 %   - outputs: 
 %           Selected node information.      (target path, experiment name)

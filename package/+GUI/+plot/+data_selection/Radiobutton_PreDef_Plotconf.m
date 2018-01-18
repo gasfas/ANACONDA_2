@@ -1,3 +1,15 @@
+% Description: Show pre-defined plot configurations for selected experiment(s). 
+%   - inputs:
+%           None.
+%   - outputs:
+%           New list of plot configurations
+% Date of creation: 2017-12-30.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
+%% The user customized/constructed plot configurations radiobutton function
+% Subtab: Pre-defined plots
 function [] = Radiobutton_PreDef_Plotconf()
 md_GUI = evalin('base', 'md_GUI');
 try md_GUI.mdata_n;

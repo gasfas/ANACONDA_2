@@ -120,8 +120,6 @@ tab_plot.ButtonDownFcn = @plottabopening;
         end
         if constructtree == 1
             md_GUI.UI.tabnumber = 3;
-            % Filter tree is constructed.
-            fileloading = 1;
             NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
             md_GUI.UI.UIFilter.Tree.Enable = 1;
             %md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
@@ -133,7 +131,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
                 for nn = 1:NumberOfLoadedFiles
                     UI = md_GUI.UI.UIFilter;
                     try
-                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( nn );
                     catch
                         try 
                             md_GUI.mdata;
@@ -165,7 +163,6 @@ tab_plot.ButtonDownFcn = @plottabopening;
         if constructtree == 1
             md_GUI.UI.tabnumber = 3;
             % Filter tree is constructed.
-            fileloading = 1;
             NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
             md_GUI.UI.UIFilter.Tree.Enable = 1;
             %md_GUI.UI.UIFilter.Tree.FontSize = md_GUI.filter.tree.FontSize;
@@ -176,7 +173,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
                 for nn = 1:NumberOfLoadedFiles
                     UI = md_GUI.UI.UIFilter;
                     try
-                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( fileloading, nn );
+                    [ UI ] = GUI.filter.Create_layout.FilterTreeList( nn );
                     catch
                         try 
                             md_GUI.mdata;

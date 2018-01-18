@@ -1,3 +1,14 @@
+% Description: Duplicates the selected plot configurations for the selected experiment(s)
+%   - inputs:
+%           Selected signal name
+%           Experiment metadata
+%   - outputs:
+%           New experiment metadata
+% Date of creation: 2017-08-18.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
 function [ ] = duplicate_plotconf()
 md_GUI = evalin('base', 'md_GUI');
 sel_plot_conf = strsplit(char(md_GUI.UI.UIPlot.def.Popup_plot_type.String(md_GUI.UI.UIPlot.def.Popup_plot_type.Value)), '.');
@@ -23,7 +34,7 @@ if length(sel_plot_conf) == 2
         end
     end
     if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
-        GUI.plot.data_selection.Radiobutton_Custom;
+        GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
     end
     assignin('base', 'md_GUI', md_GUI)
     GUI.plot.data_selection.Radiobutton_Custom;

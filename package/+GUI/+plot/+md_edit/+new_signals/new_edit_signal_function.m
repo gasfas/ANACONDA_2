@@ -1,8 +1,8 @@
-% Description: Creates a dialog to gather input needed for the new filter.
+% Description: Creates a dialog to gather input needed for the new signal.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
+%           Screensize
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
+%           Signal parameters   (values_out)
 % Date of creation: 2017-08-18.
 % Author: Benjamin Bolling.
 % Modification date:

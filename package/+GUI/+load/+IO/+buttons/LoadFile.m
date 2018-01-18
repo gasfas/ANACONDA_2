@@ -1,15 +1,15 @@
 % Description: Loads the selected file into memory. Gives the loaded files
 % default experiment settings (to allow it for direct plotting).
 %   - inputs: 
+%           Experiment names        (exp_names)
 %           Folder name             (folder_name)
 %           File selected           (fileselected)
+%           Previously loaded files (String_LoadedFiles)
 %   - outputs: 
 %           Experiment names        (exp_names)
-%           Name of loaded files    (String_LoadedFiles)
-%           File data.              (data_n)
-%           File metadata.          (mdata_n)
-%           Experiment settings.    (expsettings)
-%           Number of loaded files. (NumberOfLoadedFiles)
+%           Loaded files            (String_LoadedFiles)
+%           File data               (data_n)
+%           File metadata           (mdata_n)
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -81,9 +81,7 @@ if NumberOfLoadedFiles > 0
 end
 data_n.info.foi = fieldnames(d_fn);
 data_n.info.numexps = length(data_n.info.foi);
-[data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])] = macro.all(data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])); % Look into data_n <-- 
-
-%% Exporting to md_GUI.
+[data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)])] = macro.all(data_n.(['exp', num2str(NumberOfLoadedFiles+1)]), mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)]));
 md_GUI.data_n = data_n;
 md_GUI.mdata_n = mdata_n;
 md_GUI.mdata_n.(['exp', num2str(NumberOfLoadedFiles+1)]).filepath = fullfilepath;
@@ -92,13 +90,13 @@ md_GUI.plot.expsettings.(['exp', num2str(NumberOfLoadedFiles+1)]) = [2 1 1];
 set(UILoad.UnLoadFileButton, 'Enable', 'on')
 exps = md_GUI.data_n.(['exp', num2str(NumberOfLoadedFiles+1)]);
 filesextratext = 'Last loaded file information: \n';
-%Try to see if experiment has any information:
+%Try to fetch any added comments/information about the information:
 try 
     information = exps.info;
+	information_comment = information.comment;
     information_acq_start = information.acquisition_start_str;
     information_acq_dur = information.acquisition_duration;
     information_acq_dur = num2str(information_acq_dur);
-    information_comment = information.comment; %in experimental data, exps.info field has a variable: comment - which contains experiment information.
     informationbox = sprintf([filesextratext, filename, '\nExperiment: exp', num2str(NumberOfLoadedFiles+1), '\n\nFile information comment: \n', information_comment,'\nData acquisition start: \n',information_acq_start,'\nData acquisition duration: \n',information_acq_dur]);
 catch
     informationbox = sprintf([filesextratext, filename, '\nExperiment: exp', num2str(NumberOfLoadedFiles+1), '\nNo info found.']);
@@ -106,21 +104,17 @@ end
 set(UILoad.SelectedFileInformation, 'String', informationbox);
 assignin('base', 'md_GUI', md_GUI)
 disp('Log: Finished loading file.')
-
-% % Add to loaded files listbox.
 set(UILoad.LoadedFiles, 'String', String_LoadedFiles);
 set(UILoad.LoadedFiles, 'Enable', 'on');
 set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFiles);
 set(UIPlot.LoadedFilesPlotting, 'Enable', 'on');
-
 GUI.log.add(['File loaded: exp', num2str(NumberOfLoadedFiles+1), ', ', char(filename)])
-
 end
 
 function [exp_md, islocal, md_loading_message] = read_local_md(dir, filename, md_GUI)
     try	
         metadata_loc = fullfile(dir, ['md_', filename, '.m']);
-        exp_md = IO.import_metadata(metadata_loc); % Results in an exp_md generated.
+        exp_md = IO.import_metadata(metadata_loc);
         islocal = true;
         md_loading_message = 'Local metadata used.';
     catch

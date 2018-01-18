@@ -1,19 +1,15 @@
-% Description: Edits all fields of the selected filter.
+% Description: Creates a dialog to gather input needed for the filter that
+% is to be edited.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
-%           Tree node -> filter 'fieldvalue'    (base_fieldvalue)
-%           Tree node -> filter 'field'         (base_field
-%           Loaded file metadata                (mdata_n)
-%           Experiment name                     (exp_name)
+%           Loaded file metadata.
 %   - outputs:
 %           Modified loaded file metadata.      (mdata_n)
-% Date of creation: 2017-07-18.
+% Date of creation: 2017-08-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
+
 function [] = Edit_Filter(UIFilter)
-    %Load md_GUI from 'base' workpace:
-    %   - must always be put into workspace in terms of paths.
     md_GUI = evalin('base', 'md_GUI');
     %% Extracting the selected node
     % Get the path of the selected node:

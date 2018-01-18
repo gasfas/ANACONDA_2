@@ -1,12 +1,8 @@
 % Description: Starts up the GUI. Creates the GUI layout with all the
 % controls and functions, and their callback definitions.
-%   - inputs:
+%   - outputs:
 %           GUI layout
 %           GUI callbacks
-%   - outputs:
-%           Load tab        (UILoad)
-%           Filter tab      (UIFilter)
-%           Plot tab        (UIPlot)
 % Date of creation: 2017-07-11.
 % Author: Benjamin Bolling.
 % Modification date:
@@ -17,7 +13,9 @@ screensize = GUI.objects.GetScreenRes;
 md_GUI = metadata.defaults.GUI;
 md_GUI.UI.screensize = screensize;
 assignin('base', 'md_GUI', md_GUI);
+% Create GUI layout:
 [handle, UILoad, UIPlot, UIFilter, UImultitab] = GUI.create_layout(screensize);
+% Create callbacks for all GUI layout objects
 [ UIPlot, UILoad, UIFilter, UImultitab ] = GUI.callback_def(UIPlot, UILoad, UIFilter, UImultitab);
 md_GUI = evalin('base', 'md_GUI');
 md_GUI.UI.UImultitab = UImultitab;

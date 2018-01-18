@@ -1,19 +1,14 @@
 % Description: Renames the selected filter.
 %   - inputs:
-%           Tree node -> filter 'path'          (base_path)
-%           Tree node -> filter 'fieldvalue'    (base_fieldvalue)
-%           Tree node -> filter 'field'         (base_field
-%           Loaded file metadata                (mdata_n)
-%           Experiment name                     (exp_name)
+%           Selected node (filter)
+%           Selected filter's file metadata
 %   - outputs:
-%           Modified loaded file metadata.      (mdata_n)
+%           Modified loaded file metadata
 % Date of creation: 2017-07-18.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
-function [] = Rename_Filter(UIFilter)
-    %Load md_GUI from 'base' workpace:
-    %   - must always be put into workspace in terms of paths.
+function [] = Rename_Filter(~)
     md_GUI = evalin('base', 'md_GUI');
     %% Extracting the selected node
     % Get the path of the selected node:
@@ -38,9 +33,7 @@ function [] = Rename_Filter(UIFilter)
         %% Message to log_box
         GUI.log.add(['Cannot rename a built-in filter.'])
     else
-        if selected_node_path == 0
-            %Do nothing.
-        else
+        if ~selected_node_path == 0
             [exp_names] = strsplit(selected_node_path,'.');
             exp_name = char(exp_names(1));
             exp_parts = strsplit(selected_node_path,[exp_name, '.']);
@@ -56,7 +49,7 @@ function [] = Rename_Filter(UIFilter)
             NewName = inputdlg('Select the new filter name.', 'New Filter name', 1, {char(OldName)});
             NewName = char(NewName);
             if strcmp(NewName, OldName)
-                % Do nothing since old name is same as new name.
+                % Old name is same as new name - show as message.
                 %% Message to log_box
                 GUI.log.add(['New name is the same as the old name.'])
             elseif strcmp(NewName, 'operator') || strcmp(NewName, 'operators')

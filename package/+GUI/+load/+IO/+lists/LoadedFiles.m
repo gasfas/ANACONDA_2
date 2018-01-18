@@ -1,32 +1,19 @@
 % Description: A list that shows the loaded files. Two parts:
 % One for the load tab and another for the plot tab. Defined by tabval. 
-%% For the load tab: 
 %   - inputs: 
-%           Selected loaded file data           (selectedloadedfiles, data_n.exp#)
-%           Number of selected loaded files     (filenumber_selected)
+%           GUI metadata
+%           GUI tab name
 %   - outputs: 
-%           Selected loaded file                (selectedloadedfiles)
-%           Selected filenumber                 (filenumber)
-%           Number of selected files            (numberofloadedfilesselected)
-%% For the plot tab:
-%   - inputs: 
-%           Selected loaded files               (selectedloadedfiles)
-%           Filter tree nodes information       (filter_fieldnames)
-%           Experiment names                    (exp_names)
-%   - outputs: 
-%           Selected loaded file                (selectedloadedfiles)
-%           Selected filenumber                 (filenumber)
-%           Selected experiment names           (selected_exp_names)
-%           Number of selected files            (numberofloadedfilesselected)
+%           Selected file value
 % Date of creation: 2017-07-10.
 % Author: Benjamin Bolling.
 % Modification date:
 % Modifier:
 
-%% LoadedFiles function
+% LoadedFiles function
 function [ ] = LoadedFiles(hObject, eventdata, UILoad, UIPlot)
 md_GUI = evalin('base', 'md_GUI');
-%% Determine if it is in the load or plot tab:
+% Determine if it is in the load or plot tab:
 tabname = eventdata.Source.Parent.Title;
 switch tabname
     case 'Load'
@@ -44,7 +31,7 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         filenumberstr = int2str(filenumber);
         exps = md_GUI.data_n.(['exp', filenumberstr]);
         if tabval == 1 % Load tab
-            %% Message to log_box
+            % Message to log_box
             GUI.log.add(['Loaded file selected: exp', filenumberstr])
             try % Try to get information of experiment:
                 information = exps.info;
@@ -121,12 +108,10 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         else
             exp_name = char(exp_names(1));
         end
-        
         Filters_Struct = md_GUI.mdata_n.(exp_name).cond;
         filter_fieldnames = general.struct.fieldnamesr(Filters_Struct);
         % Get maximum depth of filters struct:
         maxdepth = 1;
-        
         for lxx = 1:length(filter_fieldnames)
             depth = length(strsplit(char(filter_fieldnames(lxx)), '.'));
             if depth > maxdepth

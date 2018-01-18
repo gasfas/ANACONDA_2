@@ -1,3 +1,14 @@
+% Description: Sets the values for the new signal for selected experiment(s).
+%   - inputs:
+%           New signal's name
+%           Experiment metadata
+%   - outputs:
+%           New experiment metadata
+% Date of creation: 2017-08-18.
+% Author: Benjamin Bolling.
+% Modification date:
+% Modifier:
+
 function [] = new_signal()
 disp('new')
 md_GUI = evalin('base', 'md_GUI');

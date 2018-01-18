@@ -2,7 +2,7 @@
 %   - inputs:
 %           Selected exp. number                (experiment_selected_number)
 %           Selected experiment(s) metadata     (mdata_n)
-%   - outputs: (into PlotConfSetButton)
+%   - outputs:
 %           Field selected              (fieldselected)
 %           Field selected value      	(fieldselectedvalue)
 % Date of creation: 2017-11-27.

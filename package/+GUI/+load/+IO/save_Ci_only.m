@@ -1,4 +1,3 @@
-function merged_exp = save_Ci_only(varargin)
 % GUI function that saves certain coincidence of a measurement only.
 % If no filename is specified, the function will open a file browser for
 % the user to select the files manually.
@@ -14,7 +13,7 @@ function merged_exp = save_Ci_only(varargin)
 % exps.exp2 = '/home/user/file2.mat';
 % Or it could be: exps.exp1 is the experimental data of measurement 1(contains e and h
 % field) and exps.exp2 is the experimental data of measurement 2.
-
+function merged_exp = save_Ci_only(varargin)
 %% Data fetching
 % Check whether an experimental name is specified:
 if nargin > 0 % yes, it is specified:
@@ -57,7 +56,6 @@ function exp_names_struct = change_fieldname_format(exp_names_cell)
 		exp_names_struct.(['exp' num2str(i)]) = exp_names_cell{i};
 	end
 end
-
 function default_name = create_merged_default_name(exp_names, nametype)
 	default_name = '';	
 	fieldnames_exps = fieldnames(exp_names);
@@ -68,8 +66,7 @@ function default_name = create_merged_default_name(exp_names, nametype)
 				[~, b_fn] = fileparts(exp_names.(fieldnames_exps{i}));
 			case 'name'
 				b_fn = fieldnames_exps{i};
-		end
-				
+        end
 		if i ==1
 			default_name = [default_name b_fn];
 		else 
