@@ -12,7 +12,7 @@ switch fit_md.Type
 		q_cur = q(i);
 		runner_f = str2func(['macro.fit.m2q.' fit_md.Type '.runner']);
 		massdata = ((q_cur*fit_md.m.mass):probe_width:(q_cur*fit_md.n.mass))'+fit_md.H.mass;
-		rownr		= fit_param.q(q_cur==fit_param.q);
+		rownr		= find(q_cur==fit_param.q);
 		fit_results(i,1:length(massdata)) = runner_f(fit_param.result(rownr,1:end-(max(fit_param.q)-q_cur)), massdata);
 	end
 	otherwise

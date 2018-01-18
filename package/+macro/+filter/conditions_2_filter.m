@@ -31,6 +31,9 @@ function [f, exp_data] = conditions_2_filter( exp_data, conditions )
 %										(true becomes false, false becomes true)
 
 % Check first whether the filter from this condition is already calculated:
+if isempty(conditions)
+	conditions = struct()
+end
 cond_sim = false;
 if general.struct.issubfield(exp_data, 'e.filt.cond_struct') && general.struct.issubfield(exp_data, 'e.filt.from_recent_cond')
 	cond_sim = general.struct.structcmp(conditions,general.struct.probe_field(exp_data, 'e.filt.cond_struct'));

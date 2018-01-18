@@ -8,7 +8,7 @@ function before(ax, xdata, I_data, I_bgr, I_IG)
 % ybgr		[n, 1] The background intensity
 % fit_md	struct, the fitting metadata.
 % IG		struct, containing information of the initial guess.
-cla(ax)
+try cla(ax); end
 hold(ax, 'on')
 if any(size(I_bgr) ~= size(xdata))
 	I_bgr = I_bgr(1)*ones(size(xdata));

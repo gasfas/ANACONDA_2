@@ -108,7 +108,24 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
 			Ax_new.([cname 'TickLabel']) = arrayfun(@num2str, round(interp1(p_tot_un, p_ratio_un, tickvalues, 'linear', 'extrap'),1), 'un', 0);
 			Ax_ori.([cname 'TickLabel']) = Ax_ori.([cname 'Tick']);
-			
+		case 'p_fraction' % this is a multi-experiment axes
+			exp_names = fieldnames(md); % Check out all experiment names
+			p_fraction = []; p_total = [];
+			for i = 1:length(exp_names)
+				exp_name = exp_names{i};
+				try 
+					p_fraction = [p_fraction md.(exp_name).sample.constituent.p(2)/md.(exp_name).sample.p * 100];
+					p_total = [p_total md.(exp_name).sample.p];
+				end
+			end
+			% remove duplicates:
+			[p_tot_un, idx_un] = unique(p_total);
+			p_fraction_un = p_fraction(idx_un);
+			% Map the total pressures onto the pressure ratio:
+			tickvalues	= Ax_ori.([cname 'Tick']);
+			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
+			Ax_new.([cname 'TickLabel']) = arrayfun(@num2str, round(interp1(p_tot_un, p_fraction_un, tickvalues, 'linear', 'extrap'),0), 'un', 0);
+			Ax_ori.([cname 'TickLabel']) = Ax_ori.([cname 'Tick']);
 	end
 	Ticklabels_rm_Inf = Ax_new.([cname 'TickLabel']);
 	try Ticklabels_rm_Inf{cell2mat(strfind(Ticklabels_rm_Inf, 'Inf'))} = '\infty';

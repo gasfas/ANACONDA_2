@@ -88,6 +88,5 @@ end
 
 if ~general.struct.issubfield(plot_md, 'axes.Title')
 	htitle = title(h_axes(1), {['min: ' num2str(min(C(:))) ','], ['max: ' num2str(max(C(:)))]});
-	htitle.Position = [350 600 0];
 end
 uistack(h_axes(1), 'top')
