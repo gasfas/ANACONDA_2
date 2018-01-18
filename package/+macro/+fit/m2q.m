@@ -47,7 +47,7 @@ for i = 1:length(detnames)
 	
 	if general.struct.probe_field(fit_md, 'ifdo.sidecuts') % Does the user want to cut off sides of the fit window
 		% We give a rough estimate of the peak centres:
-		p_peakcenters = macro.fit.m2q.size_to_m2q_corr (fit_md, m2q_data);
+		[p_peakcenters, peak_m2q, peak_q] = macro.fit.m2q.size_to_m2q_corr (fit_md, m2q_data);
 	end
 	
 	for j = 1:length(all_q)
@@ -89,12 +89,10 @@ function fit_param = fit_m2q(fit_md, data_in, fit_param, j)
         [xdata, yfitdata, ybgr, IG, LB, UB, options] = prep_f(fit_md, m2q_data, bgr_m2q, fit_param);
         
 		if general.struct.probe_field(fit_md, 'ifdo.sidecuts') % Does the user want to cut off sides of the fit window
-			% We calculate the estimate:
-			m2q_cut_centre_est = polyval(p_peakcenters, fit_md.q);
-			m2q_cut_centre = macro.fit.m2q.find_sidecut_centre(fit_md, xdata, yfitdata, m2q_cut_centre_est);
-			yfitdata(xdata < (m2q_cut_centre - fit_md.sidecuts.m2q_width)) = 0;
-			yfitdata(xdata > (m2q_cut_centre + fit_md.sidecuts.m2q_width)) = 0;
-			switch fit_md.Type
+			% Apply the sidecuts to the data:
+			[yfitdata, m2q_cut_centre, p_peakcenters, peak_m2q, peak_q] = macro.fit.m2q.find_sidecut_centre(fit_md, xdata, yfitdata, p_peakcenters, peak_m2q, peak_q);
+			% Apply the sidecuts to the fitting BC:
+			switch fit_md.Type 
 				case 'ind'
 					[IG, LB, UB] = macro.fit.m2q.ind.sidecuts(fit_md, IG, LB, UB, m2q_cut_centre);
 			end
@@ -103,7 +101,6 @@ function fit_param = fit_m2q(fit_md, data_in, fit_param, j)
 		if general.struct.probe_field(fit_md.ifdo, 'plots') % Does the user want to see the plots?
 			macro.fit.m2q.plot.before(ax, xdata, yfitdata, ybgr, runner_f(IG, xdata));
 		end
-
 		
         % Fit!
         [result.param,result.residual_norm_lsqc,result.residuals,result.exitflag,result.fit_info] = lsqcurvefit( ...

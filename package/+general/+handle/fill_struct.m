@@ -36,7 +36,11 @@ if ~isempty(struct(1)) && ishandle(handle(1))
 			if any(ishandle(handle(1).(sim_fn{i}))) & ~isnumeric(handle(1).(sim_fn{i}))
 				% Overwrite the found subfield:
 				for h_nr = 1:nof_h
-					handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct(h_nr).(sim_fn{i}));
+					if length(struct) < h_nr % If the given struct is smaller than the handle, we fill the handle with the last element in the struct:
+						handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct(end).(sim_fn{i}));
+					else
+						handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct(h_nr).(sim_fn{i}));
+					end
 				end
 			else
 				% overwrite the found field:

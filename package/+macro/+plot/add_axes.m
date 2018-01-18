@@ -89,6 +89,7 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
 			KER_ticks = Ax_ori.([cname 'Tick']);
 			ticklabel = round(theory.Coulomb.distance(md.eps_m, md.mult*ones(size(KER_ticks)), md.charge, KER_ticks),1);
+			Ax_ori.([cname 'TickLabel']) = Ax_ori.([cname 'Tick']);
 			Ax_new.([cname 'TickLabel']) = strread(num2str(ticklabel),'%s');
 		case 'p_ratio' % this is a multi-experiment axes
 			exp_names = fieldnames(md); % Check out all experiment names

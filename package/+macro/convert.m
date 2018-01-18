@@ -19,7 +19,9 @@ data_out = data_in;
 detnames = fieldnames(metadata_in.det);
 
 for i = 1:length(detnames)
-    detname = detnames{i};         
+    detname = detnames{i}; 
+
+    %% Hit conversion
     % R, theta conversion:
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.R_theta']) && all(isfield(data_out.h.(detname), {'X', 'Y'}))
         [data_out] = macro.convert.R_theta(data_out, metadata_in, detname);
