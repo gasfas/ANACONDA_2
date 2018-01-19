@@ -106,7 +106,7 @@ elseif general.struct.probe_field(GraphObj_md, 'ifdo.interp2')
 	h_axes(1).Color = 'none';
 end
 
-if ~general.struct.probe_field(plot_md, 'axes.Title.String')
+if ~general.struct.probe_field(plot_md, 'axes(1).Title.String')
 	htitle = title(h_axes(1), {['min: ' num2str(min(C(:))) ','], ['max: ' num2str(max(C(:)))]});
 end
 uistack(h_axes(1), 'top')
