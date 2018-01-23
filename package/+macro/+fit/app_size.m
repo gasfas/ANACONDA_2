@@ -32,9 +32,9 @@ for i = 1:length(detnames)
 	try histogram.Count = medfilt1(histogram.Count, fit_md.medfilt_order); end
 	
 % 	%% Find the peaks:
-[x_peaks_of_interest, y_peaks_of_interest] = fit.findpeakseries (histogram.midpoints, histogram.Count, fit_md.MinPeakProminence, ...
-	fit_md.peaks_of_interest.spacing.min, fit_md.peaks_of_interest.spacing.max, ...
-	fit_md.peaks_of_interest.ifdo.include_first, fit_md.peaks_of_interest.ifdo.include_last, 'first');
+[x_peaks_of_interest, y_peaks_of_interest, widths_peaks_of_interest] = fit.findpeakseries (histogram.midpoints, histogram.Count, fit_md.MinPeakProminence, ...
+		fit_md.peaks_of_interest.spacing.min, fit_md.peaks_of_interest.spacing.max, ...
+		fit_md.peaks_of_interest.ifdo.include_first, fit_md.peaks_of_interest.ifdo.include_last, 'first');
 
 	%% Plot
 	if general.struct.probe_field(fit_md.ifdo, 'final_plot')% If the user wants to see a 'final' oversight plot of the fits:
@@ -72,6 +72,7 @@ for i = 1:length(detnames)
 	try fit_param.app_size_x			= x_peaks_of_interest(1);
 		fit_param.x_peaks_of_interest	= x_peaks_of_interest;
 		fit_param.y_peaks_of_interest	= y_peaks_of_interest;
+		fit_param.x_widths_peaks_of_interest	= widths_peaks_of_interest;
 	catch 
 		fit_param.app_size_x			= [];
 		fit_param.x_peaks_of_interest	= [];

@@ -32,15 +32,6 @@ else
 end
 
 if isfield(plot_md, 'cond')
-    % Get rid of the 'operator' field:
-    plot_md_old_cond = plot_md.cond;
-    cond_fields = fieldnames(plot_md_old_cond);
-    for lx = 1:length(cond_fields)
-        op_check = char(cond_fields(lx));
-        if ~strcmp(op_check, 'operator')
-            plot_md_new_cond.(op_check) = plot_md_old_cond.(op_check);
-        end
-    end
 	% Calculate the filter from a condition:
 	[e_filter, exp]	= macro.filter.conditions_2_filter(exp, plot_md.cond);
 	% Calculate the histogram with the filter:

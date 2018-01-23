@@ -19,7 +19,6 @@ end
 for i = 1:length(detnames)
     detname		= detnames{i}; 
     detnr		= IO.detname_2_detnr(detname);
-	
 	% Fetch the signal names that are requested to be converted:
 	signal_names = metadata_in.conv.(detname).bgr.signal_name;
 	for signal_name = signal_names
@@ -30,7 +29,10 @@ for i = 1:length(detnames)
 			% These signals have, by definition, the size of the hits ordered:
 			data_out.h.(detname).([SN_char '_bgr']) = convert.sorted_hits(data_out.h.(detname).([SN_char '_bgr']), data_out.e.raw(:,detnr), 'ascend');
 		end
+		% Hack: Overwrite the signal with the newly generated noise:
+% 		data_out.h.(detname).(SN_char) = data_out.h.(detname).([SN_char '_bgr']);
 	end
-    disp(['Log: Background signal created for ' detname])
+	signal_names_sep = general.cell.pre_postscript_to_cellstring(signal_names, '', ', ');
+    disp(['Log: Background signal created for ' detname ' on the signal(s) ' signal_names_sep{:}])
 end
 end

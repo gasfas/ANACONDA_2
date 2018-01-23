@@ -46,15 +46,12 @@ switch fit_md.final_plot.GraphObj.Type
 			I_colors		= Intensity_colors(fit_md, full_I_colors, I);
 			hGraphObj = scatter(hAx, x_pos, y_pos, fit_md.final_plot.dotsize, I_colors, 'filled');
 			hGraphObj.CData = I_colors;
-		end
+		end		
 	otherwise
 		% Fetch the intensity values:
-		[fit_results, midpoints.dim2] = macro.fit.m2q.I_at_q(fit_param.q, fit_md, fit_param);
+		[fit_results, midpoints.dim1, midpoints.dim2] = macro.fit.m2q.I_at_q(fit_param.q, fit_md, fit_param);
 
-% 		I		= macro.fit.m2q.ind.I_afo_q(q_cur, result, 
-			
-		midpoints.dim1 = fit_param.q;
-
+		% create the function, depending on the graphical object Type:
 		plot_f = str2func(['plot.hist.axes.H_2D.' fit_md.final_plot.GraphObj.Type]);
 		
 		hGraphObj = plot_f(hAx, midpoints, fit_results, fit_md.final_plot.GraphObj);

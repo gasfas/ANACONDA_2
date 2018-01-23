@@ -20,7 +20,7 @@ detnames = fieldnames(metadata_in.det);
 
 for i = 1:length(detnames)
     detname = detnames{i}; 
-
+	
     %% Hit conversion
     % R, theta conversion:
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.R_theta']) && all(isfield(data_out.h.(detname), {'X', 'Y'}))
@@ -87,6 +87,7 @@ for i = 1:length(detnames)
         [data_out] = macro.convert.group_hist(data_out, metadata_in, detname);        
 	end
 
+	% Hack: overwrite signal with scrambled data:
     % Generation of background signal from physical data:
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.bgr'])
         [data_out] = macro.convert.signal_2_bgr(data_out, metadata_in, detname);        

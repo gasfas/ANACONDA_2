@@ -29,19 +29,22 @@ dim = size(data, 2);
 % Select the correct histogram:
 switch dim
 	case 1
-		switch weighted_hist
-			case false; [Count, midpoints] = hist.H_1D(data, edges);
-			case true; [Count, midpoints] = hist.weighted.H_1D(data, weight, edges);
+		if weighted_hist
+			[Count, midpoints] = hist.weighted.H_1D(data, weight, edges);
+		else
+			[Count, midpoints] = hist.H_1D(data, edges);
 		end
 	case 2
-		switch weighted_hist
-			case false; [Count, midpoints.dim1, midpoints.dim2] = hist.H_2D(data(:,1), data(:,2), edges.dim1, edges.dim2);
-			case true; [Count, midpoints.dim1, midpoints.dim2] = hist.weighted.H_2D(data(:,1), data(:,2), weight, edges.dim1, edges.dim2);
+		if weighted_hist
+			[Count, midpoints.dim1, midpoints.dim2] = hist.weighted.H_2D(data(:,1), data(:,2), weight, edges.dim1, edges.dim2);
+		else
+			[Count, midpoints.dim1, midpoints.dim2] = hist.H_2D(data(:,1), data(:,2), edges.dim1, edges.dim2);
 		end
 	case 3
-		switch weighted_hist
-			case false; [Count, midpoints.dim1, midpoints.dim2, midpoints.dim3] = hist.H_3D(data(:,1), data(:,2), data(:,3), edges.dim1, edges.dim2, edges.dim3);
-			case true; [Count, midpoints.dim1, midpoints.dim2, midpoints.dim3] = hist.weighted.H_3D(data(:,1), data(:,2), data(:,3), weight, edges.dim1, edges.dim2, edges.dim3);
+		if weighted_hist
+			[Count, midpoints.dim1, midpoints.dim2, midpoints.dim3] = hist.weighted.H_3D(data(:,1), data(:,2), data(:,3), weight, edges.dim1, edges.dim2, edges.dim3);
+		else
+			[Count, midpoints.dim1, midpoints.dim2, midpoints.dim3] = hist.H_3D(data(:,1), data(:,2), data(:,3), edges.dim1, edges.dim2, edges.dim3);
 		end
 end
 	
