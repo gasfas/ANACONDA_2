@@ -1,4 +1,4 @@
-function [colorstring] = colormkr(colornumber)
+function [colorstring] = colormkr(colornumber, max)
 % Convenience function to create a string representing a color for
 % different input numbers. Annoying that Matlab does not do this himself:
 
@@ -11,4 +11,7 @@ colors = {	[0 0 0], [216 82 24], ...
 
 colornumber = mod(colornumber-1, length(colors))+1;
 colorstring = colors{colornumber};
+if exist('max', 'var')
+	colorstring = colorstring/256*max;
+end
 end

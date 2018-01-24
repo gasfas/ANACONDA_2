@@ -11,7 +11,7 @@ switch dim
 	case 1
 		def.Type		= 'line';% Type of graphical object to be created. 
 		def.LineStyle	= '-';% Linestyle of the graphical object. 
-		def.color		= 'b';% Color of the line.
+		def.Color		= 'b';% Color of the line.
 	case 2
 		def.Type			= 'imagesc';% Type of graphical object to be created. 
 	case 3

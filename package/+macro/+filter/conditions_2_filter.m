@@ -32,7 +32,7 @@ function [f, exp_data] = conditions_2_filter( exp_data, conditions )
 
 % Check first whether the filter from this condition is already calculated:
 if isempty(conditions)
-	conditions = struct()
+	conditions = struct();
 end
 cond_sim = false;
 if general.struct.issubfield(exp_data, 'e.filt.cond_struct') && general.struct.issubfield(exp_data, 'e.filt.from_recent_cond')
@@ -123,6 +123,10 @@ switch general.struct.probe_field(condition, 'value_type')
 	% Check whether the conditions are event or hit properties:
 	switch data_form
 		case 'hits'% Hits. We have to translate the hit filter to an event filter
+			if ~isfield(condition, 'translate_condition')
+				warning(['no translate condition given at data pointer ' condition.data_pointer ' ''OR'' is used'])
+				condition.translate_condition = 'OR';
+			end
 			translate_condition = condition.translate_condition;
 			nof_hits            = size(f,1);
 			detnr               = IO.det_nr_from_fieldname(condition.data_pointer);

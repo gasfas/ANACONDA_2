@@ -1,10 +1,10 @@
-function [h_figure, h_axes, h_GraphObj, exp] = scatter(exps, mds, plot_md, x_pointer, y_pointer, c_pointer)
+function [h_figure, h_axes, h_GraphObj, exp] = scatter(varargin)
 % Plot 2D scatter plot of multiple experiments.
 % Usage: If one would want to know the behavior of a measured value as the 
 % function of two experiment variables (e.g. photon energy and nozzle
 % temperature), This function can be used.
 % Inputs:
-% exps		Struct containing the multiple experimental data as subfields.
+% handle	(optional) axes or figure handle where the data should be plotted into.
 % exps		Struct containing the multiple experimental metadata as subfields.
 % plot_md	The plot metadata (excluding hist). Defining xlabels, colormap, etc.
 % x_pointer string that points to the value that gives the x-value in the
@@ -13,6 +13,15 @@ function [h_figure, h_axes, h_GraphObj, exp] = scatter(exps, mds, plot_md, x_poi
 %			scatter plot
 % c_pointer string that points to the value that gives the c-value in the
 %			scatter plot
+
+% Check whether the first given argument is a handle:
+[h_axes, h_figure, varargin] = general.handle.check_varargin_handles(varargin);
+exps	= varargin{1};
+mds		= varargin{2};
+plot_md = varargin{3};
+x_pointer = varargin{4};
+y_pointer = varargin{5};
+c_pointer = varargin{6};
 
 % loop over all experiments:
 expnames = fieldnames(exps);
@@ -50,8 +59,19 @@ GraphObj_md.dotsize		= 100;
 end
 Int_color = repmat(GraphObj_md.color_low, numel(C), 1) - repmat((C(:)-min(C(:)))./(max(C(:)) - min(C(:))), 1, 3) .* (repmat(GraphObj_md.color_low-GraphObj_md.color_high, numel(C), 1));
 
-try h_figure	= macro.plot.create.fig(plot_md.figure); catch h_figure = figure; end
-try h_axes		= macro.plot.create.ax(h_figure, plot_md.axes); catch h_axes = axes(h_figure); end
+% Create the new figure:
+if isempty(h_figure)
+	h_figure	= macro.plot.create.fig(plot_md.figure);
+else
+	h_figure	= general.handle.fill_struct(h_figure, plot_md.figure);
+end
+% Then create the new axes:
+if isempty(h_axes)
+	h_axes	= macro.plot.create.ax(h_figure, plot_md.axes);
+else
+	h_axes	= general.handle.fill_struct(h_axes, plot_md.axes);
+end
+
 h_GraphObj		= scatter(h_axes(1), X, Y, GraphObj_md.dotsize, Int_color, 'filled');
 
 try h_figure = general.handle.fill_struct(h_figure, plot_md.figure); end
@@ -86,7 +106,7 @@ elseif general.struct.probe_field(GraphObj_md, 'ifdo.interp2')
 	h_axes(1).Color = 'none';
 end
 
-if ~general.struct.issubfield(plot_md, 'axes.Title')
+if ~general.struct.probe_field(plot_md, 'axes(1).Title.String')
 	htitle = title(h_axes(1), {['min: ' num2str(min(C(:))) ','], ['max: ' num2str(max(C(:)))]});
 end
 uistack(h_axes(1), 'top')

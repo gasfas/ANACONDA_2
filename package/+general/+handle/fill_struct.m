@@ -36,12 +36,17 @@ if ~isempty(struct(1)) && ishandle(handle(1))
 			if any(ishandle(handle(1).(sim_fn{i}))) & ~isnumeric(handle(1).(sim_fn{i}))
 				% Overwrite the found subfield:
 				for h_nr = 1:nof_h
-					handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct(h_nr).(sim_fn{i}));
+					structnr = min(length(struct), h_nr);
+					% If the given struct is smaller than the handle, we fill the handle with the last element in the struct:
+					handle(h_nr).(sim_fn{i}) = general.handle.fill_struct(handle(h_nr).(sim_fn{i}), struct(structnr).(sim_fn{i}));
 				end
 			else
 				% overwrite the found field:
 				for h_nr = 1:nof_h
-					try handle(h_nr).(sim_fn{i}) = struct(h_nr).(sim_fn{i});
+					try 
+						% If the given struct is smaller than the handle, we fill the handle with the last element in the struct:
+						structnr = min(length(struct), h_nr);
+						handle(h_nr).(sim_fn{i}) = struct(structnr).(sim_fn{i});
 					catch warning(['Struct field ' sim_fn{i} ' failed to copy'])
 					end
 				end

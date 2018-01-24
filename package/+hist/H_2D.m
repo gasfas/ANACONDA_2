@@ -23,7 +23,7 @@ else
 	y_midpoints           = cell2mat(mid(2));
 
 	if any(size(Count) ~= [length(x_midpoints), length(y_midpoints)])
-		warning ('hist.nistnc failed')
+		warning ('hist.histnc failed')
 		Count		= Count(1:length(x_midpoints), 1:length(y_midpoints));
 	end
 

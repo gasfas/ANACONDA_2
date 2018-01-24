@@ -1,6 +1,6 @@
-function [p, p_0] = momentum_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md)
-% The function converts TOF, X, Y to momentum. Only hits that are
-% recognized to belong to a certain m/q are considered.
+function [p, p_0] = momentum_3D_EField(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md)
+% The function converts TOF, X, Y to momentum, in the case of only E-field.
+% Only hits that are recognized to belong to a certain m/q are considered.
 % Input:
 % TOF           [n, 1] array, the (corrected) TOF hits [mm]
 % X             [n, 1] array, the (corrected) X coordinates [ns]
@@ -14,8 +14,8 @@ function [p, p_0] = momentum_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labe
 % p_0           [n, 3] the time-zero momentum [atomic momentum unit]
 
 m           = length(labels); % number of labels
-% n           = length(TOF); % number of hits
-% q          = number of hits that are recognized to belong to a label of interest
+% n         = length(TOF); % number of hits
+% q         = number of hits that are recognized to belong to a label of interest
 
 % Initialize the empty p vectors:
 p           = NaN*ones(size(TOF,1),3); % [n, 1]

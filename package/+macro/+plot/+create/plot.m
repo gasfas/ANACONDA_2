@@ -13,47 +13,25 @@ function [h_figure, h_axes, h_GraphObj, exp] = plot(varargin)
 % h_ax		The Axes handle
 % h_GraphObj The Graphical Object handle
 
-if ishandle(varargin{1})
-	handle	= varargin{1};
-	exp		= varargin{2};
-	plot_md	= varargin{3};
-	if isgraphics(handle(1), 'Axes') || isgraphics(handle(1), 'polaraxes')
-		h_axes = handle;
-		h_figure = h_axes.Parent;
-	elseif isgraphics(handle, 'Figure')
-		h_figure = handle;
-	else
-		error('no valid handle given')
-	end
-else 
-	exp		= varargin{1};
-	plot_md	= varargin{2};
-end
-
+% Check whether the first given argument is a handle:
+[h_axes, h_figure, varargin] = general.handle.check_varargin_handles(varargin);
+exp		= varargin{1};
+plot_md	= varargin{2};
 
 % Create the new figure:
-if ~exist('h_figure', 'var')
+if isempty(h_figure)
 	h_figure	= macro.plot.create.fig(plot_md.figure);
 else
 	h_figure	= general.handle.fill_struct(h_figure, plot_md.figure);
 end
 % Then create the new axes:
-if ~exist('h_axes', 'var')
+if isempty(h_axes)
 	h_axes		= macro.plot.create.ax(h_figure, plot_md.axes);
 else
 	h_axes	= general.handle.fill_struct(h_axes, plot_md.axes);
 end
 
 if isfield(plot_md, 'cond')
-    % Get rid of the 'operator' field:
-    plot_md_old_cond = plot_md.cond;
-    cond_fields = fieldnames(plot_md_old_cond);
-    for lx = 1:length(cond_fields)
-        op_check = char(cond_fields(lx));
-        if ~strcmp(op_check, 'operator')
-            plot_md_new_cond.(op_check) = plot_md_old_cond.(op_check);
-        end
-    end
 	% Calculate the filter from a condition:
 	[e_filter, exp]	= macro.filter.conditions_2_filter(exp, plot_md.cond);
 	% Calculate the histogram with the filter:

@@ -10,7 +10,7 @@ function [data, md] = all(data, md, procedure_spec)
 %		procedures have been applied.
 
 if ~exist('procedure_spec', 'var')
-	procedure_spec = {'correct', 'convert', 'filter', 'fit'};
+	procedure_spec = {'correct', 'convert', 'filter'};
 end
 
 for j = 1:length(procedure_spec)

@@ -69,9 +69,5 @@ for i = 1:length(detnames)
     if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'lensabb') 
         data_out = macro.correct.lensabb(data_out, metadata_in, detname);
 	end
-	
-	
-	% save memory, get rid of the raw signal:
-% 	try	data_out.h.(detname) = rmfield(data_out.h.(detname), 'raw');		end
-% 	try	data_out.h.(detname) = rmfield(data_out.h.(detname), 'raw_sn');		 end
+
 end
