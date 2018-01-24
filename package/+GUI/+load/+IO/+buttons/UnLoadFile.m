@@ -69,7 +69,6 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         md_GUI.load.exp_names = exp_names_new;
         set(UILoad.LoadedFiles, 'String', String_LoadedFilesNew);
         set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFilesNew);
-        set(UIPlot.LoadedFilesPlotting, 'String', '-');
     end
     set(UILoad.LoadedFiles, 'Value', 1);
     set(UIPlot.LoadedFilesPlotting, 'Value', 1);

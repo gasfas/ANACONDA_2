@@ -181,10 +181,10 @@ s.KER_sum.axes.Label.String	= {'Total ion KER [eV]'}; %The label of the variable
 %%%%%% Charge Separation Distance (CSD):
 s.CSD.hist.pointer	= 'e.det1.CSD';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.CSD.hist.binsize	= 1*1e0; %[Ångström] binsize of the CSD variable. 
-s.CSD.hist.Range	= [0 1]*1e2; %[Ångström] range of the variable. 
+s.CSD.hist.binsize	= 1*1e0; %[?ngstr?m] binsize of the CSD variable. 
+s.CSD.hist.Range	= [0 1]*1e2; %[?ngstr?m] range of the variable. 
 % Axes metadata:
-s.CSD.axes.Lim	= s.CSD.hist.Range;% [Ångström] Lim of the axis that shows the variable. 
+s.CSD.axes.Lim	= s.CSD.hist.Range;% [?ngstr?m] Lim of the axis that shows the variable. 
 s.CSD.axes.Tick	= linspace(s.CSD.hist.Range(1), s.CSD.hist.Range(2), 11);% [au] Ticks on the respective axes.
 s.CSD.axes.Label.String	= {'CSD [\AA]'}; %The label of the variable
 

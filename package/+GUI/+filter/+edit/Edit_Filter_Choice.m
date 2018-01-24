@@ -14,7 +14,7 @@ function [ base_value ] = Edit_Filter_Choice(fieldstoedit, base_value, datapoint
 md_GUI = evalin('base', 'md_GUI');
 %function choice = choosedialog
 screensize = md_GUI.UI.screensize;
-d = dialog('Position',[screensize(3)/4 screensize(4)/5 screensize(3)/3 screensize(4)/2],'Name','Edit filter');
+d = dialog('Position',[screensize(3)/4 screensize(4)/5 screensize(3)/3 screensize(4)/2],'Name','Edit condition');
 txt_type = uicontrol('Parent',d,...
        'Style','text',...
        'units', 'normalized',...
@@ -105,15 +105,14 @@ popup_translate = uicontrol('Parent',d,...
        'Value',translave_value,...
        'Enable', translate_enable,...
        'Callback',@translate_callback);
-checkbox_translate = uicontrol('Parent',d,...
-       'Style','checkbox',...
-       'units', 'normalized',...
-       'fontsize', 12,...
-       'Position',[0.9 0.68 0.2 0.1],...
-       'String','Use',...
-       'Value', fieldstoedit(4),...
-       'Callback',@checkbox_translate_callback);
-
+% checkbox_translate = uicontrol('Parent',d,...
+%        'Style','checkbox',...
+%        'units', 'normalized',...
+%        'fontsize', 12,...
+%        'Position',[0.9 0.68 0.2 0.1],...
+%        'String','Use',...
+%        'Value', fieldstoedit(4),...
+%        'Callback',@checkbox_translate_callback);
 invert_options = [0, 1];
 invert_value = 1;
 if fieldstoedit(5) == 1 % inverse
@@ -234,20 +233,20 @@ OK_btn = uicontrol('Parent',d,...
                 base_value.invert_filter = 0;
         end
     end
-    function checkbox_translate_callback(popup_checkbox_translate,event)
-        if popup_checkbox_translate.Value == 0 % off - remove field.
-            popup_translate.Value = 1;
-            popup_translate.Enable = 'off';
-            fieldstoedit(4) = 0;
-            if isfield(base_value, 'translate_condition') % remove field
-                base_value = rmfield(base_value, 'translate_condition');
-            end
-        elseif popup_checkbox_translate.Value == 1 % on - add field.
-            popup_translate.Enable = 'on';
-            fieldstoedit(4) = 1;
-            base_value.translate_condition = char(popup_translate.String(popup_translate.Value));
-        end
-    end
+%     function checkbox_translate_callback(popup_checkbox_translate,event)
+%         if popup_checkbox_translate.Value == 0 % off - remove field.
+%             popup_translate.Value = 1;
+%             popup_translate.Enable = 'off';
+%             fieldstoedit(4) = 0;
+%             if isfield(base_value, 'translate_condition') % remove field
+%                 base_value = rmfield(base_value, 'translate_condition');
+%             end
+%         elseif popup_checkbox_translate.Value == 1 % on - add field.
+%             popup_translate.Enable = 'on';
+%             fieldstoedit(4) = 1;
+%             base_value.translate_condition = char(popup_translate.String(popup_translate.Value));
+%         end
+%     end
     function checkbox_invert_callback(popup_checkbox_invert,event)
         if popup_checkbox_invert.Value == 0 % off - remove field.
             popup_invert.Value = 1;
@@ -318,6 +317,19 @@ OK_btn = uicontrol('Parent',d,...
                 listbox2_datapointer.String = fieldnames(list2);
                 listbox2_datapointer.Enable = 'On';
                 setdatapointerbutton.Enable = 'Off';
+                if strcmp(full_datapointer_string, 'e')
+                    popup_translate.Value = 1;
+                    popup_translate.Enable = 'off';
+                    fieldstoedit(4) = 0;
+                    if isfield(base_value, 'translate_condition') % remove field
+                        base_value = rmfield(base_value, 'translate_condition');
+                    end
+                elseif strcmp(full_datapointer_string, 'h')
+                    popup_translate.Value = 1;
+                    popup_translate.Enable = 'on';
+                    fieldstoedit(4) = 1;
+                    base_value.translate_condition = char(popup_translate.String(popup_translate.Value));
+                end
             else
                 listbox2_datapointer.String = {'-'};
                 listbox2_datapointer.Enable = 'Off';
@@ -448,6 +460,7 @@ OK_btn = uicontrol('Parent',d,...
         %% Message to log_box:
         GUI.log.add(['New data pointer set to: ', full_datapointer_string])
         base_value.data_pointer = full_datapointer_string;
+        txt_datapointer.String = ['Current data pointer:   ', full_datapointer_string];
 	end
 % Wait for d to close before running to completion
 uiwait(d);

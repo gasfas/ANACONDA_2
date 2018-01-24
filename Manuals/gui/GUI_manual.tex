@@ -11,8 +11,15 @@
 $^{1\ast}$Department of Physics, Lund University, Lund, Sweden.
 
 \clearpage
+\section*{Acknowledgements}
+I want to thank my supervisors Mathieu Gisselbrecht and Bart Oostenrijk for being available for questions, discussions and supervisions as well as the big support both of them gave me while doing this project work. Without them, this work would not have been possible.
+\\
+\section*{Document introduction}
+The work with developing the ANACONDA2 GUI began as being the main part of my bachelor thesis in physics, see ref. \cite{Benjamin_BSc_thesis}, at the Physics Department of Lund University. This project work, also carried out at the Physics Department at Lund University, enabled me to continue develop the ANACONDA2 GUI into what it is today, together with this manual. The project work was registered as Applied Work, which currently has course code FYSB06.
+
+\clearpage
 \section*{Abstract}
-This manual will teach the user the basics of data treatment by using the GUI (Graphical User Interface) of the ANACONDA2 (ANAlysis of COiNcidence DAta) data treatment package for MATLAB.\\
+This manual will teach the user the basics of data treatment by using the GUI (Graphical User Interface) of the ANACONDA2 (ANAlysis of COiNcidence DAta) data treatment package for MATLAB. ANACONDA2 takes the raw 3D experimental data (t (time), x and y (horizontal and. vertical detector image, resp.)). The reason to have a GUI is so that the user does not have to execute all data treatment procedures via a kernel, which means that new users have to learn the kernel syntaxes and hence complicates more advanced procedures.\\
 \\
 The GUI is divided into different tabs for different levels of data treatments, and hence, the manual is divided into the corresponding sections:
 
@@ -22,8 +29,8 @@ The file handler section shows how raw experimental data files are loaded and ha
 \subsection*{Data Calibration}
 Raw data has to be calibrated using different calibration procedures for different types of experiments.
 
-\subsection*{Data Filters}
-Filters have to be constructed in order to filter out possible noise and uninteresting data. Multiple filters can be applied to multiple experiments, with various translate conditions. In order to let the user avoid high-level coding in order to construct multilayer data filters, a UITree JAVA-component has been inserted into the GUI in order to allow advanced filter editing procedures by simple DnD (drag-and-drop) actions. This also saves the users lots of time by eliminating the need for raw coding.
+\subsection*{Data Conditions and Filters}
+A data filter can be seen as an obstacle, through which data which fulfills the criteria of the filter can pass. This is done in order to filter out possible noise and uninteresting date. A condition is the term used for the individual conditions (or requirements) that have to be fulfilled before data has passed through, whilst the term filter is referred to for one or for a set of conditions that data has passed through.
 
 \subsection*{Plotting}
 Plotting is crucial for all experiments in order to comprehend experimental data. There are various alternatives for plotting: Pre-defined and user-defined plot configurations, and the latter either with pre-defined or user-defined signal configurations.
@@ -33,31 +40,29 @@ Plotting is crucial for all experiments in order to comprehend experimental data
 
 \clearpage
 \section{Introduction to the ANACONDA2 GUI}
-\subsection*{Aim of this document}
+\subsection*{Aim of ANACONDA2, the GUI and this document}
 The aim of this document is to introduce the reader to the data treatment software ANACONDA2's graphical user interface (GUI). 
 
-\subsection*{Central concepts}
+\subsection*{Central concepts and Definitions}
 In the ANACONDA2 package, there are two layers for the users: A command-line (kernel-only) layer and a graphical layer. The graphical layer is built upon the command-line layer in order to enable users with a lack of coding (or MATLAB) experience to use the ANACONDA2 package. For the documentation of the kernel-only layer of the ANACONDA2 package, see ref. \cite{Bart_Documentation}.\\
 \\
 Metadata is, as described and defined by ref. \cite[chapter 2, pp.~4--6]{Bart_Documentation}, a set of information defined for each experiment which is "needed to correct, convert, fit and visualize the data". The description of the metadata structure can be found in ref. \cite[chapter 2, pp.~4--5]{Bart_Documentation}, and will not be elaborated any further in this document, since the aim of this document is, as previously described, to describe how to use the ANACONDA2 package graphically via the ANACONDA2 GUI.\\
 \\
-A concept that is very central to the ANACONDA2 GUI is data filters. A data filter is built upon one or a set of logical condition(s). An example of a data filter built upon one logical condition for e.g. a mass-spectrometry experiment is a 'hits-filter' that only allows hit detections of single molecular fragments (hits) which have a mass-over-charge between 20-40 Da, or an 'events-filter' which only allows events having a total mass-over-charge between 40-50 Da (where the event's mass-over-charge is the sum of the mass-over-charge of the individual hits associated with the specific event). An example of a data filter built upon a set of logical conditions is e.g. a filter which combines the previously described hit- and event filter with different translate conditions, such as 'AND' and 'OR', where 'AND' means that both conditions have to be fulfilled and 'OR' means that at least one of the conditions have to be fulfilled, in order for the data to be allowed through for e.g. plotting. This can be described as data selection, where the user defines the data points of interest such that the data-points of no interest are neglected.\\ \\ \\
+A concept that is very central to the ANACONDA2 GUI is data filters. A data filter is built upon one or a set of logical condition(s).\\
 \\
-The filters are constructed as metadata for each experiment individually, based either on locally defined metadata and/or metadata pre-defined by the ANACONDA2's spectrometer settings (during the loading of the files). There are hard-coded built-in filters that are not connected to any experiment, which cannot be edited directly but can be added to different experiments and then edited. The filters associated with the various experiments are further on referred to as user-defined filters.\\
+The nature of the experiments that can be analyzed with ANACONDA2 have what is referred to as events with one or multiple hit(s) associated with each events. An event can be e.g. the dissociation of a molecule, whilst the hits are the detected fragments associated with the event.\\
 \\
 A signal is defined as something that for every hit has a value, and it could be either raw (coming directly from a spectrometer) or have a physical quantity (e.g. mass-over-charge, kinetic energy, etc.).
 
+\clearpage
 \subsection*{System requirements}
 - A computer which can run the latest$^*$ version of MATLAB.\\
 - A licensed and verified version of MATLAB.\\
 - The ANACONDA2 package.\\
 \\
-The following toolboxes are required:\\
-Neural Network Toolbox, \\
-\\
 $^*$R2017a is required in this instance. Since ANACONDA2 is and will be continuously updated with new functionalities implemented from updated versions of MATLAB, the latest running version of MATLAB and ANACONDA2 is recommended in order to avoid bugs and compatibility issues.
 
-\subsection*{Setup of ANACONDA2 and ANACONDA2 GUI}
+\subsection*{Getting started}
 1. Download the ANACONDA2 package to the preferred folder.\\
 2. Change to or add this folder to MATLAB path.\footnote{There are two ways to change/add a folder to the MATLAB path: Graphically or by using commands. By using commands; type [ addpath 'dirname' ] and press enter (replace 'dirname' with the path of the package, e.g.: /home/user/matlab on Mac OS X). Graphically; browse into the location of the ANACONDA2 package, open the ANACONDA2 folder, right-click on the 'package' folder and select 'Add to Path' $\rightarrow$ 'Selected Folders'. Note: Do not select 'Selected Folders and Subfolders'!}.\\
 3. In order to start the GUI; write [ GUI.main ] and press enter.
@@ -116,7 +121,7 @@ Before loading a file, the load configurations should be selected which describe
   \includegraphics[width=0.3\textwidth]{1_5_filesloaded}
  \caption{Files in selected folders with selected filetype can be seen.}\label{1_5_filesloaded}
 \end{wrapfigure}
-There are currently three available spectrometers: EPICEA, Laksman\_TOF and Laksman\_TOF\_e\_XY. Their properties and differences can be found in the attachment 'ANACONDA2 built-in Spectrometers'.\\
+There are currently three available spectrometers: EPICEA, Laksman\_TOF and Laksman\_TOF\_e\_XY. Their properties and differences can be found in the appendix 'ANACONDA2 built-in Spectrometers'.\\
 \\
 To load the selected file, press 'Load file' after having selected the desired configurations. As files are being loaded into memory, they will be visible in the 'Files loaded'-list. The last loaded file's information will be shown in the file information window, which exists if it has been properly defined during data acquisition during an experiment. Selecting a loaded file results in that this file's information will be shown in the file information window.\\
 \\
@@ -126,55 +131,70 @@ In our example, we have loaded 4 different data files from 3 different experimen
 
 \clearpage
 \section{Data treatment part 2: Data Calibration}
-[ NOT YET CONSTRUCTED. ]
+[ NOT YET CONSTRUCTED. Accessible via the ANACONDA2 kernel, and documented in ref. \cite{Bart_Documentation}. ]
 
 \clearpage
 \section{Data treatment part 3: Data Filters}
-The actions that can be done with data filters is the following: Construction of new filters, editing filters, renaming filters and removing filters. The fontsize of the filters can be increased resp. decreased by clicking on [A+] resp. [A-].
-\begin{wrapfigure}{r}{0.34\textwidth}
+The goal of the 'Filter' tab (Figure~\ref{3_1_filter_sel}) is to construct different conditions, that filters out all data that is not interesting when the experimental data is being plotted. A condition can also be referred to as requirements which a hit and/or an event has to fulfill in order to pass through to the plot. These requirements are defined by the user and are set such that only the data of interest will remain in the plot. A filter is either a single condition or multiple conditions, or a set of conditions, which is converted to a filter as data is being blocked by or passing through the condition(s).
+\begin{wrapfigure}{r}{0.355\textwidth}
 \centering
-  \includegraphics[width=0.34\textwidth]{3_1_filter_sel}
+  \includegraphics[width=0.355\textwidth]{3_1_filter_sel2}
  \caption{The filter tab.}\label{3_1_filter_sel}
 \end{wrapfigure}
 \\
-By opening up the tree of data filters for the different experiments, selecting a filter results in that all its conditions will be shown. If a combined filter is selected, the operator of the combined filter will be shown. If no operator has been defined, the standard condition 'AND' will be shown as operator. To edit a field, double-click on the field to edit, which opens up a window with the previous value (Figure~\ref{3_2_filter_cond_edit}) that can be edited and stored by pressing 'Ok'.\\
+The actions that can be done with data conditions is the following: Construction of new conditions, editing conditions, renaming conditions and removing conditions.\footnote{The condition tree fontsize can be increased and decreased by clicking on [A+] and [A-], resp.}\\
 \\
-Filters can also be combined such that the combined filter consists of one or many hits and/or events filters. A combined filter can also consist of other combined filters. The combined filter(s) then needs an operator that defines how the combined filters will work. The operators that can be selected from are 'AND', 'OR', 'XOR', 'HIT1' and 'HIT2'.\\
+By opening up the tree of data filters for the different experiments, selecting a condition results in that all its parameters will be shown.\\
 \\
-As an example, the 'AND'-operator states that all filters that make up the combined filter have to be fulfilled, whilst the 'OR' operator states that at least one filter that is part of the combined filter has to be fulfilled in order to let the event and/or the hit through. The full specification of the filter operators can be found in the main documentation of ANACONDA2 \cite{Bart_Documentation}.\\
+Filters can be combined into a so-called 'Combined filter', which consists of one or many hits and/or events filters. It can also consist of other combined filters. The combined filter(s) then needs an operator that defines how the combined filters will work. The operators that can be selected from are 'AND', 'OR', 'XOR', 'HIT1' and 'HIT2'.\\
 \\
-To construct a new filter, select one of the built-in filters or the built-in combined filter, and drag-and-drop it to the desired experiment. The parameters can then be edited. Note that filters can also be drag-and-dropped between different experiments.\\
+As an example, the 'AND'-operator states that all conditions that make up the combined condition have to be fulfilled, whilst the 'OR' operator states that at least one condition that is part of the combined condition has to be fulfilled in order to let the event and/or the hit through. The full specification of the condition operators can be found in the main documentation of ANACONDA2 \cite{Bart_Documentation}.
 \\
-To rename a filter, press the 'Rename' button and type in the desired name. Note that the name has to start with a letter, and there cannot be any spaces or blanks - in these cases, use the underscore symbol.\\
+If a combined condition is selected, the operator of the combined condition will be shown. If no operator has been defined, the standard condition parameter 'AND' will be shown as operator. To edit a field, double-click on the field to edit, which opens up a window with the previous value (Figure~\ref{3_2_filter_cond_edit}) that can be edited.\\
+\\
+To construct a new condition, select one of the built-in conditions or the built-in combined condition, and drag-and-drop (DnD) it to the desired location. The parameters can then be edited. Conditions can also be drag-and-dropped between different experiments.\\
+\\
+To rename a condition, press the 'Rename' button and type in the desired name. Note that the name has to start with a letter, and there cannot be any spaces or blanks - in these cases, use the underscore symbol.
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.3\textwidth]{3_2_filter_cond_edit}
- \caption{The 'Value' of the 'labeled\_hits' filter ie being edited.}\label{3_2_filter_cond_edit}
+  \includegraphics[width=0.25\textwidth]{3_2_filter_cond_edit}
+ \caption{The 'Value' of the 'labeled\_hits' condition is being edited.}\label{3_2_filter_cond_edit}
 \end{figure}\\
 \begin{figure}[h]
 \centering
   \includegraphics[width=0.8\textwidth]{3_3_filter_edit}
- \caption{Edit all fields of a filter by opening up the 'Edit filter' window.}\label{3_3_filter_edit}
+ \caption{Edit all fields of a condition by opening up the 'Edit condition' window.}\label{3_3_filter_edit} % What does this specific example do ?????
 \end{figure}
-To fully edit all conditions of a (single, not combined) filter, select a filter and press the edit button. This results in that the 'Edit filter'-window will open up for the selected filter (Figure~\ref{3_3_filter_edit}), in which the filter value type can be selected, the values can be defined, translate condition can be defined or turned on or off, invert filter can be turned on or off, and data-pointer can be edited.\\
+To fully edit all conditions of a (single, not combined) condition, select a condition and press the edit button. This results in that the 'Edit condition'-window will open up for the selected condition (Figure~\ref{3_3_filter_edit}), in which the condition value type can be selected, the values can be defined, translate condition can be defined or turned on or off, invert condition can be turned on or off, and data-pointer can be edited.\\
 \\
-A data-pointer defines the 'real' value of raw data, i.e. it points towards a real value (e.g. 'KER' (Kinetic Energy Release)). This is also known as a signal. Since the data-pointer 'points' towards a signal, the edit feature of the data pointer has been constructed such that the user can select signal that the data pointer points towards by using pre-defined signals in the 'Edit filter' window.\footnote{More advanced users can have it completely editable as a text string by double-clicking the data-pointer field without opening the 'Edit filter' window, e.g. for a mathematical formula (e.g. "exp.h.det1.KER/3").}
+A data-pointer defines how the data is converted for the condition before the condition is applied onto the data\footnote{Note that this data-pointer is not linked to the plot type. E.g. a KER condition (i.e. a KER data-pointer) can be used while plotting e.q. TOF.}, i.e. it points towards a real value (e.g. 'KER' (Kinetic Energy Release)). This is also known as a signal. Since the data-pointer 'points' towards a signal, the edit feature of the data pointer has been constructed such that the user can select signal that the data pointer points towards by using pre-defined signals in the 'Edit condition' window.\footnote{More advanced users can have it completely editable as a text string by double-clicking the data-pointer field without opening the 'Edit condition' window, e.g. for a mathematical formula (e.g. "exp.h.det1.KER/3").}
+\\
+An example of a condition built upon one logical condition for e.g. a mass-spectrometry experiment is a 'hits-filter', see Figure~\ref{3_3_filter_edit}. The data pointer in the edit condition window depicted in the figure is set as 'h.det1.m2q', which means that the condition is defined as a hits condition. The value type is set as continuous with the values 24 and 26, which means that hits which have a value between 24 and 26 will be allowed through. Since 'm2q' stands for 'mass-over-charge', i.e. not raw data, it has a unit in accordance with the calibration and conversion carried out previously - in this case, in unit Daltons. The translate condition is set as 'AND', which means that in order for an event to pass through, all its hits have to have values between 24 and 26. Hence, translate condition has to be defined for hits conditions, but not for events conditions.\\
+\\
+Other translate conditions are:\\
+- 'OR' - at least one hit has to have the specified value\\
+- 'XOR' - only one hit exclusively has to have the specified value\\
+- 'HIT1' - the first hit has to have the specified value\\
+- 'HIT2' - the second hit has to have the specified value\\
+\\
+Invert filter means that the condition will be inverted, i.e. that true becomes false and false becomes true (events or hits that would have passed through will be blocked, and events or hits that would have been blocked will pass through).\\
+\\
+The filters are constructed as metadata for each experiment individually, based either on locally defined metadata and/or metadata pre-defined by the ANACONDA2's spectrometer settings (during the loading of the files). There are hard-coded built-in filters that are not connected to any experiment, which cannot be edited directly but can be added to different experiments and then edited. The filters associated with the various experiments are further on referred to as user-defined filters.
+
 
 \clearpage
 \section{Data treatment part 4: Plotting}
-The last part of data treatment is to plot the data, which can be done by using the plot section under the Plot tab in the GUI. The plot tab has 3 'sub-tabs', as can be seen in Figure~\ref{4_6_plot_tabs}: Pre-defined plots, New plot conf(igurations), and New signal conf(igurations).\\
+The goal of the 'Plot' tab is to prepare the experimental data for plotting by selecting pre-defined (common) plot configurations, or by constructing new plot configurations - either from pre-defined signals or by constructing new signals. We will now go through how to plot the data by using the GUI. The first step is always to select the experiments which are to be plotted by clicking in it/them (multi-selection is available by holding the shift-key whilst clicking on experiments). The plot tab has 3 'sub-tabs', as can be seen in Figure~\ref{4_6_plot_tabs}: Pre-defined plots, New plot conf(igurations), and New signal conf(igurations).\\
 \begin{figure}[h]
 \centering
   \includegraphics[width=0.9\textwidth]{4_6_plot_tabs}
  \caption{Plot tab's 3 sub-tabs: Pre-defined plots, New plot conf(igurations), and New signal conf(igurations).}\label{4_6_plot_tabs}
 \end{figure}\\
-In the first sub-tab, i.e. 'Pre-defined plots', the plot configurations are already set and are ready to be plotted by selecting the desired plot configuration and hitting the 'Plot' button. The second sub-tab, i.e. \\
+In the first sub-tab, i.e. 'Pre-defined plots', the plot configurations are already set and ready to be plotted by selecting the desired plot configuration and hitting the 'Plot' button.
 \\
-In order for data to be plotted, the signal(s) to be plotted and its (or their) associated metadata have to be defined, as well as their (if any) internal filters and if chosen, an external filter.
+In order for data to be plotted, the signal(s) to be plotted and its (or their) associated metadata have to be defined, as well as their (if any) internal condition and if chosen, an external condition.\\
 \\
-We will now go through how to plot the data by using the GUI. The first step is always to select the experiments which are to be plotted by clicking in it/them (multi-selection is available by holding the shift-key whilst clicking on experiments).\\
-\\
-The fastest way to look at some results is by selecting a built-in plot, which are shown when the radio-button set on 'built-in plots'. One can select to use an external filter or not, and then simply plot the data by pressing the plot button (left window in Figure~\ref{4_6_plot_tabs}).\\
+The fastest way to look at some results is by selecting a built-in plot, which are shown when the radio-button is set on 'built-in plots'. One can select to use an external condition or not, and then simply plot the data by pressing the plot button (left window in Figure~\ref{4_6_plot_tabs}).\\
 \\
 The 'pre-defined plots' sub-tab gives access to two different lists: Built-in and customized plot configurations. The built-in plots are hard-coded and loaded as standard plot types with the experiment during load, whilst the customized plots are the plots that have been constructed by the user in 'New plot conf' sub-tab. The 'New plot conf' and the 'New signal conf' sub-tabs also give access to two different lists: Built-in and customized signals. New signals can be constructed whilst customized signals can be edited and removed in the 'New signal conf' sub-tab, and new plot configurations can be constructed in the 'New plot conf' sub-tab. We will now walk through the whole process, from constructing a new signal and using the new signal to construct a new plot configuration, followed by plotting this and see if we need to do some further editing of the plot configuration.
 
@@ -268,28 +288,26 @@ When we plot this plot configuration, the result is Figure~\ref{4_11_newplot_bad
 \end{figure}
 
 \clearpage
-\section{Data treatment part 5: Plot data selection}
-The data process schematics for plotting has been illustrated in Figure~\ref{4_5_internal_plot_process}, when the plotting has started, the GUI first checks if a filter has been selected. If no, the internal filters (if any) will be used, and if yes, the selected filter will be used and then (in this version) overwrites the built-in filter. This becomes part of the experiment MetaData, which together with the selected signal(s) are plotted by the software in the way it was defined by the user in the plot configurations.
-\begin{figure}[h]
-\centering
-  \includegraphics[width=0.5\textwidth]{4_5_internal_plot_process}
- \caption{Plot process data flow schematics.}\label{4_5_internal_plot_process}
-\end{figure}\\
-In order to demonstrate how data can be selected by using various data filters, the same experiment's PEPIPICO (photo-excitation photo-ionization photo-ionization coincidence) map (m2q for HIT1 and HIT2) will be plotted three times; once without any filters applied and twice with filters applied. First we use no filter to look at the entire map in Figure~\ref{4_13_Filters}, whilst the second time we want to look at only 2 specific events (in the same plot): A kinematically incomplete detection (No. 1) and a(n) (almost) kinematically complete detection (No. 2). The third time we look at only one event, which is a kinematically complete detection (No. 3).\\
+\subsection{Plot data selection example: Pyridine}
+In order to demonstrate how data can be selected by using various data conditions, the same experiment's PEPIPICO (photo-excitation photo-ionization photo-ionization coincidence) map (m2q for HIT1 and HIT2) will be plotted three times; once without any filters applied and twice with filters applied. Note that here we used the term filter instead of filter, since we refer to the data after a condition was applied to the data, i.e. filtering.\\
+\\
+First we use no filter to look at the entire map in Figure~\ref{4_13_Filters}, whilst the second time we want to look at only 2 specific events (in the same plot): A kinematically incomplete detection (No. 1) and a(n) (almost) kinematically complete detection (No. 2). The third time we look at only one event, which is a kinematically complete detection (No. 3).\\
 \\
 The experiment we analyze was carried out at MAXLAB in 2011; pyridine studied with synchrotron radiation. In the analyzed experimental data, the energy of the photons was 399.1eV.\\
 \\
-No. 1: For the kinematically incomplete detection we want to observe the channels corresponding to N$^+$ (HIT1, m2q = 14) with C$_3$H$^+$ (HIT2, m2q = 37), which together corresponds to a detection of C$_3$H$^{++}$N and hence, a total loss of 2C and 4H. For this, we construct a combined filter with a hits condition: $13.5 < m2q < 14.5$, and an events condition: $50.5 < m2q < 51.5$. This combined filter will be named 'FiltNo1' and have an 'AND' operator, see Figure~\ref{4_13_Filters}E.\\
+No. 1: For the kinematically incomplete detection we want to observe the channels corresponding to N$^+$ (HIT1, m2q = 14) with C$_3$H$^+$ (HIT2, m2q = 37), which together corresponds to a detection of C$_3$H$^{++}$N and hence, a total loss of 2C and 4H. For this, we construct a combined condition with a hits condition: $13.5 < m2q < 14.5$, and an events condition: $50.5 < m2q < 51.5$. This combined condition will be named 'FiltNo1' and have an 'AND' operator, see Figure~\ref{4_13_Filters}E.\\
 \\
-No. 2: For the (almost) kinematically complete detection we want to observe the channels corresponding to CN$^+$ (HIT1, m2q = 26) with C$_4$H$^+$ (HIT2, m2q = 49), which together corresponds to a detection of C$_5$H$^{++}$N and hence, a total loss of 4H. For this, we construct a combined filter with a hits condition: $25.5 < m2q < 26.5$, and an events condition: $74.5 < m2q < 75.5$. This combined filter will be named 'FiltNo2' and have an 'AND' operator, see Figure~\ref{4_13_Filters}F.\\
-\begin{wrapfigure}{r}{0.33\textwidth}
+No. 2: For the (almost) kinematically complete detection we want to observe the channels corresponding to CN$^+$ (HIT1, m2q = 26) with C$_4$H$^+$ (HIT2, m2q = 49), which together corresponds to a detection of C$_5$H$^{++}$N and hence, a total loss of 4H. For this, we construct a combined condition with a hits condition: $25.5 < m2q < 26.5$, and an events condition: $74.5 < m2q < 75.5$. This combined condition will be named 'FiltNo2' and have an 'AND' operator, see Figure~\ref{4_13_Filters}F.\\
+\\
+No. 3: For the kinematically complete detection we want to observe the channels corresponding to CHN$^+$ (HIT1, m2q = 27) with C$_4$H$_4^+$ (HIT2, m2q = 52), which together corresponds to a detection of C$_5$H$_5^{++}$N and hence, no loss. For this, we construct a combined condition with a hits condition: $26.5 < m2q < 27.5$, and an events condition: $78.5 < m2q < 79.5$. This combined condition will be named 'FiltNo3' and have an 'AND' operator, see Figure~\ref{4_13_Filters}B,C.\\
+\\
+For plotting No. 1 and No. 2 together in a single plot, we have to combine their condition conditions, which we name 'FiltNo12'. This means that we combine two combined conditions with an 'OR' operator, see Figure~\ref{4_13_Filters}D and Figure~\ref{4_14_doublecomb_filt}.
+
+\begin{figure}[h]
 \centering
-  \includegraphics[width=0.33\textwidth]{4_14_doublecomb_filt}
- \caption{A two-level combined filter: Filt12 consists of the two combined filters FiltNo1 and FiltNo2, of which each consists of a hits-filter and an events-filter.}\label{4_14_doublecomb_filt}
-\end{wrapfigure}\\
-No. 3: For the kinematically complete detection we want to observe the channels corresponding to CHN$^+$ (HIT1, m2q = 27) with C$_4$H$_4^+$ (HIT2, m2q = 52), which together corresponds to a detection of C$_5$H$_5^{++}$N and hence, no loss. For this, we construct a combined filter with a hits condition: $26.5 < m2q < 27.5$, and an events condition: $78.5 < m2q < 79.5$. This combined filter will be named 'FiltNo3' and have an 'AND' operator, see Figure~\ref{4_13_Filters}B,C.\\
-\\
-For plotting No. 1 and No. 2 together in a single plot, we have to combine their filter conditions, which we name 'FiltNo12'. This means that we combine two combined filters with an 'OR' operator, see Figure~\ref{4_13_Filters}D and Figure~\ref{4_14_doublecomb_filt}.
+  \includegraphics[width=0.4\textwidth]{4_14_doublecomb_filt}
+ \caption{A two-level combined condition: Filt12 consists of the two combined conditions FiltNo1 and FiltNo2, of which each consists of a hits-condition and an events-condition. The translate condition operator between FiltNo1 and FiltNo2 is 'OR', i.e data is allowed through if either of these are fulfilled. The hits and events conditions have the 'AND' translate condition operator between them, meaning that both conditions have to be fulfilled in order to let data through.}\label{4_14_doublecomb_filt}
+\end{figure}
 
 \clearpage
 \begin{figure}[p]
@@ -299,23 +317,45 @@ For plotting No. 1 and No. 2 together in a single plot, we have to combine their
 \end{figure}
 
 \clearpage
-\section{Experiment 1: Pyridine molecules}
-- - -
+\subsection{Analysis of the plot data selection example: Pyridine}
+The PEPIPICO ion-ion coincidence experiment with pyridine has been plotted with various filters in Figure~\ref{4_13_Filters}. In subfigure A, no filters has been applied, i.e. that the full PEPIPICO map has been plotted (all collected double-coincidence events). Each tilted red bar, seen in and enhanced in subfigures C, E and F, represents different event species.\\
+\\
+Since the experiment was carried out on pyridine with a photon energy of 399.1eV, which corresponds to the Nitrogen's 1s atomic edge (meaning that a 1s electron of the Nitrogen atom has a high probability of absorbing the photon and being kicked out as a photo-electron), the probability is high for an Auger electron to be emitted as a consequence of the ionization of a core-level electron. The photo-emission of a N1s-electron followed by the emission of a N2p Auger electron has been illustrated in Figure~\ref{4_15_auger}.
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.4\textwidth]{4_15_auger}
+ \caption{Core-level ionization of a Nitrogen atom: Photo-emission of a N1s (photo)electron followed by an Auger electron. The hv* photon has not been observed experimentally, and is hence referred to as an imaginary photon. The atomic configuration (and transition) is located at each box's bottom-left corner.}\label{4_15_auger}
+\end{figure}\\
+In subfigure B of Figure~\ref{4_13_Filters}, enhanced in subfigure C, we see an event consisting of one hit with m2q = 27 Da, and a second hit with m2q = 52 Da. The total m2q becomes
+\[
+[m2q]_{event} = [m2q]_{hit 1} + [m2q]_{hit 2} = 27 + 52 Da = 79 Da.
+\]
+The mass-over-charge for a singly charged pyridine molecule is $m2q($pyridine$^+) = 79$ Da. This means that the total undetected mass (undett) following this event is
+\[
+[m2q]_{undet,C} = [m2q]_{tot} - [m2q]_{event} = 79 - 79 Da = 0.
+\]
+Hence, we see that all fragments have been collected for this event, which is referred to as being kinematically complete. A possible dissociation process is sketched in Figure~\ref{4_16_frags} for process X.
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.73\textwidth]{4_16_frags}
+ \caption{Dissociation of a pyridine molecule by double-ionizing the Nitrogen atom. Three detected events have been depicted: X, Y and Z, where X is the only event for which all fragments have been collected by the detector. In the figure, loss refers to the atoms that were not collected by the detector.}\label{4_16_frags}
+\end{figure}\\
+In subfigure D of Figure~\ref{4_13_Filters}, enhanced in subfigure E and F, we see two events. One event (subfigure E) consists of a hit with m2q = 14 and another hit with m2q = 37, resulting in that the total m2q becomes 51. The other event (subfigure F) consists of a hit with m2q = 26 Da and another hit with m2q = 49 Da, resulting in that the total m2q becomes 75. Thus, the total undetected mass for the events E and F are
+\[
+[m2q]_{undet,E} = [m2q]_{tot,E} - [m2q]_{event,E} = 79 - 51 Da = 26 Da,
+\]
+\[
+[m2q]_{undet,F} = [m2q]_{tot,F} - [m2q]_{event,F} = 79 - 75 Da = 4 Da.
+\]
+We can thus see that all fragments have not been collected for either of these events, which are hence referred to as being kinematically incomplete. Possible dissociation processes are sketched in Figure~\ref{4_16_frags} for process Y and Figure~\ref{4_16_frags} for process Z, for E and F, resp.
+
 
 \clearpage
-\section{Experiment 2: Pyridine and water clusters}
+\subsection{Analysis of the kinetic energy release (KER)}
+Plot the Dalitz plots for pyridine 399.1eV, Helium 300Vcm 40eV and Helium 400Vcm 43.5eV and talk about them a bit. What can we see and conclude? Make it short.
 
 
 \clearpage
-\section{Experiment 3: Helium}
-
-
-\clearpage
-\section*{Table ...}%%%%%%%%%%
-Table showing the meaning of e.g. m2q, m2q\_l
-
-\clearpage
-\section*{References}
 \begin{thebibliography}{9}
 
 \bibitem{Bart_Documentation}
@@ -325,8 +365,56 @@ Table showing the meaning of e.g. m2q, m2q\_l
   2nd edition,
   2018.
 
+\bibitem{Laksman_PhD_thesis}
+  Joakim Laksman,
+  \textit{Nuclear motion in molecular ions studied with synchrotron radiation and multicoincidence momentum imaging spectrometry},
+  Department of Physics at Lund University,
+  PhD thesis,
+  2012.
+
+\bibitem{Dalitz_Plots}
+  Adrian Wuthrich,
+  \textit{Dalitz Plots and Hadron Spectroscopy},
+  Faculty of Science, University of Bern,
+  MSc thesis,
+  2005.
+  
+  \bibitem{PhotoDissociation}
+  Aaron Woods Harrison,
+  \textit{Investigations of Two- and Three-Body Molecular Photodissociation Dynamics by Fast Beam Photofragment Translational Spectroscopy},
+  Graduate Division (chemistry), University of California, Berkeley,
+  PhD thesis,
+  2014.
+
+\bibitem{Benjamin_BSc_thesis}
+  Benjamin Bolling,
+  \textit{Studies of pyridine in water clusters with synchrotron radiation and 3D momentum spectrometry},
+  Department of Physics at Lund University,
+  BSc thesis,
+  2017.
+
+
+  
+
+
 \end{thebibliography}
- - Joakim Laksman phd\\
+
+
+\clearpage
+\section*{Appendix 1: Data process schematics}
+The data process schematics for plotting has been illustrated in Figure~\ref{4_5_internal_plot_process}, when the plotting has started, the GUI first checks if a condition has been selected. If no, the internal conditions (if any) will be used, and if yes, the selected condition will be used and then (in this version) overwrites the built-in filter. This becomes part of the experiment MetaData, which together with the selected signal(s) are plotted by the software in the way it was defined by the user in the plot configurations.
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.5\textwidth]{4_5_internal_plot_process}
+ \caption{Plot process data flow schematics.}\label{4_5_internal_plot_process}
+\end{figure}\\
+
+
+\clearpage
+\section*{Appendix 2: {\it ANACONDA2\/} built-in spectrometers}
+EPICEA is a spectrometer at SOLEIL.\\
+Laksman\_TOF\_e\_XY, will be Oostenrijk\_2D in the future.\\
+Laksman\_TOF, will be Laksman\_3D in the future.
 
 \end{document}
 
