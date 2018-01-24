@@ -52,7 +52,7 @@ switch general.struct.probe_field(GraphObj_md, 'show_FWHM')
 	if length(x_histbins) > 1 %More than one point can form a line:
 		h_GraphObj = plot.shadedErrorBar(h_axes, x_histbins, y_val, [dy.above, dy.below]);
 	elseif length(x_histbins) == 1 % We plot a point with errorbar:
-		h_GraphObj = errorbar(h_axes, midpoints.dim1, y_val, dy.below, dy.above);
+		h_GraphObj = errorbar(h_axes, midpoints.dim1(approved_val), y_val, dy.below, dy.above);
 	else
 		h_GraphObj = errorbar(h_axes, 0, 0);
 	end

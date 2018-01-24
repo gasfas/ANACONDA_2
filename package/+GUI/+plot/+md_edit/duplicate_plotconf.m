@@ -37,6 +37,6 @@ if length(sel_plot_conf) == 2
         GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
     end
     assignin('base', 'md_GUI', md_GUI)
-    GUI.plot.data_selection.Radiobutton_Custom;
+    GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
 end
 end

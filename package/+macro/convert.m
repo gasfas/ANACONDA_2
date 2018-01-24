@@ -27,7 +27,7 @@ for i = 1:length(detnames)
         [data_out] = macro.convert.R_theta(data_out, metadata_in, detname);
     end
     
-    % Perform the m2q labeling: 
+    % Perform the m2q : 
     if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.m2q']) && all(isfield(data_out.h.(detname), {'TOF'}))
         data_out = macro.convert.TOF_2_m2q(data_out, metadata_in, detname);
     end

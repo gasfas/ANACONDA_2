@@ -2,9 +2,11 @@ function [ factor, t0 ] = TOF_2_m2q (exp, calib_md)
 % This macro semi-automizes the calibration procedure for the TOF to m2q
 % conversion factor.
 % Input:
-% TOF_signal    The signal that will be converted to m2q
-% search_radius The search radius around which the procedure will look for
-% a peak.
+% exp		The experimental data
+% calib_md	The calibration metadata.
+% Output:
+% factor	The conversion factor
+% t0		The time-zero shift [ns].
 
 disp('This macro semi-automizes the calibration procedure for the TOF to m2q conversion factor.')
 

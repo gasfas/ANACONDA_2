@@ -16,12 +16,20 @@ function [h_GraphObj] = GraphObj(h_axes, hist, GraphObj_md)
 
 if numel(GraphObj_md) > 1
 	for i = 1:numel(GraphObj_md)
+			% Select the right axes number (if it exists):
 			if general.struct.probe_field(GraphObj_md(i), 'ax_nr')
 				ax_nr = GraphObj_md.ax_nr(i);
 			else
-				ax_nr = i;
+				ax_nr = 1;
 			end	
-		h_GraphObj(i) = macro.hist.create.GraphObj(h_axes(ax_nr), hist(i), GraphObj_md(i));
+			% And the right histogram number (if it exists):
+			if numel(hist) >i
+				hist_nr = i;
+			else
+				hist_nr = 1;
+			end
+		% The graphical object handles are stored in a cell:
+		h_GraphObj{i} = macro.hist.create.GraphObj(h_axes(ax_nr), hist(hist_nr), GraphObj_md(i));
 	end
 else
 
