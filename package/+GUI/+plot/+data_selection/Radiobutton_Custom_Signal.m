@@ -21,12 +21,15 @@ end
 try md_GUI.mdata_n.([char(exp_names(1))]).plot.signal.user;
     signals_list = fieldnames(md_GUI.mdata_n.([char(exp_names(1))]).plot.signal.user);
     set(UIPlot.new_signal.edit_signal, 'Enable', 'on');
+    set(UIPlot.new_signal.duplicate_signal, 'Enable', 'on');
     set(UIPlot.new_signal.remove_signal, 'Enable', 'on');
+    set(UIPlot.new_signal.signals_list, 'Enable', 'on');
     UIPlot.new_signal.signals_list.Value = 1;
     set(UIPlot.new_signal.signals_list, 'String', signals_list)
 catch
     UIPlot.new_signal.signals_list.String = '-';
     UIPlot.new_signal.signals_list.Value = 1;
+    set(UIPlot.new_signal.duplicate_signal, 'Enable', 'off');
     set(UIPlot.new_signal.signals_list, 'Enable', 'off');
     set(UIPlot.new_signal.edit_signal, 'Enable', 'off');
     set(UIPlot.new_signal.remove_signal, 'Enable', 'off');

@@ -42,8 +42,7 @@ elseif md_GUI.UI.UIPlot.new_signal.signals_radiobutton_customized.Value == 1
     prev_customized_signals(length(prev_customized_signals)+1) = new_signal_conf_name;
     md_GUI.UI.UIPlot.new_signal.signals_list.String = prev_customized_signals;
 end
+md_GUI.UI.UIPlot.new_signal.signals_radiobutton_customized.Value = 1;
 assignin('base', 'md_GUI', md_GUI)
-if md_GUI.UI.UIPlot.new_signal.signals_radiobutton_customized.Value == 1
-    GUI.plot.data_selection.Radiobutton_Custom_Signal;
-end
+GUI.plot.data_selection.Radiobutton_Custom_Signal;
 end

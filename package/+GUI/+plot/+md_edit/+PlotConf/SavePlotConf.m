@@ -120,20 +120,20 @@ if ~isempty(newPlotConfName)
         else % For now use 1st one - could be collision if plot type names are same for e.g. an electron detector and an ion detector of an experiment.
             det_plottype_x = char(list_names_det_x(1));
         end
-        try
-            if length(list_names_det_y) == 1
-                det_plottype_y = char(list_names_det_y);
-            else % For now use 1st one - could be collision if plot type names are same for e.g. an electron detector and an ion detector of an experiment.
-                det_plottype_y = char(list_names_det_y(1));
+        if signal_y_exist == 1
+            try
+                if length(list_names_det_y) == 1
+                    det_plottype_y = char(list_names_det_y);
+                else % For now use 1st one - could be collision if plot type names are same for e.g. an electron detector and an ion detector of an experiment.
+                    det_plottype_y = char(list_names_det_y(1));
+                end
+            catch
+                if numberofdetectors == 1
+                    det_plottype_y = [hr_detname_found_y, '.', signal_y];
+                elseif numberofdetectors > 1
+                    signal_y_exist = 0;
+                end
             end
-        catch
-            %try
-            if numberofdetectors == 1
-                det_plottype_y = [hr_detname_found_y, '.', signal_y];
-            elseif numberofdetectors > 1
-                signal_y_exist = 0;
-            end
-            %end
         end
         typesplit_x = strsplit(det_plottype_x, '.');
         if length(typesplit_x) == 2
@@ -185,7 +185,7 @@ if ~isempty(newPlotConfName)
                     try
                         d1.([signal_x, '_intensity'])                   = metadata.create.plot.signal_2_plot({signals.(exp_name).(signal_x)});
                         d1.([signal_x, '_intensity']).GraphObj.SizeData = 150;
-                        macro.plot.create.plot(md_GUI.data_n.(exp_name), d1.([signal_x, '_intensity']));
+                        md_GUI.mdata_n.(exp_name).plot.user.(detname).(char(newPlotConfName)) = d1.([signal_x, '_intensity']);
                     catch
                         GUI.log.add(['GUI.plot.create.Plot: Could not plot ', exp_name,' - data error: Could not plot only [ ', signal_x '?].'])
                     end

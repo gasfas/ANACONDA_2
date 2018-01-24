@@ -16,7 +16,14 @@ TargetName = TargetNode.Name;
 SourceName = SourceNode.Name;
 md_GUI = evalin('base', 'md_GUI');
 % Check destination if it is an experiment:
-NameOfTargetParent = TargetNode.Parent.Name;
+try
+    NameOfTargetParent = TargetNode.Parent.Name;
+    errorval = 0;
+catch
+    GUI.log.add('Please drag-and-drop directly on the text.')
+    errorval = 1;
+end
+if errorval == 0
 NameOfSourceParent = SourceNode.Parent.Name;
 NameOfSourceParentParent = SourceNode.Parent.Parent.Name;
 if strcmp(TargetName, 'Filter')
@@ -160,5 +167,6 @@ else
             end
             assignin('base', 'md_GUI', md_GUI)
     end
+end
 end
 end

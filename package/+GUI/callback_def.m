@@ -107,7 +107,11 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.plot.md_edit.new_signals.duplicate_signal;
     end
     function new_signal_conf(hObject, eventdata)
-        GUI.plot.md_edit.new_signals.new_signal;
+        try
+            GUI.plot.md_edit.new_signals.new_signal;
+        catch
+            GUI.log.add('New signal construction terminated.');
+        end
     end
     function edit_signal_conf(hObject, eventdata)
         GUI.plot.md_edit.new_signals.edit_signal;

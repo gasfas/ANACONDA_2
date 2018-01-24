@@ -47,31 +47,33 @@ function [] = Rename_Filter(~)
             UI = md_GUI.UI.UIFilter;
             OldName = UI.Tree.SelectedNodes.Name;
             NewName = inputdlg('Select the new filter name.', 'New Filter name', 1, {char(OldName)});
-            NewName = char(NewName);
-            if strcmp(NewName, OldName)
-                % Old name is same as new name - show as message.
-                %% Message to log_box
-                GUI.log.add(['New name is the same as the old name.'])
-            elseif strcmp(NewName, 'operator') || strcmp(NewName, 'operators')
-                % Do nothing since 'operator' or 'operators' as name will result in an error.
-                %% Message to log_box
-                GUI.log.add(['New name of filter cannot be [ operator ] nor [ operators ].'])
-            else
-                parentpath = strsplit(exp_part, '.');
-                pathdepth = length(parentpath);
-                newpath = strsplit(exp_part, char(parentpath(pathdepth)));
-                newpath = char(newpath(1));
-                newpath = [newpath, NewName];
-                md_GUI.mdata_n.(exp_name).cond = general.struct.setsubfield(md_GUI.mdata_n.(exp_name).cond, newpath, base_value);
-                FieldToRmvCell = strsplit(exp_part, '.');
-                if length(FieldToRmvCell) == 1
-                    md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+            if ~isempty(NewName)
+                NewName = char(NewName);
+                if strcmp(NewName, OldName)
+                    % Old name is same as new name - show as message.
+                    %% Message to log_box
+                    GUI.log.add(['New name is the same as the old name.'])
+                elseif strcmp(NewName, 'operator') || strcmp(NewName, 'operators')
+                    % Do nothing since 'operator' or 'operators' as name will result in an error.
+                    %% Message to log_box
+                    GUI.log.add(['New name of filter cannot be [ operator ] nor [ operators ].'])
                 else
-                    md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+                    parentpath = strsplit(exp_part, '.');
+                    pathdepth = length(parentpath);
+                    newpath = strsplit(exp_part, char(parentpath(pathdepth)));
+                    newpath = char(newpath(1));
+                    newpath = [newpath, NewName];
+                    md_GUI.mdata_n.(exp_name).cond = general.struct.setsubfield(md_GUI.mdata_n.(exp_name).cond, newpath, base_value);
+                    FieldToRmvCell = strsplit(exp_part, '.');
+                    if length(FieldToRmvCell) == 1
+                        md_GUI.mdata_n.(exp_name).cond = rmfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+                    else
+                        md_GUI.mdata_n.(exp_name).cond = general.struct.rmsubfield(md_GUI.mdata_n.(exp_name).cond, exp_part);
+                    end
+                    %% Message to log_box
+                    GUI.log.add(['Filter was renamed from [ ', OldName, ' ] to [ ', NewName, ' ].'])
+                    UI.Tree.SelectedNodes.Name = NewName;
                 end
-                %% Message to log_box
-                GUI.log.add(['Filter was renamed from [ ', OldName, ' ] to [ ', NewName, ' ].'])
-                UI.Tree.SelectedNodes.Name = NewName;
             end
         end
     end
