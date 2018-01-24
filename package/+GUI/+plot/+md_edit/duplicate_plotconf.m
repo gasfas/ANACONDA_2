@@ -33,10 +33,10 @@ if length(sel_plot_conf) == 2
             md_GUI.mdata_n.([char(exp_names(ly))]).plot.user.(['det', num2str(detnr)]).(newname) = md_GUI.mdata_n.([char(exp_names(ly))]).plot.user.(['det', num2str(detnr)]).(sel_plot_conf);
         end
     end
-    if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
-        GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
+    if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 0
+        md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value = 1;
     end
+    GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
     assignin('base', 'md_GUI', md_GUI)
-    GUI.plot.data_selection.Radiobutton_Custom;
 end
 end

@@ -127,11 +127,13 @@ if ~isempty(newPlotConfName)
                 det_plottype_y = char(list_names_det_y(1));
             end
         catch
+            %try
             if numberofdetectors == 1
                 det_plottype_y = [hr_detname_found_y, '.', signal_y];
             elseif numberofdetectors > 1
                 signal_y_exist = 0;
             end
+            %end
         end
         typesplit_x = strsplit(det_plottype_x, '.');
         if length(typesplit_x) == 2
