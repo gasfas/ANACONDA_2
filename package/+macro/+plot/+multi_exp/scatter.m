@@ -34,7 +34,7 @@ C			= NaN * zeros(length(expnames), 1);
 % Apply conditions if they are defined:
 
 for i = 1:length(expnames)
-	expname = expnames{i};
+	expname = expnames{i}
 	exp		= exps.(expname);
 	exp_md	= mds.(expname);
 	X(i)		= eval(x_pointer);

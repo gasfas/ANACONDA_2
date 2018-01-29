@@ -24,7 +24,7 @@ for i = 1:length(detnames)
 	for signal_name = signal_names
 		SN_char		= signal_name{:};
 		% shuffle the data by shifting the hits one or several rows down, and the first hit(s) to become the last:
-		data_out.h.(detname).([SN_char '_bgr']) = [data_shuffled, shuffle_idx] = general.vector.shuffle(data_out.h.(detname).(SN_char));
+		data_out.h.(detname).([SN_char '_bgr']) = general.vector.shuffle(data_out.h.(detname).(SN_char));
 		if any(strcmp(SN_char, {'TOF', 'm2q'}))
 			% These signals have, by definition, the size of the hits ordered:
 			data_out.h.(detname).([SN_char '_bgr']) = convert.sorted_hits(data_out.h.(detname).([SN_char '_bgr']), data_out.e.raw(:,detnr), 'ascend');

@@ -7,8 +7,13 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
  
  [dir, file, ext] = fileparts(filename);
 
- if ~strcmp(file(1:3), 'md_')
-     file = ['md_' file];
+ try 
+	 is_md_prefix = strcmp(file(1:3), 'md_');
+ catch
+	 is_md_prefix = false;
+ end
+ if ~is_md_prefix
+	file = ['md_' file];
  end
 
 switch ext % If the extension is a known one, we try those:

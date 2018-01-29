@@ -1,14 +1,15 @@
-function [ noise_fraction ] = shuffle_signal(exp, md)
+function [ noise_fraction, exp_shuffled ] = shuffle_signal(exp, md)
 % This macro verifies the data conversion and gives an estimate for the
 % amount of false coincidences by shuffling the raw data and treating
 % it, subsequently comparing it to the results from the original data.
 % Input:
 % exp		The experimental data
-% calib_md	The calibration metadata.
+% md		The metadata.
 % Output:
 % 
 
 calib_md = md.calib.signal_shuffle;
+det_md	 = md.det;
 
 % Fetch the data pointers of the raw data to convert:
 exp_unshuffled	= exp;
@@ -20,11 +21,21 @@ detnr			= calib_md.detnr;
 for i = detnr
 	detname = ['det' num2str(detnr)];
 	raw_shuffled					= general.vector.shuffle(exp_shuffled.h.(detname).raw, calib_md.shuffle);
+
 	exp_shuffled.h.(detname)		= [];
 	exp_shuffled.h.(detname).raw	= raw_shuffled;
+
+	try
+		TOF_or_m2q_idx = contains(det_md.(detname).signals,{'TOF', 'm2q'});
+		if any(TOF_or_m2q_idx) % These (TOF, m2q) signals have, by definition, the size of the hits ordered:
+			exp_shuffled.h.(detname).raw(:,TOF_or_m2q_idx) = ...
+				convert.sorted_hits(exp_shuffled.h.(detname).raw(:,TOF_or_m2q_idx), exp_shuffled.e.raw(:,detnr), 'ascend');
+		end
+	end
+
 end
 
-% Correct and convert:
+% Correct and convert the newly shuffled data:
 exp_shuffled = macro.all(exp_shuffled, md, {'correct', 'convert'});
 
 % compare the unshuffled and shuffled:
