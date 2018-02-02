@@ -36,4 +36,5 @@ switch md.method
 		shuffle_idx = sub2ind([M,N],repmat(randomizedRowIndex, [1, N]), ColIndex);
 		data_shuffled = data_in(shuffle_idx);
 end
+
 end

@@ -5,7 +5,9 @@ function save_exp(exp, dir, b_fn)
 %   dir     = the full directory to where the *.mat file should be stored.
 %   b_fn    = The bare filename, without extensions or prefixes.
 
-if strcmpi(b_fn(end-3:end), '.mat')
+[~, ~, ext] =  fileparts(b_fn);
+
+if strcmpi(ext, '.mat')
 	savename = fullfile(dir, b_fn);
 else
 	savename = fullfile(dir, [b_fn '.mat']);

@@ -21,8 +21,16 @@ for i = 1:2
 	plot_md.(coor).axes.Position = ax(i).Position;
 	ax(i) = macro.plot.fill.ax(ax(i), plot_md.(coor).axes);
 	
-	% Calculate the histogram:
-	histogram	= macro.hist.create.hist(exp, plot_md.(coor).hist, filt);
+	if isfield(plot_md.(coor), 'cond')
+		% Calculate the filter from a condition:
+		[e_filter, exp]	= macro.filter.conditions_2_filter(exp, plot_md.(coor).cond);
+		% Calculate the histogram with the filter:
+		histogram	= macro.hist.create.hist(exp, plot_md.(coor).hist, e_filter);
+	else
+		% Calculate the histogram:
+		histogram	= macro.hist.create.hist(exp, plot_md.(coor).hist);
+	end
+
 	% And plot the Graphical Object in it:
 	h_GraphObj	= macro.hist.create.GraphObj(ax(i), histogram, plot_md.(coor).GraphObj);
 	

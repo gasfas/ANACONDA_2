@@ -50,6 +50,11 @@ for plotnr = 1:rows*cols
     if plot_circle(plotnr) % If we need to plot a reference circle in the plot:
         circle_radius = (0:0.2:1) * min([plot_metadata.x_range plot_metadata.y_range]); 
         plot.circle(gca, 0, 0, circle_radius, [1 1 1]);
+	else % we plot a rectangular grid:
+		plot.grid([ax.XLim(1), ax.YLim(1)], ...
+					[ax.XLim(1), ax.YLim(2)], ...
+					[ax.XLim(2), ax.YLim(1)], ...
+					[ax.XLim(2), ax.YLim(2)], 10, 10, 'Color', 'w', 'LineWidth', 0.1);
 	end
 end
 subplot(rows,cols,ceil(cols/2))
