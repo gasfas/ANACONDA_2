@@ -15,25 +15,33 @@
 function [ ] = UnLoadFile(UILoad, UIPlot, UIFilter)
 md_GUI = evalin('base', 'md_GUI');
 if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
-    NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
     String_LoadedFiles = md_GUI.UI.UILoad.LoadedFiles.String;
-    for nn = (md_GUI.UI.UILoad.LoadedFiles.Value + 1):NumberOfLoadedFiles
-        String_LoadedFiles(nn-1) = String_LoadedFiles(nn);
-        md_GUI.data_n.(['exp', int2str(nn-1);]) = md_GUI.data_n.(['exp', int2str(nn)]);
-        md_GUI.mdata_n.(['exp', int2str(nn-1);]) = md_GUI.mdata_n.(['exp', int2str(nn)]);
-        md_GUI.load.exp_names(nn-1) = md_GUI.load.exp_names(nn);
-    end
-    %Remove last field (since all other fields have 'moved up 1 step')
-    NumberOfLoadedFiles_str = int2str(NumberOfLoadedFiles);
-    for nk = 1:(NumberOfLoadedFiles-1)
-       String_LoadedFilesNew(nk) = String_LoadedFiles(nk);
-       nkk = int2str(nk);
-        data_n_new.(['exp', nkk]) = md_GUI.data_n.(['exp', nkk]);
-        mdata_n_new.(['exp', nkk]) = md_GUI.mdata_n.(['exp', nkk]);
-        exp_names_new(nk) = md_GUI.load.exp_names(nk);
+    Val_Files2Unload = md_GUI.UI.UILoad.LoadedFiles.Value; % These will be unloaded.
+    NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
+    newNumberOfLoadedFiles = NumberOfLoadedFiles - length(Val_Files2Unload);
+    exps = fieldnames(md_GUI.mdata_n);
+    String_Exps2Unload = exps(Val_Files2Unload);
+    expnum = 0;
+    null = 1;
+    for nnx = 1:NumberOfLoadedFiles
+        TF = contains(String_Exps2Unload, char(exps(nnx)));
+        if sum(TF) == 0 % Then the exp will not be unloaded -> has to remain in memory; copy it.
+            expnum = expnum + 1;
+            String_Files2Keep(expnum) = String_LoadedFiles(nnx);
+            data_n_new.(['exp', int2str(expnum);]) = md_GUI.data_n.(['exp', int2str(nnx)]);
+            mdata_n_new.(['exp', int2str(expnum);]) = md_GUI.mdata_n.(['exp', int2str(nnx)]);
+            exp_names_new = md_GUI.load.exp_names(nnx);
+            null = 0;
+        end
     end
     % If there are no more files to unload - reset GUI parameters.
-    if length(md_GUI.UI.UILoad.LoadedFiles.String) == 1
+    if null == 0
+        md_GUI.data_n = data_n_new;
+        md_GUI.mdata_n = mdata_n_new;
+        md_GUI.load.exp_names = exp_names_new;
+        set(UILoad.LoadedFiles, 'String', String_Files2Keep);
+        set(UIPlot.LoadedFilesPlotting, 'String', String_Files2Keep);
+    else
         set(UILoad.LoadedFiles, 'Enable', 'off');
         set(UIPlot.new.y_signals_checkbox, 'Enable', 'off');
         set(UIPlot.new.signals_list, 'Enable', 'off');
@@ -50,25 +58,19 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.new_signal.remove_signal, 'Enable', 'off');
         set(UIPlot.def.PlotButton, 'Enable', 'off');
         set(UIPlot.def.Popup_plot_type, 'Enable', 'off');
-        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off')
-        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off')
+        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off');
+        set(UIPlot.def.pre_def_plot_radiobutton_customized, 'Enable', 'off');
         set(UIPlot.def.Popup_plot_type, 'String', '-');
         set(UIPlot.LoadedFilesPlotting, 'Enable', 'off');
         set(UILoad.LoadedFiles, 'String', '-');
         set(UILoad.LoadedFiles, 'Enable', 'off');
         set(UIPlot.LoadedFilesPlotting, 'String', '-');
         set(UIPlot.LoadedFilesPlotting, 'Enable', 'off');
-        set(UIPlot.new.PlotButton, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'Enable', 'off')
-        set(UIPlot.Popup_Filter_Selection, 'String', '-')
-        set(UIPlot.Popup_Filter_Selection, 'Value', 1)
-        set(UIPlot.def.PlotConfDuplButton, 'Enable', 'off')
-    else
-        md_GUI.data_n = data_n_new;
-        md_GUI.mdata_n = mdata_n_new;
-        md_GUI.load.exp_names = exp_names_new;
-        set(UILoad.LoadedFiles, 'String', String_LoadedFilesNew);
-        set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFilesNew);
+        set(UIPlot.new.PlotButton, 'Enable', 'off');
+        set(UIPlot.Popup_Filter_Selection, 'Enable', 'off');
+        set(UIPlot.Popup_Filter_Selection, 'String', '-');
+        set(UIPlot.Popup_Filter_Selection, 'Value', 1);
+        set(UIPlot.def.PlotConfDuplButton, 'Enable', 'off');
     end
     set(UILoad.LoadedFiles, 'Value', 1);
     set(UIPlot.LoadedFilesPlotting, 'Value', 1);
