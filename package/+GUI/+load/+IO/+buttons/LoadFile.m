@@ -20,7 +20,9 @@ function [ ] = LoadFile(UILoad, UIPlot, UIFilter)
 md_GUI = evalin('base', 'md_GUI');
 %% Get names and dir
 folder_name = md_GUI.load.folder_name;
-fileselected = md_GUI.UI.UILoad.ListOfFilesInFolder.String(md_GUI.UI.UILoad.ListOfFilesInFolder.Value);
+files_selected = md_GUI.UI.UILoad.ListOfFilesInFolder.String(md_GUI.UI.UILoad.ListOfFilesInFolder.Value);
+for fls = 1:length(files_selected)
+fileselected = files_selected(fls);
 NumberOfLoadedFiles = length(md_GUI.UI.UILoad.LoadedFiles.String);
 fullfilepath = char(fullfile(folder_name, fileselected));
 [dir, filename, ext] = fileparts(fullfile(fullfilepath));
@@ -102,13 +104,14 @@ catch
     informationbox = sprintf([filesextratext, filename, '\nExperiment: exp', num2str(NumberOfLoadedFiles+1), '\nNo info found.']);
 end
 set(UILoad.SelectedFileInformation, 'String', informationbox);
-assignin('base', 'md_GUI', md_GUI)
 disp('Log: Finished loading file.')
 set(UILoad.LoadedFiles, 'String', String_LoadedFiles);
 set(UILoad.LoadedFiles, 'Enable', 'on');
 set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFiles);
 set(UIPlot.LoadedFilesPlotting, 'Enable', 'on');
 GUI.log.add(['File loaded: exp', num2str(NumberOfLoadedFiles+1), ', ', char(filename)])
+end
+assignin('base', 'md_GUI', md_GUI)
 end
 
 function [exp_md, islocal, md_loading_message] = read_local_md(dir, filename, md_GUI)

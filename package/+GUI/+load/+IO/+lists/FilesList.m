@@ -11,7 +11,15 @@
 %% FilesList function
 function [ ] = FilesList(hObject, eventdata, UILoad)
 md_GUI = evalin('base', 'md_GUI');
+fileselected = md_GUI.UI.UILoad.ListOfFilesInFolder.String(md_GUI.UI.UILoad.ListOfFilesInFolder.Value);
 % Message to log_box
-GUI.log.add(['File selected: ', char(md_GUI.UI.UILoad.ListOfFilesInFolder.String(md_GUI.UI.UILoad.ListOfFilesInFolder.Value))])
+for lx = 1:length(fileselected)
+    if lx == 1
+        fileselmsg = char(fileselected(lx));
+    else
+        fileselmsg = [fileselmsg, ' & ', char(fileselected(lx))];
+    end
+end
 assignin('base', 'md_GUI', md_GUI);
+GUI.log.add(['File(s) selected: ', fileselmsg])
 end
