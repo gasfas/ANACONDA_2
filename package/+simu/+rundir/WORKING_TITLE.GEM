@@ -1,6 +1,6 @@
 ; GEM file, automatically created from the MATLAB function write_GEM_file. 
 ; written on: [Year month day hour min sec] 
-; 2017             11             20             19              3      49.353906
+; 2018              2              1             15             46       0.714026
 pa_define(900, 150, 1, cylindrical, None, Electrostatic) 
 locate (200.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00) 
 { 

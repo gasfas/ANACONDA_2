@@ -27,6 +27,14 @@ for i = 1:length(detnames)
         % execute the center correction of the detector image:
         data_out.h.(detname).X = data_in.h.(detname).raw(:,idx_X) - metadata_in.corr.(detname).dX;
         data_out.h.(detname).Y = data_in.h.(detname).raw(:,idx_Y) - metadata_in.corr.(detname).dY;
+		
+		% Does the user want to 'flip' or invert the coordinate:
+		if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.flipX')
+			data_out.h.(detname).X = -data_out.h.(detname).X;
+		end
+		if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.flipY')
+			data_out.h.(detname).Y = -data_out.h.(detname).Y;
+		end		
 
         disp(['Log: Detector image translation correction performed on ' detname])
         % add the correction name to the log:

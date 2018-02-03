@@ -47,7 +47,10 @@ else
 
 	GraphObj_md = rmfield(GraphObj_md, 'Type');
 
-	h_GraphObj = general.handle.fill_struct(h_GraphObj, GraphObj_md);
+	% Fill up the handle with the struct fields:
+	if ~isempty(h_GraphObj)
+		h_GraphObj = general.handle.fill_struct(h_GraphObj, GraphObj_md);
+	end
 		
 		if isfield(GraphObj_md, 'view')% If the view is defined:
 			try 

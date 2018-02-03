@@ -18,7 +18,19 @@ function [h_figure, h_axes, h_GraphObj, exp] = plot(varargin)
 exp		= varargin{1};
 plot_md	= varargin{2};
 
+% Create empty fields if nothing is specified:
+if ~isfield(plot_md, 'figure')
+	plot_md.figure = [];
+end
+if ~isfield(plot_md, 'axes')
+	plot_md.axes = [];
+end
+if ~isfield(plot_md, 'GraphObj')
+	plot_md.GraphObj = [];
+end
+
 % Create the new figure:
+
 if isempty(h_figure)
 	h_figure	= macro.plot.create.fig(plot_md.figure);
 else

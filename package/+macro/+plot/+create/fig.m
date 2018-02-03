@@ -15,5 +15,7 @@ if numel(fig_md)>1
 else
 	% Create the new figure:
 	h_figure = figure;
+if ~isempty(fig_md)
 	h_figure = general.handle.fill_struct(h_figure, fig_md);
+end
 end

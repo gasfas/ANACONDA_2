@@ -50,8 +50,9 @@ else
 			h_axes = axes('Parent', h_figure);
 	end
 	% Copy the axes values into the handle:
-	h_axes = macro.plot.fill.ax(h_axes, axes_md);
-
+	if ~isempty(axes_md)
+		h_axes = macro.plot.fill.ax(h_axes, axes_md);
+	end
 end
 
 end

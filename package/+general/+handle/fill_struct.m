@@ -32,8 +32,8 @@ if ~isempty(struct(1)) && ishandle(handle(1))
 	% Filter the fieldnames that are the same:
 	sim_fn = h_fn(loc_h);
 	for i = 1:length(sim_fn)
-		if ~any(strcmp(sim_fn{i}, read_only_fields))
-			if any(ishandle(handle(1).(sim_fn{i}))) & ~isnumeric(handle(1).(sim_fn{i}))
+		if ~any(strcmp(sim_fn{i}, read_only_fields)) % check it is not a read-only field
+			if any(ishandle(handle(1).(sim_fn{i}))) & ~isnumeric(handle(1).(sim_fn{i})) % See if it is a substruct/field
 				% Overwrite the found subfield:
 				for h_nr = 1:nof_h
 					structnr = min(length(struct), h_nr);

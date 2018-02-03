@@ -1,6 +1,6 @@
 -- LUA file, automatically created from the MATLAB function write_GEM_file. 
 -- written on: [Year month day hour min sec] 
--- 2017             11             20             19              3      49.360592
+-- 2018              2              1             15             46        0.73969
 simion.workbench_program() 
 -- called on PA initialization 
 function segment.init_p_values() 

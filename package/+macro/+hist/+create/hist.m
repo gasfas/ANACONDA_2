@@ -5,6 +5,7 @@ function [histogram] = hist(exp, hist_md, e_filter)
 % exp		struct, The experiment metadata, with field 'e' (events), 'h' (hits) and subfields.
 % hist_md	struct, The histogram metadat, with field 'pointer' (data
 %			pointing to data in exp), 'Range' and 'binsize'.
+% e_filter  (optional) event (logical) filter
 % Outputs:
 % histogram	struct, containing the fields 'Count' (the histogram matrix),
 %			and 'midpoints', giving the midpoints in each dimension.
