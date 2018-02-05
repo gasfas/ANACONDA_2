@@ -124,7 +124,7 @@ switch general.struct.probe_field(condition, 'value_type')
 	switch data_form
 		case 'hits'% Hits. We have to translate the hit filter to an event filter
 			if ~isfield(condition, 'translate_condition')
-				warning(['no translate condition given at data pointer ' condition.data_pointer ' ''OR'' is used'])
+				disp(['Warning: no translate condition given at data pointer ' condition.data_pointer ' ''OR'' is used'])
 				condition.translate_condition = 'OR';
 			end
 			translate_condition = condition.translate_condition;

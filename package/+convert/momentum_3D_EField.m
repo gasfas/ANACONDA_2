@@ -52,7 +52,7 @@ TOF_no_dp    = labels_TOF_no_p;  % [m, 1]
 try
 	[X_0, Y_0, T_0] = convert.zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md);
 catch % If some values are not given, we don't perform the MB correction:
-	warning('Molecular beam momentum correction not performed')
+	disp('Molecular beam momentum correction not performed')
 		% The most probable velocities are calculated for all the labels:
 	v_p                 = 0;
 	% The radii where the these velocity/mass particles will splat:
