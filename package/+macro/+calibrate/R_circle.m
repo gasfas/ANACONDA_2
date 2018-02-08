@@ -19,18 +19,28 @@ if general.struct.probe_field(calib_md, 'ifdo.plot')
 	[h_fig, h_ax] = macro.plot.create.plot(exp, calib_md.plot);
 end
 
+
 %% Region of interest:
 % Fetch and visualize the field of interest
 % There can be multiple separate radial ROI's defined:
 ROI_th	= plot_md.hist.Range(1,:);
 ROI_R	= sort(calib_md.ROI,1);
+
+% Check if the peak type is specified:
+if ~general.struct.issubfield(calib_md, 'PeakType')
+	calib_md.PeakType		= cell(1, size(ROI_R, 1));
+	calib_md.PeakType(:)	= {'Peak'};
+elseif length(calib_md.PeakType) < size(ROI_R, 1) % Not enough peaktypes given:
+	calib_md.PeakType(end+1:size(ROI_R, 1)) = {'Peak'};
+end
+
 if general.struct.probe_field(calib_md, 'ifdo.plot') && general.struct.probe_field(calib_md, 'ifdo.show_patch')
 	% Visualize the Region of interest:
-	for i = 1:size(ROI_R, 1)
+	for j = 1:size(ROI_R, 1)
 		hold on;
 		th	= ROI_th([1 2 2 1]);
-		R	= ROI_R(i, [1 1 2 2]);
-		hpatch = patch(h_ax, th, R, plot.colormkr(i,1));
+		R	= ROI_R(j, [1 1 2 2]);
+		hpatch = patch(h_ax, th, R, plot.colormkr(j,1));
 		set(hpatch, 'FaceAlpha', '0.2')
 	end
 end
@@ -50,24 +60,31 @@ for i = 1:size(ROI_R, 1)
 % 	.Counthist.H_2D(exp .theta, exp.R, th_bins, R_bins);
 
 	% median filter (if requested):
-	try 
-		Count_ROI = medfilt2(Count_ROI, [calib_md.medfilt_theta, calib_md.medfilt_R]);
-	catch
-		disp('no median filter applied')
+	if isfield(calib_md, 'medfilt_theta') && isfield(calib_md, 'medfilt_R')
+		try 
+			Count_ROI_f = medfilt2(Count_ROI, [calib_md.medfilt_theta(i), calib_md.medfilt_R(i)]);
+		catch
+			Count_ROI_f = medfilt2(Count_ROI, [calib_md.medfilt_theta, calib_md.medfilt_R]);
+		end
 	end
 	%% Peak finding
-	% Calculate the average value in the histogram, to force all the radial
-	% peak points to line up with:
-	[~,R_avg(i+1)] = findpeaks(sum(Count_ROI, 1), R, 'NPeaks',1, 'SortStr', 'descend');
 
-	% apply a median filter:
-	R_filter_width = floor(calib_md.filter_width./plot_md.hist.binsize(2));
-	Count_ROI_f = medfilt2(Count_ROI, [1, R_filter_width]);
-
-	% Now we perform a two-dimensional peak finding (maximum) to find the correction
-	% factor for different theta values:
-	[~, idx]		= max(Count_ROI_f, [], 2);
-	R_maxs(:,i+1)	= R_bins(idx+1);
+	switch calib_md.PeakType{i}
+		case {'Peak', 'peak'}
+			% Now we perform a two-dimensional peak finding (maximum) to find the correction
+			% factor for different theta values:
+			max(Count_ROI_f, [], 2)./mean(Count_ROI_f, 2);
+			[~, idx]		= max(Count_ROI_f, [], 2);
+			R_maxs(:,i+1)	= R_bins(idx+1);
+			% Calculate the average value in the histogram, to force all the radial
+			% peak points to line up with:
+			[~,R_avg(i+1)]	= findpeaks(sum(Count_ROI, 1), R, 'NPeaks',1, 'SortStr', 'descend');
+		case {'Edge', 'edge'}
+			Diff_ROI_f		= diff(Count_ROI_f, 1, 2);
+			[~, idx]		= max(abs(Diff_ROI_f), [], 2);
+			R_maxs(:,i+1)	= R_bins(idx+1);
+			R_avg(i+1)		= mean(R_maxs(:,i+1));
+	end
 end
 
 % To prevent extrapolation problems, we add R = 2*max(R_avg) point:

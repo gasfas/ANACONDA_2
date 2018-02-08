@@ -43,7 +43,7 @@ event_hitnr_filter	= filter.events.multiplicity(events, hitnr, Inf, nof_hits);
 hitnr_idx = events(event_hitnr_filter) + hitnr - 1;
 % Initiate a new hit filter
 hit_filter_2 = false(size(hit_filter));
-% Fill in the hits that are approved by the hit filter, and are hit nr 3:
+% Fill in the hits that are approved by the hit filter, and are hitnr:
 hit_filter_2(hitnr_idx) = hit_filter(hitnr_idx);
 % Now convert this hit filter to an event filter:
 event_filter = select_condition(hit_filter_2, events, nof_hits, 'XOR');

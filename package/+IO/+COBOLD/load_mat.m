@@ -11,8 +11,15 @@ ion		= load(ions_path);	% read the ion datafile
 exp.e.raw = [events.d.Var4+1 events.d.Var3+1];
 
 % Fill in electron data: (format [x, y, TOF])
-exp.h.det1.raw = [el.d.Var1 el.d.Var2 el.d.Var3];
+try
+	exp.h.det1.raw = [el.d.Var1 el.d.Var2 el.d.Var3];
+catch
+	exp.h.det1.raw = double.empty(0, 3);
+end
 
 % Fill in ion data: (format [x, y, TOF])
-exp.h.det2.raw = [ion.d.Var1 ion.d.Var2 ion.d.Var3];
+try 
+	exp.h.det2.raw = [ion.d.Var1 ion.d.Var2 ion.d.Var3];
+catch
+	exp.h.det2.raw = double.empty(0, 3);
 end

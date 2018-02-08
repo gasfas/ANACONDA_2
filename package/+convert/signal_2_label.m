@@ -40,7 +40,7 @@ l_hit_location                      = ~unlabeled_hit_location;
 labeled_s(unlabeled_hit_location)   = NaN;
 
 if ~any(l_hit_location)
-    warning('no hit was identified by the given labels')
+    disp('warning: no hit was identified by the given labels')
 end
 end
 

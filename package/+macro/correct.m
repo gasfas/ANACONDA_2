@@ -1,7 +1,8 @@
 function [data_out] = correct(data_in, metadata_in)
 % This macro applies the corrections to the
 % raw signals. The result is given as an output.
-%
+% TODO: loop over corrections (all detectors), instead of all conversions
+% for one detector.
 % SEE ALSO macro.corrected_to_converted
 
 % Copy the data:
@@ -42,7 +43,30 @@ for i = 1:length(detnames)
     if ~isempty(idx_X) && ~isempty(idx_Y) && general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.dTheta') 
         data_out = macro.correct.dTheta(data_out, metadata_in, detname);
     end 
+end
+
+%% Cross-detector correction:
+
+	% Ionization correction:
+if general.struct.probe_field(metadata_in.corr, 'crossdet.ifdo.ionization_position') 
+	data_out = macro.correct.ionization_position(data_out, metadata_in);
+end
+
+%%
+for i = 1:length(detnames)
+    detname     = detnames{i};
     
+    % Check the log, which corrections have already been performed:
+    corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
+    % if no corrections have been performed, add the empty field:
+    if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
+	
+	% find all X,Y,TOF signals:
+    idx_X       = find(strcmp(metadata_in.det.(detname).signals, 'X [mm]'));
+    idx_Y       = find(strcmp(metadata_in.det.(detname).signals, 'Y [mm]'));
+    idx_TOF		= find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
+    idx_E		= find(strcmp(metadata_in.det.(detname).signals, 'E [eV]'));
+	
     % Image non-roundness correction:
     if ~isempty(idx_X) && ~isempty(idx_Y) && general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.dTheta') 
         data_out = macro.correct.R_circle(data_out, metadata_in, detname);

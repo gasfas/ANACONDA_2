@@ -14,7 +14,7 @@ data_out = data_in;
 
 % Check the metadata: 
 try
-	p_corr_md	= metadata_in.conv.angle_p_corr.crossdet;
+	p_corr_md	= metadata_in.conv.crossdet.angle_p_corr;
 catch
 	disp ('no crossdet convert metadata found. Defaults assumed')
 	nof_coor	= min(size(data_in.h.det1.dp, 2), size(data_in.h.det2.dp, 2));
@@ -30,16 +30,19 @@ detnames	= IO.data_pointer.pointer_2_detnames(p_corr_md.data_pointer);
 for i = 1:length(p_corr_md.data_pointer)
     detnr		= detnrs(i);
 	detname		= detnames{i};
-
 	% Check which hit number the user wants to see:
+	hitnr = p_corr_md.hitnrs(i);
 	
 	
 	% Select the data of this detector:
-	dp.(['det' num2str(detnr)]) = IO.read_data_pointer(p_corr_md.data_pointer{i}, data_in);
+	dp_all = IO.read_data_pointer(p_corr_md.data_pointer{i}, data_in);
+	
+	dp.(['det' num2str(detnr)]) = convert.event_hitnr_det(dp_all, data_in.e.raw(:,detnr), hitnr);
 	
 end
 % Calculate the correlation between the momentum vectors:
-[ angle_rad ] = convert.vector_angle(dp.(['det' num2str(detnrs(1))]), dp.(['det' num2str(detnrs(2))]));
+data_out.e.crossdet.angle_p_corr = convert.vector_angle(dp.(['det' num2str(detnrs(1))]), dp.(['det' num2str(detnrs(2))]));
+data_out.e.crossdet.angle_p_corr_md = p_corr_md;
 
 disp(['Log: cross-detector momentum correlation calculated, measured at detector ' num2str(detnrs(1)) ' and ' num2str(detnrs(2))])
 end

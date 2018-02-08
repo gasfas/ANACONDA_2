@@ -35,6 +35,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
+	detnr	= IO.detname_2_detnr(detname);
     m2q_l               = data_in.h.(detname).m2q_l;
     
     % Construct the possible masses and their corresponding number of
@@ -65,7 +66,7 @@ for i = 1:length(detnames)
     
     % Write it as an event sum property as well:
 	
-    data_out.e.(detname).cluster_size_sum = convert.event_sum(data_out.h.(detname).cluster_size, data_in.e.raw(:,i));
+    data_out.e.(detname).cluster_size_sum = convert.event_sum(data_out.h.(detname).cluster_size, data_in.e.raw(:,detnr));
     data_out.e.(detname).cluster_size_total = sum(data_out.e.(detname).cluster_size_sum, 2);
 
     disp('Log: cluster size labeling performed')

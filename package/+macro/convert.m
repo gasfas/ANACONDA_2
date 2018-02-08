@@ -108,4 +108,10 @@ for i = 1:length(detnames)
         [data_out] = macro.convert.fragment_asymmetry(data_out, metadata_in, detname);
     end	
 end
+
+% Cross-detector conversions:
+% p_2_p angle, mutual angle between momenta from different detectors.
+if general.struct.probe_field(metadata_in, ['conv.crossdet.ifdo.angle_p_corr'])
+	[data_out] = macro.convert.angle_p_corr_crossdet(data_out, metadata_in);
+end
 end
