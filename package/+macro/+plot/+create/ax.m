@@ -53,6 +53,8 @@ else
 	if ~isempty(axes_md)
 		h_axes = macro.plot.fill.ax(h_axes, axes_md);
 	end
+	% put the first handle on top:
+	uistack(h_axes(1), 'top')
 end
 
 end

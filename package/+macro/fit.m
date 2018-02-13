@@ -31,7 +31,7 @@ for i = 1:length(detnames)
 	
 	% The Abel inversion fitting model
 	if general.struct.probe_field(metadata_in, ['fit.' detname '.ifdo.Abel_inversion'])
-		data_out.fit.(detname).Abel_inversion.param ...
+		[data_out.fit.(detname).Abel_inversion.param , hFig, hAx, hGraphObj]...
 					= macro.fit.Abel_inversion (data_in, metadata_in, detname);
 	end
 

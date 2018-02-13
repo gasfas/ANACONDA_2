@@ -29,6 +29,8 @@ for i = 1:length(names)
             values(i) = 1.66054e-27; % atomic mass unit [Da]
         case {'me', 'm_e'}
             values(i) = 9.109534e-31;% [kg] electron rest mass
+        case {'me_amu', 'm_e_amu'}
+            values(i) = general.constants('me')/general.constants('amu');% [a.m.u] electron rest mass in atomic mass unit
         case {'mp', 'm_p'}
             values(i) = 1.6726485e-27; % [kg] proton/neutron rest mass
         case 'momentum_au'

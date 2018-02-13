@@ -12,7 +12,7 @@ function [ Ax ] = add_axes(Ax_ori, Ax_new, md, axestype, coor)
 % AxisName			(optional) which ordinate should be added: 'X', 'Y' or 'Z'
 % 					Default: 'X'
 % axestype			string describing the type of axes that is added. Possible values: 'm2q',
-%					'CSD', 'cluster_size', 'p_ratio'
+%					'CSD', 'cluster_size', 'p_ratio', 'binding_energy'
 % md				metadata needed to calculate the values of the new
 %					axes. Different information is needed for different
 %					axestypes:
@@ -56,6 +56,8 @@ if exist('Ax_ori_full', 'var') % If the axes is larger, we merge it again:
 else
 	% If the added axes misses fields that the original has, we fill those
 	% up with the same value of the original axes:
+% 	Ax_ori = general.struct.catstruct(Ax_ori, Ax_new);
+% 	% Then merge them:
 	Ax = [Ax_ori, Ax_new];
 end
 end
@@ -127,6 +129,22 @@ function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 			Ax_new.([cname 'Tick']) = Ax_ori.([cname 'Tick']);
 			Ax_new.([cname 'TickLabel']) = arrayfun(@num2str, round(interp1(p_tot_un, p_fraction_un, tickvalues, 'linear', 'extrap'),0), 'un', 0);
 			Ax_ori.([cname 'TickLabel']) = Ax_ori.([cname 'Tick']);
+		case 'binding_energy'
+			photon_energy				= md.energy;
+			if ~general.matrix.isequal(Ax_ori.([cname 'TickLabel']), Ax_new.([cname 'TickLabel']))
+				% Apply the user-given ticks:
+				tickvalues				= photon_energy - Ax_new.([cname 'TickLabel']);
+				Ax_new.([cname 'TickLabel']) = flip(Ax_new.([cname 'TickLabel']));
+				Ax_new.([cname 'Tick']) = flip(tickvalues);
+				if isfield(Ax_ori, 'grid')
+					Ax_ori.grid				= 'off';
+				end
+				% Todo: grid
+			else % no user ticks given, so copied from original:
+				ticklabels					= photon_energy - Ax_ori.([cname 'Tick']);
+				Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabels),'%s');
+				Ax_new.([cname 'Tick'])		= Ax_ori.([cname 'Tick']);
+			end
 	end
 	Ticklabels_rm_Inf = Ax_new.([cname 'TickLabel']);
 	try Ticklabels_rm_Inf{cell2mat(strfind(Ticklabels_rm_Inf, 'Inf'))} = '\infty';
