@@ -96,7 +96,8 @@ if ~isempty(newPlotConfName)
                         signal_y_exist = 0;
                     else
                         signal_y_exist = 1;
-                        if strcmp(char(signals_list_y.(['exp', num2str(lx)])(lz)), signal_y)
+                        % if strcmp(char(signals_list_y.(['exp', num2str(lx)])(lz)), signal_y)
+                        if strcmp(char(signals_list_y.(['exp', num2str(lx)])), signal_y)
                             try 
                                 hr_detname_found_y2(1) = hr_detname_found_y;
                                 hr_detname_found_y2(2) = hr_detname(ly);

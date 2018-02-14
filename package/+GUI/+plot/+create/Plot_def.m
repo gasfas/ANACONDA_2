@@ -27,6 +27,8 @@ if length(typesplit1) > 2
         expnumb = strsplit(typesplit2, 'exp');
         expnumb = str2num(cell2mat(expnumb(2)));
         typesplit = typesplit1(2:(length(typesplit1)));
+    else
+        typesplit = typesplit1;
     end
 else
     expnumb = 1;
@@ -58,7 +60,9 @@ if length(typesplit) == 2
             % A fail in the trial above means that there is either an
             % error in the plot configuration for the experiment or that
             % the plot configuration does not exist for this experiment.
-            % If it does not exist - the below section tries to copy it.
+            % If it does not exist - the below section tries to copy it
+            % from expnumb; which is either 1 or an experiment number
+            % belonging to the experiment from which it originates.
             exp1_name = char(['exp', num2str(expnumb)]);
             if ~strcmp(exp1_name, exp_name) == 1
                 if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
