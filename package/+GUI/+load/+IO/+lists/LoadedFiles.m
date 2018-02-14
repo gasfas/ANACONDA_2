@@ -204,13 +204,14 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
                     value_signals = value_signals + 1;
                 end
             end
-            popup_list_names = cellstr('');
+%             popup_list_names = cellstr('');
             signals_list = GUI.general_functions.CommonFields(signals_list_struct);
-            if value_conf > length(exp_names)-1 % Do the fields comparison.
-                popup_list_names = GUI.general_functions.CommonFields(list_struct);
-            else % At least one exp has zero fields - do nothing.
-                GUI.log.add(['At least one experiment has no pre-defined plots for selected plot setting.'])
-            end
+            popup_list_names = GUI.general_functions.AllFields(list_struct);
+%             if value_conf > length(exp_names)-1 % Do the fields comparison.
+%                 popup_list_names = GUI.general_functions.CommonFields(list_struct);
+%             else % At least one exp has zero fields - do nothing.
+%                 GUI.log.add(['At least one experiment has no pre-defined plots for selected plot setting.'])
+%             end
         else
             signals_list = fieldnames(md_GUI.mdata_n.([char(exp_names(1))]).plot.signal);
         end

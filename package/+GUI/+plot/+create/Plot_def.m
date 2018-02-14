@@ -19,7 +19,19 @@ for lx = 1:length(selectedexpnumbers)
 end
 det_plottype_val = md_GUI.UI.UIPlot.def.Popup_plot_type.Value;
 det_plottype = char(md_GUI.UI.UIPlot.def.Popup_plot_type.String(det_plottype_val));
-typesplit = strsplit(det_plottype, '.');
+typesplit1 = strsplit(det_plottype, '.');
+typesplit2 = char(typesplit1(1));
+% check if the plot conf is not def. by exp1:
+if length(typesplit1) > 2
+    if strcmp(typesplit2(1:3), 'exp')
+        expnumb = strsplit(typesplit2, 'exp');
+        expnumb = str2num(cell2mat(expnumb(2)));
+        typesplit = typesplit1(2:(length(typesplit1)));
+    end
+else
+    expnumb = 1;
+    typesplit = typesplit1;
+end
 if length(typesplit) == 2
     for lx = 1:length(selectedexpnumbers)
         exp_name = char(sel_exp_names(lx));
@@ -47,7 +59,7 @@ if length(typesplit) == 2
             % error in the plot configuration for the experiment or that
             % the plot configuration does not exist for this experiment.
             % If it does not exist - the below section tries to copy it.
-            exp1_name = char(sel_exp_names(1));
+            exp1_name = char(['exp', num2str(expnumb)]);
             if ~strcmp(exp1_name, exp_name) == 1
                 if md_GUI.UI.UIPlot.def.pre_def_plot_radiobutton_customized.Value == 1
                     macro.plot.create.plot(md_GUI.data_n.(exp_name), md_GUI.mdata_n.(exp1_name).plot.user.(detname).(plottype));
