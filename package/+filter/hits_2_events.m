@@ -43,10 +43,20 @@ event_hitnr_filter	= filter.events.multiplicity(events, hitnr, Inf, nof_hits);
 hitnr_idx = events(event_hitnr_filter) + hitnr - 1;
 % Initiate a new hit filter
 hit_filter_2 = false(size(hit_filter));
-% Fill in the hits that are approved by the hit filter, and are hitnr:
+% Fill in the hits that are approved by the hit filter, and are hit nr 3:
 hit_filter_2(hitnr_idx) = hit_filter(hitnr_idx);
 % Now convert this hit filter to an event filter:
 event_filter = select_condition(hit_filter_2, events, nof_hits, 'XOR');
+% event_filter		= event_hitnr_filter & event_hit_filter;
+% % Find the hit indices that have the right hit number:			
+% hit_idx_hitnr_approved = events(~isnan(events),:)+hitnr-1;
+% % Make sure the event pointer is not larger than the number of hits:
+% hit_idx_hitnr_approved = hit_idx_hitnr_approved(hit_idx_hitnr_approved<nof_hits);
+% % Now we check whether these hit indeces are indeed approved by the hit
+% % filter:
+% idx_to_approve = ~isnan(events);
+% idx_to_approve = idx_to_approve(1:length(hit_idx_hitnr_approved),:);
+% event_filter(idx_to_approve) = hit_filter(hit_idx_hitnr_approved);
 end
 
 function event_filter = select_condition(hit_filter, events, nof_hits, condition)

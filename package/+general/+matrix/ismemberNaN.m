@@ -1,4 +1,9 @@
 function [LIA, LOCB] = ismemberNaN(A, B)
+% Input
+% A, B  two arrays of comparable size [n,1],[m,1] respectively
+% Output: 
+% LIA [n,1]  array containing 1 at overleps between A and B and 0 at missing
+%            overlaps, including 
 %This function is a slight adaptation to ismember.
 %It also acknowledges NaN values as members, and displays them in the
 %output logical array.

@@ -4,8 +4,8 @@ function R_corr = R_circle(R_raw, theta_raw, R_maxs, R_avg, theta_scaling_factor
 % Inputs:
 % -R_raw				[l,1] The radius before correction
 % -theta_raw			[l,1] The theta before correction [rad]
-% -R_maxs				[n,k] The radial positions of found maxima.
-% -R_avg				[k,1] The radial positions of the average maxima.
+% -R_maxs				[n,1] The radial positions of found maxima.
+% -R_avg				[n,1] The radial positions of the average maxima.
 % -theta_scaling_factor	[n,1] The corresponding angle.
 % Outputs:
 % R_corr			The corrected radius.

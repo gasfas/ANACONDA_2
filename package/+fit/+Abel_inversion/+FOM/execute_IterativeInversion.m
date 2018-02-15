@@ -1,4 +1,4 @@
-function execute_IterativeInversion()
+function [ output_args ] = execute_IterativeInversion()
 % This function calls the IterativeInversion that is situated in the same
 % location as this function, along with the needed configuration/data
 % files.
