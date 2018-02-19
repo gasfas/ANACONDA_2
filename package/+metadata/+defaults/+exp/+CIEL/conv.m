@@ -4,9 +4,9 @@ function [ exp_md ] = conv ( exp_md )
 
 %% Conversion factors:
 % Detector 1: Electron detector, Detector 1: Electron detector, Detector 1:
-exp_md.conv.det1.ifdo.m2q                       = false;
-exp_md.conv.det1.ifdo.m2q_label                 = false;
-exp_md.conv.det1.ifdo.momentum					= false;% Does the user want to convert to momentum?
+exp_md.conv.det1.ifdo.m2q                       = true;
+exp_md.conv.det1.ifdo.m2q_label                 = true;
+exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
 
 exp_md.conv.det1.momentum.TOF_nominal           = 1; % [ns] 
 exp_md.conv.det1.ifdo.KER 						= false;% Does the user want to convert to Kinetic energy?
@@ -15,19 +15,19 @@ exp_md.conv.det1.m2q_label.search_radius        = 0.4;
 exp_md.conv.det1.mass_labels                    = [1]; % [amu]
 exp_md.conv.det1.m2q_labels                     = exp_md.conv.det1.mass_labels;
 % Time Of Flight to Mass to Charge calibration
-exp_md.conv.det1.TOF_2_m2q.factor      	= 100;%Conversion factor from mass 2 charge to TOF
+exp_md.conv.det1.TOF_2_m2q.factor      	= 114;%Conversion factor from mass 2 charge to TOF
 exp_md.conv.det1.TOF_2_m2q.t0          	= 10;%[ns] dead time correction
 
 
 % Ion detector, Detector 2: Ion detector, Detector 2: Ion detector, Detector 2:
 % Which conversions should be performed on the data:
 
-exp_md.conv.det2.ifdo.m2q						= true;% Does the user want to convert to mass-over-charge?
-exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
+exp_md.conv.det2.ifdo.m2q						= false;% Does the user want to convert to mass-over-charge?
+exp_md.conv.det2.ifdo.m2q_label					= false; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group					= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.m2q_label_Ci				= false; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.cluster_size				= false;% Does the user want to convert to cluster size?
-exp_md.conv.det2.ifdo.momentum					= true;% Does the user want to convert to momentum?
+exp_md.conv.det2.ifdo.momentum					= false;% Does the user want to convert to momentum?
 exp_md.conv.det2.ifdo.KER 						= false;% Does the user want to convert to Kinetic energy?
 exp_md.conv.det2.ifdo.R_theta					= false;% Does the user want to convert to R-theta coordinates?
 exp_md.conv.det2.ifdo.angle_p_corr_C2			= false;% Does the user want to calculate mutual momentum angles of double coindicence?
