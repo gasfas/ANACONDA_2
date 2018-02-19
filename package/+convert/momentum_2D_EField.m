@@ -1,4 +1,4 @@
-function [p, p_0] = momentum_2D_EField(X, Y, X_0, Y_0, mass, TOF_nominal)
+function [p, p_0] = momentum_2D(X, Y, X_0, Y_0, mass, TOF_nominal)
 % The function converts X, Y to the in-plane momentum. 
 % Input:
 % X             [n, 1] array, the (corrected) X coordinates [ns]

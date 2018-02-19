@@ -17,21 +17,19 @@ for i = 1:length(names)
             values(i) = 1.6021766208e-19; % [C] elementary charge or conversion from joule to eV
         case {'JtoeV'}
             values(i) = 1./(general.constants('q')); % [C^-1] elementary charge or conversion from joule to eV
-        case {'ke', 'k_e'}
+        case {'k_e'}
             values(i) = 8.99*1e9; % [N*m^2 C^-2] Coulomb's constant
         case 'h'
             values(i) = 6.62607004081e-34; % [Js] Planck's constant
-        case {'hbar', 'h_bar'}
+        case 'hbar'
             values(i) = (6.626176e-34)/(2*pi); % [Js] Planck's constant /2pi
         case 'c'
             values(i) = 2.99792458e8; %[m/s] speed of light
-        case {'amu', 'a.m.u.'}
+        case 'amu'
             values(i) = 1.66054e-27; % atomic mass unit [Da]
-        case {'me', 'm_e'}
+        case 'me'
             values(i) = 9.109534e-31;% [kg] electron rest mass
-        case {'me_amu', 'm_e_amu'}
-            values(i) = general.constants('me')/general.constants('amu');% [a.m.u] electron rest mass in atomic mass unit
-        case {'mp', 'm_p'}
+        case 'mp'
             values(i) = 1.6726485e-27; % [kg] proton/neutron rest mass
         case 'momentum_au'
             values(i) = 1.992851882e-24;% [kg*m/s] atomic momentum unit
@@ -50,7 +48,7 @@ for i = 1:length(names)
         case 'Na'
             values(i) = 6.022140857e23;% [mol^-1] Gas constant
         case {'eVtocm-1'}
-            values(i) = 1./(general.constants('h')*general.constants('c').*general.constants('JtoeV')*100); % converstion from eV to cm-1 (inverse centimeter)
+            values(i) = 1./(general.constants('h')*general.constants('c').*general.constants('JtoeV')); % converstion from eV to cm-1 (inverse centimeter)
 		case {'kcalmol_to_eV'}
 			values(i) = 0.0433634;
 		otherwise % We assume that a formula of different constants is given:

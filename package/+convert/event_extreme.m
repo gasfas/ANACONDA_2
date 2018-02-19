@@ -22,24 +22,23 @@ e_NaN_f             = isnan(events);
 events_noNaN = events(~e_NaN_f);
 
 nof_hits	= size(hit_var, 1);
-% fetch the mulitplicity of the events:
 e_mult		= convert.event_multiplicity(events_noNaN, nof_hits);
-
 % In order to re-shuffle the hits into the right rows, we label each hit
 % with an event number:
 [h_event_nrs] = convert.event_2_hit_values((1:size(events_noNaN,1))', events_noNaN, nof_hits);
-fill_value = NaN;
-
-% Start with a NaN-matrix:
+% fetch the hit number of each hit in an event:
+% switch type
+% 	case 'sorted'
+% 			fill_value = max(hit_var(:))+1;
+% 	otherwise
+			fill_value = NaN;
+% end
 h_hit_nr_in_event = fill_value*ones(size(hit_var));
-% Mark the first hit in the event:
-h_hit_nr_in_event(events_noNaN, :) = ones(size(events_noNaN,1),size(h_hit_nr_in_event,2));
-% Then upfill, so that each event has its own numbering:
+h_hit_nr_in_event(events_noNaN) = ones(size(events_noNaN,1),1);
 h_hit_nr_in_event = general.matrix.upfill_array(h_hit_nr_in_event, 'NaN', 1, 1);
 % We create a new matrix where the new values will be placed into:
 hit_var_event_rows = NaN*ones(size(events_noNaN, 1), max(e_mult));
-% 
-indices = sub2ind(size(hit_var_event_rows), repmat(h_event_nrs, 1,size(h_hit_nr_in_event,2)) , h_hit_nr_in_event);
+indices = sub2ind(size(hit_var_event_rows), h_event_nrs, h_hit_nr_in_event);
 % fill in the hit values into the new matrix:
 hit_var_event_rows(indices) = hit_var;
 

@@ -52,18 +52,18 @@ s.e_Y.hist.pointer		= 'h.det1.Y';% Data pointer, where the signal can be found.
 s.e_Y.axes.Label.String	= 'Y [mm]'; %The label of the variable
 
 %%%%%% electron dpx:
-s.e_dpx.hist.pointer		= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
+s.e_dpx.hist.pointer		= 'h.det1.dp(1:200,1)';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_dpx.hist.binsize		= 0.05;% [mm] binsize of the variable. 
+s.e_dpx.hist.binsize		= 0.01;% [mm] binsize of the variable. 
 s.e_dpx.hist.Range			= [-2 2];% [mm] range of the variable. 
 % Axes metadata:
-s.e_dpx.axes.Lim			= [-1.2 1.2];% [mm] Lim of the axis that shows the variable. 
+s.e_dpx.axes.Lim			= [-5 5];% [mm] Lim of the axis that shows the variable. 
 s.e_dpx.axes.Tick			=  linspace(s.e_dpx.axes.Lim(1), s.e_dpx.axes.Lim(2), 7);% [mm] Ticks shown 
 s.e_dpx.axes.Label.String	= '$p_x$ [a.u.]'; %The label of the variable
 
 %%%%%% electron dpy:
 s.e_dpy						= s.e_dpx;
-s.e_dpy.hist.pointer		= 'h.det1.dp(:,2)';% Data pointer, where the signal can be found. 
+s.e_dpy.hist.pointer		= 'h.det1.dp(1:200,2)';% Data pointer, where the signal can be found. 
 % Axes metadata:
 s.e_dpy.axes.Label.String	= '$p_y$ [a.u.]'; %The label of the variable
 
@@ -80,16 +80,16 @@ s.i_mult.axes.Tick		= s.i_mult.hist.Range(1):1:s.i_mult.hist.Range(2);
 s.i_mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 
 %%%%%% TOF:
-s.i_TOF.hist.pointer	= 'h.det2.TOF';% Data pointer, where the signal can be found. 
+s.TOF.hist.pointer	= 'h.det2.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_TOF.hist.binsize	= 100;% [ns] binsize of the variable. 
-s.i_TOF.hist.Range	= [0 2e4];% [ns] range of the variable. 
+s.TOF.hist.binsize	= 150;% [ns] binsize of the variable. 
+s.TOF.hist.Range	= [0 5000];% [ns] range of the variable. 
 % Axes metadata:
-s.i_TOF.axes.Lim		= s.i_TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
-s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_labels, ...
-								exp_md.conv.det2.TOF_2_m2q.factor, ...
-								exp_md.conv.det2.TOF_2_m2q.t0)));% [ns] Tick of the axis that shows the variable.
-s.i_TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
+s.TOF.axes.Lim		= s.TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
+%s.TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_labels, ...
+								%exp_md.conv.det2.TOF_2_m2q.factor, ...
+								%exp_md.conv.det2.TOF_2_m2q.t0)));% [ns] Tick of the axis that shows the variable.
+s.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 %%%%%% X:
 s.i_X.hist.pointer		= 'h.det2.X';% Data pointer, where the signal can be found. 

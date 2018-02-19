@@ -1,8 +1,8 @@
-function [xpeaks, ypeaks, xwidths] = findpeakseries (xdata, ydata, MinPeakProminence, spacing_min, spacing_max, include_first, include_last, choose_series)
+function [xpeaks, ypeaks] = findpeakseries (xdata, ydata, MinPeakProminence, spacing_min, spacing_max, include_first, include_last, choose_series)
 % This function finds a peak series in a given histogram/function. 
 
 %% Find all peaks:
-	[ypeaks_all, xpeaks_all, xwidths_all] = findpeaks(ydata, xdata, 'MinPeakProminence', MinPeakProminence);
+	[ypeaks_all, xpeaks_all] = findpeaks(ydata, xdata, 'MinPeakProminence', MinPeakProminence);
 
 %% Find peaks of interest
 	% Now that the peaks are found, we try to extract the peaks of interest from them:
@@ -44,7 +44,7 @@ function [xpeaks, ypeaks, xwidths] = findpeakseries (xdata, ydata, MinPeakPromin
 		idx_spacing_of_interest(find(sum(is_spacing_of_interest, 1)>0 & isafter_second_last_peak, 1, 'first')) = true;
 	end
 	% Finally, extract the peaks of interest:
-	[xpeaks, ypeaks, xwidths] = deal(xpeaks_all(idx_spacing_of_interest), ypeaks_all(idx_spacing_of_interest), xwidths_all(idx_spacing_of_interest));
+	[xpeaks, ypeaks] = deal(xpeaks_all(idx_spacing_of_interest), ypeaks_all(idx_spacing_of_interest));
 	
 % 	figure; plot(xdata, ydata, 'r'); hold on; plot(xpeaks_all, ypeaks_all, 'g*'); plot(xpeaks, ypeaks, 'k*');
 end

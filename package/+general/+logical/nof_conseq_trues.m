@@ -10,7 +10,7 @@ subtract_array = zeros(size(logic_array));
 nof_v1 = cumsum(logic_array);
 
 % find the places where the first trues are:
-first_trues = [diff([false(1, size(logic_array,2)); logic_array], 1, 1) == 1];
+first_trues = [diff([false; logic_array]) == 1];
 % fill it into a 'subtract array':
 subtract_array(first_trues) = nof_v1(first_trues);
 % downfill this array:
