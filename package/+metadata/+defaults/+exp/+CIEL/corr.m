@@ -17,7 +17,7 @@ exp_md.corr.det1.dTheta				= 0;   %[deg] rotation of hits around the raw image c
 % The TOF deadtime correction parameter:
 exp_md.corr.det1.dTOF 			 	= 0;% [ns] The difference between signal propagation times of trigger and hits.
 
-exp_md.corr.det1.R_circle			= load(fullfile(fileparts(mfilename('fullpath')), 'R_circle_param.mat'));  % scaling factor [] and the corresponding angle [rad].
+
 
 % Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 % (ION DETECTOR)
 

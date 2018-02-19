@@ -34,7 +34,7 @@ signals.i_m2q.hist.binsize	= 0.5;% [Da] binsize of the variable.
 signals.i_m2q.hist.Range	= [1 400];% [Da] range of the variable. 
 % Axes metadata:
 signals.i_m2q.axes.Lim		= [0 100];% [Da] Lim of the axis that shows the variable. 
-signals.i_m2q.axes.Tick	= exp_md.sample.mass; % [Da] Tick of the axis that shows the variable. 
+%signals.i_m2q.axes.Tick	= exp_md.sample.mass; % [Da] Tick of the axis that shows the variable. 
 signals.i_m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 signals.e_m2q = signals.i_m2q;
