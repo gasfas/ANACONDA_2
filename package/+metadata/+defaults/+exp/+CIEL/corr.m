@@ -23,8 +23,8 @@ exp_md.corr.det1.R_circle			= load(fullfile(fileparts(mfilename('fullpath')), 'R
 
 % Which corrections should be performed on the data:
 exp_md.corr.det2.ifdo.dXdY 		= true;% Does this data need detector image translation correction?
-exp_md.corr.det2.ifdo.dTheta 		= true;%; % Does this data need detector image rotation correction?
-exp_md.corr.det2.ifdo.dTOF  		= true;% Does this data need detector absolute TOF correction?
+exp_md.corr.det2.ifdo.dTheta 		= false;%; % Does this data need detector image rotation correction?
+exp_md.corr.det2.ifdo.dTOF  		= false;% Does this data need detector absolute TOF correction?
 exp_md.corr.det2.ifdo.detectorabb	= false;% Does this data need detector-induced abberation correction?
 exp_md.corr.det2.ifdo.lensabb 		= false;% Does this data need lens abberation correction?
 

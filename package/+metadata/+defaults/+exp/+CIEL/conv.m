@@ -5,6 +5,8 @@ function [ exp_md ] = conv ( exp_md )
 %% Conversion factors:
 % Detector 1: Electron detector, Detector 1: Electron detector, Detector 1:
 exp_md.conv.det1.ifdo.momentum					= false;% Does the user want to convert to momentum?
+exp_md.conv.det1.ifdo.m2q   					= false;
+exp_md.conv.det1.ifdo.momentum					= false;
 
 
 % Ion detector, Detector 2: Ion detector, Detector 2: Ion detector, Detector 2:
