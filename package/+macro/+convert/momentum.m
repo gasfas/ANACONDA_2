@@ -52,7 +52,7 @@ for i = 1:length(detnames)
 				if general.struct.probe_field(metadata_in.spec, 'is_B_field') % If a magnetic field is applied:
 					warning('TODO: electron 3D momentum conversion under applied B-field')
 				else % We assume no magnetic field is applied:
-					warning('Electron 3D momentum conversion untested')
+					
 					% We assume all electrons have their rest mass;
 					me				= general.constants('me');
 					[m2q_l, m_l, labels, labels_mass] = deal(me, me, me, me);

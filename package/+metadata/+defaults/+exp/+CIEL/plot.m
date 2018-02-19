@@ -9,30 +9,30 @@ function [exp_md] = plot(exp_md)
 % Specify which plot to show:
 % d1.ifdo.BR_Ci			= true;
 d1.ifdo.XY         	= true;
-% d1.ifdo.dpxy         	= true;
-d1.ifdo.theta_R		= true;
+d1.ifdo.dpxy         	= true;
+d1.ifdo.theta_R		= false;
 
 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 
 d2.labels_to_show     = exp_md.sample.fragment.masses;
 
 % Specify which plot to show:
-% d2.ifdo.BR_Ci							= true;
-% d2.ifdo.TOF							= true;
-% d2.ifdo.TOF_X						= true;
-% d2.ifdo.TOF_R						= true;
-% d2.ifdo.XY						= true;
-% d2.ifdo.dp						= true;
-% d2.ifdo.p_norm					= true;
-% d2.ifdo.p_sum_norm				= true;
-% d2.ifdo.p_sum						= true;
-% d2.ifdo.TOF_hit1_hit2				= true;
-% d2.ifdo.m2q_hit1_hit2				= true;
-% d2.ifdo.angle_p_corr_C2				= true;
-% d2.ifdo.angle_p_corr_p				= true;
+d2.ifdo.BR_Ci							= false;
+d2.ifdo.TOF							= false;
+d2.ifdo.TOF_X						= false;
+d2.ifdo.TOF_R						= false;
+d2.ifdo.XY                          = false;
+d2.ifdo.dp                          = false;
+d2.ifdo.p_norm                      = false;
+d2.ifdo.p_sum_norm                  = false;
+d2.ifdo.p_sum						= false;
+d2.ifdo.TOF_hit1_hit2				= false;
+d2.ifdo.m2q_hit1_hit2				= false;
+d2.ifdo.angle_p_corr_C2				= false;
+d2.ifdo.angle_p_corr_p				= false;
 
 % cross-detector histograms:
-% exp_md.plot.e.ifdo.m2q_2_KER	= false;
+exp_md.plot.e.ifdo.m2q_2_KER	= false;
 
 % load the signal plotting metadata:
 exp_md = metadata.defaults.exp.Laksman_TOF_e_XY.plot_signals(exp_md);
@@ -50,14 +50,15 @@ d1.theta_R.figure.Position		= plot.fig.Position('SE');
 d1.theta_R.axes.YLim			= [20 35];
 
 d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
-d1.XY.figure.Position		= [1500 1000 440 460];
+d1.XY.figure.Position		= [200 200 440 460];
 d1.XY.axes.Title.String		= 'Electron detector image';
 d1.XY.axes.axis				= 'equal';
 
 d1.dpxy						= metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpy});
-d1.dpxy.figure.Position		= [1500 1000 440 460];
+d1.dpxy.figure.Position		= [200 200 440 460];
 d1.dpxy.figure.Position		= plot.fig.Position('NE');
 d1.dpxy.axes.axis				= 'equal';
+d1.dpxy.axes(1).Title.String= 'Electron momentum';
 
 % % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 d2.BR_Ci						= metadata.create.plot.signal_2_plot({signals.i_mult});

@@ -1,4 +1,4 @@
-function [ factor, t0 ] = TOF_2_m2q (exp, calib_md)
+function [ data_out ] = TOF_2_m2q (exp, exp_md, detname)
 % This macro semi-automizes the calibration procedure for the TOF to m2q
 % conversion factor.
 % Input:
@@ -10,6 +10,7 @@ function [ factor, t0 ] = TOF_2_m2q (exp, calib_md)
 
 disp('This macro semi-automizes the calibration procedure for the TOF to m2q conversion factor.')
 
+calib_md            = exp_md.calib.(detname).TOF_2_m2q ;
 search_radius		= calib_md.findpeak.search_radius;
 satisfied           = false;
 TOF_signal			= eval(['exp.' calib_md.TOF.hist.pointer{:}]);
@@ -45,6 +46,9 @@ while ~satisfied
 	Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
     [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_cs, search_radius);
     [ factor, t0 ]  = calibrate.TOF_2_m2q (TOF_peaks, m2q_points)
+    calib_md.factor = factor;
+    calib_md.t0     = t0;
+    
     
     % show them in a plot:
 	calib_md.m2q.axes.XLim(2) = max([calib_md.m2q.axes.XLim(2), 1.2*m2q_points(i)]);
