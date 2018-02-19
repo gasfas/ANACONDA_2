@@ -8,6 +8,16 @@ exp_md.conv.det1.ifdo.momentum					= false;% Does the user want to convert to mo
 exp_md.conv.det1.ifdo.m2q   					= false;
 exp_md.conv.det1.ifdo.momentum					= false;
 
+% Time Of Flight to Mass to Charge values
+exp_md.conv.det1.m2q_labels 			= [1]; % the available m2q labels.
+
+% Time Of Flight to Mass to Charge calibration
+exp_md.conv.det2.TOF_2_m2q.factor      	= 114;%Conversion factor from mass 2 charge to TOF
+exp_md.conv.det2.TOF_2_m2q.t0          	= 10;%[ns] dead time correction
+
+exp_md.conv.det2.mass_labels 			= exp_md.conv.det1.m2q_labels ; % the corresponding expected mass values in this experiment. If all expected particles are singly charged, this array is similar to exp_md.conv.det2.m2q_labels. 
+exp_md.conv.det2.m2q_label.search_radius= 0.4; % search radius (in either m/q or nsec units, depending on the labelling_signal indicated), or searchwidth around the main expectation value (no-Kinetic energy point).
+
 
 % Ion detector, Detector 2: Ion detector, Detector 2: Ion detector, Detector 2:
 % Which conversions should be performed on the data:

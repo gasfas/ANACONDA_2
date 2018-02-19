@@ -57,7 +57,7 @@ cd1.R_circle.plot.axes.Type			= 'axes';
 % TOF to m2q conversion
 cd2.TOF_2_m2q.TOF							= metadata.create.plot.signal_2_plot({signals_i.TOF});
 cd2.TOF_2_m2q.TOF.hist.Integrated_value	= 1;
-cd2.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals_i.m2q});
+cd2.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
 cd2.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 cd2.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 % 
