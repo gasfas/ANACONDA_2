@@ -5,9 +5,9 @@ function [ exp_md ] = corr ( exp_md )
 % Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 % (ELECTRON DETECTOR)
 % Which corrections should be performed on the data:
 exp_md.corr.det1.ifdo.dXdY 			= true;% Does this data need detector image translation correction?
-exp_md.corr.det1.ifdo.dTheta 		= true;%; % Does this data need detector image rotation correction?
-exp_md.corr.det1.ifdo.dTOF  		= true;% Does this data need detector absolute TOF correction?
-exp_md.corr.det1.ifdo.R_circle		= true;
+exp_md.corr.det1.ifdo.dTheta 		= false;%; % Does this data need detector image rotation correction?
+exp_md.corr.det1.ifdo.dTOF  		= false;% Does this data need detector absolute TOF correction?
+exp_md.corr.det1.ifdo.R_circle		= false;
 
 % The detector image translation parameters:
 exp_md.corr.det1.dX					= 0.0;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
