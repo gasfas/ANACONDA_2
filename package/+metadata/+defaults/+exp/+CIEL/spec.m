@@ -2,7 +2,7 @@ function [ exp_md ] = spec ( exp_md )
 % This convenience funciton lists the default spectrometer metadata, and can be
 % read by other experiment-specific metadata files.
 
-exp_md.spec.name = 'Laksman_e_XY';
+exp_md.spec.name = 'CIEL';
 
 % Voltages
 exp_md.spec.volt.Ve2s			= 300; %[V] Voltage of grid separating electron side and source region,'pusher'
@@ -19,7 +19,7 @@ exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 % detection modes:
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
-exp_md.spec.is_B_field			= true; % Is there a magnetic field applied in this spectrometer?
+exp_md.spec.isBfield			= true; % Is there a magnetic field applied in this spectrometer?
 exp_md.spec.Bfield              = 0.001; % [T]
 exp_md.spec.volt.V_created 		= exp_md.spec.volt.Ve2s + exp_md.spec.dist.s0/exp_md.spec.dist.s * (exp_md.spec.volt.Vs2a - exp_md.spec.volt.Ve2s); % [V]The voltage at light interaction point
 

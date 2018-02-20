@@ -99,9 +99,9 @@ else
         xrange=xx(2)-xx(1);
         xunit=(x-xx(1))/xrange;
         if xunit<0.8
-            text(x+0.0*xrange,y(1)+height*(y(2)-y(1)),label,'color',get(h,'color'))
+            text(x+0.0*xrange,y(1)+height*(y(2)-y(1)),label,'color','red')
         else
-            text(x-.0*xrange,y(1)+height*(y(2)-y(1)),label,'color',get(h,'color'))
+            text(x-.0*xrange,y(1)+height*(y(2)-y(1)),label,'color','red')
         end
     end     
 

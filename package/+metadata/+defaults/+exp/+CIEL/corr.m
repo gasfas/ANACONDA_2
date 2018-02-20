@@ -29,8 +29,8 @@ exp_md.corr.det2.ifdo.detectorabb	= false;% Does this data need detector-induced
 exp_md.corr.det2.ifdo.lensabb 		= false;% Does this data need lens abberation correction?
 
 % The detector image translation parameters:
-exp_md.corr.det2.dX					= 0.0;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
-exp_md.corr.det2.dY					= 0.0;   %[mm] distance the center of detection is displaced up the origin of the raw image;
+exp_md.corr.det2.dX					= 2.0;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
+exp_md.corr.det2.dY					= 5.0;   %[mm] distance the center of detection is displaced up the origin of the raw image;
 % The detector image rotation parameters:
 exp_md.corr.det2.dTheta				= 35;   %[deg] rotation of hits around the raw image centre (anticlockwise);
 % The TOF deadtime correction parameter:

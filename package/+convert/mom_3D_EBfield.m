@@ -1,4 +1,4 @@
-function [p, p_0] = momentum_2D_EBfield(TOF, X, Y, m2q_l, labels, labels_mass, labels_TOF_no_p, E_ER, Bfield, sample_md) 
+function [p, p_0] = mom_3D_EBfield(TOF, X, Y, m2q_l, labels, labels_mass, labels_TOF_no_p, E_ER, Bfield, sample_md) 
 % The function converts TOF, X, Y to momentum, in the case of both E- and B-field.
 % Only hits that are recognized to belong to a certain m/q are considered (labels).
 % Input:
