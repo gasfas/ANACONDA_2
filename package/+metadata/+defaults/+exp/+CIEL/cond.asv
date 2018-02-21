@@ -47,23 +47,14 @@ def.label.translate_condition = 'AND';
 
 % Make a branching ratio filter, for the Ci branching ratio's:
 c.i_XY.X.type             = 'continuous';
-c.i_XY.X.data_pointer     = 'h.det2.X';
-c.i_XY.X.value            = [-8;8]';
-c.i_XY.X.translate_condition = 'AND';
+c.XY.X.data_pointer     = 'h.det2.X';
+c.XY.X.value            = [-8;8]';
+c.XY.X.translate_condition = 'AND';
 
-c.i_XY.Y.type					= 'continuous';
-c.i_XY.Y.data_pointer     = 'h.det2.Y';
-c.i_XY.Y.value           = [-8;8]';
+c.XY.Y.type					= 'continuous';
+c.XY.Y.data_pointer     = 'h.det2.Y';
+c.XY.Y.value           = [-8;8]';
 
-
-c.e_XY.X.type             = 'continuous';
-c.e_XY.X.data_pointer     = 'h.det2.X';
-c.e_XY.X.value            = [-20;20]';
-c.e_XY.X.translate_condition = 'AND';
-
-c.e_XY.Y.type					= 'continuous';
-c.e_XY.Y.data_pointer     = 'h.det2.Y';
-c.e_XY.Y.value           = [-10;10]';
 c.BR.C2				= macro.filter.write_coincidence_condition(2, 'det2');
 
 

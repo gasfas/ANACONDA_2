@@ -28,7 +28,7 @@ for i = 1:length(detnames)
 		% This means we can perform 3D momentum conversion:
 		TOF         = data_out.h.(detname).TOF;
 		% Electric field in the source region:
-		E_ER        = theory.TOF.calc_field_strength(metadata_in.spec.volt.Ve2s, metadata_in.spec.volt.Vs2a, metadata_in.spec.dist.s);
+		E_ER        = theory.TOF.calc_field_strength(0, 80 , .180 );
 		sample_md   = metadata_in.sample;
         spec_md     = metadata_in.spec;
         switch metadata_in.spec.det_modes{detnr} % what kind of particle does this detector see
@@ -60,7 +60,7 @@ for i = 1:length(detnames)
                 % (so far by hand) to obtain m2q = 1 after conversion
                 % is a factor for conversion to m2q in a.m.u, thus if we
                 % want to use this factor obtain
-                 %[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_2D_EBField(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md);
+                % [data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_2D_EBfield(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md);
              	[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_EField(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md, spec_md);
                 data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
         end

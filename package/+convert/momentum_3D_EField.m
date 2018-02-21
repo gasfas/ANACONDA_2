@@ -101,8 +101,8 @@ else
         Y_no_p_f      = Y_no_p(label_nr_f); % [q, 1]
         TOF_no_p_f    = TOF_no_dp(label_nr_f);
         
-        p_X = 0.5*general.constants({'q'}).*Bfield.*(  sin(omega.*( TOF_f - TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_f - TOF_no_p_f ).*1e-9  )) + (Y_f - Y_no_p_f) )*1e-3;
-        p_Y = 0.5*general.constants({'q'}).*Bfield.*( X_f - X_no_p_f - ( sin(omega.*( TOF_f - TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_f - TOF_no_p_f ).*1e-9  )) )  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
+        p_X = 0.5*general.constants({'q'}).*Bfield.*((  sin(omega.*( TOF_f).*1e-9)./( 1 - cos(omega.*(TOF_f).*1e-9  ))) - (  sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  ))) + (Y_f - Y_no_p_f) )*1e-3;
+        p_Y = 0.5*general.constants({'q'}).*Bfield.*( X_f - X_no_p_f - ( sin(omega.*( TOF_f ).*1e-9)./( 1 - cos(omega.*( TOF_f).*1e-9  )) - sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  )))  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
         p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9; %
 end
 % fill this into the momentum (hit array, [n, 1]):

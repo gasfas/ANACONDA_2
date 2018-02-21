@@ -81,9 +81,9 @@ TOF_no_p_f    = TOF_no_dp(label_nr_f); % [q, 1]
 % 3D
 p_X = 0.5*general.constants({'q'})*Bfield*((sin(omega*TOF_f.*1e-9)/(1-cos(omega*TOF_f.*1e-9)))*X_f - Y_f - (sin(omega*TOF_no_p_f.*1e-9)/(1-cos(omega*TOF_no_p_f.*1e-9)))*X_no_p_f - Y_no_p_f)*1e-3; % [kg*m/s] [q,1];
 p_Y = 0.5*general.constants({'q'})*Bfield*(X_f-(sin(omega*TOF_f.*1e-9)/(1-cos(omega*TOF_f.*1e-9)))*Y_f - X_no_p_f-(sin(omega*TOF_no_p_f.*1e-9)/(1-cos(omega*TOF_no_p_f.*1e-9)))*Y_no_p_f)*1e-3; % [kg*m/s] [q,1];
-p_Z = q*E*(TOF_f - TOF_no_p_f)*1e-9; %        [kg*m/s] [q,1]; % same as the Efield one, write small function
+p_Z = q*E*(TOF_f)*1e-9; %        [kg*m/s] [q,1]; % same as the Efield one, write small function
 %to call here
-
+% TOF_no_p_f
 
 % fill this into the momentum (hit array, [n, 1]):
 p(find(label_loc),:) = [p_X p_Y p_Z];
