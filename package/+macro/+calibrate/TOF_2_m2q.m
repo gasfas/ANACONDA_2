@@ -1,4 +1,4 @@
-function [ data_out ] = TOF_2_m2q (exp, exp_md, detname)
+function [ factor, t0 ] = TOF_2_m2q (exp, calib_md)
 % This macro semi-automizes the calibration procedure for the TOF to m2q
 % conversion factor.
 % Input:
@@ -10,8 +10,7 @@ function [ data_out ] = TOF_2_m2q (exp, exp_md, detname)
 
 disp('This macro semi-automizes the calibration procedure for the TOF to m2q conversion factor.')
 
-data_out            = exp;
-calib_md            = exp_md.calib.(detname).TOF_2_m2q ;
+
 search_radius		= calib_md.findpeak.search_radius;
 satisfied           = false;
 TOF_signal			= eval(['exp.' calib_md.TOF.hist.pointer{:}]);

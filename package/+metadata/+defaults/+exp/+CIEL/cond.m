@@ -45,7 +45,7 @@ def.label.translate_condition = 'AND';
 
 %% Conditions: Ions in the middle region of the detecor only
 
-% Make a branching ratio filter, for the Ci branching ratio's:
+
 c.i_XY.X.type             = 'continuous';
 c.i_XY.X.data_pointer     = 'h.det2.X';
 c.i_XY.X.value            = [-8;8]';
@@ -57,16 +57,33 @@ c.i_XY.Y.value           = [-8;8]';
 
 
 c.e_XY.X.type             = 'continuous';
-c.e_XY.X.data_pointer     = 'h.det2.X';
+c.e_XY.X.data_pointer     = 'h.det1.X';
 c.e_XY.X.value            = [-20;20]';
 c.e_XY.X.translate_condition = 'AND';
 
 c.e_XY.Y.type					= 'continuous';
-c.e_XY.Y.data_pointer     = 'h.det2.Y';
+c.e_XY.Y.data_pointer     = 'h.det1.Y';
 c.e_XY.Y.value           = [-10;10]';
+c.e_XY.X.translate_condition = 'AND';
+
+c.r.i.type               = 'continuous';
+c.r.i.data_pointer       = 'h.det2.R';
+c.r.i.value              = [0;5];
+c.r.i.translate_condition = 'AND';
+
+c.r.e.type               = 'continuous';
+c.r.e.data_pointer       = 'h.det1.R';
+c.r.e.value              = [0;10];
+c.r.e.translate_condition = 'AND';
+
 c.BR.C2				= macro.filter.write_coincidence_condition(2, 'det2');
 
+%% Conditions on multiplicity
 
+c.i.mult.type           = 'discrete';
+c.i.mult.data_pointer   = 'e.det2.mult';
+c.i.mult.value          = [1]';
+c.i.mult.translate_condition = 'OR';
 
 %% Conditions: Labeled hits only
 

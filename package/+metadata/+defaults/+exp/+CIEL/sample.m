@@ -2,10 +2,10 @@ function [ exp_md ] = sample ( exp_md )
 % This convenience funciton lists the default sample metadata, and can be
 % read by other experiment-specific metadata files.
 
-exp_md.sample.name						= 'H$3	'; % [a.m.u.] mass of constituents of sample
+exp_md.sample.name						= 'Helium	'; % [a.m.u.] mass of constituents of sample
 exp_md.sample.type						= 'Molecule'; %sample type, can be 'Molecule' or 'Cluster'.
 exp_md.sample.T							= 273-11.3; %[K] The temperature of the nozzle.
-exp_md.sample.constituent.masses		= [1]; % [a.m.u.] mass of constituents of sample
+exp_md.sample.constituent.masses		= [4]; % [a.m.u.] mass of constituents of sample
 exp_md.sample.constituent.names 		= {'NH$_3$'}; % [] names of constituents of sample
 % exp_md.sample.monomer.fragment.masses 	= [14 1]; % [a.m.u.] mass of fragments of sample
 % exp_md.sample.monomer.fragment.names 	= {'N' 'H'}; % [] names of fragments
