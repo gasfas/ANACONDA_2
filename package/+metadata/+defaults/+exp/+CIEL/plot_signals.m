@@ -38,7 +38,7 @@ s.e_Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% electron TOF:
 s.e_TOF.hist.pointer		= 'h.det1.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_TOF.hist.binsize		= 0.1;% 
+s.e_TOF.hist.binsize		= 0.5;% 
 s.e_TOF.hist.Range			= [40 150];% 
 % Axes metadata:
 s.e_TOF.axes.Lim			= s.e_TOF.hist.Range;% [mm] Lim of the axis that shows the variable. 
@@ -49,7 +49,7 @@ s.e_TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 %%%%%% electron X:
 s.e_X.hist.pointer		= 'h.det1.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_X.hist.binsize		= 0.7;% [mm] binsize of the variable. 
+s.e_X.hist.binsize		= 0.5;% [mm] binsize of the variable. 
  s.e_X.hist.Range			= [-50 50];% [mm] range of the variable. 
 % Axes metadata:
 %s.e_X.axes.Lim			= s.e_X.hist.Range;% [mm] Lim of the axis that shows the variable. 
@@ -65,7 +65,7 @@ s.e_Y.axes.Label.String	= 'Y [mm]'; %The label of the variable
 %%%%%% electron dpx:
 s.e_dpx.hist.pointer		= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_dpx.hist.binsize		= 0.005;% [mm] binsize of the variable. 
+s.e_dpx.hist.binsize		= 0.009;% [mm] binsize of the variable. 
  s.e_dpx.hist.Range			= [-1 1];% [mm] range of the variable. 
 % Axes metadata:
 s.e_dpx.axes.Lim			= s.e_dpx.hist.Range;% [mm] Lim of the axis that shows the variable. 
@@ -76,7 +76,7 @@ s.e_dpx.axes.Label.String	= 'p_x [a.u.]'; %The label of the variable
 s.e_dpy						= s.e_dpx;
 s.e_dpy.hist.pointer		= 'h.det1.dp(:,2)';% Data pointer, where the signal can be found. 
 % s.e_dpy.hist.Range			= [-3 3];
-s.e_dpy.hist.binsize		= 0.005;
+s.e_dpy.hist.binsize		= 0.009;
 % Axes metadata:
 s.e_dpy.axes.Label.String	= 'p_y [a.u.]'; %The label of the variable
 
@@ -84,7 +84,7 @@ s.e_dpy.axes.Label.String	= 'p_y [a.u.]'; %The label of the variable
 s.e_dpz                     = s.e_dpx;
 s.e_dpz.hist.pointer		= 'h.det1.dp(:,3)';% Data pointer, where the signal can be found.
 s.e_dpz.axes.Label.String	= 'p_z[a.u.]'; %The label of the variable
-s.e_dpx.hist.binsize		= 0.005;
+s.e_dpz.hist.binsize		= 0.009;
  s.e_dpz.hist.Range			= [-2 1];
  s.e_dpz.axes.Lim			= s.e_dpz.hist.Range;
 %%%%%%%%%%%%%%%% ION (DET2) SIGNALS

@@ -85,6 +85,18 @@ c.i.mult.data_pointer   = 'e.det2.mult';
 c.i.mult.value          = [1]';
 c.i.mult.translate_condition = 'OR';
 
+c.e.mult.type           = 'discrete';
+c.e.mult.data_pointer   = 'e.det1.mult';
+c.e.mult.value          = [1]';
+c.e.mult.translate_condition = 'OR';
+
+%% Conditions on TOF/m2q_l
+
+c.i.m2q_l.type                  = 'discrete';
+c.i.m2q_l.data_pointer          = 'h.det2.m2q_l';
+c.i.m2q_l.value                 = [4];
+c.i.m2q_l.translate_condition   = 'OR';
+
 %% Conditions: Labeled hits only
 
 % % Make sure we are looking at labeled hits:

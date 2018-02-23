@@ -49,9 +49,9 @@ exp_md.conv.det2.m2q_label.search_radius= exp_md.conv.det2.m2q_labels.^.5*1/10; 
 
 % mass-2-charge group labels
 % A mass-2-charge group is  a set of particles close in mass, collected in one 'group'
-exp_md.conv.det2.m2q_group_labels.min = min(exp_md.sample.fragment.pure.masses, [], 2);
-exp_md.conv.det2.m2q_group_labels.max = max(exp_md.sample.fragment.pure.masses, [], 2);
-exp_md.conv.det2.m2q_group_labels.name = exp_md.sample.fragment.sizes;
+exp_md.conv.det2.m2q_group_labels.min = min(exp_md.sample.fragment.masses, [], 2);
+exp_md.conv.det2.m2q_group_labels.max = max(exp_md.sample.fragment.masses, [], 2);
+%exp_md.conv.det2.m2q_group_labels.name = exp_md.sample.fragment.sizes;
 exp_md.conv.det2.m2q_group_labels.search_radius = 0.5 + mean([exp_md.conv.det2.m2q_group_labels.max, exp_md.conv.det2.m2q_group_labels.min], 2)*2/10;
 
 exp_md.conv.det2.m2q_label_Ci.method = 'circle';
