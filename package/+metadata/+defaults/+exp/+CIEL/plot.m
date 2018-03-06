@@ -59,7 +59,7 @@ d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
 d1.XY.figure.Position		= [200 200 900 900];
 d1.XY.axes.Title.String		= 'Electron detector image';
 % d1.XY.axes.axis				= 'equal';
-%d1.XY.cond                  = exp_md.cond.i.mult;
+d1.XY.cond                  = exp_md.cond.i.m2q_l;
 
 
 d1.dpxy						= metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpy});
@@ -67,6 +67,7 @@ d1.dpxy.figure.Position		= [200 200 900 900];
 
 d1.dpxy.axes(1).Title.String = 'Electron momentum px - py';
 %d1.dpxy.cond                  = exp_md.cond.e.mult;
+d1.dpxy.cond                = exp_md.cond.i.m2q_l;
 
 d1.dpxz                     = metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpz});
 d1.dpxz.figure.Position		= [200 200 900 900];
@@ -75,12 +76,14 @@ d1.dpxz.figure.Colormap   = c;
 % d1.dpxz.axes.axis				= 'equal';
 d1.dpxz.axes(1).Title.String = 'Electron momentum px pz';
 %d1.dpxz.cond                  = exp_md.cond.e.mult;
+d1.dpxz.cond                =  exp_md.cond.i.m2q_l;
 
 d1.dpyz                     = metadata.create.plot.signal_2_plot({signals.e_dpy, signals.e_dpz});
 d1.dpyz.figure.Position		= [200 200 900 900];
 % d1.dpyz.axes.axis				= 'equal';
 d1.dpyz.axes(1).Title.String = 'Electron momentum py - pz';
 %d1.dpyz.cond                  = exp_md.cond.e.mult;
+d1.dpyz.cond                = exp_md.cond.i.m2q_l;
 
 d1.TOF_X						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_TOF});
 d1.TOF_X.figure.Position		= [200 200 900 900];
@@ -88,7 +91,7 @@ d1.TOF_X.axes.XTickLabelRotation = 45;
 %d1.TOF_X.axes.Position			= [0.05 0.2 0.9 0.6];
 %d1.TOF_X.axes.axis					= 'equal';
 d1.TOF_X.axes(1).Title.String   = 'Electron TOF vs X';
-%d1.TOF_X.cond                  = exp_md.cond.e.mult;
+d1.TOF_X.cond                  = exp_md.cond.i.m2q_l;
 
 d1.TOF_Y						= metadata.create.plot.signal_2_plot({signals.e_TOF, signals.e_Y});
 d1.TOF_Y.figure.Position		= [200 200 900 900];
@@ -96,7 +99,7 @@ d1.TOF_Y.axes.XTickLabelRotation = 45;
 %d1.TOF_X.axes.Position			= [0.05 0.2 0.9 0.6];
 %d1.TOF_X.axes.axis					= 'equal';
 d1.TOF_Y.axes(1).Title.String   = 'Electron TOF vs Y';
-%d1.TOF_Y.cond                    = exp_md.cond.e.mult;
+d1.TOF_Y.cond                    = exp_md.cond.i.m2q_l;
 
 
 d1.pz_X                         = metadata.create.plot.signal_2_plot({signals.e_dpz, signals.e_X});

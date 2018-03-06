@@ -44,10 +44,10 @@ label_nr_f      = (label_loc(find(label_loc)));
 % of the average from the zero-momentum reference points.
 
 % the expected zero-momentum position (detection centre):
-X_no_p      = zeros(m,1); %(this should be zero if correction is done well)
-Y_no_p      = zeros(m,1);
+X_no_p      = -0.1.*ones(m,1); %(this should be zero if correction is done well)
+Y_no_p      = -0.1.*ones(m,1);
 % the expected zero-momentum TOF (defined in the labels)
-TOF_no_dp    = labels_TOF_no_p;  % [m, 1]
+TOF_no_dp = spec_md.TOF_no_dp  ;  % [m, 1]
 
 try
 	[X_0, Y_0, T_0] = convert.zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md);
@@ -90,9 +90,9 @@ if ~isBfield
         p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %        [kg*m/s] [q,1]
 else
         omega = general.constants({'q'}).*Bfield./general.constants({'me'});
-%         p_0_X = 0.5*general.constants({'q'}).*Bfield.*(  sin(omega.*( T_0 - TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( T_0 - TOF_no_dp ).*1e-9  )) - (Y_f - Y_no_p) )*1e-3;
-%         p_0_Y = 0.5*general.constants({'q'}).*Bfield.*( X_0 - X_no_p - ( sin(omega.*( T_0 - TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( T_0- TOF_no_dp ).*1e-9  )) )  )*1e-3;
-%         p_0_Z = ch_l_f.*general.constants({'q'}).* E_ER.* (T_0 - TOF_no_dp)*1e-9; % [kg*m/s] [m,1]
+%         p_0_X = 0.5*general.constants({'q'}).*Bfield.*(( sin(omega.*( T_0).*1e-9)./( 1 - cos(omega.*(T_0).*1e-9  ))) - (  sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  ))) + (Y_0 - Y_no_p) ).*1e-3;
+%         p_0_Y = 0.5*general.constants({'q'}).*Bfield.*( X_0 - X_no_p - ( sin(omega.*( T_0 ).*1e-9)./( 1 - cos(omega.*( T_0).*1e-9  )) - sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  )))  ).*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
+%         p_0_Z = ch_l_f .*general.constants({'q'})   .* E_ER.*(T_0 - TOF_no_dp).*1e-9; %
         p_0_X = 0;
         p_0_Y = 0;
         p_0_Z = 0;
@@ -100,10 +100,10 @@ else
         X_no_p_f      = X_no_p(label_nr_f); % [q, 1]
         Y_no_p_f      = Y_no_p(label_nr_f); % [q, 1]
         TOF_no_p_f    = TOF_no_dp(label_nr_f);
-        
-        p_X = 0.5*general.constants({'q'}).*Bfield.*((  sin(omega.*( TOF_f).*1e-9)./( 1 - cos(omega.*(TOF_f).*1e-9  ))) - (  sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  ))) + (Y_f - Y_no_p_f) )*1e-3;
-        p_Y = 0.5*general.constants({'q'}).*Bfield.*( X_f - X_no_p_f - ( sin(omega.*( TOF_f ).*1e-9)./( 1 - cos(omega.*( TOF_f).*1e-9  )) - sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  )))  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
-        p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9; %
+        %offset = 16;
+        p_X = 0.5*general.constants({'q'}).*Bfield.*((  sin(omega.*( TOF_f).*1e-9)./( 1 - cos(omega.*(TOF_f).*1e-9  ))).*X_f - (  sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  ))).*X_no_p_f + (Y_f - Y_no_p_f) )*1e-3;
+        p_Y = 0.5*general.constants({'q'}).*Bfield.*( X_f - X_no_p_f - ( (sin(omega.*( TOF_f ).*1e-9)./( 1 - cos(omega.*( TOF_f).*1e-9  ))).*Y_f - (sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9  ))).*Y_no_p_f  ))*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
+        p_Z = -ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9; %
 end
 % fill this into the momentum (hit array, [n, 1]):
 p(find(label_loc),:) = [p_X p_Y p_Z];

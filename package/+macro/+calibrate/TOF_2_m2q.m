@@ -43,6 +43,10 @@ while ~satisfied
                 TOF_cs(i)       = TOF_c;
                 m2q_points(i) = input('Please give the corresponding m/q value: ');
                 m2q_names{i}     = num2str(m2q_points(i));
+                  % calculate the factors from these inputs:
+                Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
+                [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_c, search_radius);
+                [ factor, t0 ]  = calibrate.TOF_2_m2q_e (TOF_peaks, m2q_points)
             end
         case 'electron'
             nof_points = 1;
@@ -50,16 +54,16 @@ while ~satisfied
             title(click_msg);
             [TOF_c,~] = ginput(1);
             plot.vline ([TOF_c-search_radius TOF_c TOF_c+search_radius], {'k--', 'k-', 'k--'}, {'.', 'TOF peak', '.'})
-            m2q_points = 1;
+            m2q_points = 0.00055; %expected electron mas inn a.m.u.
             m2q_names = num2str(m2q_points);
+             % calculate the factors from these inputs:
+            Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
+            [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_c, search_radius);
+            [ factor, t0 ]  = calibrate.TOF_2_m2q_e (TOF_peaks, m2q_points)
     end
             
-    % calculate the factors from these inputs:
-	Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
-    [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_c, search_radius);
-    [ factor, t0 ]  = calibrate.TOF_2_m2q (TOF_peaks, m2q_points)
-    calib_md.factor = factor;
-    calib_md.t0     = t0;
+   
+    
     
     
     % show them in a plot:

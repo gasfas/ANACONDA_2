@@ -78,7 +78,24 @@ cd1.TOF_2_m2q.TOF.hist.Integrated_value	= 1;
 cd1.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals.e_m2q});
 cd1.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 cd1.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
-% 
+
+
+% Plot style for 2D momentum histogram:
+cd1.momentum.labels_to_show = 5.5e-4 ;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
+cd1.momentum.binsize       	= [0.01, 0.01]*1e0; %[a.u.] binsize of the m2q variable. 
+cd1.momentum.x_range		= [-1 1]*1e0; % [a.u.] x range of the data on x-axis.
+cd1.momentum.y_range		= [-1 1]*1e0; % [a.u.] y range of the data on y-axis.
+              
+cd1.momentum.cond.Rdet2.type               = 'continuous';
+cd1.momentum.cond.Rdet2.data_pointer       = 'h.det2.R';
+cd1.momentum.cond.value              = [0;8];
+cd1.momentum.cond.translate_condition = 'OR';
+% cd1.momentum.cond.type               = 'discrete';
+% cd1.momentum.cond.data_pointer       = 'h.det2.m2q_l';
+% cd1.momentum.cond.value              = [4];
+% cd1.momentum.cond.translate_condition = 'AND';
+%%%%%%%%%%%%%DETECTOR 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TOF to m2q conversion (i)
 cd2.TOF_2_m2q.name = 'ion';
 cd2.TOF_2_m2q.TOF							= metadata.create.plot.signal_2_plot({signals.i_TOF});

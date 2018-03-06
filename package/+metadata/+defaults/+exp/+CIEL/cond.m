@@ -73,7 +73,7 @@ c.r.i.translate_condition = 'AND';
 
 c.r.e.type               = 'continuous';
 c.r.e.data_pointer       = 'h.det1.R';
-c.r.e.value              = [0;10];
+c.r.e.value              = [0;5];
 c.r.e.translate_condition = 'AND';
 
 c.BR.C2				= macro.filter.write_coincidence_condition(2, 'det2');

@@ -1,13 +1,15 @@
-function [] = momentum(exp, detnr, plot_metadata)
+function [h_GraphObj] = momentum(exp, detnr, exp_md)
 % Plot 2D momentum image for the calibration.
 
 det_data = exp.h.(['det' num2str(detnr)]);
-
+plot_metadata = exp_md.calib.det1.momentum;
 rows = 2; cols = 3;
 figure; subplot(rows, cols, 1);
 set(gcf, 'Position', [961   529   960   445])
 
-labels_2_plot   = plot_metadata.labels_to_show;
+%Note: In this case plot_metadata refers to the calib metadata, not the
+%plot metadata, so specifications are given in the metadata file calib-m
+labels_2_plot   = plot_metadata.labels_to_show; 
 binsize         = plot_metadata.binsize;
 x_range         = plot_metadata.x_range;
 y_range         = plot_metadata.y_range;
@@ -33,12 +35,13 @@ end
 for plotnr = 1:rows*cols
     
     ax = subplot(rows,cols,plotnr); 
-	
+	set(gcf, 'Colormap', jet);
 	% Make the histogram:
-	x_edges = hist.bins(x_range, binsize(1)); y_edges = hist.bins(y_range, binsize(2));
+	x_edges = hist.bins(x_range, binsize(1));
+    y_edges = hist.bins(y_range, binsize(2));
     [Count, mids.dim1, mids.dim2] = hist.H_2D(data(filt,x_data_idx(plotnr)), data(filt,y_data_idx(plotnr)), x_edges, y_edges);
 	% Plot it:
-	plot.hist.axes.H_2D.imagesc(ax, mids, Count);
+	[h_GraphObj] = plot.hist.axes.H_2D.imagesc(ax, mids, Count);
 	set(gca, 'YDir', 'normal')
 
     xlabel(names{x_data_idx(plotnr)});
@@ -55,12 +58,12 @@ for plotnr = 1:rows*cols
 					[ax.XLim(1), ax.YLim(2)], ...
 					[ax.XLim(2), ax.YLim(1)], ...
 					[ax.XLim(2), ax.YLim(2)], 10, 10, 'Color', 'w', 'LineWidth', 0.1);
-	end
+    end
 end
 subplot(rows,cols,ceil(cols/2))
 if length(labels_2_plot)<5
-title(['labels shown: ' sprintf('%0.0f ', labels_2_plot)])
+title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
 else
-title(['labels shown: ' sprintf('%0.0f ', labels_2_plot(1)) '-' sprintf('%0.0f ', labels_2_plot(end))])
+title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
 end
 end

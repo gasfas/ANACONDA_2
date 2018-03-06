@@ -11,7 +11,7 @@ exp_md.sample.fragment.masses 	= [4]; % [a.m.u.] mass of fragments of sample
 exp_md.sample.fragment.names 	= {'He'}; % [] names of fragments
 exp_md.sample.fragment.nof 		= [1]; % [] number of fragment masses a single fragment can be composed of.
 exp_md.sample.mass 				= 	sum(exp_md.sample.fragment.masses.*exp_md.sample.fragment.nof);% [a.m.u] mass of sample
-exp_md.sample.e_mass            = [0.00055]; % [a.m.u.] rest mass of electron
+exp_md.sample.e_mass            = [0.0005485799]; % [a.m.u.] rest mass of electron
 exp_md.sample.oven.T 			= exp_md.sample.T; %[K] The temperature of the oven.
 
 exp_md.sample.m_avg	 			= mean(exp_md.sample.constituent.masses); % [a.m.u.] The average mass of the incoming sample.

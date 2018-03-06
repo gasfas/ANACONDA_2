@@ -10,7 +10,7 @@
 % Modification date:
 % Modifier:
 
-function [ h_figure, UIctrl_load, UIctrl_plot, UIctrl_filter, UIctrl_multitab ] = create_layout(screensize)
+function [ h_figure, UIctrl_load, UIctrl_plot, UIctrl_filter, UIctrl_calib UIctrl_multitab ] = create_layout(screensize)
 set(0, 'Units', 'characters');
 if screensize(4) < 500
     screensize(4) = 500;
@@ -192,7 +192,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
 [h_figure, UIctrl_load] = GUI.create_layout.load(UI.h_figure, pos, UI.h_tabs, tab_load);
 
 %% Calibrating
-%[h_figure, UIctrl_calib] = GUI.create_layout.calib(UI.h_figure, pos, UI.h_tabs, tab_calib);
+[h_figure, UIctrl_calib] = GUI.create_layout.calib(UI.h_figure, pos, UI.h_tabs, tab_calib);
 
 %% Filtering
 [h_figure, UIctrl_filter] = GUI.create_layout.filter(UI.h_figure, pos, UI.h_tabs, tab_filter);

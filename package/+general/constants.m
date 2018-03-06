@@ -34,7 +34,7 @@ for i = 1:length(names)
         case {'mp', 'm_p'}
             values(i) = 1.6726485e-27; % [kg] proton/neutron rest mass
         case 'momentum_au'
-            values(i) = 1.992851882e-24;% [kg*m/s] atomic momentum unit
+            values(i) = 1.992851882e-24;% [kg*m/s] atomic momentum uit
         case 'eps0'
             values(i) = 8.854187817e-12;% [F/m] Vacuum permittivity
         case 'mu_B'
