@@ -8,7 +8,7 @@
 % Modification date:
 % Modifier:
 
-function [ UIPlot, UILoad, UIFilter, UICalib, UImultitab ] = callback_def(UIPlot, UILoad, UIFilter, UICalib, UImultitab)
+function [ UIPlot, UILoad, UIFilter, UImultitab] = callback_def(UIPlot, UILoad, UIFilter, UImultitab)
 %%  set buttons
 set(UILoad.LoadFolderButton, ...
     'Callback', @LoadFolder)
@@ -21,8 +21,8 @@ set(UILoad.LoadFileButton, ...
 set(UILoad.UnLoadFileButton, ...
     'Callback', @UnLoadFile)
 %Calibration
-set(UICalib.TOF2m2q.CalibrateElec, ...
-    'Callback', @calib_TOF2m2q)
+% set(UICalib.TOF2m2q.CalibrateElec, ...
+%     'Callback', @calib_TOF2m2q)
 %Plotting
 set(UIPlot.new.PlotButton,...
     'Callback', @Plot_it_new)
@@ -96,6 +96,7 @@ set(UIPlot.new.signals_radiobutton_built_in,...
     'Callback', @plotconfs_radiobutton_built_in)
 set(UIPlot.new.signals_radiobutton_customized,...
     'Callback', @plotconfs_radiobutton_customized)
+set(UICalib.TOF2m2q.CalibType_radiobutton, --
 
 %%  set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
@@ -166,10 +167,10 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.load.IO.buttons.UnLoadFile(UILoad, UIPlot, UIFilter);
     end  
     
-    % calibration buttons
-    function calib_TOF2m2q(hObject, eventdata)
-        GUI.calib.buttons.
-    end
+%     % calibration buttons
+%     function calib_TOF2m2q(hObject, eventdata)
+%         GUI.calib.buttons.calib_TOF2m2q();
+%     end
     % filter buttons
     function EditFilterButton(hObject, eventdata)
         GUI.filter.edit.Edit_Filter(UIFilter);

@@ -73,11 +73,11 @@ cd1.R_circle.plot.axes.Type			= 'axes';
 %% Define the calibration metadata:
 cd1.TOF_2_m2q.name = 'electron';
 % TOF to m2q conversion (e)
-cd1.TOF_2_m2q.TOF							= metadata.create.plot.signal_2_plot({signals.e_TOF});
-cd1.TOF_2_m2q.TOF.hist.Integrated_value	= 1;
-cd1.TOF_2_m2q.m2q							= metadata.create.plot.signal_2_plot({signals.e_m2q});
-cd1.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
-cd1.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
+cd1.TOF2m2q.TOF							= metadata.create.plot.signal_2_plot({signals.e_TOF});
+cd1.TOF2m2q.TOF.hist.Integrated_value	= 1;
+cd1.TOF2m2q.m2q							= metadata.create.plot.signal_2_plot({signals.e_m2q});
+cd1.TOF2m2q.findpeak.search_radius		= 10;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
+cd1.TOF2m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 
 
 % Plot style for 2D momentum histogram:

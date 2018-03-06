@@ -17,7 +17,7 @@ for xn = 1: length(md_GUI.load.exp_names)
     exp_md      = md.GUI.mdata_n.(['exp' int2str(xn)]);
 
 
-    
+    [factor, t0] = macro.calibrate.TOF_2_m2q(exp_data.h.det1, exp_md.calib.det1)
 
 
 
