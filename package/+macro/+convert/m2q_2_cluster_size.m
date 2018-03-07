@@ -47,7 +47,7 @@ for i = 1:length(detnames)
     % combination to a mass label. Therefore, a random pick of the first in
     % the list is chosen:
     if length(unique(masses_exp)) < length(masses_exp)
-        warning('several constituent combinations can lead to the same total mass. The first given is chosen, all other combinations are ignored.')
+        disp('warning: several constituent combinations can lead to the same total mass. The first given is chosen, all other combinations are ignored.')
         % Filter away all the duplicates:
         [~, I_ori] = unique(masses_exp, 'rows', 'stable');
         masses_exp = masses_exp(I_ori);

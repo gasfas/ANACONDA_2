@@ -6,7 +6,12 @@ switch fit_md.Type
 		% Try to fetch the probe width (m2q distance between Intensity probes):
 	try probe_width = fit_md.final_plot.probe_width; catch probe_width = 10; end
 	mass_qmax	= (max(q)*fit_md.m.mass):probe_width:(max(q)*fit_md.n.mass);
-	switch fit_md.final_plot.hist.pointer{2}
+	try 
+		plottype = fit_md.final_plot.hist.pointer{2};
+	catch
+		plottype = 'n_fraction';
+	end
+	switch plottype
 		case 'n-fraction'
 			X		= q;
 			Y		= (0:probe_width:100)';
@@ -19,7 +24,7 @@ switch fit_md.Type
 		q_cur = q(i);
 		runner_f = str2func(['macro.fit.m2q.' fit_md.Type '.runner']);
 		rownr		= find(q_cur==fit_param.q);
-		switch fit_md.final_plot.hist.pointer{2}
+		switch plottype
 			case 'n-fraction'
 				massdata = linspace((q_cur*fit_md.m.mass), (q_cur*fit_md.n.mass), length(Y))'+fit_md.H.mass;
 				fit_results(i,:) = runner_f(fit_param.result(rownr,1:end-(max(fit_param.q)-q_cur)), massdata);

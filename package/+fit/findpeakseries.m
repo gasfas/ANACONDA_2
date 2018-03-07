@@ -49,6 +49,8 @@ function [xpeaks, ypeaks, xwidths] = findpeakseries (xdata, ydata, MinPeakPromin
 % 	figure; plot(xdata, ydata, 'r'); hold on; plot(xpeaks_all, ypeaks_all, 'g*'); plot(xpeaks, ypeaks, 'k*');
 end
 
+%% Subfunctions:
+
 function diff_mat = write_diff_mat(vector)
 
 diff_mat = repmat(vector, 1, length(vector)) - repmat(vector', length(vector), 1);
