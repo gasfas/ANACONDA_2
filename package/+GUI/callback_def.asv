@@ -8,7 +8,7 @@
 % Modification date:
 % Modifier:
 
-function [ UIPlot, UILoad, UIFilter, UICalib, UImultitab] = callback_def(UIPlot, UILoad, UIFilter, UICalib, UImultitab)
+function [ UIPlot, UILoad, UIFilter, UImultitab] = callback_def(UIPlot, UILoad, UIFilter, UImultitab)
 %%  set buttons
 set(UILoad.LoadFolderButton, ...
     'Callback', @LoadFolder)
@@ -96,11 +96,7 @@ set(UIPlot.new.signals_radiobutton_built_in,...
     'Callback', @plotconfs_radiobutton_built_in)
 set(UIPlot.new.signals_radiobutton_customized,...
     'Callback', @plotconfs_radiobutton_customized)
-set(UICalib.TOF2m2q.Radio_CalibType_Ions, ...
-    'Callback', @TOF2m2q_radio_ions)
-set(UICalib.TOF2m2q.Radio_CalibType_Electrons, ...
-    'Callback', @TOF2m2q_radio_electrons)
-
+set(UICalib.TOF2m2q.CalibType_radiobutton, --
 
 %%  set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
@@ -171,10 +167,10 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.load.IO.buttons.UnLoadFile(UILoad, UIPlot, UIFilter);
     end  
     
-    % calibration buttons
-    function TOF2m2q_(hObject, eventdata)
-        GUI.calib.buttons.calib_TOF2m2q();
-    end
+%     % calibration buttons
+%     function calib_TOF2m2q(hObject, eventdata)
+%         GUI.calib.buttons.calib_TOF2m2q();
+%     end
     % filter buttons
     function EditFilterButton(hObject, eventdata)
         GUI.filter.edit.Edit_Filter(UIFilter);
@@ -238,12 +234,7 @@ set(UIPlot.Popup_Filter_Selection, ...
     function plotconfs_radiobutton_built_in(hObject, eventdata)
         GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
     end
-    function TOF2m2q_radio_ions(hObject, eventdata)
-        GUI.calib.TOF2m2q.CalibTypeIon;
-    end
-    function TOF2m2q_radio_electrons(hObject, eventdata)
-        GUI.calib.TOF2m2q.CalibTypeElec;
-    end
+
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
         if UIPlot.new.y_signals_checkbox.Value == 0

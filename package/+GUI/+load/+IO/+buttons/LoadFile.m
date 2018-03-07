@@ -92,6 +92,7 @@ md_GUI.plot.expsettings.(['exp', num2str(NumberOfLoadedFiles+1)]) = [2 1 1];
 set(UILoad.UnLoadFileButton, 'Enable', 'on')
 exps = md_GUI.data_n.(['exp', num2str(NumberOfLoadedFiles+1)]);
 filesextratext = 'Last loaded file information: \n';
+
 %Try to fetch any added comments/information about the information:
 try 
     information = exps.info;

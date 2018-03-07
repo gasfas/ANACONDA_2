@@ -20,7 +20,8 @@ exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
 exp_md.spec.isBfield			= true; % Is there a magnetic field applied in this spectrometer?
-exp_md.spec.Bfield              = 0.000544; % [T]
+exp_md.spec.Bfield              = 0.00051; % [T]
+exp_md.spec.TOF_no_dp                = 98.6;
 exp_md.spec.volt.V_created 		= exp_md.spec.volt.Ve2s + exp_md.spec.dist.s0/exp_md.spec.dist.s * (exp_md.spec.volt.Vs2a - exp_md.spec.volt.Ve2s); % [V]The voltage at light interaction point
 
 end
