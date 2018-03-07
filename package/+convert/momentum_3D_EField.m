@@ -61,10 +61,9 @@ catch % If some values are not given, we don't perform the MB correction:
 	T_0                 = TOF_no_dp;
 end
 
-isBfield        = spec_md.isBfield;
-Bfield          = spec_md.Bfield;
-
-if ~isBfield
+% Lisa: I changed a few lines here, since you assumed here that all spec_md
+% contains the field 'isBfield', which is not necessarily so.
+if ~general.struct.probe_field(spec_md,	'isBfield')
         % p_0 is determined from the difference between these two:
         p_0_X = labels_mass.*general.constants({'amu'}).* (X_0./T_0 - X_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
         p_0_Y = labels_mass.*general.constants({'amu'}).* (Y_0./T_0 - Y_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
@@ -89,7 +88,8 @@ if ~isBfield
         % expected and actual Time Of Flight:
         p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %        [kg*m/s] [q,1]
 else
-        omega = general.constants({'q'}).*Bfield./general.constants({'me'});
+        Bfield          = spec_md.Bfield;
+		omega = general.constants({'q'}).*Bfield./general.constants({'me'});
 %         p_0_X = 0.5*general.constants({'q'}).*Bfield.*(( sin(omega.*( T_0).*1e-9)./( 1 - cos(omega.*(T_0).*1e-9  ))) - (  sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  ))) + (Y_0 - Y_no_p) ).*1e-3;
 %         p_0_Y = 0.5*general.constants({'q'}).*Bfield.*( X_0 - X_no_p - ( sin(omega.*( T_0 ).*1e-9)./( 1 - cos(omega.*( T_0).*1e-9  )) - sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  )))  ).*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
 %         p_0_Z = ch_l_f .*general.constants({'q'})   .* E_ER.*(T_0 - TOF_no_dp).*1e-9; %
