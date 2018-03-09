@@ -264,17 +264,8 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
             exp_name = char(exp_names(1));
       end
       % check radiobuttons and assign
-      switch UICalib.momentum.SelectedObject.String
-          case 'ion'
-            detnr = 2;
-            GUI.calib.parameter_selection(detnr);
-          case 'electron'
-              detnr = 1;
-              GUI.calib.parameter_selection(detnr);
-      end
-              
       if UICalib.momentum.Radio_CalibType_Ions.Value == 1
-        GUI.calib.parameter_selection(detnr;
+        GUI.calib.parameter_selection.;
       elseif UIPlot.new_signal.signals_radiobutton_customized.Value == 1
         GUI.plot.data_selection.Radiobutton_Custom_Signal;
       end

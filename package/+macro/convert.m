@@ -28,7 +28,7 @@ for i = 1:length(detnames)
     end
     
     % Perform the m2q : 
-    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.m2q']) && all(isfield(data_out.h.(detname), {'TOF'}))
+    if general.struct.probe_field(metadata_in, ['conv.' detname '.ifdo.TOF_2_m2q']) && all(isfield(data_out.h.(detname), {'TOF'}))
         data_out = macro.convert.TOF_2_m2q(data_out, metadata_in, detname);
     end
     

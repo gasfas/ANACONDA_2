@@ -71,7 +71,7 @@ cd1.R_circle.plot.axes.hold			= 'on'; % type of colormap
 cd1.R_circle.plot.axes.Type			= 'axes';
 
 %% Define the calibration metadata:
-cd1.TOF_2_m2q.name = 'electron';
+cd1.TOF2m2q.name = 'electron';
 % TOF to m2q conversion (e)
 cd1.TOF2m2q.TOF							= metadata.create.plot.signal_2_plot({signals.e_TOF});
 cd1.TOF2m2q.TOF.hist.Integrated_value	= 1;
@@ -86,8 +86,8 @@ cd1.momentum.binsize       	= [0.01, 0.01]*1e0; %[a.u.] binsize of the m2q varia
 cd1.momentum.x_range		= [-1 1]*1e0; % [a.u.] x range of the data on x-axis.
 cd1.momentum.y_range		= [-1 1]*1e0; % [a.u.] y range of the data on y-axis.
               
-cd1.momentum.cond.Rdet2.type               = 'continuous';
-cd1.momentum.cond.Rdet2.data_pointer       = 'h.det2.R';
+cd1.momentum.cond.type               = 'continuous';
+cd1.momentum.cond.data_pointer       = 'h.det2.R';
 cd1.momentum.cond.value              = [0;8];
 cd1.momentum.cond.translate_condition = 'OR';
 % cd1.momentum.cond.type               = 'discrete';

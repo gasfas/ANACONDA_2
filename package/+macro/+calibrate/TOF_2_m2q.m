@@ -70,7 +70,7 @@ while ~satisfied
 	calib_md.m2q.axes.XLim(2) = max([calib_md.m2q.axes.XLim(2), 1.2*m2q_points(nof_points)]);
     m2q = convert.TOF_2_m2q(TOF_signal, factor, t0);% show them in a plot:
     [h_m2qfig, h_m2qax, h_m2qGrO] = plot.quickhist(m2q, 'plot_md', calib_md.m2q);
-    %plot.vline(m2q_points, repmat({'k'},1,nof_points), m2q_names)
+    plot.vline(m2q_points, repmat({'k'},1,nof_points), m2q_names)
     grid minor
     
     % Is the user satsfied?

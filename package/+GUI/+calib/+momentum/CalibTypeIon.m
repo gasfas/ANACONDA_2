@@ -1,10 +1,4 @@
-
-
-
-
-
-
-function [] = CalibTypeElec()
+function [] = CalibTypeIon()
 
 md_GUI = evalin('base', 'md_GUI');
 try 
@@ -14,8 +8,8 @@ catch
 end
     UICalib = md_GUI.UI.UICalib;
 
-    set(UiCalib.TOF2m2q.Push_CalibControl, 'Enable', 'on')
 
+set(UICalib.momentum.Push_CalibControl, 'Enable', 'on')
 
 
     exp_names = cellstr('');
@@ -44,21 +38,22 @@ for lx = 1:length(exp_names)
         hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
         
         % assign data used 
-        if mean(hr_detname == UICalib.TOF2m2q.Radio_CalibType_Electrons.String)
-            UICalib.TOF2m2q.CalibType.data = md_GUI.data_n.(current_exp_name).h.(current_det_name);
-            continue
-        else
-            msg('Function is not matching the data set. Check code!');
+        if strcmp(hr_detname,UICalib.momentum.Radio_CalibType_Ions.String)
+            UICalib.momentum.(current_exp_name).detnr       = 2;
+            UICalib.momentum.(current_exp_name).exp         = md_GUI.data_n.(current_exp_name);
+            UICalib.momentum.(current_exp_name).exp_md      = md_GUI.mdata_n.(current_exp_name);
+            UICalib.momentum.(current_exp_name).detname     = UICalib.momentum.Radio_CalibType_Ions.String;
+            continue;
         end
-            
-        set(md_GUI.UI.UICalib.TOF2m2q.Push_CalibControl, 'Enable', 'on')    
-    end    
-
-        
+    end      
+          
+end    
+disp('Log: Loaded ion calib data.')
+set(md_GUI.UI.UICalib.momentum.Push_CalibControl, 'Enable', 'on');    
 assignin('base', 'md_GUI', md_GUI)
 
 
 
 
-set(md_GUI.UI.UICalib.TOF2m2q.type, 
+
 end

@@ -46,8 +46,7 @@ label_nr_f      = (label_loc(find(label_loc)));
 % the expected zero-momentum position (detection centre):
 X_no_p      = -0.1.*ones(m,1); %(this should be zero if correction is done well)
 Y_no_p      = -0.1.*ones(m,1);
-% the expected zero-momentum TOF (defined in the labels)
-TOF_no_dp = spec_md.TOF_no_dp  ;  % [m, 1]
+TOF_no_dp    = labels_TOF_no_p; 
 
 try
 	[X_0, Y_0, T_0] = convert.zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md);
@@ -61,10 +60,10 @@ catch % If some values are not given, we don't perform the MB correction:
 	T_0                 = TOF_no_dp;
 end
 
+isBfield        = spec_md.isBfield;
 
 
-
-if ~isBfield
+if ~general.struct.probe_field(spec_md, 'isBfield')
         % p_0 is determined from the difference between these two:
         p_0_X = labels_mass.*general.constants({'amu'}).* (X_0./T_0 - X_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
         p_0_Y = labels_mass.*general.constants({'amu'}).* (Y_0./T_0 - Y_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
@@ -90,6 +89,8 @@ if ~isBfield
         p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %        [kg*m/s] [q,1]
 else
     Bfield          = spec_md.Bfield;
+    % the expected zero-momentum TOF (defined in the labels)
+    TOF_no_dp = spec_md.TOF_no_dp  ;  % [m, 1]
     omega = general.constants({'q'}).*Bfield./general.constants({'me'});
 %         p_0_X = 0.5*general.constants({'q'}).*Bfield.*(( sin(omega.*( T_0).*1e-9)./( 1 - cos(omega.*(T_0).*1e-9  ))) - (  sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  ))) + (Y_0 - Y_no_p) ).*1e-3;
 %         p_0_Y = 0.5*general.constants({'q'}).*Bfield.*( X_0 - X_no_p - ( sin(omega.*( T_0 ).*1e-9)./( 1 - cos(omega.*( T_0).*1e-9  )) - sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  )))  ).*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];

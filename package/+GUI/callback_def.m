@@ -20,10 +20,8 @@ set(UILoad.LoadFileButton, ...
     'Callback', @LoadFile)
 set(UILoad.UnLoadFileButton, ...
     'Callback', @UnLoadFile)
-%Calibration
-% set(UICalib.TOF2m2q.CalibrateElec, ...
-%     'Callback', @calib_TOF2m2q)
-%Plotting
+set(UICalib.momentum.Push_CalibControl, ...
+     'Callback', @momentum_push_CalibControl)
 set(UIPlot.new.PlotButton,...
     'Callback', @Plot_it_new)
 set(UIPlot.def.PlotButton,...
@@ -96,10 +94,14 @@ set(UIPlot.new.signals_radiobutton_built_in,...
     'Callback', @plotconfs_radiobutton_built_in)
 set(UIPlot.new.signals_radiobutton_customized,...
     'Callback', @plotconfs_radiobutton_customized)
-set(UICalib.TOF2m2q.Radio_CalibType_Ions, ...
-    'Callback', @TOF2m2q_radio_ions)
-set(UICalib.TOF2m2q.Radio_CalibType_Electrons, ...
-    'Callback', @TOF2m2q_radio_electrons)
+% set(UICalib.TOF2m2q.Radio_CalibType_Ions, ...
+%     'Callback', @TOF2m2q_radio_ions)
+% set(UICalib.TOF2m2q.Radio_CalibType_Electrons, ...
+%     'Callback', @TOF2m2q_radio_electrons)
+% set(UICalib.momentum.Radio_CalibType_Ions, ...
+%     'Callback', @momentum_radio_ions)
+% set(UICalib.momentum.Radio_CalibType_Electrons, ...
+%     'Callback', @momentum_radio_electrons)
 
 
 %%  set popupboxes
@@ -173,7 +175,10 @@ set(UIPlot.Popup_Filter_Selection, ...
     
     % calibration buttons
     function TOF2m2q_(hObject, eventdata)
-        GUI.calib.buttons.calib_TOF2m2q();
+        GUI.calib.TOF2m2q.CalibControl();
+    end
+    function momentum_push_CalibControl(hObject, eventdata)
+        GUI.calib.momentum.CalibControl();
     end
     % filter buttons
     function EditFilterButton(hObject, eventdata)
@@ -238,12 +243,19 @@ set(UIPlot.Popup_Filter_Selection, ...
     function plotconfs_radiobutton_built_in(hObject, eventdata)
         GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
     end
-    function TOF2m2q_radio_ions(hObject, eventdata)
-        GUI.calib.TOF2m2q.CalibTypeIon;
-    end
-    function TOF2m2q_radio_electrons(hObject, eventdata)
-        GUI.calib.TOF2m2q.CalibTypeElec;
-    end
+%     function TOF2m2q_radio_ions(hObject, eventdata)
+%         GUI.calib.TOF2m2q.CalibTypeIon;
+%     end
+%     function TOF2m2q_radio_electrons(hObject, eventdata)
+%         GUI.calib.TOF2m2q.CalibTypeElec;
+%     end
+%     function momentum_radio_ions(hObject, eventdata)
+%         GUI.calib.momentum.CalibTypeIon;
+%     end
+%     function momentum_radio_electrons(hObject, eventdata)
+%         GUI.calib.momentum.CalibTypeElec;
+%     end
+
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
         if UIPlot.new.y_signals_checkbox.Value == 0

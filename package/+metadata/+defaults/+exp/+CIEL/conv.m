@@ -5,9 +5,10 @@ function [ exp_md ] = conv ( exp_md )
 %% Conversion factors:
 % Detector 1: Electron detector, Detector 1: Electron detector, Detector 1:
 exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
-exp_md.conv.det1.ifdo.m2q   					= true;
+exp_md.conv.det1.ifdo.TOF_2_m2q  					= true;
 exp_md.conv.det1.ifdo.m2q_label					= true;
 exp_md.conv.det1.ifdo.R_theta					= true;
+
 % Time Of Flight to Mass to Charge values
 exp_md.conv.det1.m2q_labels 			= [0.00055]; % the available m2q labels.
 
@@ -22,7 +23,7 @@ exp_md.conv.det1.m2q_label.search_radius= 0.001; % search radius (in either m/q 
 % Ion detector, Detector 2: Ion detector, Detector 2: Ion detector, Detector 2:
 % Which conversions should be performed on the data:
 
-exp_md.conv.det2.ifdo.m2q						= true;% Does the user want to convert to mass-over-charge?
+exp_md.conv.det2.ifdo.TOF_2_m2q					= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group					= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.m2q_label_Ci				= false; % Does the user want to convert to mass-2-charge labels?

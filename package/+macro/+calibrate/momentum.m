@@ -2,7 +2,7 @@ function [h_GraphObj] = momentum(exp, detnr, exp_md)
 % Plot 2D momentum image for the calibration.
 
 det_data = exp.h.(['det' num2str(detnr)]);
-plot_metadata = exp_md.calib.det1.momentum;
+plot_metadata = exp_md.calib.(['det' num2str(detnr)]).momentum;
 rows = 2; cols = 3;
 figure; subplot(rows, cols, 1);
 set(gcf, 'Position', [961   529   960   445])

@@ -39,7 +39,8 @@ for lx = 1:length(exp_names)
         
         % assign data used 
         if strcmp(hr_detname,UICalib.TOF2m2q.Radio_CalibType_Ions.String)
-            UICalib.TOF2m2q.CalibType.calib_md = md_GUI.mdata_n.(current_exp_name).calib.det2.TOF2m2q;
+            md_GUI.mdata_n.(current_exp_name).calib.det2.ifdo.TOF_2_m2q = 1;
+            UICalib.TOF2m2q.CalibType.calib_md = md_GUI.mdata_n.(current_exp_name).calib.det2.TOF_2_m2q;
             continue;
         end
             

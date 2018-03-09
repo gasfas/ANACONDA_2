@@ -43,7 +43,7 @@ for i = 1:length(detnames)
 				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q);
 				% Calculate the momentum:
                 
-				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_EField(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, metadata_in.spec.det_modes{detnr});
+				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_Field(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, metadata_in.spec.det_modes{detnr});
 				data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
 				% calculate the elevation angle phi:
 				[~, data_out.h.(detname).dp_phi]					= cart2sph(data_out.h.(detname).dp(:,1), data_out.h.(detname).dp(:,2), data_out.h.(detname).dp(:,3));
@@ -61,7 +61,7 @@ for i = 1:length(detnames)
                 % is a factor for conversion to m2q in a.m.u, thus if we
                 % want to use this factor obtain
                 % [data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_2D_EBfield(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md);
-             	[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_EField(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md, spec_md);
+             	[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_Field(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md, spec_md);
                 data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
         end
 
