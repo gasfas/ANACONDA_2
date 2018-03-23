@@ -28,7 +28,7 @@ for i = 1:length(detnames)
 		% This means we can perform 3D momentum conversion:
 		TOF         = data_out.h.(detname).TOF;
 		% Electric field in the source region:
-		E_ER        = theory.TOF.calc_field_strength(0, 78 , .180 );
+		E_ER        = metadata_in.spec.Efield;
 		sample_md   = metadata_in.sample;
         spec_md     = metadata_in.spec;
         switch metadata_in.spec.det_modes{detnr} % what kind of particle does this detector see

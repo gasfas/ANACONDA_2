@@ -11,7 +11,7 @@ exp_md.corr.det1.ifdo.R_circle		= false;
 
 % The detector image translation parameters:
 exp_md.corr.det1.dX					= -4.7;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
-exp_md.corr.det1.dY					= -9.0;   %[mm] distance the center of detection is displaced up the origin of the raw image;
+exp_md.corr.det1.dY					= -9.1;   %[mm] distance the center of detection is displaced up the origin of the raw image;
 % The detector image rotation parameters:
 exp_md.corr.det1.dTheta				= -6;   %[deg] rotation of hits around the raw image centre (anticlockwise);
 % The TOF deadtime correction parameter:

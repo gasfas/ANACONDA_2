@@ -7,7 +7,7 @@ exp_md.spec.name = 'CIEL';
 % this is a quick short term idea and probably not a good one, but it is to
 % facilitate the GUI for now, things can be improved
 exp_md.spec.ifdo.Bfield = true;
-exp_md.spec.ifdo.
+
 
 % Voltages
 exp_md.spec.volt.Ve2s			= 300; %[V] Voltage of grid separating electron side and source region,'pusher'
@@ -24,9 +24,9 @@ exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 % detection modes:
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
-exp_md.spec.isBfield			= true; % Is there a magnetic field applied in this spectrometer?
+
 exp_md.spec.Bfield              = 0.00051; % [T]
 
-exp_md.spec.Efield ; % [V]The voltage at light interaction point
+exp_md.spec.Efield              = 433.3333; % [V]The voltage at light interaction point
 
 end

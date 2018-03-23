@@ -62,8 +62,8 @@ for plotnr = 1:rows*cols
 end
 subplot(rows,cols,ceil(cols/2))
 if length(labels_2_plot)<5
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
+title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' . Efield:' num2str(exp_md.spec.Efield) ' .'])
 else
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
+title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' .  Efield:' num2str(exp_md.spec.Efield) ' .' ])
 end
 end

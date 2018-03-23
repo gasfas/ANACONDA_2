@@ -5,8 +5,9 @@ function [ exp_md ] = conv ( exp_md )
 %% Conversion factors:
 % Detector 1: Electron detector, Detector 1: Electron detector, Detector 1:
 exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
-exp_md.conv.det1.ifdo.TOF_2_m2q  					= true;
+exp_md.conv.det1.ifdo.TOF_2_m2q                 = true;
 exp_md.conv.det1.ifdo.m2q_label					= true;
+%exp_md.conv
 exp_md.conv.det1.ifdo.R_theta					= true;
 
 % Time Of Flight to Mass to Charge values

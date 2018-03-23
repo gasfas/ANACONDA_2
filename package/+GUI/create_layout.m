@@ -113,10 +113,10 @@ tab_plot.ButtonDownFcn = @plottabopening;
     end
     function filtertabopening(hObject, eventdata)
         md_GUI = evalin('base', 'md_GUI');
-        if md_GUI.UI.tabnumber == 3
+        if md_GUI.UI.tabnumber == 3 
             % Filter tab was already open.
             constructtree = 0;
-        elseif md_GUI.UI.tabnumber == 4
+        elseif md_GUI.UI.tabnumber == 4 
             md_GUI.UI.UIFilter.Tree.Enable = 1;
             constructtree = 0;
         else
@@ -151,7 +151,7 @@ tab_plot.ButtonDownFcn = @plottabopening;
     end
     function plottabopening(hObject, eventdata)
         md_GUI = evalin('base', 'md_GUI');
-        if md_GUI.UI.tabnumber == 3
+        if md_GUI.UI.tabnumber == 3 %ask for previous tabnumber
             % Filter tree is disabled - not destructed.
             UI = md_GUI.UI.UIFilter;
             md_GUI.UI.UIFilter.Tree.Enable = 0;

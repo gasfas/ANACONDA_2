@@ -20,8 +20,12 @@ set(UILoad.LoadFileButton, ...
     'Callback', @LoadFile)
 set(UILoad.UnLoadFileButton, ...
     'Callback', @UnLoadFile)
-set(UICalib.momentum.Push_CalibControl, ...
-     'Callback', @momentum_push_CalibControl)
+%Calibration
+% set(UICalib.correction.PushCalib, ...
+%      'Callback', @Push_StartCalib)
+% set(UICalib.conversion.PushCalib, ...
+%      'Callback', @Push_StartCalib)
+ 
 set(UIPlot.new.PlotButton,...
     'Callback', @Plot_it_new)
 set(UIPlot.def.PlotButton,...
@@ -58,6 +62,8 @@ set(UIPlot.new.btn_set_x_sign_pointer,...
     'Callback', @set_x_signal_button)
 set(UIPlot.new.btn_set_y_sign_pointer,...
     'Callback', @set_y_signal_button)
+set(UICalib.Push_Calib, ...
+    'Callback', @start_calibration)
 
 %%  set editboxes
 set(UILoad.FiletypeEditBox, ...
@@ -80,6 +86,18 @@ set(UIFilter.Fieldvalue, ...
     'Callback',@FilterFieldValueCall) %To the filter tab
 set(UIPlot.new.signals_list,...
     'Callback', @Signals_List)
+set(UICalib.LoadedFilesCalibrating, ...
+    'Callback', @LoadedFilesCall) %To the calibrating tab
+
+set(UICalib.correction.Fieldname, ...
+    'Callback',@CalibFieldNameCall)
+set(UICalib.correction.Fieldvalue, ...
+    'Callback',@CalibFieldValueCall)
+set(UICalib.conversion.Fieldname, ...
+    'Callback',@CalibFieldNameCall)
+set(UICalib.conversion.Fieldvalue, ...
+    'Callback',@CalibFieldValueCall)
+
 
 %% set radiobuttons
 set(UIPlot.def.pre_def_plot_radiobutton_built_in,...
@@ -94,20 +112,23 @@ set(UIPlot.new.signals_radiobutton_built_in,...
     'Callback', @plotconfs_radiobutton_built_in)
 set(UIPlot.new.signals_radiobutton_customized,...
     'Callback', @plotconfs_radiobutton_customized)
-% set(UICalib.TOF2m2q.Radio_CalibType_Ions, ...
-%     'Callback', @TOF2m2q_radio_ions)
-% set(UICalib.TOF2m2q.Radio_CalibType_Electrons, ...
-%     'Callback', @TOF2m2q_radio_electrons)
-% set(UICalib.momentum.Radio_CalibType_Ions, ...
-%     'Callback', @momentum_radio_ions)
-% set(UICalib.momentum.Radio_CalibType_Electrons, ...
-%     'Callback', @momentum_radio_electrons)
+
+set(UICalib.correction.RadioCalib_ON, ...
+    'Callback', @Calib_Radiobutton_Selection)
+set(UICalib.correction.RadioCalib_OFF, ...
+    'Callback', @Calib_Radiobutton_Selection)
+set(UICalib.conversion.RadioCalib_ON, ...
+    'Callback', @Calib_Radiobutton_Selection)
+set(UICalib.conversion.RadioCalib_OFF, ...
+    'Callback', @Calib_Radiobutton_Selection)
+
 
 
 %%  set popupboxes
 set(UIPlot.Popup_Filter_Selection, ...
     'Callback', @Popup_FilterSelect)
-
+set(UICalib.Popup_DetModes, ...
+    'Callback', @Popup_DetModeSelect)
 %%  Functions for editboxes
     function Filetypeselection(hObject, eventdata)
        GUI.load.IO.edits.Filetypeselection(hObject, eventdata, UILoad);
@@ -147,7 +168,7 @@ set(UIPlot.Popup_Filter_Selection, ...
         GUI.work.SaveWork( );
     end
     function LoadFile(hObject, eventdata)
-        GUI.load.IO.buttons.LoadFile(UILoad, UIPlot, UIFilter);
+        GUI.load.IO.buttons.LoadFile(UILoad, UIPlot, UICalib, UIFilter);
     end
     function Plot_it_new(hObject, eventdata)
         GUI.plot.create.Plot();
@@ -174,11 +195,9 @@ set(UIPlot.Popup_Filter_Selection, ...
     end  
     
     % calibration buttons
-    function TOF2m2q_(hObject, eventdata)
-        GUI.calib.TOF2m2q.CalibControl();
-    end
-    function momentum_push_CalibControl(hObject, eventdata)
-        GUI.calib.momentum.CalibControl();
+   
+    function start_calibration(hObject, eventdata)
+        GUI.calib.Start_Calib();
     end
     % filter buttons
     function EditFilterButton(hObject, eventdata)
@@ -223,7 +242,9 @@ set(UIPlot.Popup_Filter_Selection, ...
     function PlotTypeSel(hObject, eventdata)
         GUI.plot.data_selection.Popup_Plot_Selection(hObject, eventdata, UILoad, UIPlot.new);
     end
-
+    function Popup_DetModeSelect(hObject, eventdata)
+        GUI.calib.parameter_selection(hObject, eventdata)
+    end
 %%  Functions for radiobuttons
     function pre_def_plot_radiobutton_customized(hObject, eventdata)
         GUI.plot.data_selection.Radiobutton_Custom_Plotconf;
@@ -243,18 +264,11 @@ set(UIPlot.Popup_Filter_Selection, ...
     function plotconfs_radiobutton_built_in(hObject, eventdata)
         GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
     end
-%     function TOF2m2q_radio_ions(hObject, eventdata)
-%         GUI.calib.TOF2m2q.CalibTypeIon;
-%     end
-%     function TOF2m2q_radio_electrons(hObject, eventdata)
-%         GUI.calib.TOF2m2q.CalibTypeElec;
-%     end
-%     function momentum_radio_ions(hObject, eventdata)
-%         GUI.calib.momentum.CalibTypeIon;
-%     end
-%     function momentum_radio_electrons(hObject, eventdata)
-%         GUI.calib.momentum.CalibTypeElec;
-%     end
+
+
+    function Calib_Radiobutton_Selection(hObject, eventdata)
+        GUI.calib.Radiobutton_Select_Calib;
+    end
 
 %% Functions for checkboxes
     function Y_Signals_Checkbox(hObject, eventdata)
@@ -271,13 +285,19 @@ set(UIPlot.Popup_Filter_Selection, ...
        GUI.load.IO.lists.FilesList(hObject, eventdata, UILoad);
     end
     function LoadedFilesCall(hObject, eventdata)
-        GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot);
+        GUI.load.IO.lists.LoadedFiles(hObject, eventdata, UILoad, UIPlot, UICalib);
     end
     function FilterFieldValueCall(hObject, eventdata)
         GUI.filter.edit.FieldValueList(hObject, eventdata, UIFilter);
     end
     function FilterFieldNameCall(hObject, eventdata)
         GUI.filter.edit.FieldnameList(hObject, eventdata, UIFilter);
+    end
+    function CalibFieldValueCall(hObject, eventdata)
+        GUI.calib.FieldValueList(hObject, eventdata, UICalib);
+    end
+    function CalibFieldNameCall(hObject, eventdata)
+        GUI.calib.FieldnameList(hObject, eventdata, UICalib);
     end
     function Signals_List(hObject, eventdata)
         % No callback defined nor needed yet.
