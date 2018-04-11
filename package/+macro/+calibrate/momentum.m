@@ -21,22 +21,25 @@ y_range         = plot_metadata.y_range;
 % Z               = (det_data.dp(:,3).*(TOF-convert.calc_labels_TOF_no_p(exp_md.conv.(['det' num2str(detnr)]).m2q_labels, exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q))./general.constants({'me'}));
 
 dp              = det_data.dp;
-dpx         = dp(:,1);
-dpy         = dp(:,2);
-dpz         = dp(:,3);
-polar       = acos(dpx./sqrt(dpx.^2 + dpy.^2 + dpz.^2));
-azimuthal   = atan(dp(:,3)./dp(:,2));
+dpx             = dp(:,1);
+dpy             = dp(:,2);
+dpz             = dp(:,3);
 
+pol             = acos(dpx./sqrt(dpx.^2 + dpy.^2 + dpz.^2));
+az              = atan2(dpz,dpy);
+az_neg          = find(az <= 0);
+
+az(az_neg)      =  2*pi + az(az_neg);
 
 m2q_l           = det_data.m2q_l;
 dp_norm         = general.vector.norm_vectorarray(dp, 2);
 filt            = filter.hits.labeled_hits(m2q_l, labels_2_plot);
 
 
-data            = [dp dp_norm polar azimuthal];
+data            = [dp dp_norm pol az];
 names           = {'$p_x [amu]$', '$p_y [amu]$', '$p_z [amu]$', '$|p| [amu]$', 'phi', 'theta'};
 ranges          = [x_range; x_range; x_range; [0 x_range(2)]; [0 x_range(2)]; [0 x_range(2)]];
-y_ranges        = [y_range; y_range; y_range; [0 1];  [-3 3]; [-1.57 1.57]]; 
+y_ranges        = [y_range; y_range; y_range; [0 1];  [-3 3]; [0 2*pi]]; 
 x_data_idx      = [2, 3, 3, 1, 2, 3, 1, 4, 4];
 y_data_idx      = [1, 1, 2, 4, 4, 4, 5, 6, 5];
 plot_circle     = [1, 1, 1, 0, 0, 0, 0, 0, 0];

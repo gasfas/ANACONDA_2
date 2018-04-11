@@ -27,6 +27,6 @@ exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1
 
 exp_md.spec.Bfield              = 0.00055; % [T]
 
-exp_md.spec.Efield              = 450; % [V]The voltage at light interaction point
+exp_md.spec.Efield              = 450; % [Vm^-1]The voltage at light interaction point
 
 end
