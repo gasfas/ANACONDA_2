@@ -92,7 +92,7 @@ function [] = FieldDoubleClick(UICalib)
   
     end
     if treatable == 1
-        md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, str2num(outputvalue));
+        md_GUI.mdata_n.(exp_name) = general.struct.setsubfield(md_GUI.mdata_n.(exp_name), base_finalpath, str2double(outputvalue));
         if ischar(previous_ans)
             previous_val = previous_ans;
         elseif isnumeric(previous_ans)

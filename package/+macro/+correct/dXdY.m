@@ -22,7 +22,7 @@ for i = 1:length(detnames)
     idx_X       = find(strcmp(metadata_in.det.(detname).signals, 'X [mm]'));
     idx_Y       = find(strcmp(metadata_in.det.(detname).signals, 'Y [mm]'));
     
-    if ~general.struct.probe_field(data_in.h.(detname), 'corr_log.dXdY')
+    
 
         % execute the center correction of the detector image:
         data_out.h.(detname).X = data_in.h.(detname).raw(:,idx_X) - metadata_in.corr.(detname).dX;
@@ -38,10 +38,7 @@ for i = 1:length(detnames)
 
         disp(['Log: Detector image translation correction performed on ' detname])
         % add the correction name to the log:
-        data_out.h.(detname).corr_log.dXdY = true;
-    else
-        % no correction needed
-    end
+  
 
 end
 end

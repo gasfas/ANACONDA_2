@@ -7,14 +7,14 @@ function [ exp_md ] = conv ( exp_md )
 exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det1.ifdo.TOF_2_m2q                 = true;
 exp_md.conv.det1.ifdo.m2q_label					= true;
-%exp_md.conv
+exp_md.conv.det1.ifdo.KER                       = true;
 exp_md.conv.det1.ifdo.R_theta					= true;
 
 % Time Of Flight to Mass to Charge values
 exp_md.conv.det1.m2q_labels 			= [0.00055]; % the available m2q labels.
 
 % Time Of Flight to Mass to Charge calibration
-exp_md.conv.det1.TOF_2_m2q.factor      	= 4.8610e+03;%Conversion factor from mass 2 charge to TOF
+exp_md.conv.det1.TOF_2_m2q.factor      	= 4.195e+03;%Conversion factor from mass 2 charge to TOF
 exp_md.conv.det1.TOF_2_m2q.t0          	= 0;%[ns] dead time correction
 
 exp_md.conv.det1.mass_labels 			= exp_md.conv.det1.m2q_labels ; % the corresponding expected mass values in this experiment. If all expected particles are singly charged, this array is similar to exp_md.conv.det2.m2q_labels. 
@@ -29,7 +29,7 @@ exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to m
 exp_md.conv.det2.ifdo.m2q_group					= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.m2q_label_Ci				= false; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.cluster_size				= false;% Does the user want to convert to cluster size?
-exp_md.conv.det2.ifdo.momentum					= false;% Does the user want to convert to momentum?
+exp_md.conv.det2.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det2.ifdo.KER 						= false;% Does the user want to convert to Kinetic energy?
 exp_md.conv.det2.ifdo.R_theta					= true;% Does the user want to convert to R-theta coordinates?
 exp_md.conv.det2.ifdo.angle_p_corr_C2			= false;% Does the user want to calculate mutual momentum angles of double coindicence?

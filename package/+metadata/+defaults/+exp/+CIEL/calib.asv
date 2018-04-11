@@ -88,11 +88,11 @@ cd1.momentum.y_range		= [-1 1]*1e0; % [a.u.] y range of the data on y-axis.
               
 cd1.momentum.cond.elec.type               = 'continuous';
 cd1.momentum.cond.elec.data_pointer       = 'h.det1.R';
-cd1.momentum.cond.elec.value              = [0;24.5];
+cd1.momentum.cond.elec.value              = [0;20];
 cd1.momentum.cond.elec.translate_condition = 'AND';
-cd1.momentum.cond.ion.type                 = 'discrete';
-cd1.momentum.cond.ion.data_pointer       = 'h.det2.m2q_l';
-cd1.momentum.cond.ion.value              = [4];
+cd1.momentum.cond.ion.type                 = 'continuous';
+cd1.momentum.cond.ion.data_pointer       = 'h.det1.R';
+cd1.momentum.cond.ion.value              = [0;20];
 cd1.momentum.cond.ion.translate_condition = 'AND';
 
 %%%%%%%%%%%%%DETECTOR 2

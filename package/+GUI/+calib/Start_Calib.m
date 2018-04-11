@@ -20,31 +20,28 @@ for lx = 1:length(UICalib.h_calib_tabs.Children)
 end
 
 
-exp_names = cellstr('');
-NbrOfFiles = md_GUI.data_n.info.numexps;
-for lx = 1:length(NbrOfFiles)
-    exp_names(lx) = cellstr(['exp', int2str(NbrOfFiles(lx))]);
-end 
 
-detnr = UICalib.Popup_DetModes.Value -1;
 
-for lx = 1:length(exp_names)
-    current_exp_name    = char(exp_names(lx));
-    exp_md              = md_GUI.mdata_n.exp1;
+detnr               = UICalib.Popup_DetModes.Value -1;
+current_exp_name    = ['exp',num2str(UICalib.LoadedFilesCalibrating.Value)];
+
     
+    exp_md              = md_GUI.mdata_n.(current_exp_name);
+    data                = md_GUI.data_n.(current_exp_name);
     if strcmp(selectedbutton{1},'on') && strcmp(selectedbutton{2},'on')
-                macro.all(md_GUI.data_n.(current_exp_name), exp_md , {'correct','convert','filter'});
-                macro.calibrate.momentum(md_GUI.data_n.(current_exp_name), detnr , exp_md);
+                [data ,  exp_md] = macro.all(data, exp_md , {'correct','convert'});
+                macro.calibrate.momentum(data, detnr , exp_md);
     elseif strcmp(selectedbutton{1},'on') && strcmp(selectedbutton{2},'off')
-        macro.all(md_GUI.data_n.(current_exp_name), exp_md , {'correct','filter'});
-        macro.calibrate.momentum(md_GUI.data_n.(current_exp_name), detnr, exp_md);
+        [data ,  exp_md] = macro.all(data, exp_md , {'correct'});
+        macro.calibrate.momentum(data , detnr, exp_md);
+        
     else
-        macro.all(md_GUI.data_n.(current_exp_name), exp_md , {'correct','filter'});
-        macro.calibrate.momentum(md_GUI.data_n.(current_exp_name), detnr, exp_md);                
+        [data ,  exp_md]  = macro.all(data, exp_md , {'convert'});
+        macro.calibrate.momentum(data, detnr, exp_md);                
     end
     
    
-end
+
 
  assignin('base', 'md_GUI', md_GUI)       
    

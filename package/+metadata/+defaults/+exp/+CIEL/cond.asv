@@ -44,14 +44,14 @@ def.label.translate_condition = 'AND';
 %% Conditions
 
 %% Conditions: Ions in the middle region of the detecor only
-c.eRiR.elec.type                    = 'continuous';
-c.eRiR.elec.data_pointer            = 'h.det1.R';
-c.eRiR.elec.value                   = [0;24.5];
-c.eRiR.elec.translate_condition     = 'AND';
-c.eRiR.ion.type                     = 'continuous';
-c.eRiR.ion.data_pointer             = 'h.det2.R';
-c.eRiR.ion.value                    = [0;8];
-c.eRiR.ion.translate_condition      = 'AND';
+c.eRiR.elec.type                = 'continuous';
+c.eRiR.elec.data_pointer         = 'h.det1.R';
+c.eRiR.elec.value              = [0;20];
+c.eRiR.elec.translate_condition = 'AND';
+c.eRiR.ion.type                 = 'continuous';
+c.eRiR.ion.data_pointer       = 'h.det2.R';
+c.eRiR.ion.value              = [0;8];
+c.eRiR.ion.translate_condition = 'AND';
 % c.elec.y.type               = 'continuous';
 % c.elec.y.data_pointer       = 'h.det1.Y';
 % c.elec.y.value              = [-40;23];

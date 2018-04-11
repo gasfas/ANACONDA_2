@@ -42,7 +42,7 @@ else
         
         for lxx = 1:length(corr_names)
             corr_val = md_GUI.mdata_n.(current_exp_name).corr.(['det', num2str(detnr)]);
-             corr_val      = rmfield(corr_val, 'ifdo');
+            corr_val      = rmfield(corr_val, 'ifdo');
             corr_param(lxx) = cellstr(corr_names{lxx});
             corr_path = strcat('corr','.',['det', num2str(detnr)]);
             struct_names = strsplit(char(corr_names(lxx)), '.');
@@ -55,7 +55,7 @@ else
             
             if depth == 1
                 corr_value{lxx} = corr.(corr_names{lxx});
-                corr_base{end+1}  = corr_path;
+                corr_base{end+1}  = strcat(corr_path,'.',struct_names{1});
             elseif depth >= 1
                 for lxxx = 1:depth
                   corr_val = corr_val.(struct_names{lxxx});
@@ -81,7 +81,7 @@ else
         conv_path = strcat('conv','.',['det', num2str(detnr)]);
         for lxx = 1:length(conv_names)
             conv_val = md_GUI.mdata_n.(current_exp_name).conv.(['det', num2str(detnr)]);
-             conv_val      = rmfield(conv_val, 'ifdo');
+            conv_val      = rmfield(conv_val, 'ifdo');
             conv_path = strcat('conv','.',['det', num2str(detnr)]);
             conv_param(lxx) = cellstr(conv_names{lxx});
             struct_names = strsplit(char(conv_names(lxx)), '.');
@@ -157,12 +157,12 @@ else
         if general.struct.issubfield(spec_md, 'Bfield')
             conv_param{end +1} = 'Bfield';
             conv_value{end+1}  =  num2str(spec_md.Bfield);
-            conv_base{end+1}  = 'spec';
+            conv_base{end+1}  = strcat('spec','.','Bfield');
         end
         if general.struct.issubfield(spec_md, 'Efield')
             conv_param{end+1} = 'Efield';
             conv_value{end+1} = num2str(spec_md.Efield);
-            conv_base{end+1}  = 'spec';
+            conv_base{end+1}  = strcat('spec','.','Efield');
         end
             
         

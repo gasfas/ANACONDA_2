@@ -25,8 +25,8 @@ exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
 
-exp_md.spec.Bfield              = 0.00051; % [T]
+exp_md.spec.Bfield              = 0.00055; % [T]
 
-exp_md.spec.Efield              = 433.3333; % [V]The voltage at light interaction point
+exp_md.spec.Efield              = 450; % [V]The voltage at light interaction point
 
 end
