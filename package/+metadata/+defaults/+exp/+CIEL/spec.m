@@ -3,6 +3,11 @@ function [ exp_md ] = spec ( exp_md )
 % read by other experiment-specific metadata files.
 
 exp_md.spec.name = 'CIEL';
+% If do in this case means that the parameters are used for calibration,
+% this is a quick short term idea and probably not a good one, but it is to
+% facilitate the GUI for now, things can be improved
+exp_md.spec.ifdo.Bfield = true;
+
 
 % Voltages
 exp_md.spec.volt.Ve2s			= 300; %[V] Voltage of grid separating electron side and source region,'pusher'
@@ -19,9 +24,9 @@ exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 % detection modes:
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
-exp_md.spec.isBfield			= true; % Is there a magnetic field applied in this spectrometer?
-exp_md.spec.Bfield              = 0.00051; % [T]
-exp_md.spec.TOF_no_dp                = 98.6;
-exp_md.spec.volt.V_created 		= exp_md.spec.volt.Ve2s + exp_md.spec.dist.s0/exp_md.spec.dist.s * (exp_md.spec.volt.Vs2a - exp_md.spec.volt.Ve2s); % [V]The voltage at light interaction point
+
+exp_md.spec.Bfield              = 0.00055; % [T]
+
+exp_md.spec.Efield              = 450; % [Vm^-1]The voltage at light interaction point
 
 end

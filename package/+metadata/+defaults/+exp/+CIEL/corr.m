@@ -10,12 +10,12 @@ exp_md.corr.det1.ifdo.dTOF  		= true;% Does this data need detector absolute TOF
 exp_md.corr.det1.ifdo.R_circle		= false;
 
 % The detector image translation parameters:
-exp_md.corr.det1.dX					= -4.7;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
-exp_md.corr.det1.dY					= -9.0;   %[mm] distance the center of detection is displaced up the origin of the raw image;
+exp_md.corr.det1.dX					= -4.5;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
+exp_md.corr.det1.dY					= -9.1;   %[mm] distance the center of detection is displaced up the origin of the raw image;
 % The detector image rotation parameters:
-exp_md.corr.det1.dTheta				= -6;   %[deg] rotation of hits around the raw image centre (anticlockwise);
+exp_md.corr.det1.dTheta				= 10;   %[deg] rotation of hits around the raw image centre (anticlockwise);
 % The TOF deadtime correction parameter:
-exp_md.corr.det1.dTOF 			 	= 19;% [ns] The difference between signal propagation times of trigger and hits.
+exp_md.corr.det1.dTOF 			 	= 19.2;% [ns] The difference between signal propagation times of trigger and hits.
 
 
 
@@ -23,16 +23,16 @@ exp_md.corr.det1.dTOF 			 	= 19;% [ns] The difference between signal propagation
 
 % Which corrections should be performed on the data:
 exp_md.corr.det2.ifdo.dXdY 		= true;% Does this data need detector image translation correction?
-exp_md.corr.det2.ifdo.dTheta 		= false;%; % Does this data need detector image rotation correction?
-exp_md.corr.det2.ifdo.dTOF  		= false;% Does this data need detector absolute TOF correction?
+exp_md.corr.det2.ifdo.dTheta 		= true;%; % Does this data need detector image rotation correction?
+exp_md.corr.det2.ifdo.dTOF  		= true;% Does this data need detector absolute TOF correction?
 exp_md.corr.det2.ifdo.detectorabb	= false;% Does this data need detector-induced abberation correction?
 exp_md.corr.det2.ifdo.lensabb 		= false;% Does this data need lens abberation correction?
 
 % The detector image translation parameters:
-exp_md.corr.det2.dX					= 5.5;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
-exp_md.corr.det2.dY					= 4.0;   %[mm] distance the center of detection is displaced up the origin of the raw image;
+exp_md.corr.det2.dX					= 5.1;   %[mm] distance the center of detection is displaced left of the origin of the raw image; 
+exp_md.corr.det2.dY					= 3;   %[mm] distance the center of detection is displaced up the origin of the raw image;
 % The detector image rotation parameters:
-exp_md.corr.det2.dTheta				= 10;   %[deg] rotation of hits around the raw image centre (anticlockwise);
+exp_md.corr.det2.dTheta				= 0;   %[deg] rotation of hits around the raw image centre (anticlockwise);
 % The TOF deadtime correction parameter:
 exp_md.corr.det2.dTOF 			 	=  0;% [ns] The difference between signal propagation times of trigger and hits.
 

@@ -9,15 +9,15 @@ function [exp_md] = plot(exp_md)
 % Specify which plot to show:
 % d1.ifdo.BR_Ci			= true;
 d1.ifdo.XY         	= true;
-d1.ifdo.XY_filt     = true;
-d1.ifdo.dpxy        = false;
-d1.ifdo.dpxz        = true;
+d1.ifdo.XY_filt         	= true;
+d1.ifdo.dpxy         	= false;
+d1.ifdo.dpxz        = false;
 d1.ifdo.dpyz        = false;
-d1.ifdo.theta_R		= false;
+d1.ifdo.theta_R		= true;
 d1.ifdo.TOF_X       = false;
 d1.ifdo.TOF_Y       = false;
 d1.ifdo.pz_X        = false;
-d1.ifdo.px_TOF      = false;
+d1.ifdo.px_TOF      = true;
 d1.ifdo.KER_theta   = true;
 
 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
@@ -60,8 +60,8 @@ d1.theta_R.axes.YLim			= [20 35];
 d1.KER_theta                    = metadata.create.plot.signal_2_plot({signals.e_KER_sum, signals.e_Theta});
 d1.KER_theta.figure.Position	= [200 200 900 900];
 d1.KER_theta.axes.Title.String    = 'Energy vs angle';
-d1.KER_theta.cond               = exp_md.cond.eRiR;
-d1.KER_theta.axes.colormap      = 'jet';
+d1.KER_theta.cond               = exp_md.cond.elec;
+d1.KER_theta.axes.colormap      = 
 
 d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
 d1.XY.figure.Position		= [200 200 900 900];
@@ -72,7 +72,7 @@ d1.XY.axes.colormap     = 'jet';
 d1.XY_filt						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
 d1.XY_filt.figure.Position		= [200 200 900 900];
 d1.XY_filt.axes.Title.String		= 'Filtered electron detector image';
-d1.XY_filt.cond                  = exp_md.cond.eRiR;
+d1.XY_filt.cond                  = exp_md.cond.elec;
 d1.XY_filt.axes.colormap     = 'jet';
 
 d1.dpxy						= metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpy});
@@ -80,23 +80,23 @@ d1.dpxy.figure.Position		= [200 200 900 900];
 
 d1.dpxy.axes(1).Title.String = 'Electron momentum px - py';
 %d1.dpxy.cond                  = exp_md.cond.e.mult;
-d1.dpxy.cond                = exp_md.cond.eRiR;
+d1.dpxy.cond                = exp_md.cond.r.e;
 
 d1.dpxz                     = metadata.create.plot.signal_2_plot({signals.e_dpx, signals.e_dpz});
 d1.dpxz.figure.Position		= [200 200 900 900];
-d1.dpxz.axes.colormap       = 'jet';
+c = colormap('jet');
+d1.dpxz.figure.Colormap   = c;
 % d1.dpxz.axes.axis				= 'equal';
 d1.dpxz.axes(1).Title.String = 'Electron momentum px pz';
 %d1.dpxz.cond                  = exp_md.cond.e.mult;
-d1.dpxz.cond                =  exp_md.cond.eRiR;
+d1.dpxz.cond                =  exp_md.cond.r.e;
 
 d1.dpyz                     = metadata.create.plot.signal_2_plot({signals.e_dpy, signals.e_dpz});
 d1.dpyz.figure.Position		= [200 200 900 900];
 % d1.dpyz.axes.axis				= 'equal';
 d1.dpyz.axes(1).Title.String = 'Electron momentum py - pz';
 %d1.dpyz.cond                  = exp_md.cond.e.mult;
-d1.dpyz.cond                = exp_md.cond.eRiR;
-d1.dpyz.axes.colormap       = 'jet';
+d1.dpyz.cond                = exp_md.cond.r.e;
 
 d1.TOF_X						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_TOF});
 d1.TOF_X.figure.Position		= [200 200 900 900];
@@ -104,7 +104,7 @@ d1.TOF_X.axes.XTickLabelRotation = 45;
 %d1.TOF_X.axes.Position			= [0.05 0.2 0.9 0.6];
 %d1.TOF_X.axes.axis					= 'equal';
 d1.TOF_X.axes(1).Title.String   = 'Electron TOF vs X';
-d1.TOF_X.cond                  = exp_md.cond.eRiR;
+d1.TOF_X.cond                  = exp_md.cond.elec;
 
 d1.TOF_Y						= metadata.create.plot.signal_2_plot({signals.e_TOF, signals.e_Y});
 d1.TOF_Y.figure.Position		= [200 200 900 900];
@@ -112,7 +112,7 @@ d1.TOF_Y.axes.XTickLabelRotation = 45;
 %d1.TOF_X.axes.Position			= [0.05 0.2 0.9 0.6];
 %d1.TOF_X.axes.axis					= 'equal';
 d1.TOF_Y.axes(1).Title.String   = 'Electron TOF vs Y';
-d1.TOF_Y.cond                    = exp_md.cond.eRiR;
+d1.TOF_Y.cond                    = exp_md.cond.r.e;
 
 
 d1.pz_X                         = metadata.create.plot.signal_2_plot({signals.e_dpz, signals.e_X});
@@ -125,10 +125,9 @@ d1.px_TOF                         = metadata.create.plot.signal_2_plot({signals.
 d1.px_TOF.figure.Position		= [200 200 440 460];
 %d1.px_TOF.axes.axis				= 'equal';
 d1.px_TOF.axes(1).Title.String = 'px vs TOF';
-d1.px_TOF.axes(1).YLim          = [ -1 1];
-d1.px_TOF.axes(1).XLim          = [72 130];
-d1.px_TOF.cond                    = exp_md.cond.eRiR;
-d1.px_TOF.axes.colormap          = 'jet';
+d1.px_TOF.axes(1).YLim          = [ -10 10];
+d1.px_TOF.axes(1).XLim          = [80 160];
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 d2.BR_Ci						= metadata.create.plot.signal_2_plot({signals.i_mult});

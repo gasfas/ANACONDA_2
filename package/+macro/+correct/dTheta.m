@@ -18,7 +18,7 @@ end
 for i = 1:length(detnames);
     detname = detnames{i};  
     
-    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dTheta') && ~general.struct.probe_field(data_in.h.(detname).corr_log, 'dTheta')
+    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dTheta') 
         % rotate the X,Y -values so that the polarization vector is along x:
         % convert to radius:
         [theta, R] = cart2pol(data_out.h.(detname).X, data_out.h.(detname).Y);
@@ -27,14 +27,12 @@ for i = 1:length(detnames);
         % convert back to cartesian:
         [data_out.h.(detname).X, data_out.h.(detname).Y] = pol2cart(theta, R);
 
-        disp(['Log: Detector image rotation correction performed on ' detname])
-        % add the correction name to the log:
-        data_out.h.(detname).corr_log.dTheta = true;
-    elseif general.struct.probe_field(data_in.h.(detname).corr_log, 'dTheta')
-        disp(['Log: Detector image rotation correction already performed earlier on ' detname])
+        
+    
     else
         % no correction needed
-        data_in.h.(detname).corr_log.dTheta = false;
+         data_out.h.(detname).X = data_in.h.(detname).raw(:,idx_X) ;
+        data_out.h.(detname).Y  = data_in.h.(detname).raw(:,idx_Y);
     end
 
 end

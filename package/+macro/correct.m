@@ -16,7 +16,7 @@ for i = 1:length(detnames)
     
     % Check the log, which corrections have already been performed:
     corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
-    % if no corrections have been performed, add the empty field:
+%     % if no corrections have been performed, add the empty field:
     if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
     
     % find all X,Y,TOF signals:
@@ -57,9 +57,9 @@ for i = 1:length(detnames)
     detname     = detnames{i};
     
     % Check the log, which corrections have already been performed:
-    corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
-    % if no corrections have been performed, add the empty field:
-    if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
+%     corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
+%     % if no corrections have been performed, add the empty field:
+%     if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
 	
 	% find all X,Y,TOF signals:
     idx_X       = find(strcmp(metadata_in.det.(detname).signals, 'X [mm]'));

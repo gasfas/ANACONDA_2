@@ -11,7 +11,7 @@
 % Modifier:
 
 % LoadedFiles function
-function [ ] = LoadedFiles(hObject, eventdata, UILoad, UIPlot)
+function [ ] = LoadedFiles(hObject, eventdata, UILoad, UIPlot, UICalib)
 md_GUI = evalin('base', 'md_GUI');
 % Determine if it is in the load or plot tab:
 tabname = eventdata.Source.Parent.Title;
@@ -24,6 +24,10 @@ switch tabname
         tabval = 2;
         filenumber = md_GUI.UI.UIPlot.LoadedFilesPlotting.Value;
         selectedloadedfiles = md_GUI.UI.UIPlot.LoadedFilesPlotting.String(md_GUI.UI.UIPlot.LoadedFilesPlotting.Value);
+    case 'Calib'
+        tabval = 3;
+        filenumber = md_GUI.UI.UILoad.LoadedFiles.Value;
+        selectedloadedfiles = md_GUI.UI.UICalib.LoadedFilesCalibrating.String(md_GUI.UI.UILoad.LoadedFiles.Value);
 end
 numberofloadedfilesselected = length(selectedloadedfiles);
 if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
@@ -117,6 +121,8 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
             if depth > maxdepth
                 maxdepth = depth;
             end
+            
+            
         end
         % Get all filters and combined filters - one by one:
         for alldepths = 1:maxdepth
@@ -234,6 +240,65 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
         set(UIPlot.Popup_Filter_Selection, 'String', Filters_string_name)
         set(UIPlot.Popup_Filter_Selection, 'Value', 1)
     end
-    assignin('base', 'md_GUI', md_GUI)
+    
+    
+    % Calibration part
+    if tabval == 3
+        set(UICalib.Popup_DetModes, 'Enable', 'on');
+        
+    
+        if numberofloadedfilesselected > 1
+            for lx = 1:numberofloadedfilesselected
+                exp_names(lx) = cellstr(['exp', int2str(filenumber(lx))]);
+            end
+        elseif numberofloadedfilesselected == 1
+            exp_names = ['exp', int2str(filenumber)];
+        end
+        
+        if ischar(exp_names)
+            exp_name = exp_names;
+        else
+            exp_name = char(exp_names(1));
+        end
+        det_modes_name = {};
+        det_modes_struct = md_GUI.mdata_n.(exp_name).spec.det_modes;
+        NoDetModeString  = 'No_Mode';
+        det_modes_name{1} = NoDetModeString;
+        if isstruct(det_modes_struct)
+            det_modes_name{end+1} = general.struct.fieldnamesr(det_modes_struct);
+        else 
+            for lxx = 1:length(det_modes_struct)
+                det_modes_name{end +1} = det_modes_struct{lxx};
+            end
+        end
+        set(UICalib.Popup_DetModes, 'String', det_modes_name)
+      
+     
+        set(UICalib.correction.RadioCalib_OFF, 'Value', 1);
+        set(UICalib.conversion.RadioCalib_OFF, 'Value', 1);
+%       set(UICalib.momentum.Popup_Calib_Parameter, 'String', calib_parameters);
+%       set(UICalib.momentum.Popup_Calib_Parameter, 'Enable', 'on');
+%       if UICalib.momentum.Radio_CalibType_Ions.Value == 1
+%         GUI.calib.parameter_selection(detnr);
+%       elseif UIPlot.new_signal.signals_radiobutton_customized.Value == 1
+%         GUI.plot.data_selection.Radiobutton_Custom_Signal;
+%       end
+%       if UIPlot.new.signals_radiobutton_built_in.Value == 1
+%         GUI.plot.data_selection.Radiobutton_PreDef_PlotConf_New;
+%       elseif UIPlot.new.signals_radiobutton_customized.Value == 1
+%         GUI.plot.data_selection.Radiobutton_Custom_PlotConf_New;
+%       end
+      
+
+      
+       
+        
+    end
+    
+    
+    
+    
+      
 end
+assignin('base', 'md_GUI', md_GUI)
 end

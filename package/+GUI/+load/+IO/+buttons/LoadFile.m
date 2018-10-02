@@ -16,7 +16,7 @@
 % Modifier:
 
 %% LoadFile function
-function [ ] = LoadFile(UILoad, UIPlot, UIFilter) 
+function [ ] = LoadFile(UILoad, UIPlot, UICalib, UIFilter) 
 md_GUI = evalin('base', 'md_GUI');
 %% Get names and dir
 folder_name = md_GUI.load.folder_name;
@@ -110,6 +110,8 @@ set(UILoad.LoadedFiles, 'String', String_LoadedFiles);
 set(UILoad.LoadedFiles, 'Enable', 'on');
 set(UIPlot.LoadedFilesPlotting, 'String', String_LoadedFiles);
 set(UIPlot.LoadedFilesPlotting, 'Enable', 'on');
+set(UICalib.LoadedFilesCalibrating, 'String', String_LoadedFiles);
+set(UICalib.LoadedFilesCalibrating, 'Enable', 'on');
 GUI.log.add(['File loaded: exp', num2str(NumberOfLoadedFiles+1), ', ', char(filename)])
 end
 assignin('base', 'md_GUI', md_GUI)

@@ -50,7 +50,7 @@ for lx = 1:length(exp_names)
         if length(exp_names) > 1
             list_struct.([char(exp_names(lx))]) = popup_list_names_det;
         end
-    end
+end
     if length(exp_names) > 1 % check so that all exps have plot confs:
         value = 0;
         for llz = 1:length(exp_names)

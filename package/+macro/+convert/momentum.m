@@ -27,7 +27,11 @@ for i = 1:length(detnames)
 		% This means we can perform 3D momentum conversion:
 		TOF         = data_out.h.(detname).TOF;
 		% Electric field in the source region:
+<<<<<<< HEAD
 		E_ER        = theory.TOF.calc_field_strength(metadata_in.spec.volt.Ve2s, metadata_in.spec.volt.Vs2a, metadata_in.spec.dist.s);
+=======
+		E_ER        = metadata_in.spec.Efield;
+>>>>>>> eeb45dce1a88f284bad606526f334b0473a592b6
 		sample_md   = metadata_in.sample;
 
 		switch metadata_in.spec.det_modes{detnr} % what kind of particle does this detector see
@@ -39,9 +43,14 @@ for i = 1:length(detnames)
 				labels_mass = metadata_in.conv.(detname).mass_labels;
 				% Obtain the TOF values that should correspond to zero momentum values:
 % 				labels_TOF_no_p = convert.m2q_2_TOF(labels, m2qfactor, t0);
-				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q);
+				labels_TOF_no_p = convert.calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q);
 				% Calculate the momentum:
+<<<<<<< HEAD
 				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_EField(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md);
+=======
+                
+				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_Field(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, metadata_in.spec.det_modes{detnr});
+>>>>>>> eeb45dce1a88f284bad606526f334b0473a592b6
 				data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
 				% calculate the elevation angle phi:
 				[~, data_out.h.(detname).dp_phi]					= cart2sph(data_out.h.(detname).dp(:,1), data_out.h.(detname).dp(:,2), data_out.h.(detname).dp(:,3));
@@ -49,6 +58,7 @@ for i = 1:length(detnames)
 				data_out.h.(detname).dp_norm						= general.vector.norm_vectorarray(data_out.h.(detname).dp, 2);
 			
 			case 'electron' % if the detector sees electrons:
+<<<<<<< HEAD
 				if general.struct.probe_field(metadata_in.spec, 'is_B_field') % If a magnetic field is applied:
 					warning('TODO: electron 3D momentum conversion under applied B-field')
 				else % We assume no magnetic field is applied:
@@ -60,6 +70,21 @@ for i = 1:length(detnames)
 					[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_EField(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, -E_ER, sample_md);
 				end
 		end
+=======
+                m2q_l           = data_out.h.(detname).m2q_l;
+				%m_l             = m2q_l;
+                labels          = metadata_in.conv.(detname).m2q_labels;
+                %labels_mass     = labels;
+				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q); %[ns] important to notice here is that the mass and charge are both taken
+                % in atomic units. Therefore, the factor which is optimized
+                % (so far by hand) to obtain m2q = 1 after conversion
+                % is a factor for conversion to m2q in a.m.u, thus if we
+                % want to use this factor obtain
+                % [data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_2D_EBfield(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md);
+             	[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_3D_Field(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md, spec_md);
+                data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
+        end
+>>>>>>> eeb45dce1a88f284bad606526f334b0473a592b6
 
 	else % There is only X, and Y component measured, so 2D momentum:
 		TOF_nominal = metadata_in.conv.(detname).momentum.TOF_nominal;

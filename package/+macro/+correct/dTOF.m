@@ -21,18 +21,17 @@ for i = 1:length(detnames)
     % find the TOF signal:
     idx_TOF     = find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
 
-    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dTOF') && ~general.struct.probe_field(data_in.h.(detname).corr_log, 'dTOF')
+    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dTOF') 
 
         data_out.h.(detname).TOF = data_in.h.(detname).raw(:,idx_TOF) - metadata_in.corr.(detname).dTOF;
         disp(['Log: delta TOF correction performed on ' detname])
 %         write in the log:
-        data_out.h.(detname).corr_log.dTOF = true;
-    elseif general.struct.probe_field(data_in.h.(detname).corr_log, 'dTOF')
-        disp(['Log: Delta TOF correction already performed earlier on ' detname])
+     
+  
     else
         % no correction needed
         data_out.h.(detname).TOF      = data_in.h.(detname).raw(:,idx_TOF);
-        data_out.h.(detname).corr_log.dTOF = false;
+        
     end
 end
 end

@@ -39,13 +39,19 @@ for i = 1:length(detnames)
 				R0				= metadata_in.conv.det1.KER.R0;
 				R				= data_out.h.(detname).R;
 				data_out.h.(detname).KER	= convert.R_2_KE_EPICEA(a, b, E0, R0, R);
-
-				otherwise
+            case 'CIEL'
+                	% Momentum to Kinetic energy conversion:
+                m_l         = data_out.h.(detname).m_l;
+                dp			= data_out.h.(detname).dp;
+                % Calculate the kinetic energy:
+                data_out.h.(detname).KER	= convert.p_2_KE(0, dp, m_l);
+                % The sum of all Kinetic energies in one event (if possible):
+                try data_out.e.(detname).KER_sum = convert.event_sum(data_out.h.(detname).KER, data_out.e.raw(:,detnr)); catch; end
+			otherwise
 					error('spectrometer not recognized. TODO: implement KER conversion routine for this spectrometer')
 			end
 		otherwise
 			error('no KER conversion for this type of particle')
 	end
 			disp(['Log: Kinetic energy release conversion performed on ' detname])
-end
 end

@@ -10,11 +10,11 @@ md_GUI = evalin('base', 'md_GUI');
 try 
     md_GUI.mdata_n;
 catch
-    GUI.log.add(['No experiment metadata found.'])
+    GUI.log.add(['No experiment metadata found.']);
 end
     UICalib = md_GUI.UI.UICalib;
 
-    set(UICalib.TOF2m2q.Push_CalibControl, 'Enable', 'on')
+    set(UICalib.momentum.Push_CalibControl, 'Enable', 'on')
 
 
 
@@ -45,17 +45,17 @@ for lx = 1:length(exp_names)
         
         % assign data used 
         if strcmp(hr_detname,UICalib.TOF2m2q.Radio_CalibType_Electrons.String)
-            md_GUI.mdata_n.(current_exp_name).calib.det1.ifdo.TOF_2_m2q = 1;
-            UICalib.TOF2m2q.CalibType.calib_md = md_GUI.mdata_n.(current_exp_name).calib.det1.TOF_2_m2q;
-            
-            continue;
+            UICalib.momentum.(current_exp_name).detnr  = 1;
+            UICalib.momentum.(current_exp_name).exp = md_GUI.data_n.(current_exp_name);
+            UICalib.momentum.(current_exp_name).exp_md = md_GUI.mdata_n.(current_exp_name);
         end
             
-        set(md_GUI.UI.UICalib.TOF2m2q.Push_CalibControl, 'Enable', 'on')    
+           
     end    
+end
 
-
- disp('Log: Loaded electron calib data.')       
+disp('Log: Loaded electron calib data.')    
+set(md_GUI.UI.UICalib.momentum.Push_CalibControl, 'Enable', 'on') 
 assignin('base', 'md_GUI', md_GUI)
 
 
