@@ -2,6 +2,12 @@ function [ exp_md ] = conv ( exp_md )
 % This convenience funciton lists the default conversion metadata, and can be
 % read by other experiment-specific metadata files.
 
+% DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1
+exp_md.conv.det1.ifdo.R_theta				= true;% Does the user want to convert to R-theta coordinates?
+
+
+% DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2
+
 % Which conversions should be performed on the data:
 exp_md.conv.det2.ifdo.m2q		= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det2.ifdo.m2q_label		= true; % Does the user want to convert to mass-2-charge labels?

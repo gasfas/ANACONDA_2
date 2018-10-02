@@ -62,8 +62,8 @@ for plotnr = 1:rows*cols
 end
 subplot(rows,cols,ceil(cols/2))
 if length(labels_2_plot)<5
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
+try title(['Bfield:' num2str(exp_md.spec.Bfield) ' .']); end
 else
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' .'])
+try title(['Bfield:' num2str(exp_md.spec.Bfield) ' .']); end
 end
 end

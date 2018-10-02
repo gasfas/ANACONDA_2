@@ -1,5 +1,5 @@
 -- FLY2 file, automatically created from the MATLAB function write_FLY2. 
- -- written on: [Year month hour min sec] 2018              2              1             15             46       0.756044
+ -- written on: [Year month hour min sec] 2018              5             26             12             37      37.600621
 
 particles { 
  standard_beam { 

@@ -12,11 +12,19 @@ end
 if ~isfield(GraphObj_md, 'color_high')
 GraphObj_md.color_high		= [1 0 0];
 end
+if ~isfield(GraphObj_md, 'high_value')
+GraphObj_md.high_value = max(Count(:));
+end
+if ~isfield(GraphObj_md, 'low_value')
+GraphObj_md.low_value = min(Count(:));
+end
+
 if ~isfield(GraphObj_md, 'dotsize')
-GraphObj_md.dotsize		= 1;
+GraphObj_md.dotsize		= 10;
 end
 Count = Count';
-Int_color = repmat(GraphObj_md.color_low, numel(Count), 1) - repmat(Count(:)./ max(max(Count)), 1, 3) .* (repmat(GraphObj_md.color_low-GraphObj_md.color_high, numel(Count), 1));
+Int_color = repmat(GraphObj_md.color_low, numel(Count), 1) - repmat(((Count(:)-GraphObj_md.low_value))./(GraphObj_md.high_value-GraphObj_md.low_value), 1, 3) .* ...
+	(repmat(GraphObj_md.color_low-GraphObj_md.color_high, numel(Count), 1));
 hLine = scatter(h_axes, xlabels, ylabels, GraphObj_md.dotsize, Int_color, 'filled');
 hLine.CData = Int_color;
 

@@ -26,34 +26,35 @@
 \contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{17}{section*.27}
 \contentsline {paragraph}{Step 2: TOF correction as a function of radius}{17}{section*.29}
 \contentsline {paragraph}{Step 3: Correction of splat radius linearity}{18}{section*.30}
-\contentsline {subsection}{\numberline {4.3}convert}{19}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}TOF $\rightarrow m/q$}{19}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Signal labeling - single coincidence}{19}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Signal labeling - double coincidence}{20}{subsubsection.4.3.3}
-\contentsline {paragraph}{circle}{20}{section*.33}
-\contentsline {paragraph}{line}{21}{section*.35}
-\contentsline {subsubsection}{\numberline {4.3.4}Branching ratio's}{21}{subsubsection.4.3.4}
-\contentsline {paragraph}{Single-label Branching ratio's}{21}{section*.37}
-\contentsline {paragraph}{Double-label Branching ratio's}{22}{section*.39}
-\contentsline {subsubsection}{\numberline {4.3.5}Momentum}{23}{subsubsection.4.3.5}
-\contentsline {paragraph}{$\mathaccentV {vec}17E{p_0}$ determination}{25}{section*.43}
-\contentsline {paragraph}{$\mathaccentV {vec}17E{p}$ determination}{25}{section*.44}
-\contentsline {subsubsection}{\numberline {4.3.6}Kinetic Energy Release}{26}{subsubsection.4.3.6}
-\contentsline {subsubsection}{\numberline {4.3.7}Mutual momentum angle}{27}{subsubsection.4.3.7}
-\contentsline {subsubsection}{\numberline {4.3.8}Asymmetry parameter $\beta $}{28}{subsubsection.4.3.8}
-\contentsline {subsubsection}{\numberline {4.3.9}Interaction point}{28}{subsubsection.4.3.9}
-\contentsline {subsubsection}{\numberline {4.3.10}Oversight of signals}{30}{subsubsection.4.3.10}
-\contentsline {subsection}{\numberline {4.4}filter}{31}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}plot}{32}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Mass to charge}{32}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}momentum}{32}{subsubsection.4.5.2}
-\contentsline {subsection}{\numberline {4.6}calibrate}{33}{subsection.4.6}
-\contentsline {paragraph}{TOF $\rightarrow m/q$ factor}{33}{section*.53}
-\contentsline {paragraph}{detection center position}{33}{section*.54}
-\contentsline {paragraph}{detector rotation}{33}{section*.55}
-\contentsline {paragraph}{residual momentum minimualization}{33}{section*.56}
-\contentsline {subsection}{\numberline {4.7}general}{35}{subsection.4.7}
-\contentsline {section}{\numberline {5}Diagnostics}{36}{section.5}
-\contentsline {subsection}{\numberline {5.1}Theory}{36}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}SIMION}{36}{subsection.5.2}
-\contentsline {section}{\numberline {6}Installation}{36}{section.6}
+\contentsline {subsubsection}{\numberline {4.2.5}Non-circular correction}{18}{subsubsection.4.2.5}
+\contentsline {subsection}{\numberline {4.3}convert}{21}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}TOF $\rightarrow m/q$}{21}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Signal labeling - single coincidence}{21}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Signal labeling - double coincidence}{21}{subsubsection.4.3.3}
+\contentsline {paragraph}{circle}{21}{section*.34}
+\contentsline {paragraph}{line}{22}{section*.36}
+\contentsline {subsubsection}{\numberline {4.3.4}Branching ratio's}{22}{subsubsection.4.3.4}
+\contentsline {paragraph}{Single-label Branching ratio's}{23}{section*.38}
+\contentsline {paragraph}{Double-label Branching ratio's}{23}{section*.40}
+\contentsline {subsubsection}{\numberline {4.3.5}Momentum}{24}{subsubsection.4.3.5}
+\contentsline {paragraph}{$\mathaccentV {vec}17E{p_0}$ determination}{26}{section*.44}
+\contentsline {paragraph}{$\mathaccentV {vec}17E{p}$ determination}{26}{section*.45}
+\contentsline {subsubsection}{\numberline {4.3.6}Kinetic Energy Release}{27}{subsubsection.4.3.6}
+\contentsline {subsubsection}{\numberline {4.3.7}Mutual momentum angle}{28}{subsubsection.4.3.7}
+\contentsline {subsubsection}{\numberline {4.3.8}Asymmetry parameter $\beta $}{29}{subsubsection.4.3.8}
+\contentsline {subsubsection}{\numberline {4.3.9}Interaction point}{29}{subsubsection.4.3.9}
+\contentsline {subsubsection}{\numberline {4.3.10}Oversight of signals}{31}{subsubsection.4.3.10}
+\contentsline {subsection}{\numberline {4.4}filter}{32}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}plot}{33}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}Mass to charge}{33}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}momentum}{33}{subsubsection.4.5.2}
+\contentsline {subsection}{\numberline {4.6}calibrate}{34}{subsection.4.6}
+\contentsline {paragraph}{TOF $\rightarrow m/q$ factor}{34}{section*.54}
+\contentsline {paragraph}{detection center position}{34}{section*.55}
+\contentsline {paragraph}{detector rotation}{34}{section*.56}
+\contentsline {paragraph}{residual momentum minimualization}{34}{section*.57}
+\contentsline {subsection}{\numberline {4.7}general}{36}{subsection.4.7}
+\contentsline {section}{\numberline {5}Diagnostics}{37}{section.5}
+\contentsline {subsection}{\numberline {5.1}Theory}{37}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}SIMION}{37}{subsection.5.2}
+\contentsline {section}{\numberline {6}Installation}{37}{section.6}

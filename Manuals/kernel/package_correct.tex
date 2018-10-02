@@ -66,7 +66,6 @@ exp_md.corr.det1.ifdo.dTheta 		= true; % Does this data need detector image rota
 exp_md.corr.det1.dTOF 			 	= -16.7; % [ns] The difference between signal propagation times of trigger and hits
 \end{lstlisting}
 
-
 \subsubsection{TOF deviation due to detector-drift tube voltage mismatch}
 
 If the MCP front voltage is not kept at the same voltage as the drift tube, the local field in front of the detector will not be uniform, but curved instead (see Figure \ref{detector_abberation_ray_traces}. This will cause a distortion in the actual TOF, compared to the one predicted assuming a pure drift of the ions in the drift tube. The Time Of Flight will decrease if the detector front is kept at a higher absolute voltage. Moreover, this influence is dependent on the position on the detector. If the ion approaches the detector out of center, the decelleration is later, because the field inhomogenity starts later. Therefore, a correction dependent on radius is needed. First, the correction in TOF is presented, and consequently the correction in splat radius is discussed.
@@ -230,4 +229,21 @@ The fit is shown in Figure \ref{dR_correction_fit}.
 \end{figure}
 
 It is tested and verified that the corrections can be applied to the same data, so the detector correction first, followed by the lens abberation correction.
+
+\subsubsection{Non-circular correction}
+It can be the case that a spectrometer shows non-circular patterns in the data, where a purely circular pattern is expected from physical principles. There is a routine developed that detects a maximum along the angle in a 2D histogram with the angle (X) and another physical property (Y). 
+
+An example of such a conversion can be found in Figure \ref{R_circle_corr}, the result of a measurement at the EPICEA spectrometer, at the toroidal energy analyzers. The routine calculates a maximum intensity within specified radial regions, called the 'Region Of Interest' (ROI), see the black encircled boxes in Figure \ref{R_circle_corr} left. The maximum-finding procedure uses median filters to the histogram in both angle (phi) and physical quantity (in this case, R) direction, to obtain a maximum line that is smoother and does not get distorted by outliers.
+
+At zero radius, the data points will never be shifted. It is thus important to first calibrate the detection centre correctly. To prevent interpolation out of range, the relative shift at the radial peak value is applied at a radius twice the radial peak value. 
+
+The radial values are shifted in a linear interpolation between the known points from the calibration. The interpolation is thus only applied in radial direction. 
+
+\begin{figure}[h!]
+         \centering
+    	 \centerline{\includegraphics[width=0.8\textwidth]{Graphics/ESCA_R_circle_corr.eps}}
+\caption{Left: Histogram showing the angle-dependent electron radial position from a toroidal energy analyzer. In this analyzer, the radial position is converted to electron kinetic energy. The non-circular abberation causes the oscillatory pattern, making the radius to electron energy conversion ambiguous. Right: the corrected electron radial position, showing a horizontal stripe pattern, so that a radial position corresponds to a electron energy. The location of the suspected cause of the instability (physical holders in the spectrometer) are indicated in the right plot. Data: photolines upon C1s ionization of trifluoroacetate (`ESCA molecule') at 411 eV photon energy.}
+\label{R_circle_corr}
+\end{figure}
+
 

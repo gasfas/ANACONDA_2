@@ -4,7 +4,7 @@ function h = textul(varargin)
 % ax		(optional), the axes to plot the text into.
 % txt		(char) the text to be displayed (Latex interpreted)
 % height	the vertical position at which the lower left point will be placed (normalized)
-% height	the hoirizontal position at which the lower left point will be placed (normalized)
+% width 	the hoirizontal position at which the lower left point will be placed (normalized)
 % color		color char (e.g. 'b', 'r', etc) or the RGB value.
 
 % see if the first input is an axes handle:
@@ -16,19 +16,16 @@ else
 end
 
 txt		= varargin{1};
-height	= varargin{2};
-width	= varargin{3};
-color	= varargin{4};
+try height	= varargin{2};
+catch height = 0.5;
+end
+try width	= varargin{3};
+catch width = 0.5;	
+end
+try color	= varargin{4};
+catch color = 'k'; % default color is black
+end
 
-if ~exist('height', 'var')
-	height = 0.5;	
-end
-if ~exist('width', 'var')
-	width = 0.5;	
-end
-if ~exist('color', 'var')
-	color = 'k'; % default color is black
-end
 a = axis;
 wdth = a(2)-a(1);
 ht = a(4)-a(3);
