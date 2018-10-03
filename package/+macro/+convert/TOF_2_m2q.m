@@ -20,7 +20,8 @@ for i = 1:length(detnames)
     detname		= detnames{i}; 
     detnr		= IO.detname_2_detnr(detname);
     % execute the TOF to m2q conversion if TOF is one of the signals:
-    if general.struct.probe_field(metadata_in.conv.(detname).ifdo, 'TOF_2_m2q') && all(isfield(data_out.h.(detname), {'TOF'}))
+    if (general.struct.probe_field(metadata_in.conv.(detname).ifdo, 'TOF_2_m2q') && all(isfield(data_out.h.(detname), {'TOF'}))) || ...
+			(general.struct.probe_field(metadata_in.conv.(detname).ifdo, 'm2q') && all(isfield(data_out.h.(detname), {'TOF'})))
         % Convert to m2q:
         TOF             = data_in.h.(detname).TOF;
         factor          = metadata_in.conv.(detname).TOF_2_m2q.factor;

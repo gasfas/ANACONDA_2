@@ -1,11 +1,11 @@
 function  [data_out] = lensabb(data_in, metadata_in, det_name)
 % This macro corrects the detector electrostatic abberation.
 % Input:
-% data_in        The experimental data, already converted
+% data_in        The experimental data
 % metadata_in    The corresponding metadata
 % det_name      (optional) The name of the detector
 % Output:
-% data_out      The output data with converted data.
+% data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
 data_out = data_in;
 

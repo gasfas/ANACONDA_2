@@ -26,6 +26,9 @@ function [f, exp_data] = conditions_2_filter( exp_data, conditions )
 %										given for this field. If only one of all hits
 %										should be approved for the event to
 %										be approved, 'OR' should be given.
+%										If only the first hit needs to be
+%										approved by the condition, 'hit1'
+%										should be given (same for hit2)
 % conditions.labeled_hits.invert_filter (optional) logical: if 'true', the
 %										event filter will be inverted 
 %										(true becomes false, false becomes true)
@@ -98,7 +101,6 @@ function [f, exp_data] = C2F(exp_data, conditions)
 	% Save the filter in the experimental data:
 	exp_data.e.filt.from_recent_cond	= f;
 end
-
 
 function f = condition_2_filter(exp_data, condition)
 % This function calculates the filter from a single condition.

@@ -91,15 +91,9 @@ end
 
 subplot(rows,cols,ceil(cols/2));
 if length(labels_2_plot)<5
-<<<<<<< HEAD
-try title(['Bfield:' num2str(exp_md.spec.Bfield) ' .']); end
+	try title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' . Efield:' num2str(exp_md.spec.Efield) ' .']); end
 else
-try title(['Bfield:' num2str(exp_md.spec.Bfield) ' .']); end
-=======
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' . Efield:' num2str(exp_md.spec.Efield) ' .'])
-else
-title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' .  Efield:' num2str(exp_md.spec.Efield) ' .' ])
->>>>>>> eeb45dce1a88f284bad606526f334b0473a592b6
+	try title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' .  Efield:' num2str(exp_md.spec.Efield) ' .' ]); end
 end
 
 

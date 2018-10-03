@@ -42,7 +42,8 @@ for i = 1:length(detnames)
     % Detector image rotation:
     if ~isempty(idx_X) && ~isempty(idx_Y) && general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.dTheta') 
         data_out = macro.correct.dTheta(data_out, metadata_in, detname);
-    end 
+	end
+	
 end
 
 %% Cross-detector correction:
@@ -51,6 +52,7 @@ end
 if general.struct.probe_field(metadata_in.corr, 'crossdet.ifdo.ionization_position') 
 	data_out = macro.correct.ionization_position(data_out, metadata_in);
 end
+
 
 %%
 for i = 1:length(detnames)
@@ -67,7 +69,7 @@ for i = 1:length(detnames)
     idx_TOF		= find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
     idx_E		= find(strcmp(metadata_in.det.(detname).signals, 'E [eV]'));
 	
-    % Image non-roundness correction:
+    % Detector image non-roundness correction:
     if ~isempty(idx_X) && ~isempty(idx_Y) && general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.dTheta') 
         data_out = macro.correct.R_circle(data_out, metadata_in, detname);
 	end 
@@ -93,5 +95,9 @@ for i = 1:length(detnames)
     if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.lensabb') 
         data_out = macro.correct.lensabb(data_out, metadata_in, detname);
 	end
-
+	
+	% Remove (events that contain) outliers in the data:
+	if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.remove_outliers') 
+		data_out = macro.correct.remove_outliers(data_out, metadata_in, detname);
+	end
 end
