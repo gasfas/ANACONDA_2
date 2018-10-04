@@ -1,11 +1,11 @@
 classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
     % TreeNode - Defines a node for a tree control
     %   The TreeNode object defines a tree node to be placed on a
-    %   uiextras.jTree.Tree control.
+    %   general.UI.uiextras.jTree.Tree control.
     %
     % Syntax:
-    %   nObj = uiextras.jTree.TreeNode
-    %   nObj = uiextras.jTree.TreeNode('Property','Value',...)
+    %   nObj = general.UI.uiextras.jTree.TreeNode
+    %   nObj = general.UI.uiextras.jTree.TreeNode('Property','Value',...)
     %
     % TreeNode Properties:
     %
@@ -39,8 +39,8 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
     %
     %   setIcon - set the icon displayed on this tree node
     %
-    % See also: uiextras.jTree.Tree, uiextras.jTree.CheckboxTree,
-    %           uiextras.jTree.CheckboxTreeNode
+    % See also: general.UI.uiextras.jTree.Tree, general.UI.uiextras.jTree.CheckboxTree,
+    %           general.UI.uiextras.jTree.CheckboxTreeNode
     %
     
     %   Copyright 2012-2015 The MathWorks, Inc.
@@ -68,18 +68,18 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
     end
     
     properties
-        Parent = uiextras.jTree.TreeNode.empty(0,1) %Parent tree node
+        Parent = general.UI.uiextras.jTree.TreeNode.empty(0,1) %Parent tree node
         UIContextMenu %context menu to show when clicking on this node
     end
     
     properties (SetAccess=protected, GetAccess=public)
-        Children = uiextras.jTree.TreeNode.empty(0,1) %Child tree nodes
-        Tree = uiextras.jTree.Tree.empty(0,1) %Tree on which this node is attached
+        Children = general.UI.uiextras.jTree.TreeNode.empty(0,1) %Child tree nodes
+        Tree = general.UI.uiextras.jTree.Tree.empty(0,1) %Tree on which this node is attached
     end
     
     % The node needs to be accessible to the nodes also
-    properties (SetAccess={?uiextras.jTree.Tree, ?uiextras.jTree.TreeNode},...
-            GetAccess={?uiextras.jTree.Tree, ?uiextras.jTree.TreeNode})
+    properties (SetAccess={?general.UI.uiextras.jTree.Tree, ?general.UI.uiextras.jTree.TreeNode},...
+            GetAccess={?general.UI.uiextras.jTree.Tree, ?general.UI.uiextras.jTree.TreeNode})
         jNode %Java object for tree node
     end
     
@@ -98,8 +98,8 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
             % action is taken.
             %
             % Syntax:
-            %   nObj = uiextras.jTree.TreeNode
-            %   nObj = uiextras.jTree.TreeNode('Property','Value',...)
+            %   nObj = general.UI.uiextras.jTree.TreeNode
+            %   nObj = general.UI.uiextras.jTree.TreeNode('Property','Value',...)
             %
             % Inputs:
             %           Property-value pairs
@@ -112,7 +112,7 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
             %
             
             % Add the custom java paths
-            uiextras.jTree.loadJavaCustomizations();
+            general.UI.uiextras.jTree.loadJavaCustomizations();
             
             % Create a tree node for this element
             nObj.jNode = handle(javaObjectEDT('UIExtrasTree.TreeNode'));
@@ -259,8 +259,8 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
             % Outputs:
             %           tf - logical result
             %
-            validateattributes(nObj1,{'uiextras.jTree.TreeNode'},{'vector'})
-            validateattributes(nObj2,{'uiextras.jTree.TreeNode'},{'vector'})
+            validateattributes(nObj1,{'general.UI.uiextras.jTree.TreeNode'},{'vector'})
+            validateattributes(nObj2,{'general.UI.uiextras.jTree.TreeNode'},{'vector'})
             
             tf = false(size(nObj1));
             for idx = 1:numel(nObj1)
@@ -308,8 +308,8 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
             %           none
             %
             % Examples:
-            %   t = uiextras.jTree.Tree;
-            %   n = uiextras.jTree.TreeNode('Name','Node1','Parent',t);
+            %   t = general.UI.uiextras.jTree.Tree;
+            %   n = general.UI.uiextras.jTree.TreeNode('Name','Node1','Parent',t);
             %   setIcon(n,which('matlabicon.gif'));
             
             validateattributes(icon,{'char'},{})
@@ -359,7 +359,7 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
                 
                 % Always make the parent an empty TreeNode, in case empty
                 % [] was passed in
-                newParent = uiextras.jTree.TreeNode.empty(0,1);
+                newParent = general.UI.uiextras.jTree.TreeNode.empty(0,1);
                 
                 % Is there an old parent to clean up?
                 if ~isempty(nObj.Parent)
@@ -369,13 +369,13 @@ classdef TreeNode < hgsetget & matlab.mixin.Heterogeneous
                 end
                 
                 % Update the reference to the tree in the hierarchy
-                EmptyTree = uiextras.jTree.Tree.empty(0,1);
+                EmptyTree = general.UI.uiextras.jTree.Tree.empty(0,1);
                 updateTreeReference(nObj, EmptyTree)
                 
             else % A new parent was provided
                 
                 % If new parent is a Tree, parent is the Root
-                if isa(newParent,'uiextras.jTree.Tree')
+                if isa(newParent,'general.UI.uiextras.jTree.Tree')
                     newParent = newParent.Root;
                 end
                 

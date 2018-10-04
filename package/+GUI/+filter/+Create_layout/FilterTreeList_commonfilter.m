@@ -9,7 +9,7 @@
 % Modifier:
 
 function [ UI ] = FilterTreeList_commonfilter() 
-import uiextras.jTree.*
+import general.UI.uiextras.jTree.*
 %% Create tree nodes
 md_GUI = evalin('base', 'md_GUI');
 built_in_filter = md_GUI.filter.built_in_filter;

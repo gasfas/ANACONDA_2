@@ -1,4 +1,4 @@
-function  [data_out] = m2q_2_cluster_size(data_in, metadata_in, det_name)
+function  [data_out] = cluster_size(data_in, metadata_in, det_name)
 % This macro converts the m2q value to a 'cluster size' signal, which is a
 % number that represents the number a constituent is represented in the
 % cluster. If the fragment m2q cannot be reconstructed from the give

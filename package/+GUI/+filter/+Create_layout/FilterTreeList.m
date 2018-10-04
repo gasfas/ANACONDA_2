@@ -21,7 +21,7 @@ exp_md = md_GUI.mdata_n.(['exp', expnumber]);
 metadata_cond_1 = fieldnames(exp_md.cond);
 exp_name_in_tree = ['exp', int2str(expnom)]; %
 Node = md_GUI.filter.Node;
-Node.(['exp', int2str(expnom)]) = uiextras.jTree.TreeNode('Name',exp_name_in_tree,'Parent', UI.Tree);
+Node.(['exp', int2str(expnom)]) = general.UI.uiextras.jTree.TreeNode('Name',exp_name_in_tree,'Parent', UI.Tree);
 [ Node ] = GUI.filter.visualize.NodeCreator(exp_md.cond, Node, exp_name_in_tree, 'cond');
 %% Select nodes
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'.

@@ -43,7 +43,7 @@ for i = 1:length(detnames)
     Y               = data_out.h.(detname).Y;
     TOF             = data_out.h.(detname).TOF;
     dZ_range        = [metadata_in.spec.dist.s0-metadata_in.spec.dist.s metadata_in.spec.dist.s0]*1e3;
-    TOF_2_m2q_md    = metadata_in.conv.(detname).TOF_2_m2q;
+    TOF_2_m2q_md    = metadata_in.conv.(detname).m2q;
 
 
     if strcmpi(metadata_in.spec.name, 'Laksman')
@@ -61,6 +61,6 @@ for i = 1:length(detnames)
     % Fill in the source positions of only the complete events:
     data_out.e.(detname).source_position(e_f_complete,:) = all_source_positions(e_f_complete,:);
 
-    disp(['Log: Interaction point conversion performed on' detname])
+    disp(['Log: Interaction point conversion performed on ' detname])
 end
 end

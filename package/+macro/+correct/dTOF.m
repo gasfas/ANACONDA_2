@@ -25,9 +25,6 @@ for i = 1:length(detnames)
 
         data_out.h.(detname).TOF = data_in.h.(detname).raw(:,idx_TOF) - metadata_in.corr.(detname).dTOF;
         disp(['Log: delta TOF correction performed on ' detname])
-%         write in the log:
-     
-  
     else
         % no correction needed
         data_out.h.(detname).TOF      = data_in.h.(detname).raw(:,idx_TOF);

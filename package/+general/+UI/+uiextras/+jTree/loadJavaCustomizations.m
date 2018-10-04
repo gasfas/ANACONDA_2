@@ -1,7 +1,7 @@
 function loadJavaCustomizations()
 % loadJavaCustomizations - Load the custom java files
 % -------------------------------------------------------------------------
-% Abstract: Loads the custom Java .jar file required for the uiextras.jTree
+% Abstract: Loads the custom Java .jar file required for the general.UI.uiextras.jTree
 %
 % Syntax:
 %           loadJavaCustomizations()

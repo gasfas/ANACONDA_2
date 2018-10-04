@@ -1,14 +1,14 @@
-classdef CheckboxTree < uiextras.jTree.Tree
+classdef CheckboxTree < general.UI.uiextras.jTree.Tree
     % CheckboxTree - Class definition for CheckboxTree
     %   The CheckboxTree object places a checkbox tree control within a
     %   figure or container.
     %
     % Syntax:
-    %           tObj = uiextras.jTree.CheckboxTree
-    %           tObj = uiextras.jTree.CheckboxTree('Property','Value',...)
+    %           tObj = general.UI.uiextras.jTree.CheckboxTree
+    %           tObj = general.UI.uiextras.jTree.CheckboxTree('Property','Value',...)
     %
     %   The CheckboxTree contains all properties and methods of the
-    %   <a href="matlab:doc uiextras.jTree.Tree">uiextras.jTree.Tree</a>, plus the following:
+    %   <a href="matlab:doc general.UI.uiextras.jTree.Tree">general.UI.uiextras.jTree.Tree</a>, plus the following:
     %
     % CheckboxTree Properties:
     %
@@ -34,10 +34,10 @@ classdef CheckboxTree < uiextras.jTree.Tree
     %       'MultiSelect','on');
     %
     %   %% Create tree nodes
-    %   Node1 = uiextras.jTree.CheckboxTreeNode('Name','Node_1','Parent',t.Root);
-    %   Node1_1 = uiextras.jTree.CheckboxTreeNode('Name','Node_1_1','Parent',Node1);
-    %   Node1_2 = uiextras.jTree.CheckboxTreeNode('Name','Node_1_2','Parent',Node1);
-    %   Node2 = uiextras.jTree.CheckboxTreeNode('Name','Node_2','Parent',t.Root);
+    %   Node1 = general.UI.uiextras.jTree.CheckboxTreeNode('Name','Node_1','Parent',t.Root);
+    %   Node1_1 = general.UI.uiextras.jTree.CheckboxTreeNode('Name','Node_1_1','Parent',Node1);
+    %   Node1_2 = general.UI.uiextras.jTree.CheckboxTreeNode('Name','Node_1_2','Parent',Node1);
+    %   Node2 = general.UI.uiextras.jTree.CheckboxTreeNode('Name','Node_2','Parent',t.Root);
     %
     %   %% Set an icon
     %   RootIcon = which('matlabicon.gif');
@@ -52,8 +52,8 @@ classdef CheckboxTree < uiextras.jTree.Tree
     %   %% Enable the tree
     %   t.Enable = 'on';
     %
-    % See also: uiextras.jTree.Tree, uiextras.jTree.TreeNode,
-    %           uiextras.jTree.CheckboxTreeNode
+    % See also: general.UI.uiextras.jTree.Tree, general.UI.uiextras.jTree.TreeNode,
+    %           general.UI.uiextras.jTree.CheckboxTreeNode
     
     %   Copyright 2012-2014 The MathWorks, Inc.
     %
@@ -105,13 +105,13 @@ classdef CheckboxTree < uiextras.jTree.Tree
             % action is taken.
             %
             % Syntax:
-            %           tObj = uiextras.jTree.CheckboxTree('p1',v1,...)
+            %           tObj = general.UI.uiextras.jTree.CheckboxTree('p1',v1,...)
             %
             % Inputs:
             %           Property-value pairs
             %
             % Outputs:
-            %           tObj - uiextras.jTree.CheckboxTree object
+            %           tObj - general.UI.uiextras.jTree.CheckboxTree object
             %
             % Examples:
             %           hFig = figure;
@@ -119,7 +119,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
             %
             
             % Call superclass constructor
-            tObj = tObj@uiextras.jTree.Tree(varargin{:});
+            tObj = tObj@general.UI.uiextras.jTree.Tree(varargin{:});
             
         end
         
@@ -135,7 +135,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
     methods
         
         function s = getJavaObjects(tObj)
-            s = getJavaObjects@uiextras.jTree.Tree(tObj);
+            s = getJavaObjects@general.UI.uiextras.jTree.Tree(tObj);
             s.jCBoxSelModel = tObj.jCBoxSelModel;
         end
         
@@ -151,7 +151,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
             % Override the createTree method to make a checkbox tree
             
             % Create the root node
-            tObj.Root = uiextras.jTree.CheckboxTreeNode('Name','Root','Tree',tObj);
+            tObj.Root = general.UI.uiextras.jTree.CheckboxTreeNode('Name','Root','Tree',tObj);
             
             % Create the tree
             if isempty(tObj.Root)
@@ -179,7 +179,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
             % customize the tree for checkboxes
             
             % Call the superclass method
-            createTreeCustomizations@uiextras.jTree.Tree(tObj)
+            createTreeCustomizations@general.UI.uiextras.jTree.Tree(tObj)
             
             % Use the custom renderer
             setCellRenderer(tObj.jTree, UIExtrasTree.TreeCellRenderer);
@@ -250,7 +250,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% Special Access Methods
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    methods (Access={?uiextras.jTree.Tree, ?uiextras.jTree.TreeNode})
+    methods (Access={?general.UI.uiextras.jTree.Tree, ?general.UI.uiextras.jTree.TreeNode})
         
         function tf = isNodeChecked(tObj,nObj)
             jTreePath = nObj.jNode.getTreePath;
@@ -271,7 +271,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
         end
         
         function setChecked(tObj,nObj,value)
-            validateattributes(nObj,{'uiextras.jTree.TreeNode'},{'vector'});
+            validateattributes(nObj,{'general.UI.uiextras.jTree.TreeNode'},{'vector'});
             validateattributes(value,{'numeric','logical'},{'vector'});
             if isequal(size(value),size(nObj))
                 value = logical(value);
@@ -327,7 +327,7 @@ classdef CheckboxTree < uiextras.jTree.Tree
         % CheckedNodes
         function value = get.CheckedNodes(nObj)
             p = nObj.jCBoxSelModel.getSelectionPaths;
-            value = uiextras.jTree.TreeNode.empty(0,1);
+            value = general.UI.uiextras.jTree.TreeNode.empty(0,1);
             for idx = 1:numel(p)
                 nObj = get(p(idx).getLastPathComponent(),'TreeNode');
                 value(end+1) = nObj; %#ok<AGROW>

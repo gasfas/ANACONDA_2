@@ -23,7 +23,16 @@ for i = 1:length(detnames)
     % Preparing the variables needed:
     X           = data_out.h.(detname).X;
     Y           = data_out.h.(detname).Y;
-	if general.struct.issubfield(data_out.h.(detname), 'TOF')
+	% Determine in which coordinates the momentum can be calculated:
+	try p_XY	= sum(contains({'X','Y'}, metadata_in.conv.(detname).momentum.coordinates)) == 2; % if it is 2D (X, Y)
+		p_XYTOF	= sum(contains({'X','Y','TOF'}, metadata_in.conv.(detname).momentum.coordinates)) == 3; % if it is 3D (X, Y, TOF)
+		p_XYZ	= sum(contains({'X','Y','Z'}, metadata_in.conv.(detname).momentum.coordinates)) == 3; % if it is 3D (X, Y, TOF)
+		p_XYZ	= or(p_XYZ, p_XYTOF);
+	catch
+		p_XY	= ~general.struct.issubfield(data_out.h.(detname), 'TOF'); % if there is no TOF channel defined, we assume 2D (X, Y) momentum calculation.
+		p_XYZ	= ~p_XY;
+	end
+	if p_XYZ % If the momentum can be calculated in 3 dimensions:
 		% This means we can perform 3D momentum conversion:
 		TOF         = data_out.h.(detname).TOF;
 		% Electric field in the source region:
@@ -38,11 +47,11 @@ for i = 1:length(detnames)
 				m2q_l       = data_out.h.(detname).m2q_l;
 				m_l         = data_out.h.(detname).m_l;
 				% And from metadata:
-				labels      = metadata_in.conv.(detname).m2q_labels;
-				labels_mass = metadata_in.conv.(detname).mass_labels;
+				labels      = metadata_in.conv.(detname).m2q_label.labels;
+				labels_mass = metadata_in.conv.(detname).m2q_label.mass;
 				% Obtain the TOF values that should correspond to zero momentum values:
 % 				labels_TOF_no_p = convert.m2q_2_TOF(labels, m2qfactor, t0);
-				labels_TOF_no_p = convert.calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q);
+				labels_TOF_no_p = convert.calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q);
 				% Calculate the momentum:
 				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum.EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, metadata_in.spec.det_modes{detnr});
 				data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
@@ -54,19 +63,20 @@ for i = 1:length(detnames)
 			case 'electron' % if the detector sees electrons:
 				% The mass-to-charge is known for the electron:
 				try		m2q_l	= data_out.h.(detname).m2q_l;
+						labels  = metadata_in.conv.(detname).m2q_label.labels;
 				catch	m2q_l	= general.constants('me_amu');
+						labels	= general.constants('me_amu');
 				end
-				
-                labels          = metadata_in.conv.(detname).m2q_labels;
+                
                 %labels_mass     = labels;
-				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).TOF_2_m2q); %[ns] important to notice here is that the mass and charge are both taken
+				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q); %[ns] important to notice here is that the mass and charge are both taken
                 % in atomic units. 
                 % [data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum_2D_EBfield(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md);
              	[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum.EB_field_3D(TOF, X, Y, m2q_l, m2q_l, labels, labels, labels_TOF_no_p, E_ER, sample_md, spec_md);
                 data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
         end
 
-	else % There is only X, and Y component measured, so 2D momentum:
+	elseif p_XY % There is only X, and Y component measured, so 2D momentum:
 		TOF_nominal = metadata_in.conv.(detname).momentum.TOF_nominal;
 		mass = metadata_in.conv.(detname).momentum.mass; % here we assume that the mass is not determined, if no TOF is known.
 		[X_0, Y_0] = deal (metadata_in.conv.(detname).momentum.X_0, metadata_in.conv.(detname).momentum.Y_0);

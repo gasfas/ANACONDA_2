@@ -4,8 +4,8 @@ classdef Tree < hgsetget
     %   container.
     %
     % Syntax:
-    %   nObj = uiextras.jTree.Tree
-    %   nObj = uiextras.jTree.Tree('Property','Value',...)
+    %   nObj = general.UI.uiextras.jTree.Tree
+    %   nObj = general.UI.uiextras.jTree.Tree('Property','Value',...)
     %
     % Tree Properties:
     %
@@ -84,14 +84,14 @@ classdef Tree < hgsetget
     %
     %   %% Create the figure and display the tree
     %   f = figure;
-    %   t = uiextras.jTree.Tree('Parent',f,...
+    %   t = general.UI.uiextras.jTree.Tree('Parent',f,...
     %       'SelectionChangeFcn','disp(''SelectionChangeFcn triggered'')');
     %
     %   %% Create tree nodes
-    %   Node1 = uiextras.jTree.TreeNode('Name','Node_1','Parent',t.Root);
-    %   Node1_1 = uiextras.jTree.TreeNode('Name','Node_1_1','Parent',Node1);
-    %   Node1_2 = uiextras.jTree.TreeNode('Name','Node_1_2','Parent',Node1);
-    %   Node2 = uiextras.jTree.TreeNode('Name','Node_2','Parent',t.Root);
+    %   Node1 = general.UI.uiextras.jTree.TreeNode('Name','Node_1','Parent',t.Root);
+    %   Node1_1 = general.UI.uiextras.jTree.TreeNode('Name','Node_1_1','Parent',Node1);
+    %   Node1_2 = general.UI.uiextras.jTree.TreeNode('Name','Node_1_2','Parent',Node1);
+    %   Node2 = general.UI.uiextras.jTree.TreeNode('Name','Node_2','Parent',t.Root);
     %
     %   %% Set an icon
     %   RootIcon = which('matlabicon.gif');
@@ -106,8 +106,8 @@ classdef Tree < hgsetget
     %   %% Enable the tree
     %   t.Enable = 'on';
     %
-    % See also: uiextras.jTree.CheckboxTree, uiextras.jTree.TreeNode,
-    %           uiextras.jTree.CheckboxTreeNode
+    % See also: general.UI.uiextras.jTree.CheckboxTree, general.UI.uiextras.jTree.TreeNode,
+    %           general.UI.uiextras.jTree.CheckboxTreeNode
     
     %   Copyright 2012-2014 The MathWorks, Inc.
     %
@@ -166,8 +166,8 @@ classdef Tree < hgsetget
     end
     
     % The tree needs to be accessible to the nodes also
-    properties (SetAccess={?uiextras.jTree.Tree, ?uiextras.jTree.TreeNode},...
-            GetAccess={?uiextras.jTree.Tree, ?uiextras.jTree.TreeNode})
+    properties (SetAccess={?general.UI.uiextras.jTree.Tree, ?general.UI.uiextras.jTree.TreeNode},...
+            GetAccess={?general.UI.uiextras.jTree.Tree, ?general.UI.uiextras.jTree.TreeNode})
         jTree       %Java object for tree
     end
     
@@ -200,13 +200,13 @@ classdef Tree < hgsetget
             % action is taken.
             %
             % Syntax:
-            %           tObj = uiextras.jTree.Tree('p1',v1,...)
+            %           tObj = general.UI.uiextras.jTree.Tree('p1',v1,...)
             %
             % Inputs:
             %           Property-value pairs
             %
             % Outputs:
-            %           tObj - uiextras.jTree.Tree object
+            %           tObj - general.UI.uiextras.jTree.Tree object
             %
             % Examples:
             %           hFig = figure;
@@ -214,7 +214,7 @@ classdef Tree < hgsetget
             %
             
             % Add the custom java paths
-            uiextras.jTree.loadJavaCustomizations();
+            general.UI.uiextras.jTree.loadJavaCustomizations();
             
             %----- Parse Inputs -----%
             p = inputParser;
@@ -447,7 +447,7 @@ classdef Tree < hgsetget
         function createTree(tObj)
             
             % Create the root node
-            tObj.Root = uiextras.jTree.TreeNode('Name','Root','Tree',tObj);
+            tObj.Root = general.UI.uiextras.jTree.TreeNode('Name','Root','Tree',tObj);
             
             % Create the tree
             %nObj.jNode = handle(javaObjectEDT('UIExtrasTree.TreeNode'));
@@ -549,7 +549,7 @@ classdef Tree < hgsetget
             % Was a tree node clicked?
             treePath = tObj.jTree.getPathForLocation(x,y);
             if isempty(treePath)
-                nObj  = uiextras.jTree.TreeNode.empty(0,1);
+                nObj  = general.UI.uiextras.jTree.TreeNode.empty(0,1);
             else
                 nObj = get(treePath.getLastPathComponent,'TreeNode');
             end
@@ -738,8 +738,8 @@ classdef Tree < hgsetget
                 % Figure out what nodes were added or removed to/from the
                 % selection
                 p = e.getPaths;
-                AddedNodes = uiextras.jTree.TreeNode.empty(0,1);
-                RemovedNodes = uiextras.jTree.TreeNode.empty(0,1);
+                AddedNodes = general.UI.uiextras.jTree.TreeNode.empty(0,1);
+                RemovedNodes = general.UI.uiextras.jTree.TreeNode.empty(0,1);
                 for idx = 1:numel(p)
                     nObj = get(p(idx).getLastPathComponent(),'TreeNode');
                     if isvalid(nObj)
@@ -771,7 +771,7 @@ classdef Tree < hgsetget
                 
                 % Get the tree nodes that were edited
                 c = e.getChildren;
-                EditedNode = uiextras.jTree.TreeNode.empty(0,1);
+                EditedNode = general.UI.uiextras.jTree.TreeNode.empty(0,1);
                 for idx = 1:numel(c)
                     EditedNode = get(c(idx),'TreeNode');
                 end
@@ -813,7 +813,7 @@ classdef Tree < hgsetget
                 end
                 
                 % Get the source node(s)
-                SourceNode = uiextras.jTree.TreeNode.empty(0,1);
+                SourceNode = general.UI.uiextras.jTree.TreeNode.empty(0,1);
                 for idx = 1:numel(TransferData)
                     SourceNode(idx) = get(TransferData(idx),'TreeNode');
                 end
@@ -1160,7 +1160,7 @@ classdef Tree < hgsetget
         
         % SelectedNodes
         function value = get.SelectedNodes(tObj)
-            value = uiextras.jTree.TreeNode.empty(0,1);
+            value = general.UI.uiextras.jTree.TreeNode.empty(0,1);
             srcPaths = tObj.jTree.getSelectionPaths();
             for idx = 1:numel(srcPaths)
                 value(idx) = get(srcPaths(idx).getLastPathComponent,'TreeNode');
@@ -1173,7 +1173,7 @@ classdef Tree < hgsetget
                     tObj.jTree.setSelectionPath([])
                     tObj.CBEnabled = true;
                 end
-            elseif isa(value,'uiextras.jTree.TreeNode')
+            elseif isa(value,'general.UI.uiextras.jTree.TreeNode')
                 if isscalar(value)
                     tObj.CBEnabled = false;
                     tObj.jTree.setSelectionPath(value.jNode.getTreePath());

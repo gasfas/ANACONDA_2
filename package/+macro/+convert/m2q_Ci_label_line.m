@@ -1,4 +1,4 @@
-function [f_e_r] = m2q_2_m2q_label_Ci_line (exp, conv_md, detname)
+function [f_e_r] = m2q_label_Ci_line (exp, conv_md, detname)
 % This macro convert the mass-to-charge signal to a mass-to-charge label
 % signal, in the case of multi-coincidence events, and a line-shape is
 % chosen as a filter shape around the nominal mass-to-charge value.
@@ -21,7 +21,7 @@ if ~general.struct.issubfield(exp.e, [detname '.TOF_sum'])
 else
 	TOF_sum			= exp.e.(detname).TOF_sum;
 end
-% TOF_sum		= convert.m2q_2_TOF(m2q_sum, conv_md.(detname).TOF_2_m2q.factor, conv_md.(detname).TOF_2_m2q.t0);
+% TOF_sum		= convert.TOF(m2q_sum, conv_md.(detname).TOF_2_m2q.factor, conv_md.(detname).TOF_2_m2q.t0);
 % Fetch the search radius:
 SR_m2q       = conv_md.(detname).m2q_label_Ci.search_radius;
 % Fetch the conversion data:

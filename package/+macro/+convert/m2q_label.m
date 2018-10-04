@@ -1,4 +1,4 @@
-function  [data_out] = m2q_2_m2q_label(data_in, metadata_in, det_name)
+function  [data_out] = m2q_label(data_in, metadata_in, det_name)
 % This macro converts the m2q signal to m2q-label signal.
 % Input:
 % data_in        The experimental data, already converted
@@ -18,9 +18,12 @@ end
 for i = 1:length(detnames)
     detname = detnames{i};
 	detnr = IO.det_nr_from_fieldname(detname);
-	
-    expected_m2q_labels     = metadata_in.conv.(detname).m2q_labels;
-    expected_m_labels       = metadata_in.conv.(detname).mass_labels;
+		% To remain compatible to older versions:
+	if isfield(metadata_in.conv.(detname), 'm2q_labels')
+		metadata_in.conv.(detname).m2q_label.labels = metadata_in.conv.(detname).m2q_labels;
+	end
+    expected_m2q_labels     = metadata_in.conv.(detname).m2q_label.labels;
+    expected_m_labels       = metadata_in.conv.(detname).m2q_label.mass;
     search_radius           = metadata_in.conv.(detname).m2q_label.search_radius;
     labelling_signal        = general.struct.probe_field(metadata_in.conv.(detname).m2q_label, 'signal');
 

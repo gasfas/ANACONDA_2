@@ -15,13 +15,13 @@ else % No detector name is given, so we fetch all detector names:
     detnames = fieldnames(metadata_in.det);
 end
 
-for i = 1:length(detnames);
+for i = 1:length(detnames)
     detname = detnames{i};  
 
     % find the E signal:
     idx_E     = find(strcmpi(metadata_in.det.(detname).signals, 'E [eV]'));
 
-    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dE') && ~general.struct.probe_field(data_in.h.(detname).corr_log, 'dE')
+    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'dE') && ~general.struct.probe_field(data_in.h.(detname), 'corr_log.dE')
 
         data_out.h.(detname).KER = data_in.h.(detname).raw(:,idx_E) - metadata_in.corr.(detname).dE;
         disp(['Log: delta E correction performed on ' detname])

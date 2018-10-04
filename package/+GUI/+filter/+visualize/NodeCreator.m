@@ -13,7 +13,7 @@ if strcmp(parentstruct, 'cond')
     NodeStruct = field_name;
 else
     NodeStruct = [parentstruct, '_', field_name];
-    Node.(NodeStruct) = uiextras.jTree.TreeNode('Name', field_name, 'Parent', Node.(parentstruct));
+    Node.(NodeStruct) = general.UI.uiextras.jTree.TreeNode('Name', field_name, 'Parent', Node.(parentstruct));
 end
 md_cond_fields = fieldnames(md_cond);
 for lx = 1:length(md_cond_fields)

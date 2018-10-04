@@ -23,7 +23,7 @@ for i = 1:length(detnames)
     idx_Y       = find(strcmp(metadata_in.det.(detname).signals, 'Y [mm]'));
 %     idx_TOF     = find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
 
-    if ~general.struct.probe_field(data_out.h.(detname).corr_log, 'detectorabb')
+    if ~general.struct.probe_field(data_out.h.(detname), 'corr_log.detectorabb')
         %         corrected.h.(detname).TOF = correct.Detector_abb(raw.h.(detname).raw(:,idx_TOF), metadata.corr.(detname)) 
         % Correction of the Drift tube/detector voltage mismatch.
         % First we correct the absolute TOF difference (from the theoretical value)

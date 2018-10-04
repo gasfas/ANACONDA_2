@@ -14,7 +14,7 @@ md_GUI = evalin('base', 'md_GUI');
 built_in_filter = md_GUI.filter.built_in_filter;
 UI = md_GUI.UI.UIFilter;
 UI.Tree.Enable = 1;
-Node.('built_in_filter') = uiextras.jTree.TreeNode('Name','built_in_filter','Parent',UI.Tree);
+Node.('built_in_filter') = general.UI.uiextras.jTree.TreeNode('Name','built_in_filter','Parent',UI.Tree);
 [ Node ] = GUI.filter.visualize.NodeCreator(built_in_filter.cond, Node, 'built_in_filter', 'cond');
 %% Select nodes
 UI.Tree.SelectionType = 'single'; % 'discontinuous' & 'continuous' & 'single'. For some reason suggested 'dis'-/'contiguous' ? ? ?

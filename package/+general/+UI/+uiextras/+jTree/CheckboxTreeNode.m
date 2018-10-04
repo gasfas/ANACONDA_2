@@ -1,14 +1,14 @@
-classdef CheckboxTreeNode < uiextras.jTree.TreeNode
+classdef CheckboxTreeNode < general.UI.uiextras.jTree.TreeNode
     % CheckboxTreeNode - Defines a node for a checkbox tree control
     %   The CheckboxTreeNode object defines a checkbox tree node to be
-    %   placed on a uiextras.jTree.CheckboxTree control.
+    %   placed on a general.UI.uiextras.jTree.CheckboxTree control.
     %
     % Syntax:
-    %   nObj = uiextras.jTree.CheckboxTreeNode
-    %   nObj = uiextras.jTree.CheckboxTreeNode('Property','Value',...)
+    %   nObj = general.UI.uiextras.jTree.CheckboxTreeNode
+    %   nObj = general.UI.uiextras.jTree.CheckboxTreeNode('Property','Value',...)
     %
     %   The CheckboxTree contains all properties and methods of the
-    %   <a href="matlab:doc uiextras.jTree.TreeNode">uiextras.jTree.TreeNode</a>, plus the following:
+    %   <a href="matlab:doc general.UI.uiextras.jTree.TreeNode">general.UI.uiextras.jTree.TreeNode</a>, plus the following:
     %
     % CheckboxTreeNode Properties:
     %
@@ -25,14 +25,14 @@ classdef CheckboxTreeNode < uiextras.jTree.TreeNode
     %   under DigIn mode(read-only)
     %
     % Notes:
-    %   - The CheckboxTreeNode may be also used on a uiextras.jTree.Tree
+    %   - The CheckboxTreeNode may be also used on a general.UI.uiextras.jTree.Tree
     %   control, but the checkboxes will not be visible. This may be useful
     %   if you are mixing regular trees with checkbox trees, and want to
     %   use a uniform type of TreeNode or need to be able to drag and drop
     %   from one tree to another.
     %
-    % See also: uiextras.jTree.Tree, uiextras.jTree.CheckboxTree,
-    %           uiextras.jTree.TreeNode,
+    % See also: general.UI.uiextras.jTree.Tree, general.UI.uiextras.jTree.CheckboxTree,
+    %           general.UI.uiextras.jTree.TreeNode,
     %
     %
     
@@ -91,7 +91,7 @@ classdef CheckboxTreeNode < uiextras.jTree.TreeNode
             %
             
             % Call superclass constructor
-            nObj = nObj@uiextras.jTree.TreeNode(varargin{:});
+            nObj = nObj@general.UI.uiextras.jTree.TreeNode(varargin{:});
             
         end
     end %methods
@@ -122,7 +122,7 @@ classdef CheckboxTreeNode < uiextras.jTree.TreeNode
             %
             
             % Call the superclass copy
-            nObjCopy = copy@uiextras.jTree.TreeNode(nObj,NewParent);
+            nObjCopy = copy@general.UI.uiextras.jTree.TreeNode(nObj,NewParent);
             
             % Copy the CheckboxTreeNode properties
             for idx = 1:numel(nObj)
@@ -165,7 +165,7 @@ classdef CheckboxTreeNode < uiextras.jTree.TreeNode
         % Checked
         function value = get.Checked(nObj)
             value = true(1,0);
-            if ~isempty(nObj.Tree) && isa(nObj.Tree,'uiextras.jTree.CheckboxTree')
+            if ~isempty(nObj.Tree) && isa(nObj.Tree,'general.UI.uiextras.jTree.CheckboxTree')
                 value = isNodeChecked(nObj.Tree,nObj);
             end
         end
@@ -177,7 +177,7 @@ classdef CheckboxTreeNode < uiextras.jTree.TreeNode
         % PartiallyChecked
         function value = get.PartiallyChecked(nObj)
             value = true(1,0);
-            if ~isempty(nObj.Tree) && isa(nObj.Tree,'uiextras.jTree.CheckboxTree')
+            if ~isempty(nObj.Tree) && isa(nObj.Tree,'general.UI.uiextras.jTree.CheckboxTree')
                 value = isNodePartiallyChecked(nObj.Tree,nObj);
             end
         end

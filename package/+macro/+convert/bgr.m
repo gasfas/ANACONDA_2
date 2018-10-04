@@ -1,4 +1,4 @@
-function  [data_out] = signal_2_bgr(data_in, metadata_in, det_name)
+function  [data_out] = bgr(data_in, metadata_in, det_name)
 % This macro converts specified multi-hit signals to background signals.
 % Input:
 % data_in        The experimental data, already converted

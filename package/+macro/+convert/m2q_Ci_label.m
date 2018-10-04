@@ -1,4 +1,4 @@
-function  [data_out] = m2q_2_m2q_label_Ci(data_in, metadata_in, det_name)
+function  [data_out] = m2q_Ci_label(data_in, metadata_in, det_name)
 % This macro labels based on combinations of different hits in one event.
 % Input:
 % data_in        The experimental data, already converted
@@ -19,28 +19,28 @@ for i = 1:length(detnames)
     % parameters:
     detname                 = detnames{i}; 
     nof_hits                = size(data_out.h.(detname).TOF,1);
-    search_radius_m2q       = metadata_in.conv.(detname).m2q_label_Ci.search_radius;
+    search_radius_m2q       = metadata_in.conv.(detname).m2q_Ci_label.search_radius;
 	% signals:
 	detnr					= IO.det_nr_from_fieldname(detname);
     e_raw					= data_out.e.raw(:,detnr);
 	
 	m2q		= fetch_signal(data_in, ['h.' detname '.m2q']);
 
-	switch metadata_in.conv.(detname).m2q_label_Ci.method
+	switch metadata_in.conv.(detname).m2q_Ci_label.method
         case 'circle'
 			m2q_l	= fetch_signal(data_in, ['h.' detname '.m2q_l']);
 			f_e_r	= circle(e_raw, m2q, m2q_l, search_radius_m2q);
 		case 'line'
 			if ~general.struct.issubfield(data_in, ['h.' detname '.m2q_l'])
 				% This means that the m2q is not yet labeled, we calculate an intermediate label:
-				m2q_l = prelabel(m2q, metadata_in.conv.(detname).m2q_labels, metadata_in.conv.(detname).m2q_label_Ci.length)
+				m2q_l = prelabel(m2q, metadata_in.conv.(detname).m2q_labels, metadata_in.conv.(detname).m2q_Ci_label.length);
 				data_in = general.struct.setsubfield(data_in, ['h.' detname '.m2q_l']);% placing it in the experiment metadata
 			else
 				m2q_l	= fetch_signal(data_in, ['h.' detname '.m2q_l']);
 			end
 			m2q_l_sum	= fetch_signal(data_in, ['e.' detname '.m2q_l_sum']);
 			TOF_sum	= fetch_signal(data_in, ['e.' detname '.TOF_sum']);
-			f_e_r = line(e_raw, m2q_l, m2q_l_sum, TOF_sum, search_radius_m2q, metadata_in.conv.(detname).TOF_2_m2q);
+			f_e_r = line(e_raw, m2q_l, m2q_l_sum, TOF_sum, search_radius_m2q, metadata_in.conv.(detname).m2q);
 	end
 	% We discard the labels from events that are outside the specified 
 	% radius or not recognized, 

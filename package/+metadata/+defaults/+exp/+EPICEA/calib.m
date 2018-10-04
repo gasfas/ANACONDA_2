@@ -51,7 +51,7 @@ d2.TOF_2_m2q.findpeak.search_radius		= 10;% [ns] The search radius around the in
 d2.TOF_2_m2q.findpeak.binsize				= 0.05;% [ns] The search radius around the indicated point, where the algorithm will look for a peak.
 
 % Plot style for 2D momentum histogram:
-d2.momentum.labels_to_show = exp_md.conv.det2.m2q_labels;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
+d2.momentum.labels_to_show = exp_md.conv.det2.m2q_label.labels;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
 d2.momentum.binsize       	= [1, 1]*3e0; %[a.u.] binsize of the m2q variable. 
 d2.momentum.x_range			= [-1 1]*1.1e2; % [a.u.] x range of the data on x-axis.
 d2.momentum.y_range			= [-1 1]*1.1e2; % [a.u.] y range of the data on y-axis.

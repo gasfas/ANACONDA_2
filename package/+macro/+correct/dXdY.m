@@ -29,10 +29,10 @@ for i = 1:length(detnames)
         data_out.h.(detname).Y = data_in.h.(detname).raw(:,idx_Y) - metadata_in.corr.(detname).dY;
 		
 		% Does the user want to 'flip' or invert the coordinate:
-		if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.flipX')
+		if general.struct.probe_field(metadata_in.corr.(detname), 'dXdY.ifdo.flipX')
 			data_out.h.(detname).X = -data_out.h.(detname).X;
 		end
-		if general.struct.probe_field(metadata_in.corr.(detname), 'ifdo.flipY')
+		if general.struct.probe_field(metadata_in.corr.(detname), 'dXdY.ifdo.flipY')
 			data_out.h.(detname).Y = -data_out.h.(detname).Y;
 		end		
 

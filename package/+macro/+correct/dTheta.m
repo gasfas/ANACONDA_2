@@ -26,6 +26,7 @@ for i = 1:length(detnames);
         theta = theta + metadata_in.corr.(detname).dTheta*pi/180;
         % convert back to cartesian:
         [data_out.h.(detname).X, data_out.h.(detname).Y] = pol2cart(theta, R);
+        disp(['Log: Detector image rotation correction performed on ' detname])
     
     else
         % no correction needed
