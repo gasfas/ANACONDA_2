@@ -79,7 +79,7 @@ UI.Fieldvalue = uicontrol('Parent', tab_filter, ...
 'TooltipString', 'Fieldvalues of the different fieldname values for the selected condition');
 
 % Construction of the UI Tree:
-UI.Tree = uiextras.jTree.Tree('Parent', tab_filter);
+UI.Tree = general.UI.uiextras.jTree.Tree('Parent', tab_filter);
 UI.Tree.Root.Name = 'Filter';
 UI.Tree.Position = [0.05 0.31 0.9 0.67];
 UI.Tree.Enable = 0;

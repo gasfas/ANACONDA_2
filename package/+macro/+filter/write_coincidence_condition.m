@@ -5,9 +5,12 @@ function [cond] = write_coincidence_condition(C_nr, detname)
 % Input:
 % C_nr          [n, 1] number of coincidences.
 % detname       Character array: name of the detector the condition should
-%               act on.
+%               act on. (can also be detector number).
 % Output:
 % cond          Output struct, defining the condition.
+if isnumeric(detname)
+	detname = ['det' num2str(detname)];
+end
 
 cond.type               = 'discrete';
 cond.data_pointer       = ['e.' detname '.filt.C' num2str(C_nr,1)];

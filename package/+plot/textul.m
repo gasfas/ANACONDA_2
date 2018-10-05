@@ -1,21 +1,35 @@
-% places a text in the plot,
-% height = the vertical position at which the lower left point will be placed (normalized)
-%width the horizonta position 
+function h = textul(varargin)
+% Function that places a text in the plot,
+% Inputs: 
+% ax		(optional), the axes to plot the text into.
+% txt		(char) the text to be displayed (Latex interpreted)
+% height	the vertical position at which the lower left point will be placed (normalized)
+% width 	the hoirizontal position at which the lower left point will be placed (normalized)
+% color		color char (e.g. 'b', 'r', etc) or the RGB value.
 
-function h = textul(txt, height, width, color)
-if ~exist('height', 'var')
-	height = 0.5;	
+% see if the first input is an axes handle:
+if isgraphics(varargin{1}, 'Axes')
+	h_axes		= varargin{1};
+	varargin	= varargin(2:end);
+else
+	h_axes = gca;
 end
-if ~exist('width', 'var')
-	width = 0.5;	
+
+txt		= varargin{1};
+try height	= varargin{2};
+catch height = 0.5;
 end
-if ~exist('color', 'var')
-	color = 'k'; % default color is black
+try width	= varargin{3};
+catch width = 0.5;	
 end
+try color	= varargin{4};
+catch color = 'k'; % default color is black
+end
+
 a = axis;
 wdth = a(2)-a(1);
 ht = a(4)-a(3);
 pos = [a(1)+width*wdth a(4)-height*ht];
 
-h = text(pos(1),pos(2),txt,'Fontsize', 16, 'Color', color);
+h = text(h_axes, pos(1),pos(2),txt,'Fontsize', 16, 'Color', color);
 end

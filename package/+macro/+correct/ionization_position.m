@@ -1,22 +1,22 @@
-function  [data_out] = ionization_position(data_in, metadata_in)
+function  [data_out] = ionization_position(data_in, metadata_in, det_name)
 % This macro corrects the detector electrostatic abberation.
 % Input:
-% data_in        The experimental data, already converted
+% data_in        The experimental data
 % metadata_in    The corresponding metadata
 % det_name      (optional) The name of the detector
 % Output:
-% data_out      The output data with converted data.
+% data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
 data_out = data_in;
 
 % Fetch the chosen data:
-detnr_source	= metadata_in.corr.crossdet.ionization_position.source.detnr;
-detnr_subj		= metadata_in.corr.crossdet.ionization_position.subject.detnr;
+detnr_source	= metadata_in.corr.(det_name).ionization_position.source.detnr;
+detnr_subj		= metadata_in.corr.(det_name).ionization_position.subject.detnr;
 det_source		= ['det' num2str(detnr_source)];
 det_subj		= ['det' num2str(detnr_subj)];
 
-X_fraction	= metadata_in.corr.crossdet.ionization_position.X_fraction;
-Y_fraction	= metadata_in.corr.crossdet.ionization_position.Y_fraction;
+X_fraction	= metadata_in.corr.(det_name).ionization_position.X_fraction;
+Y_fraction	= metadata_in.corr.(det_name).ionization_position.Y_fraction;
 
 % fetch the electron positions:
 X_source_h			= data_out.h.(det_source).X;
@@ -36,7 +36,7 @@ Y_corr_e		= Y_fraction * Y_source_e;
 X_subj_corr_h		= convert.event_2_hit_values(X_corr_e, data_out.e.raw(:,detnr_subj), length(X_subj_h));
 Y_subj_corr_h		= convert.event_2_hit_values(Y_corr_e, data_out.e.raw(:,detnr_subj), length(Y_subj_h));
 
-if strcmpi(general.struct.probe_field(metadata_in.corr.crossdet.ionization_position, 'Type'), 'linear_radial')
+if strcmpi(general.struct.probe_field(metadata_in.corr.(det_name).ionization_position, 'Type'), 'linear_radial')
 	% linear radial: Correction that increases radially to R = detector radius,
 	% where the full X, Y fraction is applied.
 	% Calculate the relative radius:

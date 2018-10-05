@@ -1,4 +1,15 @@
-\section{Metadata structure}
+\section{Metadata}
+The metadata contains all the information \emph{about} the data, such as conversion parameters, but also filter and plot parameters. The package comes shipped with `default' parameters, which can be used when the data is first imported by the user. It is recommended to copy the default parameters close to the local files, such that they are not changed, for instance when the package is upgraded.
+The default metadata in the package is defined for each spectrometer, since each spectrometer has different numbers of detectors, with different measurement signals (position, time, etc \dots). 
+
+\begin{figure}[H]
+   \centering
+    \centerline{\includegraphics[width=0.7\textwidth]{Graphics/metadata_defaults.eps}}
+\caption{Default metadata (or configuration data) are defined in the package, to be copied upon first import of a new data file.}
+\label{metadata_defaults}
+\end{figure}
+
+\subsection{Metadata structure}
 The metadata contains all information needed to correct, convert, fit and visualize the data.
 \\
 The metadata structure is divided into different categories:

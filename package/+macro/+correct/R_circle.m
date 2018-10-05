@@ -17,8 +17,9 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};  
-    
-    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'R_circle') && ~general.struct.probe_field(data_in.h.(detname).corr_log, 'R_circle')
+    % Check whether this correction has already been performed to the data:
+	
+    if general.struct.probe_field(metadata_in.corr.(detname).ifdo, 'R_circle') && ~general.struct.probe_field(data_in.h.(detname), 'corr_log.R_circle')
         % convert to radius:
         [theta, R] = cart2pol(data_out.h.(detname).X, data_out.h.(detname).Y);
         

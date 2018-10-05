@@ -65,11 +65,11 @@ end
 function [Ax_new, Ax_ori] = exch_ticks (Ax_new, Ax_ori, md, cname, axestype)
 	switch axestype
 		case 'm2q'
-			ticklabel					= sort(unique(md.m2q_labels))';
+			ticklabel					= sort(unique(md.m2q_label.labels))';
 			Ax_new.([cname 'TickLabel'])= strread(num2str(ticklabel),'%s');
 			Ax_new.([cname 'Tick'])		= round(unique(convert.m2q_2_TOF(ticklabel, ...
-												md.TOF_2_m2q.factor, ...
-												md.TOF_2_m2q.t0)));
+												md.m2q.factor, ...
+												md.m2q.t0)));
 			Ax_ori.([cname 'Tick'])			= Ax_new.([cname 'Tick']);
 			Ax_ori.([cname 'TickLabel'])	= Ax_ori.([cname 'Tick']);
 		case 'cluster_size'

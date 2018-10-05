@@ -1,11 +1,11 @@
 function  [data_out] = dTOF(data_in, metadata_in, det_name)
 % This macro corrects the TOF (for example for signal propagation times).
 % Input:
-% data_in        The experimental data, already converted
+% data_in        The experimental data
 % metadata_in    The corresponding metadata
 % det_name      (optional) The name of the detector
 % Output:
-% data_out      The output data with converted data.
+% data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
 data_out = data_in;
 
@@ -25,9 +25,6 @@ for i = 1:length(detnames)
 
         data_out.h.(detname).TOF = data_in.h.(detname).raw(:,idx_TOF) - metadata_in.corr.(detname).dTOF;
         disp(['Log: delta TOF correction performed on ' detname])
-%         write in the log:
-     
-  
     else
         % no correction needed
         data_out.h.(detname).TOF      = data_in.h.(detname).raw(:,idx_TOF);

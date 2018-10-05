@@ -16,11 +16,11 @@ end
 % Initialize an empty event pointer array:
 exp.e.raw = NaN*ones(max(ion.d.eventId_(end), el.d.eventId_(end)), 2);
 
-% Find the unique values and their positions:
+% Find the unique electron values and their positions:
 [e_C, e_IA] = unique(el.d.eventId_);		
 % Fill these in into the event pointer array (electrons: first column):
 exp.e.raw(e_C,1) = e_IA; % Electron detector: det1
-% Find the unique values and their positions:
+% Find the unique ion values and their positions:
 [i_C, i_IA] = unique(ion.d.eventId_);
 % Fill these in into the event pointer array (ions: second column):
 exp.e.raw(i_C,2) = i_IA;% Ion detector: det2

@@ -1,4 +1,4 @@
-function hhh=hline(y,in1,in2)
+function hhh=hline(varargin)
 % function h=hline(y, linetype, label)
 % 
 % Draws a horizontal line on the current axes at the location specified by 'y'.  Optional arguments are
@@ -27,10 +27,30 @@ function hhh=hline(y,in1,in2)
 % By Brandon Kuczenski for Kensington Labs.
 % brandon_kuczenski@kensingtonlabs.com
 % 8 November 2001
+% Adapted by Bart Oostenrijk
+% 20 feb 2018
+
+% see if the first input is an axes handle:
+if isgraphics(varargin{1}, 'Axes')
+	h_axes		= varargin{1};
+	varargin	= varargin(2:end);
+	nargin_cus	= nargin - 1;
+else
+	h_axes = gca;
+	nargin_cus = nargin;
+end
+
+y		= varargin{1};
+try in1		= varargin{2}; 
+catch in1 = [];
+end
+try in2		= varargin{3}; 
+catch in2 = [];
+end
 
 if length(y)>1  % vector input
     for I=1:length(y)
-        switch nargin
+        switch nargin_cus
         case 1
             linetype='r:';
             label='';
@@ -62,10 +82,10 @@ if length(y)>1  % vector input
                 label=in2{I};
             end
         end
-        h(I)=hline(y(I),linetype,label);
+        h(I)=plot.hline(h_axes, y(I),linetype,label);
     end
 else
-    switch nargin
+    switch nargin_cus
     case 1
         linetype='r:';
         label='';
@@ -75,28 +95,25 @@ else
     case 3
         linetype=in1;
         label=in2;
-    end
-
-    
-    
+	end 
     
     g=ishold(gca);
     hold on
 
     x=get(gca,'xlim');
     try
-		h=plot(x,[y y],linetype);
+		h=plot(h_axes, x,[y y],linetype);
 	catch 
-		h=plot(x,[y y],'Color', linetype);
+		h=plot(h_axes, x,[y y],'Color', linetype);
 	end
     if ~isempty(label)
         yy=get(gca,'ylim');
         yrange=yy(2)-yy(1);
         yunit=(y-yy(1))/yrange;
         if yunit<0.2
-            text(x(1)+0.02*(x(2)-x(1)),y+0.02*yrange,label,'color',get(h,'color'))
+            text(h_axes, x(1)+0.02*(x(2)-x(1)),y+0.02*yrange,label,'color',get(h,'color'))
         else
-            text(x(1)+0.02*(x(2)-x(1)),y-0.02*yrange,label,'color',get(h,'color'))
+            text(h_axes, x(1)+0.02*(x(2)-x(1)),y-0.02*yrange,label,'color',get(h,'color'))
         end
     end
 

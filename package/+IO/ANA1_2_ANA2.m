@@ -1,16 +1,12 @@
-function [ exp ] = ANA1_2_ANA2 ( filename_ANA1, settings_dirname)
+function [ exp ] = ANA1_2_ANA2 ( filename_ANA1 )
 % This function is intended to convert the old-fashioned DLT format (sorted
 % on coincidence number) to the event-based format
 %   Not shuffling up the data, so the order is: single, double, triple, etc
 %   etc ... coincidences.
 
-[pathstr,name,ext] = fileparts(filename_ANA1); 
-if ~strcmp(ext, '.mat')
-    error('the input file does not seem to have the right extension (.mat). Is it the right file you are refering to?')
-end
 % loading the file and arranging it in one struct:
 [ data, maxcoinc ] = IO.ANA1_2_ANA2.load_FTotal(filename_ANA1);
-
+	
 % calculating the number of events and number of hits:
 nof_events = 0; nof_hits = 0;
 for coinc_nr = 1:maxcoinc

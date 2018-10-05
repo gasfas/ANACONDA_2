@@ -1,4 +1,4 @@
-% Description: Restructures the Filter Tree (UIFilter.Tree) by using a drag and drop function (DnD). Function is being called at from uiextras.jTree.Tree, use ctrl + f or cmd + f and paste GUI.filter.edit.DnD to find its location in the Tree function. This is a modification which was not included in the original Tree function. The action is then performed also for the associated experiments' filter metadata structure.
+% Description: Restructures the Filter Tree (UIFilter.Tree) by using a drag and drop function (DnD). Function is being called at from general.UI.uiextras.jTree.Tree, use ctrl + f or cmd + f and paste GUI.filter.edit.DnD to find its location in the Tree function. This is a modification which was not included in the original Tree function. The action is then performed also for the associated experiments' filter metadata structure.
 %   - inputs:
 %           Selected nodes              (TargetNode, SourceNode)
 %   - outputs:

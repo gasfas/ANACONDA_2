@@ -13,7 +13,8 @@ switch dim
 		def.LineStyle	= '-';% Linestyle of the graphical object. 
 		def.Color		= 'b';% Color of the line.
 	case 2
-		def.Type			= 'imagesc';% Type of graphical object to be created. 
+		def.Type			= 'imagesc';% Type of graphical object to be created.
+		
 	case 3
 		if ~strcmp(general.struct.probe_field(GraphObj_md, 'Type'), 'ternary')
 			def.Type			= 'projection';% Type of graphical object to be created. 

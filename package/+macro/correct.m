@@ -5,26 +5,17 @@ function [data_out] = correct(data_in, metadata_in)
 % for one detector.
 % SEE ALSO macro.corrected_to_converted
 
-% Copy the data:
-data_out = data_in;
+% The order of performing the different corrections depends on the order in
+% which the detectors and 'ifdo' statements are defined in the metadata: 
+% The ones defined first are evaluated first.
 
-% We fetch the detector names:
-detnames = fieldnames(metadata_in.det);
+% It is important that the correction procedure requested is described in a macro function
+% defined with the exact same name as in the metadata, in the macro.correct directory.
 
-for i = 1:length(detnames)
-    detname     = detnames{i};
-    
-    % Check the log, which corrections have already been performed:
-    corr_log    = general.struct.probe_field(data_out, ['h.' detname '.corr_log']);
-%     % if no corrections have been performed, add the empty field:
-    if islogical(corr_log) && ~corr_log; data_out.h.(detname).corr_log = []; end
-    
-    % find all X,Y,TOF signals:
-    idx_X       = find(strcmp(metadata_in.det.(detname).signals, 'X [mm]'));
-    idx_Y       = find(strcmp(metadata_in.det.(detname).signals, 'Y [mm]'));
-    idx_TOF		= find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
-    idx_E		= find(strcmp(metadata_in.det.(detname).signals, 'E [eV]'));
+% execute all the correction subroutines that are requested by the user:
+[data_out] = general.macro.run_subroutines(data_in, metadata_in, 'correct');
 
+<<<<<<< HEAD
     % Now we go through all possible corrections:
     
     % Detector image translation:
@@ -90,3 +81,8 @@ for i = 1:length(detnames)
 	end
 
 end
+=======
+%         write in the log:
+% TODO: waiting for Lisa...
+end
+>>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c

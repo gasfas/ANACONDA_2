@@ -34,9 +34,10 @@ C			= NaN * zeros(length(expnames), 1);
 % Apply conditions if they are defined:
 
 for i = 1:length(expnames)
-	expname = expnames{i}
+	expname = expnames{i};
 	exp		= exps.(expname);
 	exp_md	= mds.(expname);
+	md		= exp_md;
 	X(i)		= eval(x_pointer);
 	Y(i)		= eval(y_pointer);
 	C(i)	= eval(c_pointer);
@@ -57,7 +58,12 @@ end
 if ~isfield(GraphObj_md, 'dotsize')
 GraphObj_md.dotsize		= 100;
 end
-Int_color = repmat(GraphObj_md.color_low, numel(C), 1) - repmat((C(:)-min(C(:)))./(max(C(:)) - min(C(:))), 1, 3) .* (repmat(GraphObj_md.color_low-GraphObj_md.color_high, numel(C), 1));
+
+if numel(C)>1 
+	Int_color	= repmat(GraphObj_md.color_low, numel(C), 1) - repmat((C(:)-min(C(:)))./(max(C(:)) - min(C(:))), 1, 3) .* (repmat(GraphObj_md.color_low-GraphObj_md.color_high, numel(C), 1));
+else
+	Int_color	= [0 0 0];
+end
 
 % Create the new figure:
 if isempty(h_figure)
@@ -68,11 +74,13 @@ end
 % Then create the new axes:
 if isempty(h_axes)
 	h_axes	= macro.plot.create.ax(h_figure, plot_md.axes);
-else
-	h_axes	= general.handle.fill_struct(h_axes, plot_md.axes);
 end
 
 h_GraphObj		= scatter(h_axes(1), X, Y, GraphObj_md.dotsize, Int_color, 'filled');
+
+% Apply axes preferences:
+h_axes	= general.handle.fill_struct(h_axes, plot_md.axes);
+
 
 try h_figure = general.handle.fill_struct(h_figure, plot_md.figure); end
 try h_GraphObj = general.handle.fill_struct(h_GraphObj, plot_md.GraphObj); end

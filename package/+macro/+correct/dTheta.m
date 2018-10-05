@@ -1,11 +1,11 @@
 function  [data_out] = dTheta(data_in, metadata_in, det_name)
 % This macro corrects the detector centre by rotating.
 % Input:
-% data_in        The experimental data, already converted
+% data_in        The experimental data
 % metadata_in    The corresponding metadata
 % det_name      (optional) The name of the detector
 % Output:
-% data_out      The output data with converted data.
+% data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
 data_out = data_in;
 
@@ -26,8 +26,7 @@ for i = 1:length(detnames);
         theta = theta + metadata_in.corr.(detname).dTheta*pi/180;
         % convert back to cartesian:
         [data_out.h.(detname).X, data_out.h.(detname).Y] = pol2cart(theta, R);
-
-        
+        disp(['Log: Detector image rotation correction performed on ' detname])
     
     else
         % no correction needed

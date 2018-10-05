@@ -1,10 +1,10 @@
 function  [data_out] = convert(data_in, metadata_in)
 % This macro executes a bunch of conversions of the corrected signals.
 % Input:
-% corrected     The experimental data, already converted
+% data_in		The experimental data, already corrected
 % metadata_in   The corresponding metadata
 % Output:
-% converted     The data with converted data.
+% data_out		The data with converted data.
 % 
 % The conversions executed:
 % - TOF to m2q
@@ -12,9 +12,11 @@ function  [data_out] = convert(data_in, metadata_in)
 % SEE ALSO macro.raw_to_corrected, macro.filter_to_plot
 % macro.converted_to_filter
 
-% execute the TOF to m2q conversion if TOF is one of the signals:
-data_out = data_in;
+% The order of performing the different corrections depends on the order in
+% which the detectors and 'ifdo' statements are defined in the metadata: 
+% The ones defined first are evaluated first.
 
+<<<<<<< HEAD
 % We fetch the detector names:
 detnames = fieldnames(metadata_in.det);
 
@@ -132,3 +134,7 @@ for i = 1:length(detnames)
 % end
 end
 end
+=======
+% execute all the conversion subroutines that are requested by the user:
+[data_out] = general.macro.run_subroutines(data_in, metadata_in, 'convert');
+>>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c

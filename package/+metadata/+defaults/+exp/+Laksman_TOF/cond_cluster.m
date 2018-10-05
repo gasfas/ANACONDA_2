@@ -38,7 +38,7 @@ def.dp_sum.invert_filter     = false;
 % make sure one only takes the labeled hits:
 def.label.type             = 'continuous';
 def.label.data_pointer     = 'h.det1.m2q_l';
-def.label.value            = [min(exp_md.conv.det1.m2q_labels); max(exp_md.conv.det1.m2q_labels)];
+def.label.value            = [min(exp_md.conv.det1.m2q_label.labels); max(exp_md.conv.det1.m2q_label.labels)];
 def.label.translate_condition = 'AND';
 
 %% Conditions
