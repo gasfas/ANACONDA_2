@@ -10,23 +10,24 @@ exp_md.spec.ifdo.Bfield = true;
 
 
 % Voltages
+exp_md.spec.volt.V              = 220; %[V] Voltage applied
 exp_md.spec.volt.Ve2s			= 300; %[V] Voltage of grid separating electron side and source region,'pusher'
 exp_md.spec.volt.Vs2a			= 0;     %[V] Voltage of grid separating source and acceleration region; 
 exp_md.spec.volt.Va2d			= -3000; %[V] Voltage of grid separating acceleration region and drift tube;  
 exp_md.spec.volt.ion_lens1		= -2526; %-3270 [V] Voltage of ion lens (CIEL ion Drift tube)   
 
 % Distances:
-exp_md.spec.dist.s0 		= 0.007;% [m] source to ion acceleration region grid 
-exp_md.spec.dist.s 			= 0.030;% [m] electron to ion grid. 
-exp_md.spec.dist.d 			= 0.094;% [m] length of accelation region
+exp_md.spec.dist.exD          = 0.181;% [m] source to ion acceleration region grid 
+exp_md.spec.dist.d 			= 0.095;% [m] electron to ion grid. 
+exp_md.spec.dist.l 			= 0.184;% [m] length of accelation region
 exp_md.spec.dist.D 			= 0.650;% [m] length of drift tube
 
 % detection modes:
 exp_md.spec.det_modes = {'electron', 'ion'}; % The detection mode for detector 1, 2, etc.
 % Magnetic field applied:
 
-exp_md.spec.Bfield              = 0.00055; % [T]
+exp_md.spec.Bfield              = 0.00094; % [T]
 
-exp_md.spec.Efield              = 450; % [Vm^-1]The voltage at light interaction point
+exp_md.spec.Efield              = exp_md.spec.volt.V /exp_md.spec.dist.exD  ; % [Vm^-1]The voltage at light interaction point
 
 end

@@ -52,18 +52,36 @@ c.eRiR.ion.type                     = 'continuous';
 c.eRiR.ion.data_pointer             = 'h.det2.R';
 c.eRiR.ion.value                    = [0;8];
 c.eRiR.ion.translate_condition      = 'AND';
-% c.elec.y.type               = 'continuous';
-% c.elec.y.data_pointer       = 'h.det1.Y';
-% c.elec.y.value              = [-40;23];
-% c.elec.y.translate_condition = 'AND';
-% % c.elec.x1.type               = 'continuous';
-% % c.elec.x1.data_pointer       = 'h.det1.X';
-% % c.elec.x1.value              = [-50;-19];
-% % c.elec.x1.translate_condition = 'AND';
-% % c.elec.x2.type               = 'continuous';
-% % c.elec.x2.data_pointer       = 'h.det1.X';
-% % c.elec.x2.value              = [17;50];
-% % c.elec.x2.translate_condition = 'AND';
+
+c.eRiXY.iy.type               = 'continuous';
+c.eRiXY.iy.data_pointer       = 'h.det2.Y';
+c.eRiXY.iy.value              = [-0.5;0.5];
+c.eRiXY.iy.translate_condition = 'AND';
+c.eRiXY.ix.type               = 'continuous';
+c.eRiXY.ix.data_pointer       = 'h.det2.X';
+c.eRiXY.ix.value              = [-0.5;0.5];
+c.eRiXY.ix.translate_condition = 'OR';
+c.eRiXY.eR.type               = 'continuous';
+c.eRiXY.eR.data_pointer       = 'h.det1.R';
+c.eRiXY.eR.value              = [0;45];
+c.eRiXY.eR.translate_condition = 'AND';
+
+c.eRiXYiT.iy.type               = 'continuous';
+c.eRiXYiT.iy.data_pointer       = 'h.det2.Y';
+c.eRiXYiT.iy.value              = [-0.5;0.5];
+c.eRiXYiT.iy.translate_condition = 'AND';
+c.eRiXYiT.ix.type               = 'continuous';
+c.eRiXYiT.ix.data_pointer       = 'h.det2.X';
+c.eRiXYiT.ix.value              = [-0.5;0.5];
+c.eRiXYiT.ix.translate_condition = 'OR';
+c.eRiXYiT.eR.type               = 'continuous';
+c.eRiXYiT.eR.data_pointer       = 'h.det1.R';
+c.eRiXYiT.eR.value              = [0;20];
+c.eRiXYiT.eR.translate_condition = 'AND';
+c.eRiXYiT.eR.type               = 'discrete';
+c.eRiXYiT.eR.data_pointer       = 'h.det2.m2q_l';
+c.eRiXYiT.eR.value              = [4];
+c.eRiXYiT.eR.translate_condition = 'AND';
 
 c.i_XY.X.type             = 'continuous';
 c.i_XY.X.data_pointer     = 'h.det2.X';
@@ -95,6 +113,11 @@ c.r.e.data_pointer       = 'h.det1.R';
 c.r.e.value              = [0;8];
 c.r.e.translate_condition = 'AND';
 
+c.tofe.type               = 'continuous';
+c.tofe.data_pointer       = 'h.det1.TOF';
+c.tofe.value              = [93;96];
+c.tofe.translate_condition = 'AND';
+
 c.BR.C2				= macro.filter.write_coincidence_condition(2, 'det2');
 
 %% Conditions on multiplicity
@@ -111,10 +134,10 @@ c.e.mult.translate_condition = 'OR';
 
 %% Conditions on TOF/m2q_l
 
-c.i.m2q_l.type                  = 'discrete';
-c.i.m2q_l.data_pointer          = 'h.det2.m2q_l';
-c.i.m2q_l.value                 = [4];
-c.i.m2q_l.translate_condition   = 'OR';
+c.i_m2q.type                  = 'continuous';
+c.i_m2q.data_pointer          = 'h.det2.m2q';
+c.i_m2q.value                 = [1;35];
+c.i_m2q.translate_condition   = 'AND';
 
 %% Conditions: Labeled hits only
 
