@@ -5,6 +5,10 @@ function [] = parameter_selection(hObject, eventdata)
 
 md_GUI = evalin('base', 'md_GUI');
 UICalib = md_GUI.UI.UICalib;
+
+md_GUI.calib.correction.editBase = {};
+md_GUI.calib.conversion.editBase = {};
+
 calib_param = cellstr('');
 
 exp_names = cellstr('');
@@ -172,6 +176,7 @@ else
     set(UICalib.correction.Fieldvalue, 'String', corr_value);
     set(UICalib.conversion.Fieldname, 'String', conv_param);
     set(UICalib.conversion.Fieldvalue, 'String', conv_value);
+    set(UICalib.Push_Calib, 'Value',1);
 
     md_GUI.calib.correction.base = corr_base;
     md_GUI.calib.conversion.base = conv_base;

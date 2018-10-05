@@ -25,8 +25,8 @@ X_subj_h			= data_out.h.(det_subj).X;
 Y_subj_h			= data_out.h.(det_subj).Y;
 
 % Convert to event position:
-X_source_e			= convert.event_sum(X_source_h, data_out.e.raw(:,detnr_source));
-Y_source_e			= convert.event_sum(Y_source_h, data_out.e.raw(:,detnr_source));
+X_source_e			= convert.event_mean(X_source_h, data_out.e.raw(:,detnr_source));
+Y_source_e			= convert.event_mean(Y_source_h, data_out.e.raw(:,detnr_source));
 
 % Calculate the shift on each event:
 X_corr_e		= X_fraction * X_source_e;

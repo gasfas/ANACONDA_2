@@ -245,7 +245,8 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
     % Calibration part
     if tabval == 3
         set(UICalib.Popup_DetModes, 'Enable', 'on');
-        
+%         md_GUI.calib.correction.editBase = [];
+%         md_GUI.calib.conversion.editBase = [];
     
         if numberofloadedfilesselected > 1
             for lx = 1:numberofloadedfilesselected

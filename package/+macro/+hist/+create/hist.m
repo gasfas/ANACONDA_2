@@ -24,8 +24,10 @@ if numel(hist_md)>1
 else
 	if exist('e_filter', 'var')
 		hist_data = fetch_data(exp, hist_md, e_filter);
+        hist_data(isnan(hist_data(:,1)),:) = [];
 	else
 		hist_data = fetch_data(exp, hist_md);
+        hist_data(isnan(hist_data(:,1)),:) = [];
 	end
 end
 

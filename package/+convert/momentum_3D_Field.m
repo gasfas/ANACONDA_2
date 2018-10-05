@@ -86,7 +86,8 @@ if ~general.struct.probe_field(spec_md, 'Bfield')
         p_Y = m_l_f  .*general.constants({'amu'}) .* (Y_f./TOF_f - Y_no_p_f./TOF_no_p_f)*1e6; % [kg*m/s] [q,1]
         % The momentum p in Z-direction will be determined from the difference in
         % expected and actual Time Of Flight:
-        p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %        [kg*m/s] [q,1]
+        
+        p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %+ ch_l_f.*fac_1.*((TOF_f - TOF_no_p_f)*1e-9).^2 + ch_l_f.*fac_2.*((TOF_f - TOF_no_p_f)*1e-9).^3; %        [kg*m/s] [q,1]
 else
     Bfield          = spec_md.Bfield;
     % the expected zero-momentum TOF (defined in the labels)
@@ -104,11 +105,16 @@ else
         TOF_no_p_f    = TOF_no_dp(label_nr_f);
         %offset = 16;
         A = 0.5*general.constants({'q'}).*Bfield;
+        
         B =  sin(omega.*( TOF_f).*1e-9)./( 1 - cos(omega.*(TOF_f).*1e-9) );
+        
         C =  sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9));
+        
         p_X = (A.*(B.*X_f - C.*X_no_p_f + (Y_f - Y_no_p_f) ))*1e-3;
         p_Y = A.*( X_f - X_no_p_f - B.*Y_f + C.*Y_no_p_f  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
-        p_Z = -ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9; %
+        fac_1 = -0.0*10^9; % second order correction
+        fac_2 = 0.0*10^18; % third order correction
+        p_Z = -ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9 - ch_l_f.*general.constants({'q'}) .*fac_1.*((TOF_f - TOF_no_p_f)*1e-9).^2 - ch_l_f.*general.constants({'q'}) .*fac_2.*((TOF_f - TOF_no_p_f)*1e-9).^3;  %
 end
 % fill this into the momentum (hit array, [n, 1]):
 p(find(label_loc),:) = [p_X p_Y p_Z];

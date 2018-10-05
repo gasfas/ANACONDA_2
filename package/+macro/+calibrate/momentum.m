@@ -57,6 +57,7 @@ for plotnr = 1:(rows*cols )
     y_edges = hist.bins(y_ranges(y_data_idx(plotnr),:), binsize(2));
     ax = subplot(rows,cols,plotnr); 
 	set(gcf, 'Colormap', jet);
+    set(gcf,'Position', [250, 0, 1150, 1150]);
 	% Make the histogram:
 	
     [Count, mids.dim1, mids.dim2] = hist.H_2D(data(filt,x_data_idx(plotnr)), data(filt,y_data_idx(plotnr)), x_edges, y_edges);

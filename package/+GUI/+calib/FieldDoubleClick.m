@@ -28,7 +28,8 @@ function [] = FieldDoubleClick(UICalib)
         
     previous_ans = char(base_fieldvalue(condition_number));
     fieldselected = char(base_fields(condition_number));
- 
+%     md_GUI.calib.(tabselected).editBase{end+1} = fieldselected;
+    
    base_path = md_GUI.calib.(tabselected).base{condition_number};
    
     base_finalpath = base_path;
@@ -59,7 +60,7 @@ function [] = FieldDoubleClick(UICalib)
             treatable = 1;
         case 'numeric'
             %% Message to log_box
-            GUI.log.add(['Fieldtype selected to edit: Numeric.'])
+            GUI.log.add('Fieldtype selected to edit: Numeric.')
             new_ans = inputdlg(prompt,['Change: ', fieldselected], 1, {previous_ans});
             new_ans_char = char(new_ans);
             treatable = 1;
@@ -105,6 +106,49 @@ function [] = FieldDoubleClick(UICalib)
             % Error.
         end
         base_fieldvalue(condition_number) = cellstr(new_ans_char);
+        
+        if strcmp(fieldselected,'Bfield') || strcmp(fieldselected, 'Efield')
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'momentum')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'momentum';
+            end
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'KER') ) ==0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'KER';
+            end
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'PolarPxPz')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'PolarPxPz';
+            end
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'PolarPyPz')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'PolarPyPz';
+            end
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'PolarPxPyPz')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'PolarPxPyPz';
+            end
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'KERoverAngle')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'KERoverAngle';
+            end
+            
+        elseif strcmp(fieldselected,'dX') || strcmp(fieldselected ,'dY')
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'dXdY')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'dXdY';
+            end
+        elseif strcmp(fieldselected ,'dTheta')
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'dXdY')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'dTheta';
+            end
+        elseif strcmp(fieldselected ,'dTOF')
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'dTOF')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'dTOF';
+            end
+        elseif strcmp(fieldselected, 'TOF_2_m2q')
+            if sum(ismember(md_GUI.calib.(tabselected).editBase, 'TOF_2_m2q')) == 0
+                md_GUI.calib.(tabselected).editBase{end+1} = 'TOF_2_m2q';
+            end
+        end
+            
+        
+        
+        
+        
         md_GUI.calib.base_fieldvalue(condition_number) = base_fieldvalue(condition_number);
 %         md_GUI.mdata_n.(exp_name).(base_finalpath)
         set(UICalib.(tabselected).Fieldvalue, 'String', cellstr(base_fieldvalue))

@@ -86,8 +86,8 @@ for i = 1:length(detnames)
 
 	disp(['Log: momentum conversion performed on ' detname])
 end
-end
 
+end
 %% Subfunctions:
 function labels_TOF_no_p = calc_labels_TOF_no_p(labels, TOF_2_m2q_md)
 % This function calculates the nominal TOF, when the particle is assumed to have

@@ -1,4 +1,4 @@
-function hhh=vline(x,in1,in2, height)
+function hhh = vline(x,in1,in2, height)
 % function h=vline(x, linetype, label, height)
 % 
 % Draws a vertical line on the current axes at the location specified by 'x'.  Optional arguments are
@@ -93,7 +93,7 @@ else
     hold on
 
     y=get(gca,'ylim');
-    h=plot([x x],y,linetype);
+    h=plot([x x],[y(1) y(2)],linetype);
     if length(label)
         xx=get(gca,'xlim');
         xrange=xx(2)-xx(1);
@@ -108,9 +108,10 @@ else
     if g==0
     hold off
     end
-    set(h,'tag','vline','handlevisibility','off')
+%     set(h,'tag','vline','handlevisibility','off')
 end % else
 
 if nargout
     hhh=h;
+end
 end

@@ -39,7 +39,7 @@ for i = 1:length(detnames)
 				R0				= metadata_in.conv.det1.KER.R0;
 				R				= data_out.h.(detname).R;
 				data_out.h.(detname).KER	= convert.R_2_KE_EPICEA(a, b, E0, R0, R);
-            case 'CIEL'
+                case 'CIEL'
                 	% Momentum to Kinetic energy conversion:
                 m_l         = data_out.h.(detname).m_l;
                 dp			= data_out.h.(detname).dp;
