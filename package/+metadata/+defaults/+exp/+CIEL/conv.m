@@ -18,13 +18,8 @@ exp_md.conv.det1.ifdo.KERoverAngle              = false;
 exp_md.conv.det1.m2q_label.labels 			= [0.00055]; % the available m2q labels.
 
 % Time Of Flight to Mass to Charge calibration
-<<<<<<< HEAD
-exp_md.conv.det1.TOF_2_m2q.factor      	= 2515.8;%Conversion factor from mass 2 charge to TOF
-exp_md.conv.det1.TOF_2_m2q.t0          	= sqrt(2 * 9.1e-31* exp_md.spec.dist.d 	/(1.6e-19*exp_md.spec.Efield))*((2* exp_md.spec.dist.d  + exp_md.spec.dist.l)/(2* exp_md.spec.dist.d ));%[ns] dead time correction
-=======
-exp_md.conv.det1.m2q.factor      	= 4.195e+03;%Conversion factor from mass 2 charge to TOF
-exp_md.conv.det1.m2q.t0          	= 0;%[ns] dead time correction
->>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c
+exp_md.conv.det1.m2q.factor      	= 2515.8;%Conversion factor from mass 2 charge to TOF
+exp_md.conv.det1.m2q.t0          	= sqrt(2 * 9.1e-31* exp_md.spec.dist.d 	/(1.6e-19*exp_md.spec.Efield))*((2* exp_md.spec.dist.d  + exp_md.spec.dist.l)/(2* exp_md.spec.dist.d ));%[ns] dead time correction
 
 exp_md.conv.det1.m2q_label.mass 			= exp_md.conv.det1.m2q_label.labels ; % the corresponding expected mass values in this experiment. If all expected particles are singly charged, this array is similar to exp_md.conv.det2.m2q_label.labels. 
 exp_md.conv.det1.m2q_label.search_radius= 0.001; % search radius (in either m/q or nsec units, depending on the labelling_signal indicated), or searchwidth around the main expectation value (no-Kinetic energy point).
@@ -32,17 +27,10 @@ exp_md.conv.det1.m2q_label.search_radius= 0.001; % search radius (in either m/q 
 % Ion detector, Detector 2: Ion detector, Detector 2: Ion detector, Detector 2:
 % Which conversions should be performed on the data:
 
-<<<<<<< HEAD
-exp_md.conv.det2.ifdo.TOF_2_m2q					= true;% Does the user want to convert to mass-over-charge?
+exp_md.conv.det2.ifdo.m2q					= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det2.ifdo.m2q_label					= false; % Does the user want to convert to mass-2-charge labels?
-exp_md.conv.det2.ifdo.m2q_group					= false; % Does the user want to convert to mass-2-charge groups?
-exp_md.conv.det2.ifdo.m2q_label_Ci				= false; % Does the user want to convert to mass-2-charge labels?
-=======
-exp_md.conv.det2.ifdo.m2q						= true;% Does the user want to convert to mass-over-charge?
-exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group_label			= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.m2q_Ci_label				= false; % Does the user want to convert to mass-2-charge labels?
->>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c
 exp_md.conv.det2.ifdo.cluster_size				= false;% Does the user want to convert to cluster size?
 exp_md.conv.det2.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det2.ifdo.KER 						= true;% Does the user want to convert to Kinetic energy?
@@ -55,13 +43,8 @@ exp_md.conv.det2.ifdo.PolarPyPz                 = false;
 % Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1
 
 % Time Of Flight to Mass to Charge calibration
-<<<<<<< HEAD
-exp_md.conv.det2.TOF_2_m2q.factor      	= 1300;%Conversion factor from mass 2 charge to TOF
-exp_md.conv.det2.TOF_2_m2q.t0          	=  0;%[ns] dead time correction%formula: see Mathieus paper
-=======
-exp_md.conv.det2.m2q.factor      	= 1959;%Conversion factor from mass 2 charge to TOF
-exp_md.conv.det2.m2q.t0          	= 0;%[ns] dead time correction
->>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c
+exp_md.conv.det2.m2q.factor      	= 1300;%Conversion factor from mass 2 charge to TOF
+exp_md.conv.det2.m2q.t0          	=  0;%[ns] dead time correction%formula: see Mathieus paper
 
 % Time Of Flight to Mass to Charge values
 exp_md.conv.det2.m2q_label.labels 			= [exp_md.sample.fragment.masses]; % the available m2q labels.

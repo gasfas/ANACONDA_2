@@ -24,55 +24,6 @@ while ~satisfied
     m2q_points          = zeros(nof_points, 1);
     m2q_names           = cell(nof_points, 1);
     click_msg           = 'please click on an identified peak';
-<<<<<<< HEAD
-    switch calib_md.name
-        case 'ion'
-            nof_points          = inputdlg({'Please give the number of identified peaks in the spectrum: '},'Peaks',1);
-            nof_points          = str2double(nof_points{1});
-            TOF_cs              = zeros(nof_points, 1);
-            m2q_points          = zeros(nof_points, 1);
-            m2q_names           = cell(nof_points, 1);
-            click_msg           = 'please click on an identified peak';
-            
-            rescale_msg         = 'please rescale the figure if needed';
-
-
-
-            for i = 1:nof_points
-                msgbox(rescale_msg);
-                pause;
-                msgbox(click_msg);
-                title(click_msg);
-                % Ask for x-value for peak:
-                axes(h_TOFax)
-                [TOF_c, ~]      = ginput(1);
-                %TOF_peaks_click = TOF_peaks_click(1,:);
-                %plot.vline ([TOF_c-search_radius TOF_c TOF_c+search_radius], {'k--', 'k-', 'k--'}, {'.', 'TOF peak', '.'})
-
-                TOF_cs(i)       = TOF_c;
-                m2q_point = inputdlg({'Please give the corresponding m/q value: '},'Peaks',1);
-                m2q_points(i,1) = str2double(m2q_point);
-                m2q_names{i}     = num2str(m2q_points);
-                  % calculate the factors from these inputs:
-           
-            end
-            Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
-            [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_cs, search_radius);
-           
-            [ factor, t0 ]  = calibrate.TOF_2_m2q (TOF_peaks, m2q_points)
-        case 'electron'
-            nof_points = 1;
-            msgbox(click_msg);
-            title(click_msg);
-            [TOF_c,~] = ginput(1);
-            plot.vline ([TOF_c-search_radius TOF_c TOF_c+search_radius], {'k--', 'k-', 'k--'}, {'.', 'TOF peak', '.'})
-            m2q_points = 0.00055; %expected electron mas inn a.m.u.
-            m2q_names = num2str(m2q_points);
-             % calculate the factors from these inputs:
-            Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
-            [ TOF_peaks ]   = calibrate.find_TOF_peaks (Hist, TOF_c, search_radius);
-            [ factor, t0 ]  = calibrate.TOF_2_m2q_e (TOF_peaks, m2q_points)
-=======
     rescale_msg         = 'please rescale the figure if needed';
     
     for i = 1:nof_points
@@ -89,7 +40,6 @@ while ~satisfied
         TOF_cs(i)       = TOF_c;
         m2q_points(i) = input('Please give the corresponding m/q value: ');
         m2q_names{i}     = num2str(m2q_points(i));
->>>>>>> 3e01e61e5ec1629abb12239d933b73eca22df03c
     end
     % calculate the factors from these inputs:
 	Hist.Count = h_TOFGrO.YData'; Hist.midpoints = h_TOFGrO.XData';
