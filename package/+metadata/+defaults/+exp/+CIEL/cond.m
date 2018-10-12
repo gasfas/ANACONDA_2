@@ -1,7 +1,7 @@
 function [exp_md] = cond(exp_md)
 % This convenience function lists the default conditions metadata, and can be
 % read by other experiment-specific metadata files.
-
+% Read the manual to find the format and meaning of conditions.
 % We define a few conditions, that can be used later in filtering
 % operations:
 
@@ -83,15 +83,17 @@ c.eRiXYiT.eR.data_pointer       = 'h.det2.m2q_l';
 c.eRiXYiT.eR.value              = [4];
 c.eRiXYiT.eR.translate_condition = 'AND';
 
-c.i_XY.X.type             = 'continuous';
-c.i_XY.X.data_pointer     = 'h.det2.X';
-c.i_XY.X.value            = [-8;8]';
-c.i_XY.X.translate_condition = 'AND';
+c.i_XY.X.type					= 'continuous';
+c.i_XY.X.data_pointer			= 'h.det2.X';
+c.i_XY.X.value					= [-8;8]';
+c.i_XY.X.translate_condition	= 'AND';
+c.i_XY.X.invert_filter			= false;
 
 c.i_XY.Y.type					= 'continuous';
-c.i_XY.Y.data_pointer     = 'h.det2.Y';
-c.i_XY.Y.value           = [-8;8]';
-
+c.i_XY.Y.data_pointer			= 'h.det2.Y';
+c.i_XY.Y.value					= [-8;8]';
+c.i_XY.Y.translate_condition	= 'AND';
+c.i_XY.Y.invert_filter			= false;
 
 c.e_XY.X.type             = 'continuous';
 c.e_XY.X.data_pointer     = 'h.det1.X';
@@ -101,7 +103,7 @@ c.e_XY.X.translate_condition = 'AND';
 c.e_XY.Y.type					= 'continuous';
 c.e_XY.Y.data_pointer     = 'h.det1.Y';
 c.e_XY.Y.value           = [-10;10]';
-c.e_XY.X.translate_condition = 'AND';
+c.e_XY.Y.translate_condition = 'AND';
 
 c.r.i.type               = 'continuous';
 c.r.i.data_pointer       = 'h.det2.R';

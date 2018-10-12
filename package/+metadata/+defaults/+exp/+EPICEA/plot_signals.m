@@ -140,6 +140,16 @@ s.i_m2q.axes.Lim		= s.i_m2q.hist.Range;% [Da] Lim of the axis that shows the var
 s.i_m2q.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
 s.i_m2q.axes.Label.String	= 'm/q [a.m.u.]'; %The label of the variable
 
+%%%%%% Mass-to-charge label:
+s.i_m2q_l.hist.pointer	= 'h.det2.m2q_l';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.i_m2q_l.hist.binsize	= 1;% [Da] binsize of the variable. 
+s.i_m2q_l.hist.Range	= [10 100];% [Da] range of the variable. 
+% Axes metadata:
+s.i_m2q_l.axes.Lim		= s.i_m2q_l.hist.Range;% [Da] Lim of the axis that shows the variable. 
+s.i_m2q_l.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
+s.i_m2q_l.axes.Label.String	= 'm/q [a.m.u.]'; %The label of the variable
+
 %%%%%% Mass-to-charge sum:
 s.i_m2q_l_sum.hist.pointer	= 'e.det2.m2q_l_sum';% Data pointer, where the signal can be found. 
 % Histogram metadata:
@@ -161,14 +171,14 @@ s.i_dp.axes.Tick	= s.i_dp.hist.Range;% [au] Ticks on the respective axes.
 s.i_dp.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum norm:
-s.i_p_norm.hist.pointer	= 'h.det2.dp_norm';% Data pointer, where the signal can be found. 
+s.i_dp_norm.hist.pointer	= 'h.det2.dp_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_p_norm.hist.binsize	= [3];% [a.u.] binsize of the variable. 
-s.i_p_norm.hist.Range	= [0 150];% [au] range of the variable. 
+s.i_dp_norm.hist.binsize	= [3];% [a.u.] binsize of the variable. 
+s.i_dp_norm.hist.Range	= [0 150];% [au] range of the variable. 
 % Axes metadata:
-s.i_p_norm.axes.Lim	= s.i_p_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.i_p_norm.axes.Tick	= s.i_p_norm.hist.Range(1):25:s.i_p_norm.hist.Range(2);% [au] Ticks on the respective axes.
-s.i_p_norm.axes.Label.String	= {'$|p|$ [a.u.]'}; %The label of the variable
+s.i_dp_norm.axes.Lim	= s.i_dp_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.i_dp_norm.axes.Tick	= s.i_dp_norm.hist.Range(1):25:s.i_dp_norm.hist.Range(2);% [au] Ticks on the respective axes.
+s.i_dp_norm.axes.Label.String	= {'$|p|$ [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum sum:
 s.i_dp_sum.hist.pointer	= 'e.det2.dp_sum';% Data pointer, where the signal can be found. 

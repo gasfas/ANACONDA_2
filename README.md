@@ -1,4 +1,4 @@
-# ANACONDA_2
+# ANACONDA\_2
 For installation:
 - copy the 'package' folder (included in the repository) to your local system.
 - add this folder to the path (only the folder, not the subfolders), either by the command:

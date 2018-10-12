@@ -118,7 +118,7 @@ parfor ind = 1:lenK*lenL % Loop over every radial basis function
     k = K(mod(ind-1,lenK)+1);
     l = L(ceil(ind/lenK));
     
-    Ginv(ind,:) = rBF(R,k,params).*leg(l,costh); % Calculate function value
+    Ginv(ind,:) = rBF(R,k,params).*fit.Abel_inversion.CpBasex.CPBASEX.pbasex-MATLAB.leg(l,costh); % Calculate function value
     
     % Update progress bar
     if progBar&&not(mod(ind,progStep))

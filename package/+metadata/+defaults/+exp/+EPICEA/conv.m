@@ -21,7 +21,13 @@ exp_md.conv.det2.ifdo.angle_p_corr_C3	= false;% Does the user want to calculate 
 exp_md.conv.det2.ifdo.q_label		= false;% Does the user want to convert to R-theta coordinates?
 exp_md.conv.det2.ifdo.bgr		= true;% Does the user want to convert multi-coincidence signal to background coordinates?
 
-% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1 %% Detector 1
+% DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1
+% We use the formula (Eq 1) from Liu, Nicolas, and Miron, Rev. Sci. Instrum. 84, 033105 (2013)
+exp_md.conv.det1.KER.E0					= 119.53; %[eV] zero-energy
+exp_md.conv.det1.KER.R0					= 13.74; %[mm] zero-energy position
+exp_md.conv.det1.KER.E_pass				= 120;
+
+% DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2
 % Time Of Flight to Mass to Charge values
 
 exp_md.conv.det2.m2q.factor      	=   890.3;%Conversion factor from mass 2 charge to TOF

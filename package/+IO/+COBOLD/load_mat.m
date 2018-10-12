@@ -8,7 +8,18 @@ el		= load(electrons_path);	% read the electron datafile
 ion		= load(ions_path);	% read the ion datafile
 
 % Initialize an empty event pointer array:
-exp.e.raw = [events.d.Var4+1 events.d.Var3+1];
+% make sure the correlation between detector numbers and ions is correct:
+% We do this by verifying the number of hits on each detector:
+% we will place electrons on detector 1, ions on detector 2:
+if abs(size(el.d.Var1, 1)-max(events.d.Var3+1)) < abs(size(el.d.Var1, 1)-max(events.d.Var4+1))
+	% the first detector in the event index is the electron detector:
+	exp.e.raw = [events.d.Var3+1 events.d.Var4+1];
+else
+	% the first detector in the event index is the ion detector:
+	exp.e.raw = [events.d.Var4+1 events.d.Var3+1];
+end
+	
+	
 
 % Fill in electron data: (format [x, y, TOF])
 try

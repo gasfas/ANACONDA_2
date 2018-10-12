@@ -233,7 +233,7 @@ function [imageData, alpha] = export_fig(varargin)
 % 11/09/15: Fixed issue #103: magnification must never become negative; also fixed reported error msg in parsing input params
 % 26/09/15: Alert if trying to export transparent patches/areas to non-PNG outputs (issue #108)
 % 04/10/15: Do not suggest workarounds for certain errors that have already been handled previously
-% 01/11/15: Fixed issue #112: use same renderer in print2eps as export_fig (thanks to Jesús Pestana Puerta)
+% 01/11/15: Fixed issue #112: use same renderer in print2eps as export_fig (thanks to Jesï¿½s Pestana Puerta)
 % 10/11/15: Custom GS installation webpage for MacOS. Thanks to Andy Hueni via FEX
 % 19/11/15: Fixed clipboard export in R2015b (thanks to Dan K via FEX)
 % 21/02/16: Added -c option for indicating specific crop amounts (idea by Cedric Noordam on FEX)
@@ -264,7 +264,7 @@ function [imageData, alpha] = export_fig(varargin)
     cls = all(ismember(get(fig, 'Type'), {'axes', 'uipanel'}));
     if cls
         % Given handles of one or more axes, so isolate them from the rest
-        fig = isolate_axes(fig);
+        fig = plot.fig.isolate_axes(fig);
     else
         % Check we have a figure
         if ~isequal(get(fig, 'Type'), 'figure');
@@ -283,7 +283,7 @@ function [imageData, alpha] = export_fig(varargin)
         if ~isempty(fontu)
             % Some normalized font units found
             if ~cls
-                fig = copyfig(fig);
+                fig = plot.fig.copyfig(fig);
                 set(fig, 'Visible', 'off');
                 fontu = findall(fig, 'FontUnits', 'normalized');
                 cls = true;
@@ -313,7 +313,7 @@ function [imageData, alpha] = export_fig(varargin)
         set(Hlims, 'XLimMode', 'manual', 'YLimMode', 'manual');
         set_tick_mode(Hlims, 'X');
         set_tick_mode(Hlims, 'Y');
-        if ~using_hg2(fig)
+        if ~general.image.using_hg2(fig)
             set(Hlims,'ZLimMode', 'manual');
             set_tick_mode(Hlims, 'Z');
         end
@@ -323,7 +323,7 @@ function [imageData, alpha] = export_fig(varargin)
 
     % Fix issue #21 (bold TeX axes labels/titles in R2014b when exporting to EPS/PDF)
     try
-        if using_hg2(fig) && isvector(options)
+        if general.image.using_hg2(fig) && isvector(options)
             % Set the FontWeight of axes labels/titles to 'normal'
             % Fix issue #69: set non-bold font only if the string contains symbols (\beta etc.)
             texLabels = findall(fig, 'type','text', 'FontWeight','bold');
@@ -337,9 +337,9 @@ function [imageData, alpha] = export_fig(varargin)
     % Fix issue #42: non-normalized annotations on HG1 (internal Matlab bug)
     annotationHandles = [];
     try
-        if ~using_hg2(fig)
+        if ~general.image.using_hg2(fig)
             annotationHandles = findall(fig,'Type','hggroup','-and','-property','Units','-and','-not','Units','norm');
-            try  % suggested by Jesús Pestana Puerta (jespestana) 30/9/2015
+            try  % suggested by Jesï¿½s Pestana Puerta (jespestana) 30/9/2015
                 originalUnits = get(annotationHandles,'Units');
                 set(annotationHandles,'Units','norm');
             catch
@@ -419,12 +419,12 @@ function [imageData, alpha] = export_fig(varargin)
                 % The following code might cause out-of-memory errors
                 try
                     % Print large version to array
-                    B = print2array(fig, magnify, renderer);
+                    B = general.image.print2array(fig, magnify, renderer);
                     % Downscale the image
                     B = downsize(single(B), options.aa_factor);
                 catch
                     % This is more conservative in memory, but kills transparency (issue #58)
-                    B = single(print2array(fig, magnify/options.aa_factor, renderer));
+                    B = single(general.image.print2array(fig, magnify/options.aa_factor, renderer));
                 end
 
                 % Set background to white (and set size)
@@ -436,12 +436,12 @@ function [imageData, alpha] = export_fig(varargin)
                 % The following code might cause out-of-memory errors
                 try
                     % Print large version to array
-                    A = print2array(fig, magnify, renderer);
+                    A = general.image.print2array(fig, magnify, renderer);
                     % Downscale the image
                     A = downsize(single(A), options.aa_factor);
                 catch
                     % This is more conservative in memory, but kills transparency (issue #58)
-                    A = single(print2array(fig, magnify/options.aa_factor, renderer));
+                    A = single(general.image.print2array(fig, magnify/options.aa_factor, renderer));
                 end
 
                 % Set the background colour (and size) back to normal
@@ -459,9 +459,9 @@ function [imageData, alpha] = export_fig(varargin)
                 A = uint8(A);
                 % Crop the background
                 if options.crop
-                    %[alpha, v] = crop_borders(alpha, 0, 1, options.crop_amounts);
+                    %[alpha, v] = plot.fig.crop_borders(alpha, 0, 1, options.crop_amounts);
                     %A = A(v(1):v(2),v(3):v(4),:);
-                    [alpha, vA, vB] = crop_borders(alpha, 0, options.bb_padding, options.crop_amounts);
+                    [alpha, vA, vB] = plot.fig.crop_borders(alpha, 0, options.bb_padding, options.crop_amounts);
                     if ~any(isnan(vB)) % positive padding
                         B = repmat(uint8(zeros(1,1,size(A,3))),size(alpha));
                         B(vB(1):vB(2), vB(3):vB(4), :) = A(vA(1):vA(2), vA(3):vA(4), :); % ADDED BY OH
@@ -506,15 +506,15 @@ function [imageData, alpha] = export_fig(varargin)
                     pos = get(fig, 'Position');
                     tcol = get(fig, 'Color');
                     set(fig, 'Color', 'w', 'Position', pos);
-                    A = print2array(fig, magnify, renderer);
+                    A = general.image.print2array(fig, magnify, renderer);
                     set(fig, 'Color', tcol, 'Position', pos);
                     tcol = 255;
                 else
-                    [A, tcol] = print2array(fig, magnify, renderer);
+                    [A, tcol] = general.image.print2array(fig, magnify, renderer);
                 end
                 % Crop the background
                 if options.crop
-                    A = crop_borders(A, tcol, options.bb_padding, options.crop_amounts);
+                    A = plot.fig.crop_borders(A, tcol, options.bb_padding, options.crop_amounts);
                 end
                 % Downscale the image
                 A = downsize(A, options.aa_factor);
@@ -628,10 +628,10 @@ function [imageData, alpha] = export_fig(varargin)
             end
             try
                 % Generate an eps
-                print2eps(tmp_nam, fig, options, p2eArgs{:});
+                general.image.print2eps(tmp_nam, fig, options, p2eArgs{:});
                 % Remove the background, if desired
                 if options.transparent && ~isequal(get(fig, 'Color'), 'none')
-                    eps_remove_background(tmp_nam, 1 + using_hg2(fig));
+                    eps_remove_background(tmp_nam, 1 + general.image.using_hg2(fig));
                 end
                 % Fix colorspace to CMYK, if requested (workaround for issue #33)
                 if options.colourspace == 1  % CMYK
@@ -647,7 +647,7 @@ function [imageData, alpha] = export_fig(varargin)
                     add_bookmark(tmp_nam, fig_nam);
                 end
                 % Generate a pdf
-                eps2pdf(tmp_nam, pdf_nam_tmp, 1, options.append, options.colourspace==2, options.quality, options.gs_options);
+                general.image.eps2pdf(tmp_nam, pdf_nam_tmp, 1, options.append, options.colourspace==2, options.quality, options.gs_options);
                 % Ghostscript croaks on % chars in the output PDF file, so use tempname and then rename the file
                 try movefile(pdf_nam_tmp, pdf_nam, 'f'); catch, end
             catch ex
@@ -662,7 +662,7 @@ function [imageData, alpha] = export_fig(varargin)
                     % Generate an eps from the pdf
                     % since pdftops can't handle relative paths (e.g., '..\'), use a temp file
                     eps_nam_tmp = strrep(pdf_nam_tmp,'.pdf','.eps');
-                    pdf2eps(pdf_nam, eps_nam_tmp);
+                    general.image.pdf2eps(pdf_nam, eps_nam_tmp);
                     movefile(eps_nam_tmp,  [options.name '.eps'], 'f');
                 catch ex
                     if ~options.pdf
@@ -1035,7 +1035,7 @@ function [fig, options] = parse_args(nout, fig, varargin)
     % Set default anti-aliasing now we know the renderer
     if options.aa_factor == 0
         try isAA = strcmp(get(ancestor(fig, 'figure'), 'GraphicsSmoothing'), 'on'); catch, isAA = false; end
-        options.aa_factor = 1 + 2 * (~(using_hg2(fig) && isAA) | (options.renderer == 3));
+        options.aa_factor = 1 + 2 * (~(general.image.using_hg2(fig) && isAA) | (options.renderer == 3));
     end
 
     % Convert user dir '~' to full path
@@ -1244,7 +1244,7 @@ function change_rgb_to_cmyk(fname)  % convert RGB => CMYK within an EPS file
     % Do post-processing on the eps file
     try
         % Read the EPS file into memory
-        fstrm = read_write_entire_textfile(fname);
+        fstrm = general.image.read_write_entire_textfile(fname);
 
         % Replace all gray-scale colors
         fstrm = regexprep(fstrm, '\n([\d.]+) +GC\n', '\n0 0 0 ${num2str(1-str2num($1))} CC\n');
@@ -1254,7 +1254,7 @@ function change_rgb_to_cmyk(fname)  % convert RGB => CMYK within an EPS file
         fstrm = regexprep(fstrm, '\n([\d.]+) +([\d.]+) +([\d.]+) +RC\n', '\n${sprintf(''%.4g '',[1-[str2num($1),str2num($2),str2num($3)]/max([str2num($1),str2num($2),str2num($3)]),1-max([str2num($1),str2num($2),str2num($3)])])} CC\n');
 
         % Overwrite the file with the modified contents
-        read_write_entire_textfile(fname, fstrm);
+        general.image.read_write_entire_textfile(fname, fstrm);
     catch
         % never mind - leave as is...
     end

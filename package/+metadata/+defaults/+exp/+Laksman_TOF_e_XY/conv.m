@@ -34,7 +34,7 @@ exp_md.conv.det2.m2q_label.search_radius= exp_md.conv.det2.m2q_label.labels.^.5*
 exp_md.conv.det2.m2q_group_label.min = min(exp_md.sample.fragment.pure.masses, [], 2);
 exp_md.conv.det2.m2q_group_label.max = max(exp_md.sample.fragment.pure.masses, [], 2);
 exp_md.conv.det2.m2q_group_label.name = exp_md.sample.fragment.sizes;
-exp_md.conv.det2.m2q_group_label.search_radius = 0.5 + mean([exp_md.conv.det2.m2q_group_labels.max, exp_md.conv.det2.m2q_group_labels.min], 2)*2/10;
+exp_md.conv.det2.m2q_group_label.search_radius = 0.5 + mean([exp_md.conv.det2.m2q_group_label.max, exp_md.conv.det2.m2q_group_label.min], 2)*2/10;
 
 exp_md.conv.det2.m2q_Ci_label.method = 'circle';
 exp_md.conv.det2.m2q_Ci_label.search_radius = 0.75;

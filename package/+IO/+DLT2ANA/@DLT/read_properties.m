@@ -66,7 +66,7 @@ while n_length > 0
         props(index,1).value = typecast(raw_bytes, 'double');
       otherwise % not supported, value will be an empty array and raw_bytes must be used
     end
-    if DLT.LITTLE_ENDIAN_MACHINE&& length(raw_bytes) > 1
+    if IO.DLT2ANA.DLT.LITTLE_ENDIAN_MACHINE&& length(raw_bytes) > 1
       % Running on little-endian hardware, need to reverse byte order to
       % get value as if read in big-endian mode from the file.
       props(index,1).value = swapbytes(props(index,1).value);

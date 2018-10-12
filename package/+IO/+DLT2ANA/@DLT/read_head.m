@@ -59,9 +59,16 @@ end
 % % computation of acquisition duration.
 % dlt.acquisition_start_num = dlt.acquisition_start_num - timezone;
 
+
+% % Add the DLT2ANA conversion to the MATLAB path, if it is not already:
+% function_path = mfilename('fullpath');
+% class_path = function_path(1:findstr(function_path, '+DLT2ANA')+length('+DLT2ANA'));
+% if ~contains(path, class_path)
+% 	addpath(class_path);
+% end
 % Convert string and subtract time zone to get UTC datenum
 try
-  dlt.acquisition_start_num = DLT.ISO8601_date_to_num(dlt.acquisition_start_str);
+  dlt.acquisition_start_num = IO.DLT2ANA.DLT.ISO8601_date_to_num(dlt.acquisition_start_str);
 catch e
   if strcmp(e.identifier, 'ISO8601_date_str_to_num:tz')
     % Give more specific error message when error occurs in header

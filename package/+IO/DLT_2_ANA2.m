@@ -10,7 +10,20 @@ function [exp, info] = DLT_2_ANA2(dltfilename)
 disp('Assuming a TOF measurement with Laksman setup: X,Y,T output hits')
 % Make an instant of the DLT class:
 
+% copy the DLT conversion into a pathable location:
+class_dir		= fileparts(mfilename('fullpath'));
+package_dir	= class_dir(1:findstr(class_dir, 'package')+length('package'));
+temp_class_dir = fullfile(package_dir, 'temp_class');
+mkdir(temp_class_dir)
+copyfile(fullfile(class_dir, '+DLT2ANA'), temp_class_dir)
+addpath(temp_class_dir)
+
+%  run the conversion:
 dlt = IO.DLT2ANA.DLT(dltfilename);
+
+% remove the folder again:
+rmpath(temp_class_dir)
+rmdir(temp_class_dir, 's')
 
 dlt.set_detectors(dlt.detectors{1}); % read using DLD only
 dlt.read(); % load data

@@ -19,7 +19,7 @@ yin=sqrt(log(2)).*(widthLorentz./widthGauss);
 % preparing it to insert into complexErrorFunction:
 xin_size        = size(xin);
 xin             = reshape(xin, [numel(xin), 1]);
-w               = complexErrorFunction(xin,yin);
+w               = macro.fit.m2q.PDfunction.complexErrorFunction(xin,yin);
 % reshaping it to original shape:
 w               = reshape(w, xin_size);
 y               = sqrt(log(2)/pi)/widthGauss*2.*real(w);

@@ -1,0 +1,45 @@
+\newpage
+\section{The package}
+The package is defined as the collection of functions (or `methods') that are part of this software. The methods are divided up in several categories:
+\begin{itemize}
+\item[\emph{import/output (IO)}]
+\item[\emph{correct}]
+\item[\emph{convert}]
+\item[\emph{filter}]
+\item[\emph{plot}]
+\item[\emph{calibrate}]
+\item[\emph{macros}]
+\item[\emph{general}]
+\end{itemize}
+
+\input{package_IO}
+\input{package_correct}
+\input{package_convert}
+\input{package_filter}
+\input{package_plot}
+\input{package_calibrate}
+\input{package_general}
+
+\lstset{language=MATLAB}
+\begin{lstlisting}
+% Example of MATLAB codes/functions
+[input1, input2] = function test(input1, input2)
+\end{lstlisting}
+
+\if
+% Remarks from meeting Shabnam and Noelle 17th of september:
+-make TOF to m2q not only by clicking, also by typing numbers.
+Make it possible to look at the corresponding NEXAFS/total ion yield spectra also
+think about the best way of determining the center of detection, which is now done by eye.
+make it possible to subtract background for the converted energies from an off-resonance measurement
+make it possible to calculate the beta-parameter of only a certain range of kinetic energy releases.
+store all the converted values so that it can be used later.
+PEPIPICO plots in m/q units instead of TOF.
+don't do the m/q labeling automatically; it is best to do this manually.
+combining events from different measurements is very useful. maybe also selecting a certain KE from a measurement and saving that as a separate measurement?
+maybe make it possible to look at branching ratio's of different measurements?
+Could the beta-parameter be determined when only part of the detector region is used?
+make binsize user-adjustable
+make it possible to histogram any variable against another. Maybe; define binsize for every signal.
+look up how to print horizontal lines in text.
+\fi

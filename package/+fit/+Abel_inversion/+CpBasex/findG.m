@@ -131,7 +131,7 @@ for ind = 1:lenX^2 % Loop over every data pixel
     cos_term(isnan(cos_term)) = 0; % cos(theta) = 0/0 at origin
     leg_terms = zeros(lenL,lenU);
     for lind = 1:numel(L)
-        leg_terms(lind,:) = leg(L(lind),cos_term);
+        leg_terms(lind,:) = fit.Abel_inversion.CpBasex.CPBASEX.pbasex-MATLAB.leg(L(lind),cos_term);
     end
     
     for q = 1:lenK % Loop over every radial basis function

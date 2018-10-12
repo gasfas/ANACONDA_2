@@ -34,8 +34,12 @@ for i = 1:length(detnames)
 		for j = 1:length(fieldnames(subroutine_names))
 			% see if the user wants to perform this subroutine:
 			if general.struct.probe_field(metadata_in.(routine_shortname).(detname).ifdo, subroutine_name{j})
-				% execute the subroutine procedure:
-				data_out = macro.(routine_name).(subroutine_name{j})(data_out, metadata_in, detname);
+				% see if the requested procedure exists:
+% 				macro.(routine_name).(subroutine_name{j})
+				% try to execute the subroutine procedure:
+				try data_out = macro.(routine_name).(subroutine_name{j})(data_out, metadata_in, detname);
+				catch disp(['Log: the ' routine_name ' macro called ' subroutine_name{j} ' failed to run on ' detname])
+				end
 			end
 		end
 				

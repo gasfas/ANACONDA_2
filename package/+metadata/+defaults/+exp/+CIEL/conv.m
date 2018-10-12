@@ -28,7 +28,7 @@ exp_md.conv.det1.m2q_label.search_radius= 0.001; % search radius (in either m/q 
 % Which conversions should be performed on the data:
 
 exp_md.conv.det2.ifdo.m2q					= true;% Does the user want to convert to mass-over-charge?
-exp_md.conv.det2.ifdo.m2q_label					= false; % Does the user want to convert to mass-2-charge labels?
+exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group_label			= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.m2q_Ci_label				= false; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.cluster_size				= false;% Does the user want to convert to cluster size?

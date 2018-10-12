@@ -9,13 +9,13 @@ detnr					= IO.det_nr_from_fieldname(detname);
 
 e_raw					= exp.e.raw(:,detnr);
 
-% fetch the total m2q of all events:
+% fetch the total m2q of each event:
 if ~general.struct.issubfield(exp.e, [detname '.m2q_sum'])
 	m2q_sum			= convert.event_sum(exp.h.(detname).m2q, e_raw);
 else
 	m2q_sum			= exp.e.(detname).m2q_sum;
 end
-% fetch the total TOF of all events:
+% fetch the total TOF of each event:
 if ~general.struct.issubfield(exp.e, [detname '.TOF_sum'])
 	TOF_sum			= convert.event_sum(exp.h.(detname).TOF, e_raw);
 else
