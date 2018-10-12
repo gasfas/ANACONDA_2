@@ -408,9 +408,9 @@ else % TODO: re-implement such logging?
   assert(isstruct(DLT_logged_invalid) && ~isempty(DLT_logged_invalid), 'TODO: The following tests assume data from discarded and rescued groups was logged. Will fail until re-implemented (was disabled when optimizing reading).')
 
   % Which indices in DLT_logged_invalid are due to incomplete events?
-  incomplete = find(bitand(collect_field(DLT_logged_invalid,'rescued'), DLT.GROUP_STATUS_BIT.incomplete_group) ~= 0);
+  incomplete = find(bitand(IO.DLT2ANA.collect_field(DLT_logged_invalid,'rescued'), DLT.GROUP_STATUS_BIT.incomplete_group) ~= 0);
   % Which are due to anomalous time or position data?
-  anomalous = find(bitand(collect_field(DLT_logged_invalid,'rescued'), DLT.GROUP_STATUS_BIT.discarded_but_complete) ~= 0);
+  anomalous = find(bitand(IO.DLT2ANA.collect_field(DLT_logged_invalid,'rescued'), DLT.GROUP_STATUS_BIT.discarded_but_complete) ~= 0);
   assertEqual(length(DLT_logged_invalid), length(anomalous) + length(incomplete), 'Logged events should be either anomalous or incomplete. Not expected that any event is flagged with both reasons.')
 
   % Examine the first incomplete event
@@ -422,7 +422,7 @@ else % TODO: re-implement such logging?
   assertEqual(DLT.GROUP_STATUS_BIT.incomplete_group, dlt.rescued(1,log.event), 'Should have incomplete_group flag');
 
   % Check that the global indexing agrees (would not be the case if rescue mode 'abort' had been used instead of 'make empty')
-  event_indices = collect_field(DLT_logged_invalid,'event');
+  event_indices = IO.DLT2ANA.collect_field(DLT_logged_invalid,'event');
   assertTrue(all(dlt.rescued(event_indices(incomplete)) == DLT.GROUP_STATUS_BIT.incomplete_group), 'Rescued events kept at correct indices');
   assertTrue(all(dlt.rescued(event_indices(anomalous)) == DLT.GROUP_STATUS_BIT.discarded_but_complete), 'Rescued events kept at correct indices');
   % dlt.detectors{1}.show_TOF_anomaly_histogram(dlt); % can be used to check TOF anomaly histogram

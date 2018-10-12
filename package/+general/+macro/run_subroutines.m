@@ -20,6 +20,8 @@ switch routine_name
 		routine_shortname = 'corr';
 	case 'filter'
 		routine_shortname = 'filt';
+	case 'fit'
+		routine_shortname = 'fit';
 end
 
 % Find the routines of detectors (or crossdetector) that are requested:

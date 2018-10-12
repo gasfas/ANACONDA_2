@@ -1,7 +1,7 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration file="/home/bart/PhD/Software/ANACONDA_2/ANACONDA.prj" location="/home/bart/PhD/Software/ANACONDA_2" name="ANACONDA" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3163258137" file="/home/bart/PhD/Software/ANACONDA_2/ANACONDA.prj" location="/home/bart/PhD/Software/ANACONDA_2" name="ANACONDA" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>ANACONDA</param.appname>
-    <param.authnamewatermark>Bart Oostenrijk</param.authnamewatermark>
+    <param.authnamewatermark>B. Oostenrijk, B. Bolling, L. Raemisch</param.authnamewatermark>
     <param.email>bart.oostenrijk@sljus.lu.se</param.email>
     <param.company>Lund University</param.company>
     <param.summary>Data treatment Toolbox for coincidence spectroscopic measurements</param.summary>
@@ -33,13 +33,18 @@
 % All files matching a pattern in all subfolders of the toolbox folder:
 % **/*.bak
 %
-+GUI/*</param.exclude.filters>
++fit/+Abel_inversion/+CpBasex/*
++fit/+Abel_inversion/+FOM/*.dat
++fit/+Abel_inversion/+FOM/src/*.dat
++simu/+rundir/*
++simu/+rundir_bck/*
+**/*.m~</param.exclude.filters>
     <param.examples />
     <param.demosxml />
     <param.apps />
     <param.registered.apps />
     <param.docs />
-    <param.getting.started.guide />
+    <param.getting.started.guide>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/doc/GettingStarted.mlx</param.getting.started.guide>
     <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
     <unset>
@@ -54,86 +59,31 @@
       <param.apps />
       <param.registered.apps />
       <param.docs />
-      <param.getting.started.guide />
       <param.matlabpath.excludes />
       <param.javaclasspath.excludes />
     </unset>
     <fileset.rootdir>
-      <file>${PROJECT_ROOT}/package</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package</file>
     </fileset.rootdir>
     <fileset.rootfiles>
-      <file>${PROJECT_ROOT}/package/+GUI</file>
-      <file>${PROJECT_ROOT}/package/+IO</file>
-      <file>${PROJECT_ROOT}/package/+calibrate</file>
-      <file>${PROJECT_ROOT}/package/+convert</file>
-      <file>${PROJECT_ROOT}/package/+correct</file>
-      <file>${PROJECT_ROOT}/package/+filter</file>
-      <file>${PROJECT_ROOT}/package/+fit</file>
-      <file>${PROJECT_ROOT}/package/+general</file>
-      <file>${PROJECT_ROOT}/package/+hist</file>
-      <file>${PROJECT_ROOT}/package/+macro</file>
-      <file>${PROJECT_ROOT}/package/+metadata</file>
-      <file>${PROJECT_ROOT}/package/+plot</file>
-      <file>${PROJECT_ROOT}/package/+simu</file>
-      <file>${PROJECT_ROOT}/package/+theory</file>
-      <file>${PROJECT_ROOT}/package/.DS_Store</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+GUI</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+calibrate</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+convert</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+correct</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+filter</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+fit</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+general</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+hist</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+macro</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+metadata</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+plot</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+simu</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+theory</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/.DS_Store</file>
+      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/doc</file>
     </fileset.rootfiles>
-    <fileset.depfun.included>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/DLT.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/ISO8601_date_to_num.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/from_which_event.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/get.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/get_hit_count.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/get_loaded.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/read.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/read_foot.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/read_head.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/read_properties.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/read_slow.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/set_detectors.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DLT/show_info_window.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetDLD80/DetDLD80.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetDLD80/read_TDC_array.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetDLD80/read_TDC_vectorized_i1.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetDLD80/read_TDC_vectorized_i5.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetDLD80/show_TOF_anomaly_histogram.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetTOF/DetTOF.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetTOF/read_TDC_array.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetTOF/read_TDC_vectorized_i1.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@DetTOF/read_TDC_vectorized_i5.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/ANACONDA_2/package/+IO/+DLT2ANA/@Detector/Detector.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/DLT.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/ISO8601_date_to_num.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/from_which_event.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/get.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/get_hit_count.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/get_loaded.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/read.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/read_foot.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/read_head.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/read_properties.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/read_slow.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/set_detectors.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DLT/show_info_window.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetDLD80/DetDLD80.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetDLD80/read_TDC_array.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetDLD80/read_TDC_vectorized_i1.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetDLD80/read_TDC_vectorized_i5.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetDLD80/show_TOF_anomaly_histogram.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetTOF/DetTOF.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetTOF/read_TDC_array.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetTOF/read_TDC_vectorized_i1.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@DetTOF/read_TDC_vectorized_i5.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/DLT2ANA/@Detector/Detector.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/CpBASEX-MATLAB/leg.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/CpBASEX-MATLAB/loadG.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/CpBASEX-MATLAB/resizeFolded.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/examples/fancy.bin</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/examples/high_counts.bin</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/CPBASEX-master/examples/low_counts.bin</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/Eriks_mfiles/Eriks_tools/collect_field.m</file>
-      <file>/media/bart/Windows7_OS/Users/Bart/Documents/PhD/Software/MATLAB_fun/Eriks_mfiles/Eriks_tools/quantilei.m</file>
-    </fileset.depfun.included>
+    <fileset.depfun.included />
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>

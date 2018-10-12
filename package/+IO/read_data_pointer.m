@@ -56,7 +56,7 @@ function [data, data_form]= read_data_pointer(pointer, exp)
 
 				%% Rename the pointer:
 			for k = 1:length(hit_str_in_pointer)
-				[i, detname] = find_corr_det(k, hit_str_in_pointer, det_idxs, detnames, detnrs);
+				[~, detname] = find_corr_det(k, hit_str_in_pointer, det_idxs, detnames, detnrs);
 				pointer = replace(pointer,[detname 'rplc_txt_hit' num2str(hitnrs(k))],['hit_rows.' detname '.hit' num2str(hitnrs(k))]); % replace the string
 			end
 			% We start with NaNs, and fill up the valid entries:

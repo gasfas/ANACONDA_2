@@ -7,12 +7,10 @@ function  [data_out] = convert(data_in, metadata_in)
 % data_out		The data with converted data.
 % 
 % The conversions executed:
-% - TOF to m2q
-% - TODO: X, Y, TOF to px,py,pz
-% SEE ALSO macro.raw_to_corrected, macro.filter_to_plot
-% macro.converted_to_filter
+% - m2q, px,py,pz,KER and many more
+% SEE ALSO macro.correct, macro.filter, macro.fit
 
-% The order of performing the different corrections depends on the order in
+% The order of performing the different conversions depends on the order in
 % which the detectors and 'ifdo' statements are defined in the metadata: 
 % The ones defined first are evaluated first.
 

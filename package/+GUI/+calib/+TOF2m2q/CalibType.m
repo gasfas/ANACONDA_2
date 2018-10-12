@@ -21,6 +21,8 @@ for lx = 1:length(NbrOfFiles)
 end        
  
 %% The next step is to determine the string of the button of the 
+
+try
 for lx = 1:length(exp_names)
     current_exp_name = char(exp_names(lx));
     % Get number of detectors.
@@ -77,11 +79,11 @@ set(md_GUI.UI.UIPlot.def.Popup_plot_type, 'String', popup_list_names)
 set(md_GUI.UI.UIPlot.def.PlotConfEditButton, 'Enable', 'off')
 set(md_GUI.UI.UIPlot.def.PlotConfRmvButton, 'Enable', 'off')
 assignin('base', 'md_GUI', md_GUI)
+end
 catch
     GUI.log.add(['No experiment metadata found.'])
 end
 
-
-
-set(md_GUI.UI.UICalib.TOF2m2q.type, 
+% 
+% set(md_GUI.UI.UICalib.TOF2m2q.type, 
 end

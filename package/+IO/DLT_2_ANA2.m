@@ -21,12 +21,13 @@ addpath(temp_class_dir)
 %  run the conversion:
 dlt = IO.DLT2ANA.DLT(dltfilename);
 
+dlt.set_detectors(dlt.detectors{1}); % read using DLD only
+dlt.read(); % load data
+
+
 % remove the folder again:
 rmpath(temp_class_dir)
 rmdir(temp_class_dir, 's')
-
-dlt.set_detectors(dlt.detectors{1}); % read using DLD only
-dlt.read(); % load data
 
 % Converting the data to the units used in ANACONDA2 software:
 % The time to ns, and meters to mm:

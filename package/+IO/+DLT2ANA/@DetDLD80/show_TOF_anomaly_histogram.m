@@ -35,16 +35,16 @@ hold on;
 h_lim = plot(det.min_TOF_anomaly*[1 1]/1E-9, ylim().*[0 0.5], '-r');
 plot(det.max_TOF_anomaly*[1 1]/1E-9, ylim().*[0 0.5], '-r');
 
-med = quantilei(det.TOF_anomaly_histogram_abscissa', det.TOF_anomaly_histogram', [0.5]);
+med = IO.DLT2ANA.quantilei(det.TOF_anomaly_histogram_abscissa', det.TOF_anomaly_histogram', [0.5]);
 h_m = plot([med med]/1E-9, ylim(), ':g');
 
 main_histogram = det.TOF_anomaly_histogram; main_histogram([1 end]) = 0; % ignore the outliers for the percentile computation
 avg = sum(det.TOF_anomaly_histogram_abscissa .* main_histogram) / sum(main_histogram); % average, ignoring bins that collect outliers
 h_a = plot([avg avg]/1E-9, ylim().*[0 0.5], '-g');
 % Determine median and 2% & 98% percentiles by interpolation from histogram
-% (NOTE: No Matlab built-in for this purpose is known, quantilei is among Erik's set of utility functions.)
-%q = quantilei(det.TOF_anomaly_histogram_abscissa', main_histogram', [0.05 0.95]);
-q = quantilei(det.TOF_anomaly_histogram_abscissa', main_histogram', [0.02 0.98]);
+% (NOTE: No Matlab built-in for this purpose is known, IO.DLT2ANA.quantilei is among Erik's set of utility functions.)
+%q = IO.DLT2ANA.quantilei(det.TOF_anomaly_histogram_abscissa', main_histogram', [0.05 0.95]);
+q = IO.DLT2ANA.quantilei(det.TOF_anomaly_histogram_abscissa', main_histogram', [0.02 0.98]);
 h_q = plot([q; q]/1E-9, ylim()', ':b');
 
 handles = [h_a; h_m; h_q(1); h_lim];
