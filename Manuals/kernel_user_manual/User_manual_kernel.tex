@@ -1,8 +1,8 @@
 \newpage
-\input{packages.tex}
+\input{preamble.tex}
 
 \title{User manual of the Coincidence data analysis software (ANACONDA 2)}
-%author{}
+\author{Bart Oostenrijk, Benjamin Bolling, Lisa Rämisch}
 \date{\today} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
@@ -11,26 +11,12 @@
 \tableofcontents
 \newpage
 
-This document shows how the data analysis package `ANACONDA 2', or `ANACONDA' can be used. ANACONDA allows the analysis of data recorded in experiments that use single-particle detectors (e.g. ions, electrons, photons ...), for example to study the correlation between these particles. These are often called `\href{https://en.wikipedia.org/wiki/Photoelectron_photoion_coincidence_spectroscopy}{coincidence}' spectrocopic treatment methods.
-
+\input{introduction}
+\input{installation}
 \input{getting_started}
-%\input{metadata_structure}
+\input{metadata_fields}
 %\input{data_flow}
 %\input{package}
-%\input{diagnostics}
-
-
-\section{Installation}
-For installation:
-- copy the 'package' folder (included in the repository) to your local system.
-- add this folder to the path (only the folder, not the subfolders), either by the command:
-	addpath(fullfile('path','to','folder', ...., 'package'))
-  or do this by right-clicking on the folder in the file browser in MATLAB, and click 'add to path'.
-
-
-you are now ready to use all functions within the package. 
-
-Use the GUI (under development) by writing 'GUI.main' in your command window.
 
 
 \end{document}

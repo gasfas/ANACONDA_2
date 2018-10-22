@@ -8,7 +8,6 @@ function [ exp_md ] = conv ( exp_md )
 exp_md.conv.det1.ifdo.m2q						= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det1.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det1.ifdo.m2q_group_label			= true; % Does the user want to convert to mass-2-charge groups?
-exp_md.conv.det1.ifdo.m2q_Ci_label				= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det1.ifdo.cluster_size				= true;% Does the user want to convert to cluster size?
 exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det1.ifdo.KER 						= true;% Does the user want to convert to Kinetic energy?
@@ -28,6 +27,9 @@ exp_md.conv.det1.m2q_label.labels 		= [exp_md.sample.fragment.masses]; % the ava
 exp_md.conv.det1.m2q_label.masses		= exp_md.conv.det1.m2q_label.labels ; % the corresponding expected mass values in this experiment. If all expected particles are singly charged, this array is similar to exp_md.conv.det1.m2q_label.labels.
 exp_md.conv.det1.m2q_label.signal 		= 'm2q';% The signal around which the m2q label serach radii are defined. 
 exp_md.conv.det1.m2q_label.search_radius= exp_md.conv.det1.m2q_label.m2q_label.labels.^.5*1/10; % search radius (in either m/q or nsec units, depending on the labelling_signal indicated), or searchwidth around the main expectation value (no-Kinetic energy point).
+exp_md.conv.det1.m2q_label.C_nr 		= [1 2]; % The coincidence numbers the user wants to convert (1 converts all, [1, 2] converts all, and overwrites double coincidence)
+exp_md.conv.det1.m2q_label.method	= 'circle';
+exp_md.conv.det1.m2q_label.length	= 0.75;
 
 % mass-2-charge group labels
 % A mass-2-charge group is  a set of particles close in mass, collected in one 'group'
@@ -36,8 +38,6 @@ exp_md.conv.det1.m2q_group_label.max = max(exp_md.sample.fragment.pure.masses, [
 exp_md.conv.det1.m2q_group_label.name = exp_md.sample.fragment.sizes;
 exp_md.conv.det1.m2q_group_label.search_radius = 0.5 + mean([exp_md.conv.det1.m2q_group_labels.max, exp_md.conv.det1.m2q_group_labels.min], 2)*2/10;
 
-exp_md.conv.det1.m2q_Ci_label.method = 'circle';
-exp_md.conv.det1.m2q_Ci_label.search_radius = 0.75;
 
 exp_md.conv.det1.CSD.include_C1_as_C2 	= false; % This option can include the single coincidence (C1) as a double coincidence event (C2), assuming that all KER went to the detected particle.
 end

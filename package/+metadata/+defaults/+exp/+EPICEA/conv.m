@@ -12,7 +12,6 @@ exp_md.conv.det1.ifdo.R_theta				= true;% Does the user want to convert to R-the
 exp_md.conv.det2.ifdo.m2q		= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det2.ifdo.m2q_label		= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group_label		= false; % Does the user want to convert to mass-2-charge groups?
-exp_md.conv.det2.ifdo.m2q_Ci_label	= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det2.ifdo.momentum 		= true;% Does the user want to convert to momentum?
 exp_md.conv.det2.ifdo.KER 		= true;% Does the user want to convert to Kinetic energy?
 exp_md.conv.det2.ifdo.R_theta				= true;% Does the user want to convert to R-theta coordinates?
@@ -43,10 +42,10 @@ exp_md.conv.det2.m2q_label.mass 			= exp_md.conv.det2.m2q_label.labels ; % the c
 exp_md.conv.det2.m2q_label.search_radius		= 2; % search radius (in m/q units), or searchwidth around the main expectation value (m2q_label.labels).
 exp_md.conv.det2.m2q_group_label.search_radius = 0.5 + exp_md.conv.det2.m2q_label.labels*2/10;
 
-exp_md.conv.det2.m2q_Ci_label.method 		= 'line';
-exp_md.conv.det2.m2q_Ci_label.search_radius = 0.6;
-exp_md.conv.det2.m2q_Ci_label.length  		= 1;
-exp_md.conv.det2.m2q_Ci_label.C_nr 			= [2];
+exp_md.conv.det2.m2q_label.method 		= 'line';
+exp_md.conv.det2.m2q_label.length = 0.6;
+exp_md.conv.det2.m2q_label.length  		= 1;
+exp_md.conv.det2. 			= [2];
 
 exp_md.conv.det2.bgr.signal_name			= {'TOF'};
 

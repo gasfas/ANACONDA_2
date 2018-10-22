@@ -14,6 +14,8 @@ function [X_0, Y_0, T_0, v_p0] = zero_dp_splat_position(TOF_no_dp, labels_mass, 
 % X_0				The X-position of zero dp particles
 % Y_0				The Y-position of zero dp particles
 % T_0				The T-value of zero dp particles
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % The most probable velocities are calculated for all the labels:
 

@@ -7,6 +7,8 @@ function [ p_abs ] = KE_2_p(KE, m)
 % Output:
 % p_abs     [n,1], The absolute value of the momentum, [atomic momentum unit]
 % SEE ALSO: convert.p_2_KE convert.momentum
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Convert to SI units:
 KE_joule    = KE.*general.constants({'eVtoJ'});

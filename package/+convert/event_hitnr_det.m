@@ -13,6 +13,8 @@ function event_data = event_hitnr_det(hit_data, events, hitname)
 %				- 1 (integer number), will choose the first, second,
 %				etcetera. 
 %				(Default: 'hit1')
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('hitname', 'var') % No hitname given, we give default value:
 	hitname = 'hit1';

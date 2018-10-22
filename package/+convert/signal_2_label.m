@@ -9,6 +9,8 @@ function [ labeled_s, l_hit_location ] = signal_2_label(unlabeled_s, labels, sea
 % Output:
 % labeled_s:     The labeled signal. NaN's where no label was found. [n,1]
 % l_hit_loc:     (logical) The location of the labeled locations. [n,1]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % We sort all the mass2charge hits onto its nearest recognized value:
 if length(unique(labels)) == 1

@@ -27,9 +27,17 @@ else % Otherwise, the file must be saved in the same directory as the IGOR binar
 	MAT_path = base_path;
 end
 
+STR = [];
 if exist(fullfile(MAT_path, [filename '.mat']), 'file')
-	disp('IGOR binary to MAT conversion already performed')
-else % Convert to .mat:
+	prompt = 'IGOR binary to MAT conversion already performed. Overwrite file?';
+	ifdo_conv = input(prompt,'s');
+end
+if isempty(ifdo_conv)
+	ifdo_conv = 'Y';
+end
+switch ifdo_conv
+	case {'Y', 'y'} % Convert to .mat:
+		disp('Conversion starts, this might take a while...')
 	IO.EPICEA.IgorWave_2_MAT(base_path, varargin);
 	delete(fullfile(MAT_path, 'data.npz'));
 	movefile(fullfile(MAT_path, 'data.mat'), fullfile(MAT_path, [filename '.mat']))

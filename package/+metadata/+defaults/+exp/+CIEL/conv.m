@@ -30,7 +30,6 @@ exp_md.conv.det1.m2q_label.search_radius= 0.001; % search radius (in either m/q 
 exp_md.conv.det2.ifdo.m2q					= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det2.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.m2q_group_label			= false; % Does the user want to convert to mass-2-charge groups?
-exp_md.conv.det2.ifdo.m2q_Ci_label				= false; % Does the user want to convert to mass-2-charge labels?
 exp_md.conv.det2.ifdo.cluster_size				= false;% Does the user want to convert to cluster size?
 exp_md.conv.det2.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det2.ifdo.KER 						= true;% Does the user want to convert to Kinetic energy?
@@ -59,8 +58,8 @@ exp_md.conv.det2.m2q_group_labels.max = max(exp_md.sample.fragment.masses, [], 2
 %exp_md.conv.det2.m2q_group_labels.name = exp_md.sample.fragment.sizes;
 exp_md.conv.det2.m2q_group_labels.search_radius = 0.5 + mean([exp_md.conv.det2.m2q_group_labels.max, exp_md.conv.det2.m2q_group_labels.min], 2)*2/10;
 
-exp_md.conv.det2.m2q_Ci_label.method = 'circle';
-exp_md.conv.det2.m2q_Ci_label.search_radius = 0.75;
+exp_md.conv.det2.m2q_label.method = 'circle';
+exp_md.conv.det2.m2q_label.length = 0.75;
 
 exp_md.conv.det2.CSD.include_C1_as_C2 	= false; % This option can include the single coincidence (C1) as a double coincidence event (C2), assuming that all KER went to the detected particle.
 end

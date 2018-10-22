@@ -1,5 +1,6 @@
-function [p, p_0] = momentum_3D_Field(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
-% The function converts TOF, X, Y to momentum, in the case of only E-field.
+function [p, p_0] = EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
+% The function converts TOF, X, Y to momentum, in the case of an 
+% electrostatic and magnetostatic field.
 % Only hits that are recognized to belong to a certain m/q are considered.
 % Input:
 % TOF           [n, 1] array, the (corrected) TOF hits [mm]
@@ -12,10 +13,11 @@ function [p, p_0] = momentum_3D_Field(TOF, X, Y, m2q_l, m_l, labels, labels_mass
 % Output:
 % p             [n, 3] the final momentum [atomic momentum unit]
 % p_0           [n, 3] the time-zero momentum [atomic momentum unit]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+% and Lisa Raemisch, Lund University: li4658ra-s@student.lu.se
 
 m           = length(labels); % number of labels
-% n         = length(TOF); % number of hits
-% q         = number of hits that are recognized to belong to a label of interest
 
 % Initialize the empty p vectors:
 p           = NaN*ones(size(TOF,1),3); % [n, 1]
@@ -52,16 +54,16 @@ try
 	[X_0, Y_0, T_0] = convert.zero_dp_splat_position(TOF_no_dp, labels_mass, labels_charge, E_ER, sample_md);
 catch % If some values are not given, we don't perform the MB correction:
 	disp('Log: Molecular beam momentum correction not performed')
-		% The most probable velocities are calculated for all the labels:
-	v_p                 = 0;
-	% The radii where the these velocity/mass particles will splat:
-	X_0                 = zeros(m,1);
-	Y_0                 = zeros(m,1);
-	T_0                 = TOF_no_dp;
+		% If there is no molecular beam, or no known velocity of the beam,
+		% we assume the splat position and TOF to be zero or nominal:
+		X_0                 = zeros(m,1);
+		Y_0                 = zeros(m,1);
+		T_0                 = TOF_no_dp;
 end
 
 if ~general.struct.probe_field(spec_md, 'Bfield')
-        % p_0 is determined from the difference between these two:
+        % p_0 is determined from the difference between the positions 
+		% without momentum difference, and the position expected from the molecular beam velocity:
         p_0_X = labels_mass.*general.constants({'amu'}).* (X_0./T_0 - X_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
         p_0_Y = labels_mass.*general.constants({'amu'}).* (Y_0./T_0 - Y_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]
         p_0_Z = labels_charge.*general.constants({'q'}).* E_ER.* (T_0 - TOF_no_dp)*1e-9; % [kg*m/s] [m,1]
@@ -83,16 +85,11 @@ if ~general.struct.probe_field(spec_md, 'Bfield')
         p_Y = m_l_f  .*general.constants({'amu'}) .* (Y_f./TOF_f - Y_no_p_f./TOF_no_p_f)*1e6; % [kg*m/s] [q,1]
         % The momentum p in Z-direction will be determined from the difference in
         % expected and actual Time Of Flight:
-        
-        p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; %+ ch_l_f.*fac_1.*((TOF_f - TOF_no_p_f)*1e-9).^2 + ch_l_f.*fac_2.*((TOF_f - TOF_no_p_f)*1e-9).^3; %        [kg*m/s] [q,1]
-else
+        p_Z = ch_l_f .*general.constants({'q'})   .* E_ER.* (TOF_f - TOF_no_p_f)*1e-9; 
+else % If there is a magnetic field, we have to take the cyclotron motion into account:
     Bfield          = spec_md.Bfield;
-    % the expected zero-momentum TOF (defined in the labels)
-    % [m, 1]
+    % The cyclotron frequency omega:
     omega = general.constants({'q'}).*Bfield./general.constants({'me'});
-%         p_0_X = 0.5*general.constants({'q'}).*Bfield.*(( sin(omega.*( T_0).*1e-9)./( 1 - cos(omega.*(T_0).*1e-9  ))) - (  sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  ))) + (Y_0 - Y_no_p) ).*1e-3;
-%         p_0_Y = 0.5*general.constants({'q'}).*Bfield.*( X_0 - X_no_p - ( sin(omega.*( T_0 ).*1e-9)./( 1 - cos(omega.*( T_0).*1e-9  )) - sin(omega.*( TOF_no_dp ).*1e-9)./( 1 - cos(omega.*( TOF_no_dp).*1e-9  )))  ).*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
-%         p_0_Z = ch_l_f .*general.constants({'q'})   .* E_ER.*(T_0 - TOF_no_dp).*1e-9; %
         p_0_X = 0;
         p_0_Y = 0;
         p_0_Z = 0;

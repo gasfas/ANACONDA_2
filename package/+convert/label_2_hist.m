@@ -7,6 +7,8 @@ function [ label_hist ] = label_2_hist(labeled_s, labels)
 % Output:
 % label_hist:       A histogram of the labels (in terms of number of
 %                   counts), [m, 1]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % we count the number of appearances for every label:
 label_hist =               general.matrix.countmember(labels, labeled_s);

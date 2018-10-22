@@ -7,7 +7,7 @@ First of all, the coordanite system used in this software is defined in Figure \
   \centering
   \includegraphics[width=0.5\textwidth]{Graphics/coordinate_system.eps}
   \captionof{figure}{Definition of coordinate system used in this Software. The x-axis aligns with the polarization and the molecular beam, the Y-direction aligns with the photon beam, and Z aligns with the detector axis.}
-  \label{fig:test1}
+\label{coor_sys}
 \end{figure}
 
 \subsubsection{detection image translation}
@@ -18,13 +18,13 @@ First of all, the coordanite system used in this software is defined in Figure \
   \centering
   \includegraphics[width=1\textwidth]{Graphics/centre_calibration_before.eps}
   \captionof{figure}{Detector image of all hits before centring}
-  \label{fig:test1}
+\label{centre_calibration_before}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=1\textwidth]{Graphics/centre_calibration_after.eps}
   \captionof{figure}{Detector image of all hits after centring. Final values: dX = -0.5 mm, dY = 3mm}
-  \label{fig:test2}
+\label{centre_calibration_after}
 \end{minipage}
 \end{figure}
 
@@ -38,7 +38,7 @@ exp_md.corr.det1.dY					= 3; %[mm] distance the center of detection is displaced
 \end{lstlisting}
 
 \subsubsection{detector image rotation}
-As seen in Figure \ref{centre_calibration_after}, the detector image shows a line of higher intensity towards the left lower corner of the detector. This is believed to originate from heavier clusters from the molecular beam. The detector image is rotated such, that this line is along the x-axis. 
+As seen in Figure \ref{centre_calibration_before}, the detector image shows a line of higher intensity towards the left lower corner of the detector. This is believed to originate from heavier clusters from the molecular beam. The detector image is rotated such, that this line is along the x-axis. 
 
 \begin{figure}[h]
    \centering

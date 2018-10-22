@@ -8,6 +8,8 @@ function var_min = event_min(hit_var, events)
 % - events          The event numbers
 % Outputs:
 % var_mean          The variable average.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % call the function that fetches the extreme value in one-event hits:
 var_min = convert.event_extreme(hit_var, events, 'min');

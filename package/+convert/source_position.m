@@ -19,6 +19,8 @@ function [ source_pos ] = source_position(events, m, q, X, Y, TOF, TOF_2_m2q_md,
 %           dTOF.
 % Outputs:
 % source_pos [nof_events, 3] The X,Y,Z coordinates of the source position [mm]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % sum mass/TOF over all hits:
 mX2TOF_eventsum     = convert.event_sum(m.*X./TOF, events);
@@ -39,7 +41,7 @@ msum                        = convert.event_sum(m, events);
 
 dTOF_scaled                 = Z_numerator./Z_denominator;
 
-% The function to convert dZ to dTOF is used as a table:
+% % The function to convert dZ to dTOF is used as a table:
 % dZ_table    = linspace(dZ_range(1), dZ_range(2), 1e4);
 % m2q_table = 1;
 % dTOF_table  = dZ_2_dTOF(m2q_table, dZ_table);
@@ -47,11 +49,11 @@ dTOF_scaled                 = Z_numerator./Z_denominator;
 % [max_fittable_TOF, idx] = max(dTOF_table);
 % f = dZ_table > dZ_table(idx) ;
 % dTOF_table = dTOF_table(
-
+% 
 % % This can then be interpolated with the tabulated data:
 % interp1(dTOF_scaled)
 
-
+% TODO: implement the source position reconstruction in TOF dimension...
 source_pos(:,3)             = zeros(size(events));
 end
 

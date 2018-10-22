@@ -50,8 +50,7 @@ for i = 1:length(detnames)
 				labels      = metadata_in.conv.(detname).m2q_label.labels;
 				labels_mass = metadata_in.conv.(detname).m2q_label.mass;
 				% Obtain the TOF values that should correspond to zero momentum values:
-% 				labels_TOF_no_p = convert.m2q_2_TOF(labels, m2qfactor, t0);
-				labels_TOF_no_p = convert.calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q);
+				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q);
 				% Calculate the momentum:
 				[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum.EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, metadata_in.spec.det_modes{detnr});
 				data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;
@@ -109,3 +108,4 @@ function labels_TOF_no_p = calc_labels_TOF_no_p(labels, TOF_2_m2q_md)
 	labels_TOF_no_p = convert.m2q_2_TOF(labels, m2qfactor, t0);
 
 end
+

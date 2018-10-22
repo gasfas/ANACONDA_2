@@ -11,6 +11,9 @@ function [ event_hist ] = event_hist_1D(hit_var, events, range, binsize)
 % - binsize			The binsize in that range (scalar).
 % Outputs:
 % event_hist          The variable average.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 % Divide the variable in the assigned bins, calculate the edge and mid values of each bin. 
 

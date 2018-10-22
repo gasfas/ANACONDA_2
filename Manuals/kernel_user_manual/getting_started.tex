@@ -1,4 +1,14 @@
 \section{Getting started}
-The matlab toolbox comes with an interactive script (\textit{/doc/GettingStarted.mlx}), or a plain matlab script (\textit{/doc/GettingStarted\_plain.m}) that shows a few simple commands and minimal working examples of functions and macros. 
+The matlab toolbox comes with an interactive script (\textit{/package/doc/GettingStarted.mlx}), or a plain matlab script (\textit{/package/doc/GettingStarted\_plain.m}) that shows a few simple commands and minimal working examples of functions and macros. 
 
+\paragraph{Load first data}
+After installing the package, one can start importing the data. There are several data formats supported by the package. Depending on which format you want to treat, read the one of the following functions by typing into the MATLAB command window:
+\lstset{language=MATLAB}
+\begin{lstlisting}
+>> edit IO.COBOLD.import_example ;% importing ASCII delimited datafiles from COBOLD PC. If you do not have the appropriate ASCII-delimited file format, contact Roentdek.
+>> edit IO.DLT2ANA.import_example ;% importing the DLT data format from the Labview data acquisition software (by Erik Mansson, Lund University)
+>> edit IO.EPICEA.import_example ;% Importing ASCII delimited datafiles from EPICEA.  If you do not have the appropriate ASCII-delimited file format, contact the EPICEA (or PLEIADES beamline) experts.
+\end{lstlisting}
 
+\paragraph{Create first metadata}
+TODO

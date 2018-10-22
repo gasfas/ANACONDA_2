@@ -13,6 +13,8 @@ function [ hist_group ] = signal_2_group_hist(signal, boundaries, correction_met
 %               multiplied before subtracted from the data.
 % hist_group    The histogram, showing the amount of hits (minus
 %               background) in each specified histogram container
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Data:
 % binning:

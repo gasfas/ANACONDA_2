@@ -15,11 +15,6 @@ binsize         = plot_metadata.binsize;
 x_range         = plot_metadata.x_range;
 y_range         = plot_metadata.y_range;
 
-% X               = det_data.X;
-% Y               = det_data.Y;
-% TOF             = det_data.TOF;
-% Z               = (det_data.dp(:,3).*(TOF-convert.calc_labels_TOF_no_p(exp_md.conv.(['det' num2str(detnr)]).m2q_labels, exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q))./general.constants({'me'}));
-
 dp              = det_data.dp;
 dpx             = dp(:,1);
 dpy             = dp(:,2);

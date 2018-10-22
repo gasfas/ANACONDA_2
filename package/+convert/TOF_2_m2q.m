@@ -7,6 +7,8 @@ function  [ m2q ] = TOF_2_m2q(TOF, factor, t0)
 % timecorr:         The time correction factor. 
 %
 % See also: CALIBRATE.TOF_2_m2q CALIBRATE.FIND_TOF_PEAKS
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 m2q = ((TOF - t0)./factor).^2;
 

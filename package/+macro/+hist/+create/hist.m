@@ -99,7 +99,7 @@ end
 %% Apply logarithmic rescaling if requested:
 if general.struct.probe_field(hist_md, 'Intensity_scaling')
 	switch hist_md.Intensity_scaling
-		case 'log'
+		case {'log', 'logarithmic', 'Log', 'Logarithmic'}
 			
 			if min(histogram.Count(:)) < 0 % Make sure there are no negative values:
 				histogram.Count(histogram.Count<0) = 0;

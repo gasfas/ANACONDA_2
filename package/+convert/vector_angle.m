@@ -6,6 +6,8 @@ function [ angle_rad ] = vector_angle( vec1, vec2 )
 % vec2      The second vector [n, 3] or [n, 2]
 % Output:
 % angle_rad The shortest great circle path between them [rad].
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
 if size(vec1, 2) == 2

@@ -1,61 +1,59 @@
-\contentsline {section}{\numberline {1}Data structure}{3}{section.1}
-\contentsline {section}{\numberline {2}Metadata}{4}{section.2}
-\contentsline {subsection}{\numberline {2.1}Metadata structure}{5}{subsection.2.1}
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {section}{\numberline {2}Data structure}{3}{section.2}
+\contentsline {section}{\numberline {3}Metadata}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Metadata structure}{5}{subsection.3.1}
 \contentsline {paragraph}{sample}{6}{section*.5}
-\contentsline {subsection}{\numberline {2.2}storage}{6}{subsection.2.2}
-\contentsline {section}{\numberline {3}Data flow}{6}{section.3}
-\contentsline {section}{\numberline {4}The package}{7}{section.4}
-\contentsline {subsection}{\numberline {4.1}Input Output (IO)}{8}{subsection.4.1}
-\contentsline {paragraph}{Importing DLT files}{8}{section*.7}
-\contentsline {paragraph}{Importing KoboldPC (LMF) files}{8}{section*.8}
-\contentsline {paragraph}{handling of multiple files}{8}{section*.9}
-\contentsline {subparagraph}{Combining two files}{8}{section*.10}
-\contentsline {subparagraph}{Comparing two files}{8}{section*.11}
-\contentsline {subsection}{\numberline {4.2}correct}{9}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}detection image translation}{9}{subsubsection.4.2.1}
-\contentsline {paragraph}{Metadata parameters used by the detector image translation:}{9}{section*.14}
-\contentsline {subsubsection}{\numberline {4.2.2}detector image rotation}{10}{subsubsection.4.2.2}
-\contentsline {paragraph}{Metadata parameters used by the detector image rotation:}{10}{section*.16}
-\contentsline {subsubsection}{\numberline {4.2.3}Absolute TOF translation}{10}{subsubsection.4.2.3}
-\contentsline {paragraph}{Metadata parameters used by the absolute TOF translation:}{11}{section*.17}
-\contentsline {subsubsection}{\numberline {4.2.4}TOF deviation due to detector-drift tube voltage mismatch}{11}{subsubsection.4.2.4}
-\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{11}{section*.19}
-\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{13}{section*.21}
-\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{15}{section*.23}
-\contentsline {paragraph}{Metadata parameters used by the detector abberation correction}{15}{section*.26}
-\contentsline {paragraph}{TOF lens abberation correction}{16}{section*.27}
-\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{17}{section*.28}
-\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{17}{section*.30}
-\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{18}{section*.31}
-\contentsline {subsubsection}{\numberline {4.2.5}Non-circular correction}{18}{subsubsection.4.2.5}
-\contentsline {subsection}{\numberline {4.3}convert}{21}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}TOF $\rightarrow m/q$}{21}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Signal labeling - single coincidence}{21}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}Signal labeling - double coincidence}{21}{subsubsection.4.3.3}
-\contentsline {paragraph}{circle}{21}{section*.35}
-\contentsline {paragraph}{line}{22}{section*.37}
-\contentsline {subsubsection}{\numberline {4.3.4}Branching ratio's}{22}{subsubsection.4.3.4}
-\contentsline {paragraph}{Single-label Branching ratio's}{23}{section*.39}
-\contentsline {paragraph}{Double-label Branching ratio's}{23}{section*.41}
-\contentsline {subsubsection}{\numberline {4.3.5}Momentum}{24}{subsubsection.4.3.5}
-\contentsline {paragraph}{$\mathaccentV {vec}17E{p_0}$ determination}{26}{section*.45}
-\contentsline {paragraph}{$\mathaccentV {vec}17E{p}$ determination}{26}{section*.46}
-\contentsline {subsubsection}{\numberline {4.3.6}Kinetic Energy Release}{27}{subsubsection.4.3.6}
-\contentsline {subsubsection}{\numberline {4.3.7}Mutual momentum angle}{28}{subsubsection.4.3.7}
-\contentsline {subsubsection}{\numberline {4.3.8}Asymmetry parameter $\beta $}{29}{subsubsection.4.3.8}
-\contentsline {subsubsection}{\numberline {4.3.9}Interaction point}{29}{subsubsection.4.3.9}
-\contentsline {subsubsection}{\numberline {4.3.10}Oversight of signals}{31}{subsubsection.4.3.10}
-\contentsline {subsection}{\numberline {4.4}filter}{32}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}plot}{33}{subsection.4.5}
-\contentsline {subsubsection}{\numberline {4.5.1}Mass to charge}{33}{subsubsection.4.5.1}
-\contentsline {subsubsection}{\numberline {4.5.2}momentum}{33}{subsubsection.4.5.2}
-\contentsline {subsection}{\numberline {4.6}calibrate}{34}{subsection.4.6}
-\contentsline {paragraph}{TOF $\rightarrow m/q$ factor}{34}{section*.55}
-\contentsline {paragraph}{detection center position}{34}{section*.56}
-\contentsline {paragraph}{detector rotation}{34}{section*.57}
-\contentsline {paragraph}{residual momentum minimualization}{34}{section*.58}
-\contentsline {subsection}{\numberline {4.7}general}{36}{subsection.4.7}
-\contentsline {section}{\numberline {5}Diagnostics}{37}{section.5}
-\contentsline {subsection}{\numberline {5.1}Theory}{37}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}SIMION}{37}{subsection.5.2}
+\contentsline {subsection}{\numberline {3.2}storage}{6}{subsection.3.2}
+\contentsline {section}{\numberline {4}Data flow}{7}{section.4}
+\contentsline {section}{\numberline {5}The package}{8}{section.5}
+\contentsline {subsection}{\numberline {5.1}Input Output (IO)}{9}{subsection.5.1}
+\contentsline {paragraph}{Importing DLT files}{9}{section*.7}
+\contentsline {paragraph}{Importing KoboldPC (LMF) files}{9}{section*.8}
+\contentsline {paragraph}{handling of multiple files}{9}{section*.9}
+\contentsline {subparagraph}{Combining two files}{9}{section*.10}
+\contentsline {subparagraph}{Comparing two files}{9}{section*.11}
+\contentsline {subsection}{\numberline {5.2}correct}{10}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}detection image translation}{10}{subsubsection.5.2.1}
+\contentsline {paragraph}{Metadata parameters used by the detector image translation:}{10}{section*.14}
+\contentsline {subsubsection}{\numberline {5.2.2}detector image rotation}{11}{subsubsection.5.2.2}
+\contentsline {paragraph}{Metadata parameters used by the detector image rotation:}{11}{section*.16}
+\contentsline {subsubsection}{\numberline {5.2.3}Absolute TOF translation}{11}{subsubsection.5.2.3}
+\contentsline {paragraph}{Metadata parameters used by the absolute TOF translation:}{12}{section*.17}
+\contentsline {subsubsection}{\numberline {5.2.4}TOF deviation due to detector-drift tube voltage mismatch}{12}{subsubsection.5.2.4}
+\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{12}{section*.19}
+\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{14}{section*.21}
+\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{16}{section*.23}
+\contentsline {paragraph}{Metadata parameters used by the detector abberation correction}{16}{section*.26}
+\contentsline {paragraph}{TOF lens abberation correction}{17}{section*.27}
+\contentsline {paragraph}{Step 1: Zero kinetic energy TOF correction}{18}{section*.28}
+\contentsline {paragraph}{Step 2: TOF correction as a function of radius}{18}{section*.30}
+\contentsline {paragraph}{Step 3: Correction of splat radius linearity}{19}{section*.31}
+\contentsline {subsubsection}{\numberline {5.2.5}Non-circular correction}{19}{subsubsection.5.2.5}
+\contentsline {subsection}{\numberline {5.3}convert}{22}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}TOF $\rightarrow m/q$}{22}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Signal labeling - single coincidence}{22}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}Signal labeling - double coincidence}{22}{subsubsection.5.3.3}
+\contentsline {paragraph}{circle}{22}{section*.35}
+\contentsline {paragraph}{line}{23}{section*.37}
+\contentsline {subsubsection}{\numberline {5.3.4}Branching ratio's}{23}{subsubsection.5.3.4}
+\contentsline {paragraph}{Single-label Branching ratio's}{24}{section*.39}
+\contentsline {paragraph}{Double-label Branching ratio's}{24}{section*.41}
+\contentsline {subsubsection}{\numberline {5.3.5}Momentum}{25}{subsubsection.5.3.5}
+\contentsline {paragraph}{$\mathaccentV {vec}17E{p_0}$ determination}{27}{section*.45}
+\contentsline {paragraph}{$\mathaccentV {vec}17E{p}$ determination}{27}{section*.46}
+\contentsline {subsubsection}{\numberline {5.3.6}Kinetic Energy Release}{28}{subsubsection.5.3.6}
+\contentsline {subsubsection}{\numberline {5.3.7}Mutual momentum angle}{29}{subsubsection.5.3.7}
+\contentsline {subsubsection}{\numberline {5.3.8}Asymmetry parameter $\beta $}{30}{subsubsection.5.3.8}
+\contentsline {subsubsection}{\numberline {5.3.9}Interaction point}{30}{subsubsection.5.3.9}
+\contentsline {subsubsection}{\numberline {5.3.10}Oversight of signals}{32}{subsubsection.5.3.10}
+\contentsline {subsection}{\numberline {5.4}filter}{33}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}plot}{34}{subsection.5.5}
+\contentsline {subsubsection}{\numberline {5.5.1}Mass to charge}{34}{subsubsection.5.5.1}
+\contentsline {subsubsection}{\numberline {5.5.2}momentum}{34}{subsubsection.5.5.2}
+\contentsline {subsection}{\numberline {5.6}calibrate}{35}{subsection.5.6}
+\contentsline {paragraph}{TOF $\rightarrow m/q$ factor}{35}{section*.55}
+\contentsline {paragraph}{detection center position}{35}{section*.56}
+\contentsline {paragraph}{detector rotation}{35}{section*.57}
+\contentsline {paragraph}{residual momentum minimualization}{35}{section*.58}
+\contentsline {subsection}{\numberline {5.7}general}{37}{subsection.5.7}
 \contentsline {section}{\numberline {6}Installation}{37}{section.6}

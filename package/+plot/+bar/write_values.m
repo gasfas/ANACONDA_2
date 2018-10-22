@@ -16,7 +16,7 @@ for i = 1:length(format)
 		case 'absolute'
 			addtext = num2str(y_values, 2);
 		case 'percentage'
-			percent_values = convert.abs_2_rel(y_values)*100;
+			percent_values = general.matrix.abs_2_rel(y_values)*100;
 			addtext = [repmat('(',  size(y_values)) num2str(percent_values, 2) repmat('\%)', size(y_values))];
 	end
 	textmat = [textmat addtext];

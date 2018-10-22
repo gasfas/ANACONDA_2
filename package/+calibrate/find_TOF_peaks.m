@@ -12,11 +12,15 @@ function [ TOF_peaks ] = find_TOF_peaks (TOF_hist, TOF_peaks_est, search_radius)
 % TOF_peaks:        The TOF where the peak is at its maximum.
 %
 % See also: CALIBRATE.TOF_2_m2q CONVERT.TOF_2_MASS2CHARGE
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % filter out the TOF hits that are within searchradius around TOF_points:
 TOF_labels = convert.signal_2_label(TOF_hist.midpoints, TOF_peaks_est, search_radius);
 % remove the TOF hits that are out of range:
 % TOF_signal = TOF_signal(find(TOF_labels));
+%
+% Written by Bart Oostenrijk, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 TOF_peaks = TOF_peaks_est;
 

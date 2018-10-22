@@ -7,6 +7,8 @@ function [hit_var] = events_2_hits_det(event_var, events, nof_hits)
 % nof_hits              Number of hits 
 % Output:
 % hit_var:				The values that apply to the hits [nof_hits, w]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % replace the NaN's with the value from the index below, so that we can index them:
 events_and_nof_hits = general.matrix.downfill_array([events; nof_hits], 'NaN', 1);

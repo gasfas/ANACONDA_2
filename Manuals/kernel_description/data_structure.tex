@@ -1,5 +1,5 @@
 \section{Data structure}
-The data is stored in a matrix of so-called \emph{hits}, e.g. a count registered on a detector. The acquisition software can group hits, because they are expected to be related to each other; this is called an \emph{event}. The start of an event is usually defined by a trigger (which could be a hit on one of the detectors), the duration of an event can be defined by a timeframe from the event start.
+The data is stored in a matrix of so-called \emph{hits}, which is a single count/detection registered on a detector. The acquisition software can group these hits, because they are expected to be related to each other; this is called an \emph{event}. The start of an event is usually defined by a trigger (which could be a hit on one of the detectors), the duration of an event can be defined by a timeframe from the event start.
 
 \begin{figure}[h]
    \centering
@@ -8,14 +8,13 @@ The data is stored in a matrix of so-called \emph{hits}, e.g. a count registered
 \label{event_synchronization}
 \end{figure}
 
-An example of an event in a TOF experiment on water is the registration of two hits on the ion detector: one from H$^+$ and after that one from OH$^+$, and the registration of two hits on the electron detector. Note that the number of hits is generally different for different detectors.
+For example, an event from an experiment on \ce{H_2O} is the registration of two hits on the ion detector: one from H$^+$ and after that one from OH$^+$, and the registration of two hits on the electron detector. Note that the number of hits is generally different for different detectors.
 \\
 The matrix of hits only contains the data that is given along with every hit (for example X, Y and T), but it does not show to which event the hit belonged. The grouping of events is done in another matrix, that contains the \emph{event pointers}. The list of event pointers contains the index of the \emph{first hit} of that event. 
 This structure is chosen, because it can easily be extended when the measurement uses multiple detectors.
 Important to notice is that the events from different detectors are synchronized; every event start is measured at the same instant in time. 
 
 A schematic of the data structure is shown in Figure \ref{Data_structure_schematic_intro}.
-
 
 \begin{figure}[h]
    \centering

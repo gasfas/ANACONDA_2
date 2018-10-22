@@ -8,8 +8,12 @@ function [hit_var_sorted] = sorted_hits(hit_var, events, direction)
 % - type			(char) The type of extrem: 'max' or 'min' or 'min&max'
 % Outputs:
 % - hit_var_sorted  The hit variable, but event sorted.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('direction', 'var')
 	direction = 'ascend';
 end
 
 [ hit_var_sorted ] = convert.event_extreme(hit_var, events, 'sorted', direction);
+end

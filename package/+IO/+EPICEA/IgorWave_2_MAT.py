@@ -31,7 +31,7 @@ import argparse
 #--max-n: the maximum number of events to be read in, default=all
 #--n-files: the maximum number of Igor binary wave files to be read in (useful for debugging etc.), default=all
 #--max-ions (shorthand -mi): maximum number of ions you want to save data for for each event, default=4
-#--max-electrons (shorthand -me): maximum number of ions you want to save data for for each event, default=2
+#--max-electrons (shorthand -me): maximum number of electrons you want to save data for for each event, default=2
 #
 #If you have your file structure set up such that you have your raw data saved in some directory:
 # '*base_path*/RawData/*name_for_run*' (where, as described above, the folder '*name_for_run*' holds the cfg.txt file
@@ -163,14 +163,16 @@ class Client():
         maxFile=len(rawdata_list) if self.args.n_files is None else self.args.n_files
         
         for j in range(0,maxFile):
+		## Load ibw file number j:
             DataArray=ibw.load(rawdata_list[j])
             SigArray=ibw.load(rawsig_list[j])
+		## Place it into a numpy DataArray:
             Data=np.array(DataArray['wave']['wData'])
             Sig=np.array(SigArray['wave']['wData'])
-
+		## Clear memory of ibw import:
             del DataArray
             del SigArray
-            
+            	## Set initial parameters before loop:
             MaxNions=0
             MaxNelectrons=0
             index1=0

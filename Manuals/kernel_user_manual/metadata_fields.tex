@@ -1,0 +1,30 @@
+\section{Metadata}
+The metadata contains all the information \emph{about} the data, such as conversion parameters, but also filter and plot parameters. The package comes shipped with `default' parameters, which can be used when the data is first imported by the user. We have seen in the previous section how to start a first metadata file from those defaults. This section explains the different fields in the metadata, and what they can be used for. The metadata can be divided into different categories:
+
+\begin{itemize}
+\item[\emph{sample}], e.g. atomic mass, expected fragment masses, constituent masses.
+\item[\emph{photon beam}], e.g. the photon energy, intensity, duration, etc
+\item[\emph{spectrometer}],  e.g. the name, voltages and relevant dimensions of the used spectrometer are listed here.
+\item[\emph{detectors}], e.g. the names and properties of the detectors are stored in here.
+\item[\emph{correct}] The parameters needed to execute corrections onto the raw data, before conversion. For example, translation in X and Y to move the centre of detection into the origin of the coordinate system.
+\item[\emph{calibrate}] The information needed to perform the calibrations. Note that these are not the actual calibration factors, they are stored in the 'convert' field.
+\item[\emph{fit}] The fitting parameters.
+\item[\emph{convert}] The conversion factors (sorted in terms of detectors), such as mass to charge conversion.
+\item[\emph{plot}] The user-preferred plotstyle.
+\end{itemize}
+
+We will go through these categories and clarify the fields used in them.
+
+TODO
+
+\lstset{language=MATLAB}
+\begin{lstlisting}
+exp1_md.sample
+exp1_md.photon
+exp1_md.spec
+exp1_md.corr
+exp1_md.calib
+exp1_md.fit
+exp1_md.conv
+exp1_md.plot
+\end{lstlisting}

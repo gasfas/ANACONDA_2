@@ -1,0 +1,217 @@
+%\documentclass[12pt]{article} % use larger type; default would be 10pt
+%\documentclass[12pt]{book} 
+\documentclass[a4paper, 11pt]{article}
+%\documentclass[a5paper,11pt]{book}
+%\documentclass[a4paper,twoside]{report} % alternative, no headers by default
+% To fit 169x239 "G5" paper size wihth margins as Mediatryck template
+%\usepackage[a5paper]{geometry} % A5 is 148x210 mm
+
+\usepackage[paperwidth=169mm,paperheight=239mm,twoside,includehead,nomarginpar,
+top=15mm,bottom=25mm,inner=25mm,outer=15mm, %G5 paper, Mediatryck Word template
+headsep=5mm,headheight=4mm % Slightly decreased header separation and space
+%,showframe,showcrop %to show margins and crop marks
+]{geometry}
+%\usepackage[paperwidth=169mm,paperheight=239mm,total={13.3cm,19.6cm}, top=1.8cm, ignorehead, centering]{geometry}
+%\usepackage{geometry}
+
+%%% PAGE DIMENSIONS
+%\geometry{a5paper} % or letterpaper (US) or a5paper or....
+%\geometry{margin=1in} % for example, change the margins to 2 inches all round
+%\special{papersize=169mm,239mm}
+
+%%%% PACKAGES
+
+% Language:
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+%\usepackage{inputenc}
+\usepackage[english]{babel}
+\frenchspacing % no extra space between sentences (also means periods in abbreviations don't need escaping)
+\hyphenation{arrows sequen-tial auto-ion-iza-tion dis-tri-bu-tion po-lari-za-tion photo-ion-iza-tion photo-emis-sion basis photo-el-ec-tron series syn-chro-tron syn-chro-trons}
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+
+%%tables
+\usepackage{tabularx}
+\usepackage{booktabs} % for much better looking tables
+\usepackage[tableposition=top, font={it, sf}]{caption}
+
+
+%% text
+\usepackage{footnote}
+%\usepackage{vmargin} % WARNING: THIS PACKAGE RESETS PAGE SIZE TO A4! Do not use unless you need a4 page size.
+\usepackage{multicol}
+\usepackage{datatool}% http://ctan.org/pkg/datatool
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{datetime}
+\usepackage{siunitx}
+\usepackage{moresize}
+%\usepackage{enumitem}
+\usepackage{soul} % for \hl to mark with yellow background colour
+\usepackage{dcolumn} % for decimal separator-aligned columns more easily
+% Style
+\usepackage{fancyhdr}
+\usepackage[Lenny]{fncychap}
+\usepackage{cite}
+\usepackage{afterpage}
+
+% figures
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage{epstopdf}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{wrapfig}
+\usepackage[export]{adjustbox}
+\usepackage{etoolbox}
+%\usepackage{floatrow}
+\usepackage[section]{placeins} % prevent floats from appearing in the wrong section
+\usepackage{sidecap} % to allow side-captions with {SCfigure}
+\usepackage{etoolbox}
+
+%pages
+\usepackage{lastpage}
+%pdf
+\usepackage{pdfpages}
+\usepackage{afterpage}
+
+% IO
+\usepackage{import}
+\usepackage{bm}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{latexsym}
+\usepackage{upgreek}
+\usepackage{braket}
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage[version=3]{mhchem}
+\usepackage{mathtools}% Loads amsmath
+\usepackage{bm}
+% Appendix
+\usepackage[toc,page]{appendix}
+
+\usepackage{forloop}
+
+% Date
+\usepackage[en-GB,showdow=false]{datetime2}
+
+%% citations, references:
+\usepackage[pdftex,
+            pdfauthor={Bart Oostenrijk},
+            pdftitle={Charge and proton dynamics in molecules and free clusters},
+            pdfsubject={Charge and proton dynamics in molecules and free clusters},
+            pdfkeywords={Charge transfer, Electron-Ion coincidence spectroscopy, Molecular photodissociation, site-selective dissociation, Cluster fission, Coulomb explosion, proton hopping},
+            pdfproducer={Latex},
+            pdfcreator={pdflatex}]{hyperref}
+\hypersetup{urlcolor=black}
+\usepackage[numbers,comma,sort&compress]{natbib}  % numbers([]) or super(^)
+%\bibliographystyle{unsrt}
+\setlength{\bibsep}{0.6em plus 0.1em minus 0.07em} % Less vertical space between items
+\bibliographystyle{aux/naturemag-first-doilink}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Matlab,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\makeatletter
+\@addtoreset{footnote}{section} % reset footnote counter each chapter
+\makeatother
+
+\hypersetup{
+colorlinks 	= true,
+citecolor 	= black,
+linkcolor 	= black,
+urlcolor  	= black
+}
+
+%%% CUSTOMIZATIONS
+
+\newcommand{\sidebysidecaption}[4]{%
+%\RaggedRight%
+  \begin{minipage}[t]{#1}
+    \vspace*{0pt}
+    #3
+  \end{minipage}
+  \hfill%
+  \begin{minipage}[t]{#2}
+    \vspace*{0pt}
+    #4
+\end{minipage}%
+}
+
+\ChTitleVar{\bfseries\Huge\sf} 
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO,LE]{\sf \thepage}
+\fancyhead[RE]{\sf \rightmark}
+\fancyhead[LO]{\sf \leftmark}
+\fancyfoot{}
+
+\graphicspath{{Graphics/Methods/light_source/}}
+\graphicspath{{Graphics/}}
+
+\setcounter{tocdepth}{1} % To only show one/two levels in table of content. TODO: then the \subsection* can be \subsection with numbers to allow referring to them by number anyway.
+
+% This should at least allow large figures to appear also at bottom 
+\renewcommand{\topfraction}{0.5} % default .7
+\renewcommand{\bottomfraction}{0.75} % default .3
+\setcounter{bottomnumber}{2} % default 1? Max number of stacked bottom-figures within one page
+%\raggedbottom % OPTIONAL to not stretch vertically between paragraphs but leave blank bottom of page. Alternatively \enlargethispage can be usd to tweak individual page margin in the final layout.
+
+\hypersetup{unicode=true, pdfauthor={Bart Oostenrijk}}
+
+
+% Change local margin:
+
+%\def\changemargin#1#2#3#4{\list{}{\bottommargin#4\topmargin#3\rightmargin#2\leftmargin#1}\item[]}
+%\let\endchangemargin=\endlist 
+
+\def\changemargin#1#2#3#4{\list{}{\textheight#4\topmargin#3\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+%Quote
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+   \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+\interfootnotelinepenalty=10000

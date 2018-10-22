@@ -9,9 +9,10 @@ function [ label_mean ] = label_2_center(labeled_s, signal, labels)
 % label_mean:       The mean value of the specified 'labels' (in terms of number of
 %                   counts), [m, 1]
 %  SEE ALSO: convert.label_2_hist
-% Log:
-% repmat commands require lots of CPU time, therefore the signal and
+% Note: repmat commands require lots of CPU time, therefore the signal and
 % labeled_s are shrunk to the smallest size possible before manipulation.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% filtering the hits to the bare necessary:
 % Giving the index of The participating hits (the ones that are labeled):

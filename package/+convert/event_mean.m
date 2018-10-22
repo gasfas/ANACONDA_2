@@ -9,6 +9,8 @@ function [ var_mean, var_std ] = event_mean(hit_var, events)
 % - events          The event numbers
 % Outputs:
 % var_mean          The variable average.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Average value (mean)
 % The method is as follows:

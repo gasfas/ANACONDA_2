@@ -10,6 +10,8 @@ function [ var_extr1, var_extr2 ] = event_extreme(hit_var, events, type, directi
 % Outputs:
 % - var_extr1          The variable minimum, maximum, or sorted hits.
 % - var_extr1          The variable minimum or maximum
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Extreme value (min/max)
 % The method is as follows:

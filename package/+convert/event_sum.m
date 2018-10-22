@@ -9,6 +9,8 @@ function [ var_sum ] = event_sum(hit_var, events, remove_NaN)
 %                   zero. Default=0.
 % Outputs:
 % var_sum           The variable sum.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [nof_events]        = size(events, 1);
 e_NaN_f             = isnan(events);
