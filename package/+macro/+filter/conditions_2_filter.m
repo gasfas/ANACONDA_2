@@ -119,7 +119,7 @@ switch general.struct.probe_field(condition, 'value_type')
 		case 'discrete' % A discrete condition. Write the filter:
 			f = filter.hits.labeled_hits(condition_data, condition_value);
 		case 'continuous'
-			f = filter.hits.range(condition_data, condition_value(1), condition_value(2));
+			f = general.matrix.filter_range(condition_data, condition_value(1), condition_value(2));
 	end
 	% We have calculated the filter from the given conditions.
 	% Check whether the conditions are event or hit properties:

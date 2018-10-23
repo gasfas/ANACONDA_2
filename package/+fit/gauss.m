@@ -27,6 +27,8 @@ function [ FP, yfitdata, Fit_info] = gauss(xdata, ydata, IG, fit_param)
 %                   FP.mu.value     [nof_peaks, 1], The centres of the peaks. 
 %                   FP.sigma.value  [nof_peaks, 1], The centres of the peaks. 
 %                   FP.y_bgr.value  scalar, The centres of the peaks. 
+%
+% written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Make sure xdata and ydata are given in the right form:
 if size(xdata,2) > 1

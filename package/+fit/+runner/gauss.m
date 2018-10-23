@@ -7,7 +7,9 @@ function [ y_fit ] = gauss(PM, xdata)
 % xdata         [n,1]
 % parameters    [peak_centres, sigma, PH, y_bgr]
 % Output parameters:
-% ydata
+% y_fit			[n, 1] the fitted y values
+%
+% written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 nof_peaks = (length(PM) -1)/3;
 

@@ -10,5 +10,32 @@ After installing the package, one can start importing the data. There are severa
 >> edit IO.EPICEA.import_example ;% Importing ASCII delimited datafiles from EPICEA.  If you do not have the appropriate ASCII-delimited file format, contact the EPICEA (or PLEIADES beamline) experts.
 \end{lstlisting}
 
+At the end of importing the data, it is advised to save the data to a `.mat' (MATLAB) format. For example, in the case of the COBOLD import, one could write:
+
+\begin{lstlisting}
+data = IO.COBOLD.import_example('file/to/path', 'filename'); % import the data
+IO.save_exp(data, 'file/to/path', 'filename'); & save it to a binary '.mat' file
+\end{lstlisting}
+
 \paragraph{Create first metadata}
-TODO
+Metadata is literally 'data about the data', and the package needs to know more about this data to start the data treatment. For example, we need to know what this 'raw' data contains. This kind of information can be stored in a separate 'metadata' file. Each datafile must contain such a file (habitually in the same folder as the data, with the same name except the prefix 'md\_' and extension '.m'). So, create a metadata called 'md\_filename.m' with the file to the datafile that is called 'filename.mat'. This file 'md\_filename.m' could look like this:
+
+\begin{lstlisting}
+% Metadata file for 'filename'.
+%% Defaults
+% The default values are loaded from the package:
+exp_md = metadata.defaults.exp.CIEL.md_all_defaults();
+%% Custom values
+% Here, we can customise these default values.
+% For example, the mass-2-charge conversion factor:
+exp_md.conv.det1.m2q.factor = 2500;
+\end{lstlisting}
+
+The metadata file is read as a matlab script when it is read, so all MATLAB functionalities are available. The name of the metadata struct has to be `exp\_md'. \\
+After this file is written, the data and metadata can be loaded to memory by typing:
+
+
+\begin{lstlisting}
+
+\end{lstlisting}
+

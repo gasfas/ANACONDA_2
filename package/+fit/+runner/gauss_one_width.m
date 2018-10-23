@@ -5,7 +5,9 @@ function [ y_fit ] = gauss_one_width(PM, xdata)
 % xdata         [n,1]
 % parameters    [first_peak_centre, last_peak_centre, peak_spacing, peak_height, p_A, sigma_G, sigma_L, noise_level]
 % Output parameters:
-% ydata
+% y_fit			[n, 1] the fitted y values
+%
+% Shell written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 nof_peaks = (length(PM)-2)/2;
 

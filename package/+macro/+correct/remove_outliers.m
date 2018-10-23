@@ -38,7 +38,7 @@ for i = 1:length(detnames)
 			case 'discrete' % A discrete condition. Write the filter:
 				f = filter.hits.labeled_hits(condition_data, condition_value);
 			case 'continuous'
-				f = filter.hits.range(condition_data, outl_signal.value(1), outl_signal.value(2));
+				f = general.matrix.filter_range(condition_data, outl_signal.value(1), outl_signal.value(2));
 		end
 		% Now we assign the NaN values:
 		switch outl_signal.remove_method

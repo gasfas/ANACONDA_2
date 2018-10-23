@@ -14,8 +14,10 @@ function create_configuration_file(conf_struct)
 		% filenumber	number of the input datafile. Default = 1;
 		% SampleName: 	Name. Default = 'AbelInversion';
 		% ImageSize: 	The x, and y-size. Default = [1000, 1000];
+%
+% Routine developed by FOM research institute, Amsterdam.
+% Shell written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-		
 %% Define the defaults, fill in the missing values:
 		
 def.Symmetry	= 0;

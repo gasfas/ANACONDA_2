@@ -11,6 +11,10 @@ function [ TOF_c ] = no_KE_TOF(TOF_measured, V_created, V_lens, V_DriftTube, p)
 % p                 the polynomial fit parameters [n,1]
 % Output:
 % TOF_c				The corrected TOF [ns]
+%
+% SEE ALSO: correct.lens_abb.dR
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
 % Calculate the nondimensional voltage difference:

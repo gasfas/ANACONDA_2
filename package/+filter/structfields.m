@@ -1,5 +1,5 @@
 function [filtered_struct] = structfields(struct_in, filter)
-% This function generates a new struct from a given struct, with the
+% This function generates a copy from a given struct, with the
 % difference that a filter is applied to the new structfields. note that all the
 % fields in the struct need to store a similar-sized matrices (the first
 % dimension of the matrices), otherwise the field is copied without filtering. Works recursively.
@@ -8,6 +8,8 @@ function [filtered_struct] = structfields(struct_in, filter)
 % filter           [n,1] logical filter that specifies which elements should be transmitted (true), or not (false)
 % Output:
 % filtered_struct   The struct storing filtered arrays.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Check the names of the event fields:
 fields_r = general.struct.fieldnamesr(struct_in);

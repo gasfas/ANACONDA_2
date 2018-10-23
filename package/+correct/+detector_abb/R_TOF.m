@@ -15,7 +15,10 @@ function [ TOF_c ] = R_TOF (TOF_noKE, V_created, V_detector, V_DriftTube, R, R_d
 % 
 % Output:
 % TOF_c				The corrected TOF [ns]
-
+%
+% SEE ALSO: correct.detector_abb.dR, correct.detector_abb.no_KE_TOF
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Calculate the nondimensional voltage difference:
 V_nd        = (V_detector - V_DriftTube) ./ (V_created - V_DriftTube);

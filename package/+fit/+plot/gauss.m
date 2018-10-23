@@ -7,6 +7,8 @@ function [ ydata, hLine ] = gauss(ax, xdata, FP, plotstyle)
 %               FP.sigma.value  The standard deviation of all peaks
 %               FP.PH.value     The peak height of all peaks
 %               FP.y_bgr.value  The background y-value.
+%
+% Shell written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 ydata = theory.function.gauss_PDF(xdata, FP.mu.value, FP.sigma.value, FP.PH.value) + FP.y_bgr.value;
 

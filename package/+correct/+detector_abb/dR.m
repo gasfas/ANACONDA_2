@@ -14,7 +14,10 @@ function [ R_corr ] = dR (V_created, V_detector, V_DriftTube, R, R_det, p)
 % 
 % Output:
 % R_corr            The corrected TOF [mm]
-
+%
+% SEE ALSO: correct.detector_abb.no_KE_TOF, correct.detector_abb.R_TOF
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Calculate the nondimensional voltage difference:
 V_nd        = (V_detector - V_DriftTube) ./ (V_created - V_DriftTube);

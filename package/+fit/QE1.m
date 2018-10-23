@@ -11,7 +11,12 @@ function [BR_Ci_phys, Fit_info] = QE1(C_nrs, BR_Ci_meas, QE_i, QE_e, IG, fit_par
 % 			ratio
 %			IG.BR.min	(optional) the minimum values
 %			IG.BR.max	(optional) the maximum values
-
+% fit_param struct with fitting parameters
+% Output:
+% BR_Ci_phys The physical branching ratio at specified C_nrs
+% Fit_info	Technical log on the least-square fitting procedure
+%
+% written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Define all defaults (DF):
 [DF, DF_fit_param] = fit.defaults.QE1(C_nrs, BR_Ci_meas, length(C_nrs));

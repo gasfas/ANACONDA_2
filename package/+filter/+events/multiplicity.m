@@ -10,6 +10,8 @@ function [is_mult] = multiplicity(events, min, max, nof_hits)
 % Output:
 % is_mult:      Boolean matrix [nof_events, 1], true for events within min
 % and max multiplicity
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % calculate the multiplicity of the event(number of hits in an event):
 multiplicity = convert.event_multiplicity(events, nof_hits);

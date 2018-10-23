@@ -7,6 +7,8 @@ function [ exp_f ] = exp(exp, filt_events, nof_hits)
 % nof_hits			The number of hits of each detector in the experiment.
 % Output:
 % exp_f             The event-filtered experiment
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Initiate exp_f
 exp_f = rmfield(exp, {'e', 'h'});

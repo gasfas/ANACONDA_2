@@ -20,7 +20,8 @@ function [event_filter] = hits_2_events(hit_filter, events, nof_hits, condition)
 %                         should result in an approved event.
 % Output:
 % event_filter:         The filter that can be applied to the events [nof_events, 1]
-
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 switch condition
 	case 'hit1'

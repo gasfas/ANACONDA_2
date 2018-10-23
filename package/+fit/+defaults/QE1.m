@@ -8,6 +8,8 @@ function [ DF, FP ] = QE1(xdata, ydata, nof_BRs)
 % Output:
 % IG            Struct, default Initial Guesses
 % FP            Struct, default Fit Parameters
+%
+% Shell written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % We define the Initial Guess (IG) and the Fit Parameters (FP) defaults:
 

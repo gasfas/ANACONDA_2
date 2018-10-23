@@ -4,9 +4,7 @@ example_data
 Versions
 Documentation
 /package/+fit/+Abel_inversion/+FOM/*.dat
-!/package/+fit/+Abel_inversion/+CpBasex/gData
-/package/+fit/+Abel_inversion/+CpBasex/gData/*
-/package/+fit/+Abel_inversion/+CpBasex/CPBASEX/*
+/package/+fit/+Abel_inversion/+CpBasex/*
 /package/+simu/+rundir/*
 /package/+simu/+rundir_bck/*
 **/*.m~

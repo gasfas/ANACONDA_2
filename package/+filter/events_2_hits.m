@@ -9,6 +9,9 @@ function [hit_filter] = events_2_hits(event_filter, events, nof_hits)
 % Output:
 % hit_filter:           The filter that can be applied to the hits (struct 
 %                       with fields 'det1', 'det2' etc)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 [nof_events, nof_det] = size(events);
 
 % If there are different events approved by different filter columns, we

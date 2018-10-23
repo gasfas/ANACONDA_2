@@ -1,5 +1,28 @@
 function [xpeaks, ypeaks, xwidths] = findpeakseries (xdata, ydata, MinPeakProminence, spacing_min, spacing_max, include_first, include_last, choose_series)
-% This function finds a peak series in a given histogram/function. 
+% This function finds a peak series in a given histogram/function, that are
+% periodically spaced at an interval spacing that is roughly known.
+% Inputs:
+% xdata			[n,1] containers at which the intensities are defined
+% ydata			[n,1] Intensities at xdata, that contains the peak series
+% MinPeakProminence scalar of the minimum prominence of the peaks above the
+%				background (noise) level
+% spacing_min	scalar, the minimum spacing the user expects the peak
+%				interval spacing to be at
+% spacing_max	scalar, the maximum spacing the user expects the peak
+%				interval spacing to be at.
+% include_first logical scalar, whether or not to include the first (possibly weak) peak (first along x).
+% include_first logical scalar, whether or not to include the last (possibly weak) peak (last along x).
+% choose_series char array, specifying which peak series to pick when mulitple are found. Options:
+%					'longest': the one containing most peaks
+%					'first': the one that shows the first peak (with lowest x value)
+% xpeaks		[k, 1] The x values of the found peak series
+% ypeaks		[k, 1] The y-values of those peaks
+% xwidths		[k, 1] The widths (along x) of each peak
+%
+% See also findpeaks
+%
+% written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 %% Find all peaks:
 	[ypeaks_all, xpeaks_all, xwidths_all] = findpeaks(ydata, xdata, 'MinPeakProminence', MinPeakProminence);

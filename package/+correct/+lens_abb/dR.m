@@ -13,6 +13,10 @@ function [ R_corr ] = dR (V_created, V_lens, V_DriftTube, R, p)
 % 
 % Output:
 % R_corr            The corrected TOF [mm]
+%
+% SEE ALSO: correct.lens_abb.no_KE_TOF
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
 % Calculate the nondimensional voltage difference:

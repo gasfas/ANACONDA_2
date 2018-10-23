@@ -8,6 +8,8 @@ function [hit_filter] = events_2_hits_det(event_filter, events, nof_hits)
 % nof_hits              Number of hits 
 % Output:
 % hit_filter:           The filter that can be applied to the hits [nof_hits, 1]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % If there are different events approved by different filter columns, we
 % only approve the events that are approved by all columns:
