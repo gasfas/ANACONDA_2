@@ -20,6 +20,9 @@
 %  event_count (double) number of groups read
 %
 % SEE ALSO set_rescue_mode
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 function event_count = read_slow(dlt, continue_if_footer_is_missing)
 
 if nargin < 2

@@ -1,6 +1,6 @@
 function [ exp ] = Imperial_2_ANA2(path, filename)
 %This function converts freshly IGOR imported binaries (by Imperial college
-% London code, .MAT format) into the ANACONDA 2 format.
+% London code (TBarillot), .MAT format) into the ANACONDA 2 format.
 % The Imperial and ANACONDA 2 formats are slightly different:
 % Just as for ANA2, the Imperial code consists of a matrix for each detector, 
 % the electron and ion detector in this case. A separate row exist for

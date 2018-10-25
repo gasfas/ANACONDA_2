@@ -19,6 +19,10 @@
 %  legend_handle handle to the symbol legend object
 % SEE ALSO
 %  set_TOF_anomaly_range min_TOF_anomaly TOF_anomaly_histogram DLT.log_anomaly_histogram
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function legend_handle = show_TOF_anomaly_histogram(det, dlt) 
 % clf;
 hold off;

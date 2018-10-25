@@ -7,6 +7,8 @@ function  [data_out] = m2q(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 data_out = data_in;
 
@@ -18,7 +20,7 @@ end
 
 for i = 1:length(detnames)	
 	detname		= detnames{i}; 
-    detnr		= IO.detname_2_detnr(detname);
+    detnr		= general.data.pointer.detname_2_detnr(detname);
     % execute the TOF to m2q conversion if TOF is one of the signals:
     if (general.struct.probe_field(metadata_in.conv.(detname).ifdo, 'm2q') && all(isfield(data_out.h.(detname), {'TOF'}))) || ...
 			(general.struct.probe_field(metadata_in.conv.(detname).ifdo, 'm2q') && all(isfield(data_out.h.(detname), {'TOF'})))

@@ -7,6 +7,9 @@ function  [data_out] = ionization_position(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 % Fetch the chosen data:

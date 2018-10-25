@@ -6,6 +6,8 @@ function [ detnames, detnrs, idxs ] = pointer_2_detnames( pointer )
 % -pointer	String with the pointer to the signal
 % Outputs:
 % detnames	Cell of strings with the different detector name(s)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if iscellstr(pointer) && length(pointer) > 1
 	for i = 1:length(pointer)
@@ -29,7 +31,7 @@ else
 		end
 	end
 	if nargout > 1
-		detnrs = IO.detname_2_detnr(detnames);
+		detnrs = general.data.pointer.detname_2_detnr(detnames);
 	end
 
 	if nargout>2

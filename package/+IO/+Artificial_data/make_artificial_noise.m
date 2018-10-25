@@ -5,6 +5,8 @@ function [ simu ] = make_artificial_noise ( simu_md )
 % simu_md   the simulation metadata
 % Output:
 % simu      the simulation output data
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 n                           = simu_md.noise.n;
 

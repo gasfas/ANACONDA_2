@@ -111,6 +111,10 @@
 %  rescue_mode_name
 %  TDC.read
 %  read_TDC_vectorized_i5 -- an alternative implementation (requiring minor adjustment in TDC.read) where the first filtering step is done before Detector-methods are called.
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function [XYT, event_start, discarded, rescued, from_which_group] = read_TDC_vectorized_i1(det, channel_token, value, is_last, is_start, indices_to_ignore)
 
 chs = det.channels_token; % cache

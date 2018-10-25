@@ -1,4 +1,4 @@
-function  [data_out] = dpxz_2_angle(data_in, metadata_in, det_name)
+function  [data_out] = dp_2_angle(data_in, metadata_in, det_name)
 % This macro converts the X,Y coordinates to R, theta (polar) coordinates.
 % Input:
 % data_in        The experimental data, already converted
@@ -7,9 +7,10 @@ function  [data_out] = dpxz_2_angle(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
-
-
 
 if exist('det_name', 'var')
     detnames = {det_name};

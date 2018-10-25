@@ -1,12 +1,17 @@
 function [nof] = nof_conseq_trues(logic_array)
 % This function calculates the number of consequtive 'trues' after one
-% another. The number is reset to zero for every 'false' value.
+% another in a logical array. The number is reset to zero for every 'false' value.
 % input:
 % logic_array	(n, 1) The logical array that is under study
 % Output:
 % nof			(n, 1) the number of consequtive trues in logic_array
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
+% Initialize empty array:
 subtract_array = zeros(size(logic_array));
 
+% First version of the number of false/trues:
 nof_v1 = cumsum(logic_array);
 
 % find the places where the first trues are:

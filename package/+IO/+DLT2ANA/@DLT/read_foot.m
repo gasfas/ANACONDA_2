@@ -12,6 +12,9 @@
 % its footer will be missing and this method will throw the error 'DLT:foot'.
 % In that case, read(true) may be used to read as much event data as
 % possible although the file is incorrectly terminated.
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 function success = read_foot(dlt)
 %DLT.FOOTER_MARKER == uint8([0;0;0;0;254;254;254;254]); % the first zero in the FOOTER_MARKER also servest to end the data body (not a group)
 assert(length(DLT.FOOTER_MARKER) == 8);

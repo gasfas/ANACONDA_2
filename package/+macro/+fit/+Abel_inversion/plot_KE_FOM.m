@@ -1,6 +1,14 @@
 function [h_figure, h_axes, h_GraphObj] = plot_KE_FOM(fit_md)
 % Function that visualizes the KER plot from a previous executed FOM Abel
 % inversion.
+% Input
+% fit_md	struct, the metadata describing the fitting procedure
+% Output
+% h_figure	Figure handle
+% h_axes	Axes handle
+% h_GraphObjGraphical Object handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % The user wants to show a kinetic energy histogram from the inverted image:
 % Fetch R, theta coordinates:

@@ -7,12 +7,19 @@ function [y_peak, FWHM] = H_2D(histgr, y_values)
 % Output: 
 %   y_peak:			[m, 1] The peak value at corresponding x_value.
 %   FWHM:			[m, 1] The Full Width Half Maximum at corresponding x_value.
-	total_nof_hits = (sum(histgr,2,'omitnan'));
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
+% calculate the total number of hits:
+total_nof_hits = (sum(histgr,2,'omitnan'));
 	if ~isempty(histgr)
+		% Find the maximum values and locations
 		[I_peak, loc] = max(histgr,[], 2,'omitnan');
+		% fill these into the y_peak array:
 		y_peak = y_values(loc);
+		% Fill in NaN when no peak is found:
 		y_peak(total_nof_hits == 0) = NaN;
-	else
+	else % empty histogram given, so empty y_peak returned:
 		y_peak = NaN*ones(size(y_values));
 	end
 	

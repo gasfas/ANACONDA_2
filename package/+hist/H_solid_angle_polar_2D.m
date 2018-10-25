@@ -8,6 +8,8 @@ function [ Count, theta_bins, R_bins] = H_solid_angle_polar_2D(theta, R, theta_b
 % binsize_mean  [2,1] The average binsize of the histogram [rad], [R_unit]
 % theta_range   [2,1] The maximum and minimum theta coordinate to include in the histogram
 % R_range		[2,1] The maximum and minimum radial coordinate to include in the histogram
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
 % bin the counts in the containers:

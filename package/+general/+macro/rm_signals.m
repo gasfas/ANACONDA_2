@@ -2,6 +2,12 @@ function exp_raw = rm_signals(exp)
 % This convenience function clears out the 
 % experimental data structure, such that only the
 %  raw input signal is left:
+% Inputs:
+% exp	struct, the experimental data with possible extra signals.
+% Outputs:
+% exp_raw	struct with the experimental data with only the raw signal.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 try % Take the raw event signal, assuming there is only one experiment:
 	exp_raw.e.raw = exp.e.raw;

@@ -1,6 +1,14 @@
 function [ exp ] = ANA1_2_ANA2 ( filename_ANA1 )
-% This function is intended to convert the old-fashioned DLT format (sorted
+% This function is intended to convert the old-fashioned (legacy) ANACONDA format (sorted
 % on coincidence number) to the event-based format
+% Inputs:
+% filename_ANA1		The filename where the ANACONDA1 file is stored under
+% Outputs:
+% exp				The data in ANACONDA_2 format.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
+
 %   Not shuffling up the data, so the order is: single, double, triple, etc
 %   etc ... coincidences.
 

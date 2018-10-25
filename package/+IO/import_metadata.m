@@ -1,10 +1,17 @@
 function [exp_md, simu_md, th_md] = import_metadata (filename)
- %  This macro imports the metadata from a filename.
- %  input:
+%  This macro imports the metadata from a filename.
+%  Input:
 % filename  The directory and filename to the metadatafile of interest.
 %           If no file extension is given, a MAT file is searched. if no
 %           MAT file is found, a .m script is attempted to be loaded.
- 
+% Output:
+% exp_md	struct, The experimental metadata
+% simu_md	struct, The simulation metadata (if it exists)
+% th_md	struct, The theory metadata (if it exists)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
+
  [dir, file, ext] = fileparts(filename);
 
  try 

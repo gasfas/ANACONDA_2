@@ -4,6 +4,8 @@ function [data_out] = correct(data_in, metadata_in)
 % TODO: loop over corrections (all detectors), instead of all conversions
 % for one detector.
 % SEE ALSO macro.corrected_to_converted
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % The order of performing the different corrections depends on the order in
 % which the detectors and 'ifdo' statements are defined in the metadata: 

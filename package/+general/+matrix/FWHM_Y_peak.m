@@ -12,6 +12,8 @@ function [FWHM_below, FWHM_above]= FWHM_Y_peak(I, y_values, loc, I_peak)
 % Outputs;
 % FWHM_below The Full width at half maximum (in y-units) below the peak.
 % FWHM_above The Full width at half maximum (in y-units) above the peak.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('I_peak', 'var')
 	sub_peaks = sub2ind(size(I), loc, 1:size(I,2));

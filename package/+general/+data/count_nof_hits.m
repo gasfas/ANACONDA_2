@@ -8,6 +8,9 @@ function [ nof_hits, nof_events ] = count_nof_hits(exp_hits)
 % Output:
 % nof_hits:     number of hits for each detector, arranged in the order
 % fieldnames gives the names. [1, length(detnames)]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 detnames = fieldnames(exp_hits);
 nof_hits = zeros(1, length(detnames));
 for i = 1:length(detnames)

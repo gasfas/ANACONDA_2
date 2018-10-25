@@ -7,6 +7,9 @@ function  [data_out] = remove_outliers(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with corrected data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -30,7 +33,7 @@ for i = 1:length(detnames)
 	for outl_sign_nr = 1:length(sign_names)
 		outl_signal = outl_signs.(sign_names{outl_sign_nr});
 		% Read the data from the pointer:
-		[condition_data, data_form] = IO.read_data_pointer(outl_signal.data_pointer, data_in);
+		[condition_data, data_form] = general.data.pointer.read(outl_signal.data_pointer, data_in);
 		% And read the value of the actual condition:
 		condition_value = outl_signal.value;
 		% Check whether the conditions are discrete or continuous:
@@ -82,7 +85,7 @@ end
 function [data_out] = replace_NaN_full_event(data_in, det_name_default, detnames, filt)
 data_out = data_in;
 % calculate the number of hits of all detectors:
-nof_hits_all	= IO.count_nof_hits(data_in.h);
+nof_hits_all	= general.data.count_nof_hits(data_in.h);
 	% loop over all detectors:
 	for i = 1:length(detnames)
 		det_name_cur = detnames{i};
@@ -91,9 +94,9 @@ nof_hits_all	= IO.count_nof_hits(data_in.h);
 			filt_det_cur	= filt;
 		else
 			% Find the detector number where the filter is already defined in:
-			detnr_default	= IO.detname_2_detnr(det_name_default);
+			detnr_default	= general.data.pointer.detname_2_detnr(det_name_default);
 			% and of the current detector:
-			detnr_cur		= IO.detname_2_detnr(det_name_cur);
+			detnr_cur		= general.data.pointer.detname_2_detnr(det_name_cur);
 			% Then translate the hit filter to an event filter:
 			e_filt			= filter.hits_2_events(filt, data_in.e.raw(:,detnr_default), nof_hits_all(detnr_default), 'AND');
 			% And translate that again to a hit filter of the requested detector:

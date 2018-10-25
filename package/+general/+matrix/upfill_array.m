@@ -23,6 +23,8 @@ function [ X_filled ] = upfill_array(X_unfilled, fill_value, DIM, enumerate)
 % X_filled =  NaN      4      0     0     1   NaN
 %               5      6      6   NaN   NaN     2
 %             NaN    NaN      1     1   NaN     1
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ischar(fill_value) && strcmpi(fill_value, 'NaN')
     % the routine cannot handle NaN's, so we give it another (unique) value:

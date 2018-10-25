@@ -28,7 +28,9 @@
 %  full_property    Struct as in the property list, with the fields name, value, raw_type and raw_bytes.
 %                   If the property is not found, an empty struct is returned.
 %  indices          Which indices from the property list were returned.
-function [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
 
 if nargin < 3
   require_datatype = ''; % no data type requirement

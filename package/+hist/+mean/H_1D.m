@@ -6,6 +6,8 @@ function [avg, stddv] = H_1D(Count, x_values)
 % Output: 
 %   avg:			float, The average value at corresponding x_value.
 %   stddv:			float, The standard deviation around the mean (as defined in MATLAB).
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 	total_nof_hits = (sum(Count,1,'omitnan'));
 	if ~isempty(Count)

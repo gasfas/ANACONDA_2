@@ -63,7 +63,9 @@
 %
 % SEE ALSO
 %  get_hit_count is_loaded_data_current discarded_kept XYT from_which_event
-function [T, XY, event_index] = get_loaded(dlt, detector_index, event_index, hit_index, strict)
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [T, XY, event_index] = get_loaded(dlt, detector_index, event_index, hit_index, strict)
 
 if nargin < 1
   error('No detector index given.')

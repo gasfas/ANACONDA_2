@@ -7,6 +7,9 @@ function [ Efficiency ] = Eff(Mass, md, detname)
 %				'spec' (spectrometer info)
 % Output:
 % Efficiency	The modeled efficiency (fraction)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('detname', 'var')
 	detname = 'det1';
 end

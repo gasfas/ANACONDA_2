@@ -44,6 +44,9 @@
 % If the appropriate form of data is given and the sampling is tight then
 % quantile(xsamples,pi) =approx= round(quantilei(x,frequency,p,'linear'))
 % See also: fwhmi
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function q = quantilei(x, frequency, p, method)
 if nargin < 3
   p = [0.03 0.1 0.25 0.5 0.75 0.9 0.97];

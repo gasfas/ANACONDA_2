@@ -15,8 +15,10 @@ function [histw, x_centres] = H_1D(hits, weight, x_edges)
 % ww = [7 1 1 12 8 5 0.1]; % weights
 % x_edges = 0.5:1:9.5;
 % [histw, centres] = hist.weighted.H_1D(vv', ww', x_edges')
-% Example Visualise:
+% % Example Visualise:
 % bar(centres, histw)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % remove hits out of range:
 f_rm = hits > max(x_edges) | hits < min(x_edges);

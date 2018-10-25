@@ -18,6 +18,8 @@ function [ fragment_masses, nof_occurences ] = fragment_masses(constituent_weigh
 %                           cluster_min_occurences(2,1) and cluster_min_occurences(2,2)
 %                           TO BE IMPLEMENTED
 %                           if no input given, 'all' is assumed.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % overhead:
 if ~exist('constituent_min_occurence_numbers', 'var')

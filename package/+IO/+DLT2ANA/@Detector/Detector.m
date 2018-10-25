@@ -51,8 +51,11 @@ classdef (Abstract) Detector < handle % subclasses cannot be mixed in []-arrays,
     % The currently selected rescue mode index (uint32),
     % a one-based index into rescue_mode_names.
     % SEE ALSO
-    %  set_rescue_mode
-    rescue_mode = uint32(1); % 'no rescuing'
+	%  set_rescue_mode
+	%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+rescue_mode = uint32(1); % 'no rescuing'
   end
   
   properties (SetAccess = protected) %(read-performance is not important for these)

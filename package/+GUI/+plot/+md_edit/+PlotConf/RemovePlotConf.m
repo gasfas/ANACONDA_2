@@ -33,7 +33,7 @@ for lx = 1:length(exp_names)
     end
     for ly = 1:numberofdetectors
         current_det_name = char(detector_choices(ly));
-        detnr			 = IO.detname_2_detnr(current_det_name);
+        detnr			 = general.data.pointer.detname_2_detnr(current_det_name);
         % Find a human-readable detector name:
         hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
         currentplottypes = fieldnames(md_GUI.mdata_n.(current_exp_name).plot.user.(current_det_name));
@@ -105,7 +105,7 @@ if yesorno == 1
         end
         for ly = 1:numberofdetectors
             current_det_name = char(detector_choices(ly));
-            detnr			 = IO.detname_2_detnr(current_det_name);
+            detnr			 = general.data.pointer.detname_2_detnr(current_det_name);
             % Find a human-readable detector name:
             hr_detname		= md_GUI.mdata_n.(char(exp_names(lx))).spec.det_modes{detnr};
             currentplottypes = fieldnames(md_GUI.mdata_n.(char(exp_names(lx))).plot.user.(current_det_name));

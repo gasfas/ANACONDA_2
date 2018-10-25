@@ -9,8 +9,9 @@ function [Count, x_midpoints] = H_1D(x_data, x_edges)
 %   Count:		[m, 1] column array with the elements giving the number of points from
 %				x_data within the specified x_edges.
 %	x_midpoints: [m, 1] column array with the centres of the bins.
-
 % TODO: Implement MEX ndhist (faster):
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [Count, ~, mid]= hist.histcn(double(x_data), x_edges);
 x_midpoints           = cell2mat(mid);

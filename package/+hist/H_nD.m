@@ -16,6 +16,8 @@ function [Count, midpoints] = H_nD(data, edges, weight)
 %				x_data within the specified x_edges.
 %	midpoints:	Column array with the centres of the bins. Same structure as
 %				edges
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Does the user want to calculate a weighted histogram:
 if exist('weight', 'var')

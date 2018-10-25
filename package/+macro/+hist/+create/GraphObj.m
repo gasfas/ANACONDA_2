@@ -13,6 +13,8 @@ function [h_GraphObj] = GraphObj(h_axes, hist, GraphObj_md)
 %						'Image', 'Line', 'Patch', etc.
 % Outputs:
 % h_GraphObj The Graphical Object handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if numel(GraphObj_md) > 1
 	for i = 1:numel(GraphObj_md)

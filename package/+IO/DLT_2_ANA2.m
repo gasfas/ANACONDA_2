@@ -1,10 +1,11 @@
-function [exp, info] = DLT_2_ANA2(dltfilename)
+function [exp] = DLT_2_ANA2(dltfilename)
 % This function imports and returns a DLT file into the ANACONDA2 format. 
 % Input:
 %   dltfilename:    The filename, the full directory, to the DLT file.
 % Output:
 %   exp:            The struct containing the data
-%   info:           Information on the DLT file, and importing procedure.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Importing
 disp('Assuming a TOF measurement with Laksman setup: X,Y,T output hits')
@@ -39,7 +40,7 @@ exp.h.det1.raw = XYT;
 exp.h.det1.raw_sn = {'X [mm]', 'Y [mm]', 'T [ns]'};
 
 % making sure that the zero-hit events get a 'NaN' label:
-[exp.e.raw] = IO.zero_mult_to_NaN (exp.e.raw, size(exp.h.det1.raw,1));
+[exp.e.raw] = filter.zero_mult_to_NaN (exp.e.raw, size(exp.h.det1.raw,1));
 
 % making sure that the last event pointer is not bigger than the nof hits:
 if exp.e.raw(end) > size(exp.h.det1.raw,1)

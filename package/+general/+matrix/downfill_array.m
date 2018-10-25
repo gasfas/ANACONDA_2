@@ -23,6 +23,8 @@ function [ X_filled ] = downfill_array(X_unfilled, fill_value, DIM)
 % X_filled =    1      4      4     4     1   NaN
 %               5      6      6   NaN   NaN     2
 %               1    NaN    NaN    14   NaN    16
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 X_filled = general.matrix.upfill_array(flip(X_unfilled,1), fill_value, DIM);
 X_filled = flip(X_filled,1);

@@ -3,7 +3,10 @@ function save_exp_n(ds, d_fns)
 % Input:
 %   ds		= Struct containing fhe measurement datafiles
 %   d_fns	= the struct with full directories to where the *.mat file should be stored.
-
+% output:
+%	-
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 try 
 	exp_names		= ds.info.foi;

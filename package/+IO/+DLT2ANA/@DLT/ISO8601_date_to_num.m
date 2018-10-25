@@ -8,7 +8,9 @@
 %  Matlab_datnum    Matlab date number, i.e. days since year 0 (31 December year -1).
 %                   Multiply by 86400 to get a time scale in units of seconds.
 % timezone_seconds  The timezone-info of the input date
-function [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
 
 try
   if length(str) == 28

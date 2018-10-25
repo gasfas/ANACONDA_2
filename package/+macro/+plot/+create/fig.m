@@ -6,6 +6,8 @@ function [h_figure] = fig(fig_md)
 %				list of structs, then multiple figures and handles are intiated.
 % Outputs:
 % h_figure	The Figure handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if numel(fig_md)>1
 	for i = 1:numel(fig_md)

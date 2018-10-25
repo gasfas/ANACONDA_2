@@ -7,6 +7,9 @@ function  [data_out] = KER(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -17,7 +20,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= IO.detname_2_detnr(detname);
+	detnr	= general.data.pointer.detname_2_detnr(detname);
 	
 	switch metadata_in.spec.det_modes{detnr}
 		case 'ion' % we assume a TOF mass spectrometer, and that the momenta are known.

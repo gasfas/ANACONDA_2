@@ -78,6 +78,10 @@
 %  has_XY
 %  rescue_mode_names
 %  read_TDC_vectorized_i1
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function [XYT, discarded, rescued] = read_TDC_array(det, channels, values, counts_selected)
 rescued = uint32(0); % initialize to zero (nothing rescued)
 discarded = rescued; % initialize to zero (no error)

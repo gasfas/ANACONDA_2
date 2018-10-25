@@ -5,6 +5,8 @@ function [histogram] = solid_angle_correction(histogram, theta_dim_nr)
 %			and 'midpoints', giving the midpoints in each dimension.
 % Outputs:
 % histogram; the same struct, but now with corrected intensity.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % We fetch the angular midpoints:
 dim				= general.matrix.nof_dims(histogram.Count);

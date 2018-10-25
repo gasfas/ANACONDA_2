@@ -6,6 +6,8 @@ function [ merged_exp ] = merge_exp(sep_exps)
 %                           sep_exps.exp2 etc.
 % Outputs:
 % merged_exp The merged experiments.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % removing extra unnecessary fields:
 try sep_exps = rmfield(sep_exps, 'info'); end
@@ -25,7 +27,7 @@ for i = 1:nof_exps
     % Count the number of events:
     nof_events(i) = size(sep_exps.(expname).e.raw, 1);
     % Count the number of hits:
-    nof_hits(i, :) = IO.count_nof_hits(sep_exps.(expname).h);
+    nof_hits(i, :) = general.data.count_nof_hits(sep_exps.(expname).h);
 end
 
 %% Merging:

@@ -1,4 +1,4 @@
-function [data, data_form]= read_data_pointer(pointer, exp)
+function [data, data_form]= read(pointer, exp)
 % Function that reads the data from a given experiment, with the pointer
 % specified.
 % Inputs:
@@ -6,6 +6,9 @@ function [data, data_form]= read_data_pointer(pointer, exp)
 % -exp		(struct) Experimental data (with subfields e and h for events and hits
 % Outputs:
 % data		Array of data pointer
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 % data_form	The type of data, either 'hits' or 'events'
 % read data from pointer:
 	try data		= eval(['exp.' pointer]);
@@ -36,7 +39,7 @@ function [data, data_form]= read_data_pointer(pointer, exp)
 			fns = fieldnames(hitmax);
 			for i = 1:length(fns)
 				detname			= fns{i};
-				detnr			= IO.detname_2_detnr(detname);
+				detnr			= general.data.pointer.detname_2_detnr(detname);
 				nof_hits		= size(exp.h.(detname).raw, 1);
 				e_f_all			= e_f_all & filter.events.multiplicity(exp.e.raw(:,detnr), hitmax.(detname).max, Inf, nof_hits);
 			end

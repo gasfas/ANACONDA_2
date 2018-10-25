@@ -7,4 +7,5 @@ Documentation
 /package/+fit/+Abel_inversion/+CpBasex/*
 /package/+simu/+rundir/*
 /package/+simu/+rundir_bck/*
+/package/+macro/+fit/+m2q/*
 **/*.m~

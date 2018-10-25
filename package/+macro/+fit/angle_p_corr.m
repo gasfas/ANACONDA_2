@@ -8,6 +8,9 @@ function  [fit_param, hFig, hAx, hLine] = angle_p_corr(data_in, metadata_in, C_n
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist(det_name, 'var')

@@ -6,9 +6,11 @@ function [I_hits, I_angles] = p1_2_p2_all (exps, mds, C_nrs)
 % mds			Struct containing the corresponding metadata 
 % C_nr			(optional) The coincidence number for each experiment
 % Output:
-% I_hits		matrix containing the number of hits inside the shown fit
-%I_hits			The corresponding angles.
-% macro.fit
+% I_hits		Matrix containing the number of hits inside the shown fit
+% I_angles		The corresponding angles.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 detname = 'det1';
 legendtext = {};
 figure; 

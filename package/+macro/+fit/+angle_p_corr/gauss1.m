@@ -9,6 +9,8 @@ function [FP, theta_containers, theta_hist_norm, theta_fit, f_e] = gauss1(data_i
 % FP            The resulting fit parameters
 % theta_containers The x-values at which the bins are defined
 % theta_fit     The y-values from the fit.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('C_nr', 'var')
     % If the coincidence number is not defined, we assume double coincidence:

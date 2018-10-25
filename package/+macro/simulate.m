@@ -5,6 +5,8 @@ function [ simu_data ] = simulate( simu_md )
 %           parameters 
 % Output:
 % simu      The output simulated data (events and hits)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Fetch all the directories of the rundir files:
 simu_md.WB              = simu.rundir.all_WBnames(simu_md.WB);

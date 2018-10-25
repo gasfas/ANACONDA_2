@@ -4,6 +4,9 @@ function [ field_out ] = getsubfield(struct, fieldname)
 % struct:       the name of the struct where the field is stored
 % fieldname:    the name of the field, which can contain multiple 'subfields',
 %               delimited by a dot ('.') .
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 switch iscell(fieldname)
 	case false
 			try

@@ -29,6 +29,7 @@ function C = mmat(A,B,dim)
 % C = mmat(A,B)
 % C will be an array with dimensions of 1x1x5 and every element is 30.
 %
+% Written by Sandor Toth, Mathworks File Exchange, https://se.mathworks.com/matlabcentral/fileexchange/41663-multidimensional-matrix-multiplication
 
 if nargin == 0
     help mmat;

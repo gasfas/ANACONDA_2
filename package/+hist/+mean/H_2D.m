@@ -7,6 +7,9 @@ function [avg, stddv] = H_2D(Count, y_values)
 % Output: 
 %   avg:			[m, 1] The average value at corresponding x_value.
 %   stddv:			[m, 1] The standard deviation at corresponding x_value (as defined in MATLAB).
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 	total_nof_hits = (sum(Count,2,'omitnan'));
 	if ~isempty(Count)
 		% calculate average, ignoring NaN's:

@@ -7,6 +7,8 @@ function [h_figure, h_axes, h_GraphObj, exp] = plot(exp, metadata)
 % metadata      The corresponding metadata 
 % SEE ALSO macro.correct, macro.convert
 % macro.fit
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % we fetch the detector names:
 detnames            = fieldnames(metadata.det);
@@ -16,7 +18,7 @@ detnames			= {detnames{:}, 'crossdet'};
 % We check all the detectors:
 for i = 1:length(detnames)
 	detname		= detnames{i};
-	detnr		= IO.det_nr_from_fieldname(detname);
+	detnr		= general.data.pointer.det_nr_from_fieldname(detname);
 	% We check all the plotnames of this detector:
 	plotnames = general.struct.probe_field(metadata, ['plot.' detname '.ifdo']);
 	if isstruct(plotnames)

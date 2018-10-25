@@ -10,6 +10,9 @@ function  [data_out] = cluster_size(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -35,7 +38,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= IO.detname_2_detnr(detname);
+	detnr	= general.data.pointer.detname_2_detnr(detname);
     m2q_l               = data_in.h.(detname).m2q_l;
     
     % Construct the possible masses and their corresponding number of

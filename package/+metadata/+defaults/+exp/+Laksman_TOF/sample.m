@@ -14,7 +14,7 @@ exp_md.sample.monomer.mass 				= 	sum(exp_md.sample.monomer.fragment.masses.*exp
 exp_md.sample.fragment.protonation= 1;%[-] Protonation of fragments; 1 means 1 proton attached. 
 exp_md.sample.fragment.sizes 			= (1:20)'; % size is defined as the number of monomer units.
 exp_md.sample.fragment.pure.masses 		= exp_md.sample.fragment.sizes * exp_md.sample.constituent.masses + exp_md.sample.fragment.protonation*1; % The masses of the pure fragments.
-exp_md.sample.fragment.masses 			= macro.convert.cluster_fragment_masses(exp_md.sample);
+exp_md.sample.fragment.masses 			= convert.cluster_fragment_masses(exp_md.sample);
 
 exp_md.sample.oven.T 			= exp_md.sample.T; %[K] The temperature of the oven.
 

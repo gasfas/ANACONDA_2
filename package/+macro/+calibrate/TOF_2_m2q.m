@@ -7,6 +7,8 @@ function [ factor, t0 ] = TOF_2_m2q (exp, calib_md)
 % Output:
 % factor	The conversion factor
 % t0		The time-zero shift [ns].
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 disp('This macro semi-automizes the calibration procedure for the TOF to m2q conversion factor.')
 

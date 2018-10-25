@@ -8,6 +8,8 @@ function [BR_Ci] = Ci(events, C_nrs,  C_filt, e_prefilt)
 % e_prefilt		[nof_events, 1] logical pre-filter of events.
 % Outputs:
 % BR_Ci			[n, 1] The branching ratio's of the given C_nrs.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 BR_Ci = zeros(size(C_nrs));
 

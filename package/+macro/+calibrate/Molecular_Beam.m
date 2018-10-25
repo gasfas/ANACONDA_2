@@ -1,11 +1,20 @@
 function [] = Molecular_Beam(exp, detnr, calib_md)
-% Plot 2D X-TOF and X-TOF histograms for calibrating.
+% Plot 2D X-TOF and Y-TOF histograms for calibrating. See the package
+% documentation for a more detailed description of the calibration
+% Inputs
+% exp	The experimental data struct
+% detnr	The detector number of the signal to be calibrated
+% calib_md	The calibration metadata
+% Outputs
+% -
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 plot_md = calib_md.plot;
 
-TOF				= IO.read_data_pointer(plot_md.X.hist.pointer{1}, exp);
-X				= IO.read_data_pointer(plot_md.X.hist.pointer{2}, exp);
-Y				= IO.read_data_pointer(plot_md.Y.hist.pointer{2}, exp);
+TOF				= general.data.pointer.read(plot_md.X.hist.pointer{1}, exp);
+X				= general.data.pointer.read(plot_md.X.hist.pointer{2}, exp);
+Y				= general.data.pointer.read(plot_md.Y.hist.pointer{2}, exp);
 % create the figure:
 fig				= macro.plot.create.fig(plot_md.X.figure);
 

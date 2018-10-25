@@ -8,7 +8,8 @@ function struct = setsubfield(struct, fieldnames, structvalue)
 % structvalue:          the value that should be filled into the structname place
 % Output:
 % struct:               The struct with the field filled in.
-% struct_current = [];
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if iscell(fieldnames)
     nof_fields = length(fieldnames);

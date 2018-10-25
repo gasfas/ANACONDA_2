@@ -110,6 +110,10 @@
 %  rescue_mode_name
 %  TDC.read
 %  read_TDC_vectorized_i1 -- an alternative implementation (requiring minor adjustment in TDC.read).
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function [XYT, event_start, discarded, rescued, from_which_group] = read_TDC_vectorized_i5(det, channel_token, value, is_last) % for alt5
 
 chs = det.channels_token; % cache

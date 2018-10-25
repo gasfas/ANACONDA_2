@@ -28,7 +28,9 @@
 %                                 4
 %  collect_field(a,'c',true) ==>  1     3
 %                                 2     4
-%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
 function y = collect_field(array, fieldname, concatenate_horizontally)
 if nargin < 3
   concatenate_horizontally = false;

@@ -11,6 +11,9 @@
 %  read_length The number of bytes read
 % SEE ALSO
 %  get read_head read_foot
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 function read_length = read_properties(dlt, from_where)
 
 props = struct('name',{}, 'value',{}, 'raw_type',{},'raw_bytes',{});

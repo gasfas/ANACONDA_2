@@ -7,6 +7,9 @@ function [ S ] = fetch_struct_element(S, n)
 % Outputs:
 % S		The output struct with the requested field elements
 % So far, only works for one-dimensional arrays
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 fn = fieldnames(S);
 
 for i = 1:length(fn)

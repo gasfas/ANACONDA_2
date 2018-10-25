@@ -20,7 +20,9 @@
 %  dlt.get_hit_count(':',[]) % (D-by-E) count for each event, on each detector
 % SEE ALSO
 %  get_loaded read
-function [hit_count] = get_hit_count(dlt, detector_index, event_index)
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [hit_count] = get_hit_count(dlt, detector_index, event_index)
 
 if any(detector_index > length(dlt.detectors)) && not(ischar(detector_index) && detector_index == ':')
   error('Detector index out of range. Note that event_index is the second argument to dlt.get_hit_count().')

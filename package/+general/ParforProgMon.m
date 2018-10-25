@@ -22,6 +22,7 @@
 % end
 %
 % Modified from <a href="https://www.mathworks.com/matlabcentral/fileexchange/31673-parfor-progress-monitor-v2">ParforProgMonv2</a>.
+% by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 classdef ParforProgMon < handle
    

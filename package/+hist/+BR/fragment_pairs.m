@@ -14,6 +14,8 @@ function [A, BR] = fragment_pairs(events, label_signal,  label_list, C_nrs, C_fi
 % A		[nof_comb, nof_labels], matrix containing the number of instances
 % of a certain label in a fragment pair.
 % BR	[nof_comb, 1], The branching ratio [nof counts] of the fragment pair defined in A.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 BR_Ci = zeros(size(C_nrs));
 

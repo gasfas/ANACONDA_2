@@ -9,6 +9,8 @@ function [h_axes] = ax(h_figure, axes_md)
 %				hist (histogram properties)
 % Outputs:
 % h_axes	The Axes handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if numel(axes_md)>1
 	for i = 1:numel(axes_md)

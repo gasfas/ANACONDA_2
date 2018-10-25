@@ -13,6 +13,8 @@ function C = countmember(A,B)
 %        -> 2     0     0
 %
 %   See also ISMEMBER, UNIQUE, HISTC
+% Copyright by 'Jos' on mathworks File Exchange: https://se.mathworks.com/matlabcentral/fileexchange/7738-countmember-a-b
+
 narginchk(2,2) ;
 
 if ~isequal(class(A),class(B)),
@@ -35,3 +37,4 @@ end
 N = histc(L(:),1:length(AU)) ;
 % re-order according to A, and reshape
 C = reshape(N(j),size(A)) ;    
+end

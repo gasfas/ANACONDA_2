@@ -8,6 +8,9 @@ function [cond] = write_coincidence_condition(C_nr, detname)
 %               act on. (can also be detector number).
 % Output:
 % cond          Output struct, defining the condition.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if isnumeric(detname)
 	detname = ['det' num2str(detname)];
 end

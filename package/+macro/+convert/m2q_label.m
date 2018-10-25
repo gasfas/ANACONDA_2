@@ -12,6 +12,8 @@ function  [data_out] = m2q_label(data_in, metadata_in, det_name)
 % det_name      (optional) The name of the detector
 % Output:
 % data_out      The output data with converted data.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 data_out = data_in;
 
@@ -23,7 +25,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr = IO.det_nr_from_fieldname(detname);
+	detnr = general.data.pointer.det_nr_from_fieldname(detname);
 	m2q_l_md				= metadata_in.conv.(detname).m2q_label;
 	
 	% By default, the labeling is done on single hits. However, events with

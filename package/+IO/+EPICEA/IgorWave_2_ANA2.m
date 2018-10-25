@@ -18,6 +18,8 @@ function [ exp ] = IgorWave_2_ANA2(base_path, filename, varargin)
 %				Note that if the name expects a value, this value should
 %				also be given as a string! Example:
 %				IO.EPICEA.IgorWave_2_ANA2('/home/Igordata', '--max-n', '1000')
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Find the directory where it is saved, if it already exists:
 idx =  general.cell.find_string_in_cell(varargin, '--save-path');
@@ -31,10 +33,10 @@ STR = [];
 if exist(fullfile(MAT_path, [filename '.mat']), 'file')
 	prompt = 'IGOR binary to MAT conversion already performed. Overwrite file?';
 	ifdo_conv = input(prompt,'s');
-end
-if isempty(ifdo_conv)
+else
 	ifdo_conv = 'Y';
 end
+
 switch ifdo_conv
 	case {'Y', 'y'} % Convert to .mat:
 		disp('Conversion starts, this might take a while...')

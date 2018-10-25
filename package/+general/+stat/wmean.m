@@ -18,6 +18,8 @@ function y = wmean(x,w,dim)
 %       x = rand(5,2);
 %       w = rand(5,2);
 %       wmean(x,w)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if nargin<2
     error('Not enough input arguments.');

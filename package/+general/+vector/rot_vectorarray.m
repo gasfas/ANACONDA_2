@@ -5,6 +5,8 @@ function [ vector2 ] = rot_vectorarray(vector1, RotMat)
 % rotMat	[3,3,n] Rotationmatrix.
 % Output:
 % vector2	[n,3] vector array number 2: final vector
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % reshape the initial vector:
 vector1_resh = permute(vector1, [2 3 1]);

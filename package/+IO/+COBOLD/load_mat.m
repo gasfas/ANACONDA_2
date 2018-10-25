@@ -1,6 +1,16 @@
 function [ exp ] = load_mat(event_path, electrons_path, ions_path)
 %This function loads custom COBOLD PC ASCII files (that are already
 %converted to MAT files) and converts them to the ANA2 format.
+% Inputs:
+% event_path		The path (directory) where the events file can be found
+% electrons_path	The path (directory) where the electrons file can be found
+% ions_path			The path (directory) where the ions file can be found
+% Outputs:
+% exp				The data struct.
+%
+% electrons_path	The path (directory) where the electrons file can be found
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % read the event ID datafile:
 events	= load(event_path); % read the events

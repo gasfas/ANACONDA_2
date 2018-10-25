@@ -41,7 +41,9 @@ classdef DLT < handle
 % EXAMPLE
 %   dlt = DLT('example file.dlt');
 %   dlt.read()
-
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
   properties (Access = private)
     f = []; % file handle (file identifier from fopen)
     body_position = NaN;

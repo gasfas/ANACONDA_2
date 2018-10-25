@@ -6,11 +6,7 @@ function  [data_out] = calibrate(data_in, metadata_in)
 % Output:
 % data_out     .
 % 
-% The calibration executed:
-% - TOF to m2q for factor and t0
-% - TODO: momentum, KER
-
-
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 data_out = data_in;
 
@@ -24,3 +20,5 @@ for i = 1:length(detnames)
         [data_out] = macro.calibrate.TOF_2_m2q(data_out,metadata_in, detname);
     end
 end
+
+% TODO: make general coded, as done in convert and correct

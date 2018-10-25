@@ -6,13 +6,15 @@ function  [exp] = filter(exp, md)
 % Output:
 % exp_filters   The data with filters appended.
 % 
-% SEE ALSO macro.raw_to_corrected, macro.corrected_to_converted
-% macro.make_plot
-[ nof_hits ] = IO.count_nof_hits(exp.h);
+% SEE ALSO macro.correct, macro.convert, macro.plot
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
+[ nof_hits ] = general.data.count_nof_hits(exp.h);
 
 % First we fetch the detector names:
 detnames = fieldnames(md.det);
-[nof_hits] = IO.count_nof_hits(exp.h);
+[nof_hits] = general.data.count_nof_hits(exp.h);
 
 for i = 1:length(detnames)
 

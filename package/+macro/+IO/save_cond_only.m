@@ -8,6 +8,8 @@ function save_cond_only(filename_read, cond, filename_write)
 %                   new experiment. Note: if no name is specified,
 %                   filename_write is determined by adding a
 %                   postscript '_Ci' to filename_read.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Load data:
 
@@ -25,7 +27,7 @@ exp        = macro.convert(exp, metadata);
 exp        = macro.filter(exp, metadata);
 
 f_e			= macro.filter.conditions_2_filter(exp, cond);
-nof_hits	= IO.count_nof_hits(exp.h);
+nof_hits	= general.data.count_nof_hits(exp.h);
 
 %% Create the new experiment struct:
 

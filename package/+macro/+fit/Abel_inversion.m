@@ -8,6 +8,8 @@ function [histogram, h_axes, h_figure, h_GraphObj] = Abel_inversion(data_in, met
 % h_figure		The figure handle
 % h_axes		The axes handle
 % h_GraphObj	The Graphical Object handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 data_out = data_in;
 
@@ -19,7 +21,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= IO.det_nr_from_fieldname(detname);
+	detnr	= general.data.pointer.det_nr_from_fieldname(detname);
 	
 %% Fetch
 	fit_md = metadata_in.fit.(detname).Abel_inversion;

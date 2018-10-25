@@ -8,6 +8,9 @@ function  [data_out] = CSD(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -18,11 +21,11 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i}; 
-	detnr	= IO.detname_2_detnr(detname);
+	detnr	= general.data.pointer.detname_2_detnr(detname);
 
     % Fetch the needed data:
     events		= data_out.e.raw(:,detnr);
-	all_nof_hits= IO.count_nof_hits(data_out.h);
+	all_nof_hits= general.data.count_nof_hits(data_out.h);
 	nof_hits	= all_nof_hits(detnr);
 	eps_m		= metadata_in.sample.permittivity;
 	KER			= data_out.e.(detname).KER_sum; % Fetch KER

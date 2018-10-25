@@ -1,6 +1,13 @@
 function [ data, maxcoinc ] = load_FTotal(filename)
-% This function should make it easier to load an FTotal.mat file, and
-% rearrange it in the preferred way:
+% This function should make it easier to load an (obsolete) FTotal.mat 
+% file (From ANACONDA_1), and rearrange it in the preferred way 
+% Inputs:
+% filename	The name under which FTotal.mat is stored
+% Outputs:
+% data		The experimental data in ANACONDA_2 format
+% maxcoinc	The maximum coincidence number that is stored in the data.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [pathstr,name,ext] = fileparts(filename); 
 

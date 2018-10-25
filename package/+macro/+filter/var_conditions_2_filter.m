@@ -2,6 +2,13 @@ function [f_e] = var_conditions_2_filter( exp_data, condition )
 % [event_filter] = var_conditions_2_filter(exp_data, condition)
 % This event filtering function returns an event filter that follows a 
 % variable-dependent condition.
+% Input:
+% exp_data	The experimental data struct
+% condition	The variable-dependent condition that will be applied
+% Output:
+% f_e		The event filter that results from the condition applied to the data
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 events          = exp_data.e.raw;
 f_e             = false(size(events,1),1);

@@ -11,6 +11,9 @@ function [ R_maxs, R_avg, theta ] = R_circle(exp, calib_md)
 % Outputs:
 % - r_sf			The radial scaling factor [-].
 % - theta			The corresponding theta values [rad].
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 plot_md = calib_md.plot;
 plot_md_bck = plot_md;
 
@@ -99,8 +102,8 @@ end
 %% validation of the correction:
 
 if general.struct.probe_field(calib_md, 'ifdo.plot') && general.struct.probe_field(calib_md, 'ifdo.show_result')
-	theta_data		= IO.read_data_pointer(plot_md.hist.pointer{1}, exp);
-	R_data			= IO.read_data_pointer(plot_md.hist.pointer{2}, exp);
+	theta_data		= general.data.pointer.read(plot_md.hist.pointer{1}, exp);
+	R_data			= general.data.pointer.read(plot_md.hist.pointer{2}, exp);
 	R_corr			= correct.R_circle(R_data, theta_data, R_maxs, R_avg, theta);
 	h_ax.Position	= [0.2 0.3 0.3 0.6];
 	h_ax.Title.String= 'Uncorrected';

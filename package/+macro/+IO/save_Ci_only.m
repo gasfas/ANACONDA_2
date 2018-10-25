@@ -9,6 +9,8 @@ function save_Ci_only(filename_read, C_nr, detnames, filename_write)
 %                   new experiment. Note: if no name is specified,
 %                   filename_write is determined by adding a
 %                   postscript '_Ci' to filename_read.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
 %% Load data:
@@ -37,7 +39,7 @@ for i = 1:length(detnames)
 end
 
 %% Create the new experiment struct:
-nof_hits  = IO.count_nof_hits(exp_ori.h);
+nof_hits  = general.data.count_nof_hits(exp_ori.h);
 [ exp_f ] = filter.exp(exp_ori, e_f, nof_hits);
 
 %% write to the new file:

@@ -32,6 +32,8 @@ function [f, exp_data] = conditions_2_filter( exp_data, conditions )
 % conditions.labeled_hits.invert_filter (optional) logical: if 'true', the
 %										event filter will be inverted 
 %										(true becomes false, false becomes true)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Check first whether the filter from this condition is already calculated:
 if isempty(conditions)
@@ -105,7 +107,7 @@ end
 function f = condition_2_filter(exp_data, condition)
 % This function calculates the filter from a single condition.
 % Read the data from the pointer:
-[condition_data, data_form] = IO.read_data_pointer(condition.data_pointer, exp_data);
+[condition_data, data_form] = general.data.pointer.read(condition.data_pointer, exp_data);
 % And read the value of the actual condition:
 condition_value = condition.value;
 % In case the value is depending on another variable, we send it out:
@@ -131,7 +133,7 @@ switch general.struct.probe_field(condition, 'value_type')
 			end
 			translate_condition = condition.translate_condition;
 			nof_hits            = size(f,1);
-			detnr               = IO.det_nr_from_fieldname(condition.data_pointer);
+			detnr               = general.data.pointer.det_nr_from_fieldname(condition.data_pointer);
 			events				= exp_data.e.raw;
 			f					= filter.hits_2_events(f, events(:,detnr), nof_hits, translate_condition);
 	end

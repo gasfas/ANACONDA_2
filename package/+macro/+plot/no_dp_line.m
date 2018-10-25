@@ -10,6 +10,8 @@ function [ hLine, v ] = no_dp_line(Ax, md, detnr, coor)
 % coor		The coordinate that is plotted on the Y-axis (e.g. 'X', 'Y', 'R')
 % Outputs:
 % hLine		The handle of the reference line.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 TOF = linspace(Ax.XLim(1), Ax.XLim(2), 1e3);
 sample_md	= md.sample;

@@ -12,6 +12,8 @@ function [Count, x_midpoints, y_midpoints, z_midpoints] = H_3D(x_data, y_data, z
 %	x_midpoints: [m, 1] column array with the centres of the bins (x).
 %	y_midpoints: [l, 1] column array with the centres of the bins (y).
 %	z_midpoints: [k, 1] column array with the centres of the bins (z).
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [Count, ~, mid]= hist.histcn([x_data y_data z_data], x_edges, y_edges, z_edges);
 

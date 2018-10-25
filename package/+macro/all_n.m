@@ -9,6 +9,8 @@ function [ds, exp_names] = all_n(ds, mds, procedure_spec)
 % Output:
 % ds	struct with different experiment data as fields, now after the 
 %		procedures have been applied.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('procedure_spec', 'var')
 	procedure_spec = {'correct', 'convert', 'filter'};

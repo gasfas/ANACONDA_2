@@ -6,6 +6,9 @@ function [ y, sep_vecs ] = vector_colon( x1, x2, spacing)
 % x2    input vector of integer maxima [n, 1];
 % Outputs:
 % y     the array of integer values spanned by x1 and x2, [m, 1]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 D = diff([x1 x2],1,2);
 if ~exist('spacing', 'var')
     spacing(D>=0) = 1;

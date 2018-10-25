@@ -1,5 +1,13 @@
 function [h_GraphObj] = momentum(exp, detnr, exp_md)
 % Plot 2D momentum image for the calibration.
+% Inputs
+% exp		The experimental data struct
+% detnr		The detector number of the signal to be calibrated
+% exp_md	The experimental metadata
+% Outputs
+% h_GraphObj The handle of the graphical object
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 det_data = exp.h.(['det' num2str(detnr)]);
 plot_metadata = exp_md.calib.(['det' num2str(detnr)]).momentum;

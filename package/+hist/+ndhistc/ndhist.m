@@ -6,6 +6,7 @@ function qHist = ndhist(varargin)
 %   vEdge*  : Edge for each dimension
 %**Return value**
 %   qHist   : [length(vEdge1)-1,length(vEdge2)-1,...length(vEdgen)-1]
+% Written by by Jonathan C. Lansey, see https://se.mathworks.com/matlabcentral/fileexchange/45325-efficient-2d-histogram-no-toolboxes-needed
 
 if nargin<1, error('Not enough input arguments.'); end
 vSizeData = size(varargin{1});

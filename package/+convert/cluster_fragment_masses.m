@@ -11,6 +11,10 @@ function [ fragment_masses ] = cluster_fragment_masses ( sample_md )
 %                   number of monomer units)
 %                   sample_md.fragment.protonation; [-] Protonation of
 %                   fragments; 1 means 1 proton attached.
+% Output:
+% fragment_masses
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if general.struct.issubfield(sample_md, 'fragment.protonation')
 	fragment_masses 			= general.fragment_masses(sample_md.constituent.masses, max(sample_md.fragment.sizes), ...

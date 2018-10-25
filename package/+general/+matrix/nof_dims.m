@@ -5,6 +5,8 @@ function [ n ] = nof_dims( array )
 % array 
 % Output;
 % n			number of dimensions of array.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [d(1), d(2), d(3), d(4)] = size(array);
 n = sum(d > 1);

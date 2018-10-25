@@ -17,7 +17,9 @@
 %  from_which_event  (int32) 1-by-H array, where H is 1 or size(dlt.XYT{detector_index),2).
 %
 % SEE ALSO get_loaded XYT 
-function [from_which] = from_which_event(dlt, detector_index, lookup_hit_index)
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [from_which] = from_which_event(dlt, detector_index, lookup_hit_index)
 if nargin < 3
   lookup_hit_index = [];
 end

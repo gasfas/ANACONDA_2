@@ -10,7 +10,7 @@ function signal_md = data_pointer_2_md(exp, data_pointer)
 
 % First, we check the data pointer:
 % Try to read the data from the pointer: 
-data = IO.read_data_pointer(data_pointer, exp);
+data = general.data.pointer.read(data_pointer, exp);
 
 % Then, we define the signal metadata:
 % Histogram data:

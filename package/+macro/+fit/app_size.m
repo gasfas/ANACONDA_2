@@ -8,6 +8,8 @@ function  [fit_param] = app_size(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if exist(det_name, 'var')
     detnames = det_name;

@@ -6,6 +6,8 @@ function [ RotMat ] = vrrotmat_array(vector1, vector2)
 % vector2	[n,3] vector array number 2: end direction
 % Output:
 % RotMat	[3,3,n] Rotationmatrix.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if (size(vector1, 1) ~= size(vector2, 1))
 	if size(vector1,1) == 1

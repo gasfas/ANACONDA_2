@@ -11,6 +11,9 @@
 % Windows-1252 (single-byte encoding) text is instead given by
 %   matlab_string = char(dlt.extra_header_content);
 %
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+%
 function read_head(dlt)
 
 fseek(dlt.f, 0, 'bof'); % Start from beginning

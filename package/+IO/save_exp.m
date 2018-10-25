@@ -4,6 +4,8 @@ function save_exp(exp, dir, b_fn)
 %   exp     = The measurement data
 %   dir     = the full directory to where the *.mat file should be stored.
 %   b_fn    = The bare filename, without extensions or prefixes.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [~, ~, ext] =  fileparts(b_fn);
 

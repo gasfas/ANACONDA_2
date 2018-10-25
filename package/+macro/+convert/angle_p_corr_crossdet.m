@@ -10,6 +10,9 @@ function  [data_out] = angle_p_corr_crossdet(data_in, metadata_in)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 % Check the metadata: 
@@ -23,7 +26,7 @@ catch
 	p_corr_md.hitnrs		= [1 1];
 end
 
-detnrs		= IO.det_nr_from_fieldname(p_corr_md.data_pointer);
+detnrs		= general.data.pointer.det_nr_from_fieldname(p_corr_md.data_pointer);
 detnames	= IO.data_pointer.pointer_2_detnames(p_corr_md.data_pointer);
 
 % fetch momentum data:
@@ -35,7 +38,7 @@ for i = 1:length(p_corr_md.data_pointer)
 	
 	
 	% Select the data of this detector:
-	dp_all = IO.read_data_pointer(p_corr_md.data_pointer{i}, data_in);
+	dp_all = general.data.pointer.read(p_corr_md.data_pointer{i}, data_in);
 	
 	dp.(['det' num2str(detnr)]) = convert.event_hitnr_det(dp_all, data_in.e.raw(:,detnr), hitnr);
 	

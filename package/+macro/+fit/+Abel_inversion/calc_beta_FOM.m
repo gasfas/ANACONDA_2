@@ -1,5 +1,12 @@
 function [beta] = calc_beta_FOM(fit_md)
-% Function to calculate the beta values from a previously calculated FOM inversion:
+% Function to calculate the beta values from a previously calculated FOM inversion
+% Input
+% fit_md	struct, the metadata describing the fitting procedure
+% Output
+% beta		scalar, the asymmetry parameter
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 % Fetch R, theta coordinates:
 im_pol			= load(fullfile(fileparts(which('fit.Abel_inversion.FOM.execute_IterativeInversion')), 'it_3dpol0001.dat'));
 % Select the requested radius range: (assuming momentum plot)

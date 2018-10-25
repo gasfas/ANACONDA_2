@@ -25,6 +25,8 @@ function [ Ax ] = add_axes(Ax_ori, Ax_new, md, axestype, coor)
 %					e.g. 'X'. Default: all Tick names defined.
 % Outputs:
 % Ax				The combined axes, original and newly produced overlay axes.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if numel(Ax_ori) > 1 % If the axes is larger, we only take the first element:
 	Ax_ori_full		= Ax_ori;

@@ -7,6 +7,9 @@ function  [data_out] = momentum(data_in, metadata_in, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -17,7 +20,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= IO.det_nr_from_fieldname(detname);
+	detnr	= general.data.pointer.det_nr_from_fieldname(detname);
     % As mentioned in the manual, a so-called time-zero momentum and final
     % momentum are defined.
     % Preparing the variables needed:

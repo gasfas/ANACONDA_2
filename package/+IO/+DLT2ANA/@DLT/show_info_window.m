@@ -9,6 +9,9 @@ function [figure_handle] = show_info_window(dlt, figure_handle)
 %  figure_handle  (default: open a new figure) which figure to put the GUI items in
 % RETURNRS
 %  figure_handle
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 
 if nargin < 2
   figure_handle = -1;

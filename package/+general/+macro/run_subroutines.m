@@ -8,6 +8,9 @@ function [data_out] = run_subroutines(data_in, metadata_in, routine_name)
 % routine_name	The name of analysis routine (for example 'convert', 'correct', etc.)
 % Output:
 % data_out		The data with converted data.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 % Copy the data:
 data_out = data_in;

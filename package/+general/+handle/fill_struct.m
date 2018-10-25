@@ -8,6 +8,11 @@ function handle = fill_struct(handle, struct)
 % Inputs:
 % handle	The handle to be filled in 
 % struct	The struct containing the fields that need to be overwritten.
+% Outputs:
+% handle	The handle with the filled in fields
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 if ~isempty(struct(1)) && ishandle(handle(1))
 	% Check the fieldnames of the handle and the struct:

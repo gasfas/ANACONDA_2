@@ -5,11 +5,12 @@ function fit_param = load_fit_param(dir, b_fn)
 %   b_fn    = The bare filename, without extensions or prefixes.
 % Output:
 %   exp     = The measurement data
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 loadname    = fullfile(dir, [b_fn '_fit_param.mat']);
 % data        = load(loadname, 'exp');
 % exp         = data.exp;
 fit_param         = load(loadname);
 
-% TODO: for now, only the data can be stored, not the metadata.
 end

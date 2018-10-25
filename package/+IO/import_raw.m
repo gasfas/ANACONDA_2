@@ -5,6 +5,11 @@ function [exp] = import_raw (filename)
 %           If a DLT file is given, a MAT file is searched in the same
 %           folder. If a MAT file is not found, the DLT file is converted 
 %           and saved as .MAT file.
+% Output:
+% exp		The experimental data, in ANACONDA_2 format.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~strcmpi(filename(end-3:end), '.mat') && ~strcmpi(filename(end-3:end), '.dlt')
 	filename = [filename '.mat'];
 end

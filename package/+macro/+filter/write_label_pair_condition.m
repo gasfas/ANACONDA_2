@@ -9,6 +9,8 @@ function c = write_label_pair_condition(varargin)
 %					value(s) the label(s) can have. Example: [14] (nitrogren)
 %	translate_condition (optional) if a hit signal is given, how is the hit
 %					filter translated to an event filter?
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % give it understandable names:
 data_pointer	= make_cell(varargin{1});

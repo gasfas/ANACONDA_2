@@ -7,6 +7,9 @@
 %  detectors cell-array of instances of Detector-subclasses
 %            or the string 'auto' (default).
 % SEE ALSO detectors Detector DetDLD80 DetTOF
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 function set_detectors(dlt, detectors)
 old = dlt.detectors;
 

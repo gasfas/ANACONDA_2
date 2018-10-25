@@ -9,6 +9,9 @@ function  [data_out] = angle_p_corr_Ci(data_in, metadata_in, C_nr, det_name)
 % Output:
 % data_out      The output data with converted data.
 % metadata_out  The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 data_out = data_in;
 
 if exist('det_name', 'var')
@@ -19,7 +22,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i}; 
-	detnr = IO.det_nr_from_fieldname(detname);
+	detnr = general.data.pointer.det_nr_from_fieldname(detname);
 
     % Conversion to the shortest great circle path between
     % fragment momenta of a double coincidence event.

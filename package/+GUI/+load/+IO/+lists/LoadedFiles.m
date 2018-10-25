@@ -165,7 +165,7 @@ if ~isempty(md_GUI.UI.UILoad.LoadedFiles.String)
             end
             for ly = 1:numberofdetectors
                 current_det_name = char(detector_choices(ly));
-                detnr			 = IO.detname_2_detnr(current_det_name);
+                detnr			 = general.data.pointer.detname_2_detnr(current_det_name);
                 % Find a human-readable detector name:
                 hr_detname		= md_GUI.mdata_n.(current_exp_name).spec.det_modes{detnr};
                 if      UIPlot.def.pre_def_plot_radiobutton_built_in.Value == 1

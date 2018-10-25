@@ -11,6 +11,8 @@ function [Count, x_midpoints, y_midpoints] = H_2D(x_data, y_data, x_edges, y_edg
 %				x_data within the specified x_edges.
 %	x_midpoints: [m, 1] column array with the centres of the bins (x).
 %	y_midpoints: [m, 1] column array with the centres of the bins (y).
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if isempty(x_data)
 	Count = zeros(length(x_edges)-1, length(y_edges)-1);

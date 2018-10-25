@@ -37,7 +37,7 @@ for lx = 1:length(exp_names)
     end
     for ly = 1:numberofdetectors
         current_det_name = char(detector_choices(ly));
-        detnr			 = IO.detname_2_detnr(current_det_name);
+        detnr			 = general.data.pointer.detname_2_detnr(current_det_name);
         
         
         % Find a human-readable detector name:

@@ -9,6 +9,8 @@ function [histogram] = hist(exp, hist_md, e_filter)
 % Outputs:
 % histogram	struct, containing the fields 'Count' (the histogram matrix),
 %			and 'midpoints', giving the midpoints in each dimension.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % If multiple histograms are defined, perform this function recursively:
 if numel(hist_md)>1
@@ -123,19 +125,19 @@ isevent			= any(isevent_signal) || isfield(hist_md, 'hitselect');
 if isevent
 	if any(~isevent_signal) % This means some signals come from hits:
 		hit_sign_nr = find(~isevent_signal);
-		detnrs = IO.det_nr_from_fieldname(hist_md.pointer(hit_sign_nr));
+		detnrs = general.data.pointer.det_nr_from_fieldname(hist_md.pointer(hit_sign_nr));
 		hitnrs = hist_md.hitselect(hit_sign_nr);
 		hit_detnrs_sort = sortrows([detnrs' hitnrs']);
 		pair_idx		= [diff(hit_detnrs_sort(:,1))>0; true];
 		[unique_detnrs, max_hitnrs]	= deal(hit_detnrs_sort(pair_idx, 1), hit_detnrs_sort(pair_idx, 2));
 		% now we know the detector numbers and their highest hit number requested, we calculate the event filters:
-		hitnr_filter = true(size(exp.e.raw, 1),1); nof_hits_det = IO.count_nof_hits(exp.h);
+		hitnr_filter = true(size(exp.e.raw, 1),1); nof_hits_det = general.data.count_nof_hits(exp.h);
 		for j = 1:length(unique_detnrs)
 			[detnr, hitnr] = deal(unique_detnrs(j), max_hitnrs(j));
 			hitnr_filter = hitnr_filter & filter.events.multiplicity(exp.e.raw(:,detnr), hitnr, Inf, nof_hits_det(detnr));
 		end
 	else
-		hitnr_filter = true(size(IO.read_data_pointer(hist_md.pointer{1}, exp), 1), 1);
+		hitnr_filter = true(size(general.data.pointer.read(hist_md.pointer{1}, exp), 1), 1);
 	end
 	if exist('e_filter', 'var') % apply external event filter if requested:
 		hitnr_filter = hitnr_filter & e_filter;
@@ -146,15 +148,15 @@ if isevent
 	col_nr = 1;
 	for sign_nr = 1:length(hist_md.pointer)
 		if isevent_signal(sign_nr) % we deal with an event signal:
-			event_data = IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
+			event_data = general.data.pointer.read(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(event_data, 2);
 			hist_data(:,col_nr:col_nr+nof_cols-1) = event_data(hitnr_filter,:);
 		else % we deal with a hit signal, accompanied with hitselect:
-			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
+			detnr			= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hitnr = hist_md.hitselect(sign_nr);
-			hit_data		= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
+			hit_data		= general.data.pointer.read(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(hit_data, 2);
-			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
+			detnr			= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hist_data(:,col_nr:col_nr+nof_cols-1) = hit_data(exp.e.raw(hitnr_filter, detnr)+hitnr-1);
 		end
 		col_nr = col_nr + nof_cols;
@@ -162,10 +164,10 @@ if isevent
 % End of event data selection.
 %% HITS
 elseif ~isevent%% This means we are dealing with hits:
-	hit_data1	= IO.read_data_pointer(hist_md.pointer{1}, exp);
+	hit_data1	= general.data.pointer.read(hist_md.pointer{1}, exp);
 	nof_hits	= size(hit_data1, 1);
 	if exist('e_filter', 'var') % translate the event filter to a hit filter:
-		detnr		= IO.det_nr_from_fieldname(hist_md.pointer{1});
+		detnr		= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{1});
 		hit_filter	= filter.events_2_hits_det(e_filter, exp.e.raw(:,detnr), nof_hits);
 	else
 		hit_filter	= true(nof_hits, 1);
@@ -173,7 +175,7 @@ elseif ~isevent%% This means we are dealing with hits:
 	hist_data = NaN*zeros(sum(hit_filter), hist_md.dim);
 	col_nr = 1;
 	for sign_nr	= 1:length(hist_md.pointer)
-		hit_data		= IO.read_data_pointer(hist_md.pointer{sign_nr}, exp);
+		hit_data		= general.data.pointer.read(hist_md.pointer{sign_nr}, exp);
 		if size(hit_data, 1) ~= size(hit_data1, 1)
 			error('different size data-arrays given, cannot be plotted')
 		end

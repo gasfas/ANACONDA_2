@@ -13,6 +13,12 @@ function [h_figure, h_axes, h_GraphObj, exp] = scatter(varargin)
 %			scatter plot
 % c_pointer string that points to the value that gives the c-value in the
 %			scatter plot
+% Outputs:
+% h_figure	The Figure handle
+% h_ax		The Axes handle
+% h_GraphObj The Graphical Object handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Check whether the first given argument is a handle:
 [h_axes, h_figure, varargin] = general.handle.check_varargin_handles(varargin);

@@ -1,6 +1,8 @@
 classdef DetDLD80 < Detector
 % A detector for the RoentDek DLD80 model of delay-line detectors
 % with two axes (four timing channels).
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
       
   properties (SetAccess = private)
     

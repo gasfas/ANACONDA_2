@@ -4,6 +4,14 @@ function [ values ] = constants( name )
 % name      1D cell, the names of the physical constants requested.
 % Output:
 % values    array with the values of the requested constants.
+%
+% Example:
+% general.constants('q')
+% ans =
+% 
+%    1.6022e-19
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~iscell(name)
     names{1} = name;

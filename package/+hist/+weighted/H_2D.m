@@ -10,6 +10,8 @@ function [Count_w, x_midpoints, y_midpoints] = H_2D(x_data, y_data, weight, x_mi
 % y_midpoints	[l,1] vector of l bin centers along 2nd dim of X
 % Output: 
 % Count			[m, l] histogram matrix
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % divide the x_data and y_data in 'locations':
 [Count, edges, mid, loc]= hist.histcn([x_data y_data], x_midpoints, y_midpoints);

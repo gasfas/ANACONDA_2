@@ -10,6 +10,8 @@ function  [data_out] = source_position(data_in, metadata_in, det_name)
 % metadata_out  The corresponding metadata
 % Note that this function does NOT take the shift due to the molecular beam
 % velocity into account. To be implemented in the future?
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 data_out = data_in;
 
@@ -21,7 +23,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= IO.detname_2_detnr(detname);
+	detnr	= general.data.pointer.detname_2_detnr(detname);
 
     % Calculation of the position of the ionization point. Only
     % performed for complete ion detections.

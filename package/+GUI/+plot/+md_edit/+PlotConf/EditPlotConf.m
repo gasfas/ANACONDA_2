@@ -29,7 +29,7 @@ for ly = 1:length(exp_names)
     end
     for lz = 1:numberofdetectors
         current_det_name = char(detector_choices(ly));
-        detnr			 = IO.detname_2_detnr(current_det_name);
+        detnr			 = general.data.pointer.detname_2_detnr(current_det_name);
     end
     detname = ['det', num2str(detnr)];
     confname(ly) = cellstr(['md_GUI.mdata_n.' char(exp_names(ly)) '.plot.user.' detname '.In_Workspace']);

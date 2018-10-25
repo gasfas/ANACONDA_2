@@ -5,6 +5,8 @@ function [edges] = mids_2_edges(mids)
 % mids			[N-1,1] midpoints in between the given edges.
 % Output:
 % edges			[N,1]; edges of the histogram
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 dmids_half = diff(mids)/2;
 

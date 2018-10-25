@@ -6,7 +6,10 @@ function [ noise_fraction, exp_shuffled ] = shuffle_signal(exp, md)
 % exp		The experimental data
 % md		The metadata.
 % Output:
-% 
+% noise_fraction	The calculated fraction of noise in the signal
+% exp_shuffled		The shuffled experimental data
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 calib_md = md.calib.signal_shuffle;
 det_md	 = md.det;

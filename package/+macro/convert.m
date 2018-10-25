@@ -9,6 +9,8 @@ function  [data_out] = convert(data_in, metadata_in)
 % The conversions executed:
 % - m2q, px,py,pz,KER and many more
 % SEE ALSO macro.correct, macro.filter, macro.fit
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % The order of performing the different conversions depends on the order in
 % which the detectors and 'ifdo' statements are defined in the metadata: 

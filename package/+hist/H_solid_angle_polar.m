@@ -9,6 +9,8 @@ function [ theta_count, containers_mids ] = H_solid_angle_polar(theta, binsize_m
 % Outputs:
 % theta_count	[m,1] the counts at the specified bins
 % containers_mids
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % specify the bin containers:
 % containers =                plot.make_variable_binsize(binsize_mean, x_range, @(x) 1./sin(x));

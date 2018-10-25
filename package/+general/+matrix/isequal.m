@@ -4,8 +4,10 @@ function is_equal = isequal(matrix1, matrix2)
 % Inputs:
 % matrix1, matrix2 :	The matrices one wants to know their similarity.
 % Outputs:
-% is_equal				Logical, whether the matrices are exactly the samer
+% is_equal				Logical, whether the matrices are exactly the same
 %						or not
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 try	
 	is_equal = all(all(matrix1 == matrix2));

@@ -12,22 +12,25 @@ function [ X_r, sf ] = abs_2_rel( X_a, dim )
 % Outputs:
 % X_r	The relative intensities.
 % sf	The scaling factors used.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
-if any(any(X_a < 0))
+if any(any(X_a < 0)) % replace the negative instances with zero:
 	X_a(X_a < 0) = 0;
 	warning('existing negative bar values excluded in total'); 
 end
 
-try		
+try	% if a dimension is specified, try to sum along that dimension:
 	sf			= sum(X_a, dim);
 	nof_rep		= ones(1, ndims(X_a));
 	nof_rep(dim)= size(X_a, dim);
 	sf			= repmat(sf, nof_rep);
-catch
+catch % otherwise, sum over the entire matrix:
 	sf = sum(X_a(:));
 end
 
+% Scale the matrix to relative values:
 X_r = X_a./sf;
 	
 end

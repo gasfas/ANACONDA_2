@@ -1,7 +1,10 @@
 classdef DetTOF < Detector
 % A detector representing the usage of a single timing channel
 % of the time-to-digital converter. Gives no X or Y coordinate.
-  
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
+
   properties (Constant)
     % Single-channel detector
     min_number_of_channels = 1

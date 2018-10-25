@@ -16,3 +16,4 @@ diff_array = [events; nof_hits];
 is_nocount                  = [(diff(diff_array,1,1) == 0)];
 events(is_nocount)          = NaN;
 end
+

@@ -1,6 +1,14 @@
 function exp = import_example(datadir, filename)
 % This function shows a simple example on how to import data from the
 % DLT data format.
+% Inputs:	
+% datadir	The path where a COBOLD ASCII file can be found (optional)
+% filename	The name of the COBOLD ASCII file (optional)
+% Outputs:
+% exp		The data struct.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 % If the user does not provide a file it wants to open, we load the example
 % file included in the ANACONDA package:

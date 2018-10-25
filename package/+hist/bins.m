@@ -1,5 +1,16 @@
 function [ edges, mids ] = bins(range, binsize)
-%Simple function to span a range from the range and binsize
+% This function defines the uniformly spaced bin edges and middles from a 
+% specified range and binsize
+% Inputs:
+% range		[ndims, 2] matrix of minimum and maximum of the bin span
+% binsize	[ndims, 1] array of binsizes in each dimension
+% Outputs:
+% edges		struct with the bins for each dimension
+% mids		array with the middles of the bins (only for single-dimension
+%			data)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 dim = max(length(binsize), size(range, 1));
 if length(binsize) < size(range, 1) % assume the same binsize as the last if not enough binsizes are given;
 	binsize = [binsize repmat(binsize(end), 1, size(range, 1) - length(binsize))];

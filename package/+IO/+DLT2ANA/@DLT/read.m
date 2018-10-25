@@ -60,6 +60,9 @@
 %  get_hit_count
 %  get_loaded
 %  is_loaded_data_current
+%
+% AUTHOR
+%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.it
 function event_count = read(dlt, continue_if_footer_is_missing)
 if nargin < 2
   continue_if_footer_is_missing = false;

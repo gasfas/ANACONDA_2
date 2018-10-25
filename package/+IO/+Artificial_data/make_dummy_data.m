@@ -1,4 +1,14 @@
 function [dummy, th_md] = make_dummy_data(th_md)
+% This function creates artificial data, for debugging purposes.
+% Input:
+% th_md		struct that contains metadata information on the requested
+%			artificial data
+% Output:
+% dummy		The artificial data struct.
+% th_md		The corresponding metadata
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 nof_det = length(th_md.n_hits);
 
 for dnr = 1:nof_det
@@ -62,7 +72,7 @@ for dnr = 1:nof_det
     end
 end
 dummy.e.raw(1,:) = ones(1,nof_det);% First values needs to be a one
-dummy.e.raw = IO.zero_mult_to_NaN(dummy.e.raw, th_md.n_hits); % removing NaN's
+dummy.e.raw = filter.zero_mult_to_NaN(dummy.e.raw, th_md.n_hits); % removing NaN's
 
 
 end

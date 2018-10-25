@@ -1,6 +1,13 @@
 function exp = import_example(datadir, filename)
 % This function shows a simple example on how to import data from the
 % EPICEA spectrometer (PLEIADES, Soleil).
+% Inputs:	
+% datadir	The path where a EPICEA ASCII file can be found (optional)
+% filename	The name of the EPICEA ASCII file (optional)
+% Outputs:
+% exp		The data struct.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % If the user does not provide a file it wants to open, we load the example
 % file included in the ANACONDA package:

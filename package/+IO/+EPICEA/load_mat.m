@@ -1,6 +1,18 @@
 function [ exp ] =load_mat(event_path, electrons_path, ions_path)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%This function load the temporal mat files that have been saved from the
+%ASCII to MAT conversion. The function returns the experimental data in a 
+% format that is ready for the ANACONDA_2 analysis.
+% Inputs:
+% event_path		The path (directory) where the events file can be found
+% electrons_path	The path (directory) where the electrons file can be found
+% ions_path			The path (directory) where the ions file can be found
+% Outputs:
+% exp				The data struct.
+%
+% electrons_path	The path (directory) where the electrons file can be found
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 
 % read the event ID datafile:
 el		= load(electrons_path);	% read the electron datafile

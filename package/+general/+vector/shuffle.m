@@ -14,6 +14,8 @@ function [data_shuffled, shuffle_idx] = shuffle(data_in, md)
 %				Default: 'rotation', with a shift of one.
 % data_out		[n,1] randomly shuffled array
 % shuffle_idx	The index number, to see where the elements originally were.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('md', 'var')
 	md.method	= 'rotation';
