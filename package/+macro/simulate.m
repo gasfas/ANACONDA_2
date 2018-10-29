@@ -26,7 +26,7 @@ simu_md                 = simu.FLY.write_lua_file(simu_md);
 simu_md                 = simu.FLY.write_FLY2(simu_md);
 
 %% simulate and fetch data:
-[simu_data, simu_md]    = simu.FLY.run_simulation(simu_md);
+[simu_data]    = simu.FLY.run_simulation(simu_md);
 % simu_data = [];
 end
 

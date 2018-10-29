@@ -6,17 +6,19 @@ function axes_md = axes_from_defaults(axes_md, dim)
 % dim		The dimension of the plot.
 % Outputs
 % axes_md	The axis metadata struct, with (missing) default values added.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% default values:
-def.grid		= 'on';
-def.hold		= 'on';
-def.Color		= 'none';
-def.Position	= plot.ax.Position('full');
-def.XAxisLocation = 'bottom';
-def.YAxisLocation = 'left';
+def.grid			= 'on';
+def.hold			= 'on';
+def.Color			= 'none';
+def.Position		= plot.ax.Position('full');
+def.XAxisLocation	= 'bottom';
+def.YAxisLocation	= 'left';
 def.XTickLabelRotation = 45;
 def.YTickLabelRotation = 45;
-def.Fontsize	= 40;
+def.Fontsize		= 40;
 
 if ~isfield(axes_md, 'Type')
 	axes_md.Type = 'axes';

@@ -7,6 +7,8 @@ function [theta] = p_sum_norm_to_theta(p1, p2, psum)
 % psum  norm of the sum vector
 % output
 % theta[rad] angle between the two vectors
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 theta = acos( ((psum.^2 - p1.^2 - p2.^2)./(2*p1.*p2)) );
 end

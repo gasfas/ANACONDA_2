@@ -9,6 +9,10 @@ function [R_t] = R_afo_t(R_start, t_arr, u, eps, z)
 % mu		scalar, The equivalent mass of the two point-masses involved.
 % eps		scalar, The dielectric constant
 % z			scalar, The charge number of both particles 
+% Outputs:
+% R			[n,1] The time-dependent charge-to-charge distance at times t [m].
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 k_e = 1/(4*pi*general.constants('eps0')*eps);
 C = u*k_e*general.constants('q')*z;

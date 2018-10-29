@@ -9,6 +9,9 @@ function [Pos] = Position(pos_code)
 %			The second option are relative numbers: [x_start, y_end, width, height]
 % Outputs:
 % Pos		the position in pixels.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('pos_code', 'var')
 	pos_code = 'F';
 end
@@ -36,6 +39,10 @@ elseif ischar(pos_code)
 		Pos = [screensize(1)  screensize(2) screensize(3)/2 screensize(4)];
 	elseif	any(strcmpi(pos_code, {'E', 'East'}))
 		Pos = [screensize(3)/2  screensize(2) screensize(3)/2 screensize(4)];
+	elseif	any(strcmpi(pos_code, {'C', 'FullScreen', 'Center'}))
+		Pos = screensize;
+	elseif	any(strcmpi(pos_code, {'CS', 'CenterSmall'}))
+		Pos = [screensize(3)*1/4  screensize(4)*1/4 screensize(3)*1/2 screensize(4)/2];
 	else
 		Pos = screensize;
 	end

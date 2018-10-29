@@ -9,6 +9,8 @@ function [CSD, asymmetry_factor] = CSD_solid_NH3(n_i)
 % asymmetry_factor	[k, 1] The factor defined as: 
 % 					std(n1, n2, ...)./mean(n1, n2, ...), with ni the number
 % 					of monomers in a fragment
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 rho_vol		= 2.7055e28; %[molecules/m3]
 

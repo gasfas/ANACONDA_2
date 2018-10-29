@@ -1,5 +1,5 @@
 function [ exp_md ] = calib ( exp_md )
-% This convenience funciton lists the default correction metadata, and can be
+% This convenience funciton lists the default calibration metadata, and can be
 % read by other experiment-specific metadata files.
 
 %% Condition: We define whether the calibration should be done or not
@@ -7,10 +7,6 @@ function [ exp_md ] = calib ( exp_md )
 cd1.ifdo.R_circle           = false;
 cd1.ifdo.TOF_2_m2q          = true;
 cd1.ifdo.momentum           = false;
-
-
-
-
 
 %% Preparation: We define the signals:
 %%%%%% TOF:

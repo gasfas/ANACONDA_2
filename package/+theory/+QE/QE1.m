@@ -9,6 +9,9 @@ function [ BR_phys ] = QE1(C_nrs, BR_meas, QE_i, QE_e)
 % C_nrs			[C_nr1; C_nr2; ....]. No need to put them in sorted order.
 % Output parameters:
 % BR_phys		Physical (real) Branching Ratio's
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 BR_phys_s			= zeros(max(C_nrs), 1); j = 0;
 
 [C_nrs_s, idxsort] = sort(C_nrs, 'descend');

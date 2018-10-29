@@ -8,6 +8,9 @@ function [ Efficiency ] = Eff(Mass_ion, Energy, Eff_0, Age_factor)
 %			ratio and grid gransmissions)
 % Output:
 % Efficiency Detection efficiency of the ion.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 fullfn = mfilename('fullpath'); datapath = fileparts(fullfn);
 % Load the data:
 d = load(fullfile(datapath, 'QE_i_2_kV_int.mat'));

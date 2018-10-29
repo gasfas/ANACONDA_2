@@ -1,5 +1,5 @@
 function [ htext ] = write_values( ax, x_values, y_values, format )
-% This function writes the values above a bar plot (or other type).
+% This function writes the Intensity values above a bar plot (or other type).
 % Inputs: 
 % ax		axes in which to write the text
 % x_values	[n, 1] array with x locations
@@ -8,6 +8,8 @@ function [ htext ] = write_values( ax, x_values, y_values, format )
 %			text. Options: 'absolute' 'percentage'
 % Output
 % htext		Handle to the text.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 textmat = [];
 for i = 1:length(format)

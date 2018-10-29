@@ -15,6 +15,8 @@ function [ dTOF ] = TOF_afo_Z_Laksman (m2q, volt, dist, dZ)
 %               [n, 1]
 % Outputs
 % dTOF          [ns] The difference in TOF [n, 1]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 TOF_0 = theory.predict_TOF_Laksman (0, m2q, 1, volt, dist);
 

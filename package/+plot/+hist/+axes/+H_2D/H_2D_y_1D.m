@@ -21,6 +21,8 @@ function [containers, Count, hLine] = H_2D_y_1D(axhandle, x_data, y_data, binsiz
 %               are calculated
 % histogram:    The number of counts that fell into the corresponding
 %               container.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Plot the 2D histogram in handle 1:
 [containers, Count, hLine] = plot.hist.H_2D(axhandle{1}, x_data, y_data, binsizes, x_lims, y_lims, scale);

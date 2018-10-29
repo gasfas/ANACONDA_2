@@ -8,6 +8,8 @@ function [ F ] = force_ampl(eps_m, q1, q2, r)
 % r			scalar, the center-of-mass distance between the particles [Ångstrom]
 % Output:
 % F			scalar, potential energy of the specified arrangement, [N]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 eps_0 = general.constants('eps0');
 eps = eps_m*eps_0;

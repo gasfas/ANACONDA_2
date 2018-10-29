@@ -1,7 +1,7 @@
 function [ exp_md ] = corr ( exp_md )
-
 % This convenience funciton lists the default correction metadata, and can be
 % read by other experiment-specific metadata files.
+
 %% Correction parameters:
 
 % Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 % (ION DETECTOR)

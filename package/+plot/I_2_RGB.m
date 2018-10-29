@@ -1,6 +1,15 @@
 function [ RGB ] = I_2_RGB(I, color_min, color_max)
 %Convert intensities into RGB (n,3) matrices, interpolated between the
 %minimum and maximum color.
+% Inputs:
+% I				Array of intensities (unscaled)
+% color_min		The requested RGB color code of the minimum intensity
+% color_max		The requested RGB color code of the maximum intensity
+% Outputs:
+% RGB			The intensity in RGB format
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('color_min', 'var')
 	color_min = [1 1 1];
 end

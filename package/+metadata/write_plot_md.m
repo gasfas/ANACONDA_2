@@ -7,6 +7,8 @@ function plot_md = write_plot_md(signal_md, plot_md)
 % overwritten by the metadata defined by the signal.
 % Outputs:
 % plot_md	The plot_md with the signals added.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~iscell(signal_md)
 	% There is only one signal defined:
@@ -31,7 +33,7 @@ for i = 1:numel(signal_md)
 	% Then, we copy the metadata:
 	% Histogram data:
 	if isfield(signal_cur, 'hist')
-		dim = dim + length(signal_cur.hist.binsize)
+		dim = dim + length(signal_cur.hist.binsize);
 		hist_range = {hist_range{:} signal_cur.hist.range};
 		hist_binsize = [hist_binsize signal_cur.hist.binsize(:)];
 	end
@@ -80,7 +82,7 @@ if dim >= 3
 	plot_md.axes.ZLabel	= axes_Label{3};
 end	
 % Condition data:
-if length(cond) == 1;
+if length(cond) == 1
 	% This means that only one condition is defined:
 	plot_md.cond	= cond{1};
 elseif length(cond) > 1

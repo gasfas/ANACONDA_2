@@ -11,6 +11,8 @@ function [ r ] = distance(eps_m, n, q,  V)
 % Output:
 % r			scalar, the center-of-mass distance between the particles, 
 %			assumed to be equal [Ångstrom]
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 eps_0 = general.constants('eps0');
 eps = eps_m*eps_0;

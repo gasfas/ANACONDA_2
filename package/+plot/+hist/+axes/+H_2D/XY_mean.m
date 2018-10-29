@@ -9,6 +9,8 @@ function [h_GraphObj] = XY_mean(h_axes, midpoints, Count, GraphObj_md)
 % Count			[m,l] array with the 2D histogram.
 % Output:
 % h_GraphObj	The Graphical Object handle (Patch)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 [h_GraphObj] = plot.hist.axes.H_2D.XY_dot(h_axes, midpoints, Count, GraphObj_md, 'mean');
 

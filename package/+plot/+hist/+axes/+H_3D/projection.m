@@ -1,4 +1,15 @@
 function [h_GraphObj] = projection(h_axes, midpoints, Count, GraphObj_md)
+% This function draws 2D projections of a 3D histogram.
+% Inputs:
+% h_axes	the axes handle of the plot
+% midpoints	struct, the midpoints in the histogram, stored as
+%			midpoints.dim1 and midpoints.dim2 (for x and y, respectively)
+% Count		The histogram count matrix
+% GraphObj_md	The metadata describing the graphical object.
+% Outputs:
+% hLine		The handle of the Graphical Object
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Project the histograms on the outer walls:
 

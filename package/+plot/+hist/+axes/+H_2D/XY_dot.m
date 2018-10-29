@@ -8,8 +8,15 @@ function [h_GraphObj] = XY_dot(h_axes, midpoints, Count, GraphObj_md, Type)
 %					midpoints.dim2	[l, 1] array with the edges of the bin (y).
 % Count			[m,l] array with the 2D histogram.
 % GraphObj_md The metadata of the graphical object.
+% Type		char specifying the plot type requested. Two options:
+% 				'mean': The average value in X and Y is calculated and
+% 				plotted
+%				'peak' The XY location of the highest histogram value is
+%				plotted
 % Output:
-% h_GraphObj	The Graphical Object handle (Patch)
+% h_GraphObj	The Graphical Object handle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % If y-smoothening is requested:
 if isfield(GraphObj_md, 'medfilt_Y_radius')
@@ -49,25 +56,7 @@ switch Type
 		end
 end
 
-% x_histbins				= x_histbins(approved_val);
-% y_val					= y_val(approved_val);
-% Count					= Count(approved_val, :);
-% [dy.below, dy.above]	= deal(dy.below(approved_val), dy.above(approved_val));
-
-
-% We plot the average y-value vs all approved x-values:
-% switch general.struct.probe_field(GraphObj_md, 'show_FWHM')
-% 	case false	% no FWHM shown, so we just plot a line:
-		h_GraphObj = plot(h_axes, x_val, y_val);
-% 	otherwise
-% 		% peak width is requested:
-% 	if length(x_histbins) > 1 %More than one point can form a line:
-% 		h_GraphObj = plot.shadedErrorBar(h_axes, x_histbins, y_val, [dy.above, dy.below]);
-% 	elseif length(x_histbins) == 1 % We plot a point with errorbar:
-% 		h_GraphObj = errorbar(h_axes, midpoints.dim1, y_val, dy.below, dy.above);
-% 	else
-% 		h_GraphObj = errorbar(h_axes, 0, 0);
-% 	end
-% end
+% Make the plot:
+h_GraphObj = plot(h_axes, x_val, y_val);
 
 end

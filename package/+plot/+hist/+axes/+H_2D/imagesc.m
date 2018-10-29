@@ -8,6 +8,9 @@ function [h_GraphObj] = imagesc(h_axes, midpoints, Count, GraphObj_md)
 % Count			[m,l] array with the 2D histogram.
 % Output:
 % h_GraphObj	The Graphical Object handle (image)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 % If y-smoothening is requested:
 if exist('GraphObj_md', 'var')
 	if isfield(GraphObj_md, 'medfilt_Y_radius')

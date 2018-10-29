@@ -10,8 +10,11 @@ function [ D ] = D_sphere( n, method )
 % method	(optional) can be 'interpolate'(default) or 'fit'
 % Output
 % D			The diameter of that cluster (Angstrom)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('method', 'var')
-	method = 'interpolate'
+	method = 'interpolate';
 end
 
 n_ref = [1 5 17];

@@ -1,4 +1,7 @@
 function [md_GUI] = GUI ()
+% This convenience funciton lists the default GUI metadata, and can be
+% read by other experiment-specific metadata files.
+
 %% UI
 md_GUI.UI.log_box_string = {['Log: ', datestr(datetime('now'))]};
 md_GUI.UI.tabnumber = 1;

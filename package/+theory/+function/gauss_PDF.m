@@ -11,6 +11,8 @@ function [ y ] = gauss_PDF(x, mu, sigma, PH, show_components)
 % PH        [nof_peaks, 1], The Peak height of the peaks
 % Outputs:
 % y         [n, 1] The PD at the requested points
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~exist('mu', 'var')
 	mu = zeros(size(x));

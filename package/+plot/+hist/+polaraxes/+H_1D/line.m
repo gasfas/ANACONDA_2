@@ -8,6 +8,8 @@ function [hLine] = line(h_axes, midpoints, count, GraphObj_md)
 %               container.
 % Output:		
 % hLine			The output handle (Graphical Object). 
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if strcmpi(h_axes.Type, 'polaraxes') % Axes has to be a polarplot axes.
 	hLine = polarplot (h_axes, midpoints, count);

@@ -21,6 +21,8 @@ function [ V ] = potential(eps_m, q, r)
 %			If only one distance is given, all radii are assumed equal.
 % Output:
 % V			[eV] potential energy of the specified arrangement
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 eps_0 = general.constants('eps0');
 eps = eps_m*eps_0;

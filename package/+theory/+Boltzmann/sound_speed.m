@@ -8,6 +8,8 @@ function a = sound_speed(Temp, Mass, Heat_capac_ratio)
 % Heat_capac_ration [] Heat capacity ratio (\gamma)
 % Output:
 % v_p:      [m/s] The most probable velocity of the gas.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 v_rms = theory.Boltzmann.root_mean_square_speed(Temp, Mass);
 a	= sqrt(Heat_capac_ratio./3) .* v_rms;

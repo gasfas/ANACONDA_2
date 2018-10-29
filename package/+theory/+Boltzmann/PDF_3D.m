@@ -8,6 +8,8 @@ function [ PDF ] = PDF_3D(E_eV, Temp)
 % Output:
 % PDF:      [-] The probability at the given p_norm of the gas.
 % Equations from https://en.wikipedia.org/wiki/Maxwell%E2%80%93Boltzmann_distribution#Distribution_for_the_momentum_vector
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % Load the Boltzmann constant:
 kb  = general.constants('kb'); % Boltzmann constant;

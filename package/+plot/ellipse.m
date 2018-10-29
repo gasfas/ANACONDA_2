@@ -8,12 +8,14 @@ function hLine = ellipse(axhandle, x,y,r_x, r_y, color)
 % r_y       radius in y-direction
 % color     color of the ellipse
 % Output:
-% no output.
+% hLine		The line handle.
 % NOTE: 0.01 is the angle step, bigger values will draw the circle faster but
 %you might notice imperfections (not very smooth)
 % NOTE: this function can only plot ellipses with their major and minor
 % axes aligned with the x. or y-axes.
 % SEE ALSO plot.circle
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 ang=(0:0.01:2*pi)'; 
 

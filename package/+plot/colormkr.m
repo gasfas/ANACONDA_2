@@ -1,6 +1,15 @@
 function [color] = colormkr(colorspec, max)
 % Convenience function to create a string representing a color for
-% different input numbers. Annoying that Matlab does not do this himself:
+% different input numbers.
+% Inputs:
+% colorspec		Either a number, or name of a color. Options:
+% 				'k', 'r', 'y', 'p', 'b'
+% max			Maximum RGB intensity number
+% Outputs:
+% color			The RGB color code.
+%
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % colors = {'k', 'b', 'r', 'g', 'k', 'c', 'y', 'm'};
 colors = {	[0 0 0], [216 82 24], ...

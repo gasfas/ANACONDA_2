@@ -1,4 +1,16 @@
 function [h_GraphObj] = patch(h_axes, midpoints, Count, GraphObj_md)
+% This function draws a 3-D patch map, with the border of the patch set at
+% a specified contourvalue.
+% Inputs:
+% h_axes	the axes handle of the plot
+% midpoints	struct, the midpoints in the histogram, stored as
+%			midpoints.dim1 and midpoints.dim2 (for x and y, respectively)
+% Count		The histogram count matrix
+% GraphObj_md	The metadata describing the graphical object.
+% Outputs:
+% hLine		The handle of the Patch Object
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 mids_x = midpoints.dim1;
 mids_y = midpoints.dim2;

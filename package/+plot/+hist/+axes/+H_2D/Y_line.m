@@ -8,8 +8,15 @@ function [h_GraphObj] = Y_line(h_axes, midpoints, Count, GraphObj_md, Type)
 %					midpoints.dim2	[l, 1] array with the edges of the bin (y).
 % Count			[m,l] array with the 2D histogram.
 % GraphObj_md The metadata of the graphical object.
+% Type		char specifying the plot type requested. Two options:
+% 				'mean': The average value in Y is calculated and
+% 				plotted
+%				'peak' The Y location of the highest histogram value is
+%				plotted as a function of X
 % Output:
 % h_GraphObj	The Graphical Object handle (Patch)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % If y-smoothening is requested:
 if isfield(GraphObj_md, 'medfilt_Y_radius')

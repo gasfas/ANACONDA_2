@@ -5,6 +5,8 @@ function signal_md = data_pointer_2_md(exp, data_pointer)
 % data_pointer		string character, pointing to the signal. For example: 'e.det1.TOF'.
 % Outputs:
 % signal_md			The signal_md with the signals added.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Defining the signal metadata
 

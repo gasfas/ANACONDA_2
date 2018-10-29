@@ -1,5 +1,5 @@
 function [ exp_md ] = fit ( exp_md )
-% This convenience funciton lists the default spectrometer metadata, and can be
+% This convenience funciton lists the default fitting metadata, and can be
 % read by other experiment-specific metadata files.
 
 % Which fittings should be performed on the data:

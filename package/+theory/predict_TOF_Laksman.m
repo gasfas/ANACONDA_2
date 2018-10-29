@@ -24,6 +24,8 @@ function [ TOF_total, TOF_ER, TOF_AR, TOF_DT, Ek_s2a, Ek_a2d] = predict_TOF_Laks
 % Ek_s2a      	[Joule] source region to acceleration region
 % Ek_a2d      	[Joule] acceleration region to drift region
 % SEE ALSO: correct.Detector_abb, general.TOF_section
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 Ve2s = volt.Ve2s; Vs2a = volt.Vs2a; Va2d = volt.Va2d;
 s = dist.s; s0 = dist.s0; d = dist.d; D = dist.D;

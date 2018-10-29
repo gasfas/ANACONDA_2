@@ -6,6 +6,10 @@ function h = textul(varargin)
 % height	the vertical position at which the lower left point will be placed (normalized)
 % width 	the hoirizontal position at which the lower left point will be placed (normalized)
 % color		color char (e.g. 'b', 'r', etc) or the RGB value.
+% Outputs: 
+% h			handle to the text
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % see if the first input is an axes handle:
 if isgraphics(varargin{1}, 'Axes')

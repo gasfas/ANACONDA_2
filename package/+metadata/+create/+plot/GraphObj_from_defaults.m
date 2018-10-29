@@ -5,10 +5,12 @@ function GraphObj_md = GraphObj_from_defaults(GraphObj_md, dim)
 % GraphObj_md	The Graphical Object metadata struct.
 % Outputs
 % GraphObj_md	The Graphical Object metadata struct, with (missing) default values added.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% default values:
 switch dim
-	case 1
+	case {0, 1}
 		def.Type		= 'line';% Type of graphical object to be created. 
 		def.LineStyle	= '-';% Linestyle of the graphical object. 
 		def.Color		= 'b';% Color of the line.

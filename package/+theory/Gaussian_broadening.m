@@ -7,6 +7,8 @@ function [PDF_broad, PDF_G ] = Gaussian_broadening(x, PDF_slim, sigma)
 % sigma     The average value sigma.
 % Output:
 % PDF_broad The convoluted, broadened PDF
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % make sure the x_range is bigger than 3* sigma (>99 % of Gauss PDF):
 x_dummy_max = max([abs(min(x)) abs(max(x)) 3*sigma]);

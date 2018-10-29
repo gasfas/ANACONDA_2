@@ -19,5 +19,3 @@ else
         exists = general.struct.issubfield(general.struct.getsubfield(struct, firstfield), res_fields);
     end
 end
-
-

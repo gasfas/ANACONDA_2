@@ -7,6 +7,8 @@ function plot_md = signal_2_md(signal_md, plot_md)
 % overwritten by the metadata defined by the signal.
 % Outputs:
 % plot_md	The plot_md with the signals added.
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 if ~iscell(signal_md)
 	% There is only one signal defined:

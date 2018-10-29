@@ -7,6 +7,8 @@ function [factor] = asymmetry_factor(n_i)
 % n_i		[n, C_nr] The sizes of all fragments
 % Outputs:
 % factor	The asymmetry factor
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 factor = std(n_i, 0, 2) ./ mean(n_i, 2);
 end

@@ -1,16 +1,16 @@
-% function [ C, containers, hParent ] = H_ternary(axhandle, C1, C2, C3, binsize, metadata)
 function [ h_GraphObj ] = ternary(h_axes, midpoints, Count, GraphObj_md)
 % Polar histogram plot, that takes the sin(theta) solid angle into account
-% by varying the binsize.
+% by varying the binsize. The total (C1 + C2 + C3) is normalized to one for every datapoint
 % Input:
-% axhandle:     The handle that the figure will be plotted into
-% C1:           [n, 1], the coordinates along first axis
-% C2:           [n, 1], the coordinates along second axis
-% C3:           [n, 1], the coordinates along third axis
-% binsizes      [2,1] The binsizes along the first and second axis.
-% x_range       The maximum and minimum to include in the histogram
-% linestyle     The linestyle to be plotted into.
-% The total (C1 + C2 + C3) is normalized to one for every datapoint.
+% axhandle: The handle that the figure will be plotted into
+% midpoints	struct, the midpoints in the histogram, stored as
+%			midpoints.dim1 and midpoints.dim2 (for x and y, respectively)
+% Count		The histogram count matrix
+% GraphObj_md	The metadata describing the graphical object.
+% Outputs:
+% h_GraphObj The handle of the line/scatter Graphical object
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 %% Plot ternary surface
 [h_GraphObj] = plot.hist.axes.H_2D.imagesc(h_axes, midpoints, Count, GraphObj_md);

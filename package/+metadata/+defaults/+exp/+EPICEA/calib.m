@@ -1,5 +1,5 @@
 function [ exp_md ] = calib ( exp_md )
-% This convenience funciton lists the default correction metadata, and can be
+% This convenience funciton lists the default calibration metadata, and can be
 % read by other experiment-specific metadata files.
 
 %% Preparation: We define the signals:

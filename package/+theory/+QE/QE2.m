@@ -9,6 +9,8 @@ function [ BR_p ] = QE2(A, BR_m, QE_i, QE_e)
 % C_nrs			[C_nr1; C_nr2; ....]. No need to put them in sorted order.
 % Output parameters:
 % BR_phys		Physical (real) Branching Ratio's
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % We sort the label pairs on their different coincidence numbers:
 C_nrs = unique(sum(A,2));

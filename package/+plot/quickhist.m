@@ -15,6 +15,8 @@ function [h_figure, h_axes, h_GraphObj, plot_md] = quickhist(varargin)
 % 
 % Note: plot.quickhist(fig, .....) will plot the figure in the appointed figure
 % Note: plot.quickhist(ax, .....) will plot the figure in the appointed axes
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 nargin_act = nargin;
 %% Fetch data/metadata:
@@ -24,7 +26,7 @@ if plot.fig.isfigure(varargin{1})
 	varargin = varargin(2:end);
 	nargin_act = nargin_act - 1;
 end
-if plot.ax.isaxes(varargin{1})
+if general.handle.isaxes(varargin{1})
 	h_axes = varargin{1};
 	h_figure = h_axes.Parent;
 	varargin = varargin(2:end);

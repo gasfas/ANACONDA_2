@@ -10,6 +10,8 @@ function [R_t] = R_afo_t(R_start, v_start, t_arr, mu, eps, z1, z2)
 % eps		scalar, The dielectric constant
 % z1		scalar, The charge number of particle one 
 % z2		scalar, The charge number of particle two
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 k_e = 1/(4*pi*general.constants('eps0')*eps);
 C = k_e*(general.constants('q').^2)*z1*z2./mu;

@@ -10,6 +10,8 @@ function [TOF, p_fin, E_fin] = TOF_section(E, l, p_ini, m_kg, q)
 % TOF       The TOF of the section [ns]
 % v_fin     The final momentum [atomic momentum unit]
 % SEE ALSO: correct.predict_TOF_Laksman.m
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 % convert momentum atomic units to kg*m/s:
 p_ini = p_ini * general.constants('momentum_au') ;

@@ -30,6 +30,9 @@ dim = size(data, 2);
 
 % Select the correct histogram:
 switch dim
+	case 0 % No data given:
+		Count		= [];
+		midpoints	= [];
 	case 1
 		if weighted_hist
 			[Count, midpoints] = hist.weighted.H_1D(data, weight, edges);

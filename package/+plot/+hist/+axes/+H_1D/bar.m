@@ -8,6 +8,8 @@ function [hLine] = bar(axhandle, midpoints, count, GraphObj_md)
 %               container.
 % Output:		
 % hLine			The output handle (Graphical Object). 
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 hLine = bar(axhandle, midpoints, count);
 

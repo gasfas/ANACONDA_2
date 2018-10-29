@@ -11,6 +11,9 @@ function [colormap] = custom_RGB_colormap(color_low, color_high, low_value, high
 %				(from 0 to 1). Above the value is saturated with color_high
 % Outputs:
 % colormap		The RGB colormap (256, 3)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('color_low', 'var');	color_low	= 'w'; end
 if ~exist('color_high', 'var');	color_high	= 'r'; end
 if ~exist('low_value', 'var');	low_value	= 0; end

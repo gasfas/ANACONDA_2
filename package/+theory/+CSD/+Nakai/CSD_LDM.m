@@ -12,8 +12,11 @@ function [ CSD ] = CSD_LDM(C_nr, n, method, include_asymm)
 % include_asymm logical, whether or not to include asymmetric fission.
 % Output
 % D			The diameter of that cluster (Angstrom)
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 if ~exist('method', 'var')
-	method = 'interpolate'
+	method = 'interpolate';
 end
 if ~exist('include_asymm', 'var')
 	include_asymm = false;

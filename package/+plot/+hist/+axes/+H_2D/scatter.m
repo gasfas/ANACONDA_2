@@ -1,7 +1,17 @@
 function [ hLine ] = scatter(h_axes, midpoints, Count, GraphObj_md)
 % This function plots a 2-dimensional histogram in the form of dots, where
 % the color represent the intensity of the histogram.
-% color:    The RGB value for the color in which the intensity should show.
+% Inputs:
+% h_axes	the axes handle of the plot
+% midpoints	struct, the midpoints in the histogram, stored as
+%			midpoints.dim1 and midpoints.dim2 (for x and y, respectively)
+% Count		The histogram count matrix
+% GraphObj_md	The metadata describing the graphical object.
+% Outputs:
+% hLine		The handle of the line/scatter object
+%
+% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+
 [xtemp, ytemp] = meshgrid(midpoints.dim1, midpoints.dim2); 
 xlabels = reshape(xtemp, [numel(xtemp), 1]); 
 ylabels = reshape(ytemp, [numel(ytemp), 1]); 
