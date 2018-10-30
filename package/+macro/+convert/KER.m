@@ -51,6 +51,7 @@ for i = 1:length(detnames)
 	end
 			disp(['Log: Kinetic energy release conversion performed on ' detname])
 end
+end
 
 %% Local subfunctions:
 function [KER] = R_2_KE_EPICEA(KER_md, R)
