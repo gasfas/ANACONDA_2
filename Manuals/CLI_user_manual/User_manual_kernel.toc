@@ -1,0 +1,15 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Installation}{2}{section.2}
+\contentsline {paragraph}{End user installation:}{2}{section*.2}
+\contentsline {paragraph}{Developer installation:}{2}{section*.3}
+\contentsline {section}{\numberline {3}Getting started}{3}{section.3}
+\contentsline {paragraph}{Load first data}{3}{section*.4}
+\contentsline {paragraph}{Create first metadata}{3}{section*.5}
+\contentsline {section}{\numberline {4}Metadata}{4}{section.4}
+\contentsline {subsection}{\numberline {4.1}Sample metadata}{5}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Detector metadata}{6}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Correction metadata}{7}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Spectrometer metadata}{7}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Condition metadata}{7}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Plot metadata}{8}{subsection.4.6}

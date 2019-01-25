@@ -43,9 +43,9 @@ exp_md.conv.det2.m2q_label.search_radius		= 2; % search radius (in m/q units), o
 exp_md.conv.det2.m2q_group_label.search_radius = 0.5 + exp_md.conv.det2.m2q_label.labels*2/10;
 
 exp_md.conv.det2.m2q_label.method 		= 'line';
-exp_md.conv.det2.m2q_label.length = 0.6;
+exp_md.conv.det2.m2q_label.length		= 0.6;
 exp_md.conv.det2.m2q_label.length  		= 1;
-exp_md.conv.det2. 			= [2];
+exp_md.conv.det2.m2q_label.C_nr			= [2];
 
 exp_md.conv.det2.bgr.signal_name			= {'TOF'};
 
