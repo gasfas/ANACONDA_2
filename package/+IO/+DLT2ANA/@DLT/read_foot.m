@@ -158,7 +158,7 @@ if dlt.version >= 2
   dlt.read_properties('foot');
   
   % Like DLT1and2_to_ANACONDA.m: make text description of the 'Classes saved' property.
-  classes_mask = uint32(dlt.get('Classes saved', 'b'));
+  classes_mask = uint32(dlt.get(dlt, 'Classes saved', 'b'));
   if isempty(classes_mask)
     dlt.description_of_event_classes_saved = '?'; % in case the property is missing, which apparently is possible (How? Is it with v.1 client & v.2 server?)
   else

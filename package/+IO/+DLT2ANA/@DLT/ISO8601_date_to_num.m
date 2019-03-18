@@ -1,4 +1,4 @@
-% [Matlab_datnum, timezone_seconds] = date_ISO8601_to_num(str)
+function [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
 %
 % Convert extended ISO8601 date & time string (optionally with millisecond precision)
 % with time zone, to a Matlab date number.

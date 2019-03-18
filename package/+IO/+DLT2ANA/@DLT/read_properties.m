@@ -106,8 +106,8 @@ else
   for index = 1:length(dlt.properties_foot)
     f = dlt.properties_foot(index);
     % Get all occurences in head
-    [~,~,where_in_united] = dlt.get(f.name, f.raw_type, 'head', -1);
-    [~,foot_occurences,where_in_foot] = dlt.get(f.name, f.raw_type, 'foot', -1);
+    [~,~,where_in_united] = dlt.get(dlt, f.name, f.raw_type, 'head', -1);
+    [~,foot_occurences,where_in_foot] = dlt.get(dlt, f.name, f.raw_type, 'foot', -1);
     assert(length(where_in_foot)>0, 'Sanity check failed: Did not find current footer property from its own list.');
     if length(where_in_united) > 1 || length(where_in_foot) > 1
       % The property name exists multiple times in either list,

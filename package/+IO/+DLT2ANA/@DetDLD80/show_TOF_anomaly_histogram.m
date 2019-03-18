@@ -59,7 +59,7 @@ legends = {sprintf('Median incl. outliers\n%.2f ns', med/1E-9)
 
 if nargin >= 2 % If reference to DLT instance given, show also limits saved in file (i.e. used when acquiring)
   ylabel(sprintf('Count in "%s"', dlt.filename), 'Interpreter','none');
-  from_file = [dlt.get('Min timing anomaly') dlt.get('Max timing anomaly')];
+  from_file = [dlt.get(dlt, 'Min timing anomaly') dlt.get(dlt, 'Max timing anomaly')];
   if length(from_file) == 2
     h_lim_file = plot(from_file(1)*[1 1], ylim(), ':.r');
     plot(from_file(2)*[1 1], ylim(), ':.r');

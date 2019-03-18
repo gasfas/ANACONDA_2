@@ -1,4 +1,4 @@
-% [value, full_property, indices] = get(property_name, require_datatype, which_list, which_occurence)
+function [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
 %
 % Get a property from one of the property lists. The return ed full_property
 % is the struct as in the DLT.property_united list, while value is only its
