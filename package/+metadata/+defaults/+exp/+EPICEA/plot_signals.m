@@ -89,13 +89,9 @@ s.i_TOF.hist.binsize	= 6;% [ns] binsize of the variable.
 s.i_TOF.hist.Range	= [3000 10000];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF.axes.Lim		= s.i_TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
-try 
-	s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
+s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
 								exp_md.conv.det2.m2q.factor, ...
 								exp_md.conv.det2.m2q.t0)));% [ns] Tick of the axis that shows the variable.
-catch
-	s.i_TOF.axes.Tick	= s.i_TOF.hist.Range(1):100:s.i_TOF.hist.Range(2);
-end
 s.i_TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 %%%%%% TOF background:
@@ -106,13 +102,9 @@ s.i_TOF_bgr.hist.binsize	= 6;% [ns] binsize of the variable.
 s.i_TOF_bgr.hist.Range	= [3000 10000];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF_bgr.axes.Lim		= s.i_TOF_bgr.hist.Range;% [ns] Lim of the axis that shows the variable. 
-try 
-	s.i_TOF_bgr.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
+s.i_TOF_bgr.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
 								exp_md.conv.det2.m2q.factor, ...
 								exp_md.conv.det2.m2q.t0)));% [ns] Tick of the axis that shows the variable.
-catch
-	s.i_TOF_bgr.axes.Tick = s.i_TOF_bgr.hist.Range(1):100:s.i_TOF_bgr.hist.Range(2);
-end
 s.i_TOF_bgr.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 %%%%%% X:
@@ -145,11 +137,7 @@ s.i_m2q.hist.binsize	= 1;% [Da] binsize of the variable.
 s.i_m2q.hist.Range	= [10 100];% [Da] range of the variable. 
 % Axes metadata:
 s.i_m2q.axes.Lim		= s.i_m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
-try 
-	s.i_m2q.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
-catch
-	s.i_m2q.axes.Tick	= s.i_m2q.hist.Range(1):10:s.i_m2q.hist.Range(2);
-end
+s.i_m2q.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
 s.i_m2q.axes.Label.String	= 'm/q [a.m.u.]'; %The label of the variable
 
 %%%%%% Mass-to-charge label:
@@ -159,11 +147,7 @@ s.i_m2q_l.hist.binsize	= 1;% [Da] binsize of the variable.
 s.i_m2q_l.hist.Range	= [10 100];% [Da] range of the variable. 
 % Axes metadata:
 s.i_m2q_l.axes.Lim		= s.i_m2q_l.hist.Range;% [Da] Lim of the axis that shows the variable. 
-try 
-	s.i_m2q_l.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
-catch
-	s.i_m2q_l.axes.Tick	= s.i_m2q_l.hist.Range(1):10:s.i_m2q_l.hist.Range(2);
-end
+s.i_m2q_l.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 
 s.i_m2q_l.axes.Label.String	= 'm/q [a.m.u.]'; %The label of the variable
 
 %%%%%% Mass-to-charge sum:
@@ -173,11 +157,7 @@ s.i_m2q_l_sum.hist.binsize	= 1;% [Da] binsize of the variable.
 s.i_m2q_l_sum.hist.Range	= [0 400];% [Da] range of the variable. 
 % Axes metadata:
 s.i_m2q_l_sum.axes.Lim		= [0 400];% [Da] Lim of the axis that shows the variable. 
-try 
-	s.i_m2q_l_sum.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
-catch
-	s.i_m2q_l_sum.axes.Tick	= s.i_m2q_l_sum.hist.Range(1):10:s.i_m2q_l_sum.hist.Range(2);
-end
+s.i_m2q_l_sum.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
 s.i_m2q_l_sum.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Momentum:

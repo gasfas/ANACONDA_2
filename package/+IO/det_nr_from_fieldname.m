@@ -14,7 +14,7 @@ function [det_nr] = det_nr_from_fieldname(fieldname)
 
 if iscell(fieldname) % this means that the input is a list of fieldnames:
 	for i = 1:length(fieldname)
-		det_nr(i) = general.data.pointer.det_nr_from_fieldname(fieldname{i});
+		det_nr(i) = IO.det_nr_from_fieldname(fieldname{i});
 	end
 else
 	% Find where the detector is mentioned in the string:

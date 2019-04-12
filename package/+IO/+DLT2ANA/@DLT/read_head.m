@@ -81,6 +81,7 @@ catch e
   end
 end
 
+
 %error('DLT:head', 'Failed to read header of DLT file "%s" due to ...', dlt.filename);
 
 dlt.hardware_settings = struct();

@@ -93,6 +93,10 @@ else
     hold on
 
     y=get(gca,'ylim');
+    % plot function expects a string when only one line is to be drawn:
+    if length(x) == 1 && iscell(linetype)
+        linetype = linetype{:};
+    end
     h=plot([x x],[y(1) y(2)],linetype);
     if length(label)
         xx=get(gca,'xlim');

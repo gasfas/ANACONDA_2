@@ -134,7 +134,7 @@ preallocated_event_count = dlt.counters_foot.number_of_groups; % Reading cannot 
 % performance if the guess is exactly right so I'll keep the
 % dlt.counters_foot.number_of_groups allocation except special treatment for empty events.
 if ~readoption__keep_empty
-  classes_saved = uint32(dlt.get(dlt, 'Classes saved'));
+  classes_saved = uint32(dlt.get('Classes saved'));
   if ~isempty(classes_saved)
     if bitand(DLT.GROUP_STATUS_BIT.lone_start_trigging, classes_saved) ~= 0
       % If empty groups should not be read, but were saved, the array length

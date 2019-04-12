@@ -20,7 +20,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= general.data.pointer.det_nr_from_fieldname(detname);
+	detnr	= IO.det_nr_from_fieldname(detname);
     % As mentioned in the manual, a so-called time-zero momentum and final
     % momentum are defined.
     % Preparing the variables needed:
@@ -51,7 +51,7 @@ for i = 1:length(detnames)
 				m_l         = data_out.h.(detname).m_l;
 				% And from metadata:
 				labels      = metadata_in.conv.(detname).m2q_label.labels;
-				labels_mass = metadata_in.conv.(detname).m2q_label.mass;
+				labels_mass = metadata_in.conv.(detname).m2q_label.masses;
 				% Obtain the TOF values that should correspond to zero momentum values:
 				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q);
 				% Calculate the momentum:

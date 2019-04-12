@@ -24,12 +24,12 @@ else
     [sorted_labels, idx_sort]               = sort(labels_unique);
     
     labeled_s                           = interp1(sorted_labels, sorted_labels, unlabeled_s, 'nearest', 'extrap');
-    if all(size(search_radii) == size(labels))
+    if all(size(search_radii) == size(labels)) % A search radius given for each label.
         unique_search_radii             = search_radii(idx_uni);
         sorted_search_radii             = unique_search_radii(idx_sort);
         search_radius_s                 = interp1(sorted_labels, sorted_search_radii, labeled_s, 'nearest', 'extrap');
     else
-        search_radius_s                 = search_radii * ones(size(labeled_s));
+        search_radius_s                 = search_radii(1) * ones(size(labeled_s));
     end
 end
 

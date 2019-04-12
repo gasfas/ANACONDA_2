@@ -17,7 +17,7 @@ package_dir	= class_dir(1:findstr(class_dir, 'package')+length('package'));
 temp_class_dir = fullfile(package_dir, 'temp_class');
 mkdir(temp_class_dir)
 copyfile(fullfile(class_dir, '+DLT2ANA'), temp_class_dir)
-general.path.addpath_recurse(temp_class_dir)
+addpath(temp_class_dir)
 
 %  run the conversion:
 dlt = IO.DLT2ANA.DLT(dltfilename);

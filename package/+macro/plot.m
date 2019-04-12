@@ -18,7 +18,7 @@ detnames			= {detnames{:}, 'crossdet'};
 % We check all the detectors:
 for i = 1:length(detnames)
 	detname		= detnames{i};
-	detnr		= general.data.pointer.det_nr_from_fieldname(detname);
+	detnr		= IO.det_nr_from_fieldname(detname);
 	% We check all the plotnames of this detector:
 	plotnames = general.struct.probe_field(metadata, ['plot.' detname '.ifdo']);
 	if isstruct(plotnames)

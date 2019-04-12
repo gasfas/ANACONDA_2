@@ -25,7 +25,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr = general.data.pointer.det_nr_from_fieldname(detname);
+	detnr = IO.det_nr_from_fieldname(detname);
 	m2q_l_md				= metadata_in.conv.(detname).m2q_label;
 	
 	% By default, the labeling is done on single hits. However, events with
@@ -41,7 +41,7 @@ for i = 1:length(detnames)
 	% the expected mass-to-charge labels:
 	exp_m2q_labels		= m2q_l_md.labels;
     % the expected mass labels:
-	exp_m_labels		= m2q_l_md.mass;
+	exp_m_labels		= m2q_l_md.masses;
 
 	% The mass-2-charge data:
 	m2q					= data_out.h.(detname).m2q;

@@ -22,7 +22,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i}; 
-	detnr = general.data.pointer.det_nr_from_fieldname(detname);
+	detnr = IO.det_nr_from_fieldname(detname);
 
     % Conversion to the shortest great circle path between
     % fragment momenta of a double coincidence event.

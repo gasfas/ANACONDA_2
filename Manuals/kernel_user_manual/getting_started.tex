@@ -1,8 +1,8 @@
 \section{Getting started}
-The matlab toolbox comes with an interactive script (\textit{/package/doc/GettingStarted.mlx}), or a plain matlab script (\textit{/package/doc/GettingStarted\_plain.m}) that shows a few simple commands and minimal working examples of functions and macros (=several functions bunched together). 
+The matlab toolbox comes with an interactive script (\textit{/package/doc/GettingStarted.mlx}), or a plain matlab script (\textit{/package/doc/GettingStarted\_plain.m}) that shows a few simple commands and minimal working examples of functions and macros. 
 
 \paragraph{Load first data}
-After installing the package, one can start importing data. There are several data formats supported by the package. Depending on which format you want to treat, read one of the following functions by typing into the MATLAB command window:
+After installing the package, one can start importing the data. There are several data formats supported by the package. Depending on which format you want to treat, read the one of the following functions by typing into the MATLAB command window:
 \lstset{language=MATLAB}
 \begin{lstlisting}
 >> edit IO.COBOLD.import_example ;% importing ASCII delimited datafiles from COBOLD PC. If you do not have the appropriate ASCII-delimited file format, contact Roentdek.
@@ -14,11 +14,11 @@ At the end of importing the data, it is advised to save the data to a `.mat' (MA
 
 \begin{lstlisting}
 data = IO.COBOLD.import_example('file/to/path', 'filename'); % import the data
-IO.save_exp(data, 'file/to/path', 'filename'); % save it to a binary '.mat' file
+IO.save_exp(data, 'file/to/path', 'filename'); & save it to a binary '.mat' file
 \end{lstlisting}
 
 \paragraph{Create first metadata}
-The data has now been loaded to memory, but in order to perform meaningful analysis, the package requires metadata as well. Metadata is literally 'data about the data'. For example, we need to know what the 'raw' data contains. This kind of information can be stored in a separate 'metadata' file. Each datafile must contain such a file (habitually in the same folder as the data, with the same name except the prefix 'md\_' and extension '.m'). So, create a metadata called 'md\_filename.m' with the file to the datafile that is called 'filename.mat'. This file 'md\_filename.m' could look like this:
+Metadata is literally 'data about the data', and the package needs to know more about this data to start the data treatment. For example, we need to know what this 'raw' data contains. This kind of information can be stored in a separate 'metadata' file. Each datafile must contain such a file (habitually in the same folder as the data, with the same name except the prefix 'md\_' and extension '.m'). So, create a metadata called 'md\_filename.m' with the file to the datafile that is called 'filename.mat'. This file 'md\_filename.m' could look like this:
 
 \begin{lstlisting}
 % Metadata file for 'filename'.
@@ -36,7 +36,6 @@ After this file is written, the data and metadata can be loaded to memory by typ
 
 
 \begin{lstlisting}
-data  = IO.import_data('file/to/path', 'filename');%load data
-mdata = IO.import_metadata('file/to/path', 'filename');%load metadata
+
 \end{lstlisting}
 

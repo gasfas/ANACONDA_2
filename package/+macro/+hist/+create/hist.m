@@ -125,7 +125,7 @@ isevent			= any(isevent_signal) || isfield(hist_md, 'hitselect');
 if isevent
 	if any(~isevent_signal) % This means some signals come from hits:
 		hit_sign_nr = find(~isevent_signal);
-		detnrs = general.data.pointer.det_nr_from_fieldname(hist_md.pointer(hit_sign_nr));
+		detnrs = IO.det_nr_from_fieldname(hist_md.pointer(hit_sign_nr));
 		hitnrs = hist_md.hitselect(hit_sign_nr);
 		hit_detnrs_sort = sortrows([detnrs' hitnrs']);
 		pair_idx		= [diff(hit_detnrs_sort(:,1))>0; true];
@@ -152,11 +152,11 @@ if isevent
 			nof_cols		= size(event_data, 2);
 			hist_data(:,col_nr:col_nr+nof_cols-1) = event_data(hitnr_filter,:);
 		else % we deal with a hit signal, accompanied with hitselect:
-			detnr			= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{sign_nr});
+			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hitnr = hist_md.hitselect(sign_nr);
 			hit_data		= general.data.pointer.read(hist_md.pointer{sign_nr}, exp);
 			nof_cols		= size(hit_data, 2);
-			detnr			= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{sign_nr});
+			detnr			= IO.det_nr_from_fieldname(hist_md.pointer{sign_nr});
 			hist_data(:,col_nr:col_nr+nof_cols-1) = hit_data(exp.e.raw(hitnr_filter, detnr)+hitnr-1);
 		end
 		col_nr = col_nr + nof_cols;
@@ -167,7 +167,7 @@ elseif ~isevent%% This means we are dealing with hits:
 	hit_data1	= general.data.pointer.read(hist_md.pointer{1}, exp);
 	nof_hits	= size(hit_data1, 1);
 	if exist('e_filter', 'var') % translate the event filter to a hit filter:
-		detnr		= general.data.pointer.det_nr_from_fieldname(hist_md.pointer{1});
+		detnr		= IO.det_nr_from_fieldname(hist_md.pointer{1});
 		hit_filter	= filter.events_2_hits_det(e_filter, exp.e.raw(:,detnr), nof_hits);
 	else
 		hit_filter	= true(nof_hits, 1);

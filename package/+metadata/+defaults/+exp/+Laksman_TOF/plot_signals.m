@@ -18,18 +18,14 @@ s.TOF.hist.pointer	= 'h.det1.TOF';% Data pointer, where the signal can be found.
 s.TOF.hist.binsize	= 5;% [ns] binsize of the variable. 
 s.TOF.hist.Range	= [3.74e3 8.2e3];% [ns] range of the variable. 
 s.TOF.hist.binsize	= 0.5;% [ns] binsize of the variable. 
-s.TOF.hist.Range	= [0 1.3e4];% [ns] range of the variable. 
+s.TOF.hist.Range	= [6000 30000];% [ns] range of the variable. 
 s.TOF.hist.binsize	= 5;% [ns] binsize of the variable. 
 % Axes metadata:
 s.TOF.axes.Lim		= s.TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
-try
-	s.TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det1.m2q_label.labels, ...
+s.TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det1.m2q_label.labels, ...
 								exp_md.conv.det1.m2q.factor, ...
 								exp_md.conv.det1.m2q.t0)));% [ns] Tick of the axis that shows the variable.
-catch
-	s.TOF.axes.Tick	= s.TOF.hist.Range(1):100:s.TOF.hist.Range(2);
-end
-							s.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
+s.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 %%%%%% X:
 s.X.hist.pointer		= 'h.det1.X';% Data pointer, where the signal can be found. 
@@ -70,15 +66,11 @@ s.Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.m2q.hist.binsize	= 0.09;% [Da] binsize of the variable. 
-s.m2q.hist.Range	= [17.5 171];% [Da] range of the variable. 
-s.m2q.hist.Range	= [0 171];% [Da] range of the variable. 
+s.m2q.hist.Range	= [46 445];% [Da] range of the variable. 
+% s.m2q.hist.Range	= [0 171];% [Da] range of the variable. 
 % Axes metadata:
 s.m2q.axes.Lim		= s.m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
-try
-	s.m2q.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
-catch
-	s.m2q.axes.Tick	= s.m2q.hist.Range(1):10:s.m2q.hist.Range(2); % [Da] Tick of the axis that shows the variable.
-end
+s.m2q.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
 s.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Mass-to-charge sum:
@@ -88,12 +80,7 @@ s.m2q_l_sum.hist.binsize	= 1;% [Da] binsize of the variable.
 s.m2q_l_sum.hist.Range	= [0 400];% [Da] range of the variable. 
 % Axes metadata:
 s.m2q_l_sum.axes.Lim		= [0 400];% [Da] Lim of the axis that shows the variable. 
-try
-	s.m2q_l_sum.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
-catch
-	s.m2q_l_sum.axes.Tick	= s.m2q_l_sum.hist.Range(1):10:s.m2q_l_sum.hist.Range(2);
-end
-
+s.m2q_l_sum.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable. 
 s.m2q_l_sum.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Mass-to-charge background:
@@ -113,8 +100,8 @@ s.dp.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The 
 %%%%%% Momentum x:
 s.dp_x.hist.pointer	= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_x.hist.binsize	= [0.5];% [a.u.] binsize of the variable. 
-s.dp_x.hist.Range	= [-50 50];% [au] range of the variable. 
+s.dp_x.hist.binsize	= [1];% [a.u.] binsize of the variable. 
+s.dp_x.hist.Range	= [-150 150];% [au] range of the variable. 
 % Axes metadata:
 s.dp_x.axes.Lim	= s.dp_x.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_x.axes.Tick	= s.dp_x.hist.Range(1):10:s.dp_x.hist.Range(2);% [au] Ticks on the respective axes.

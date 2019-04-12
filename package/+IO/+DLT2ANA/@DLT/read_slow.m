@@ -94,7 +94,7 @@ position = uint32(1); % the index to read from within the buffer
 preallocated_event_count = dlt.counters_foot.number_of_groups;
 % (if empty were saved this is probably equal to dlt.counters_foot.number_of_start_triggings, otherwise less)
 if ~dlt.readoption__keep_empty
-  classes_saved = uint32(dlt.get(dlt, 'Classes saved'));
+  classes_saved = uint32(dlt.get('Classes saved'));
   if ~isempty(classes_saved)
     if bitand(DLT.GROUP_STATUS_BIT.lone_start_trigging, classes_saved) ~= 0
       % If empty groups should not be read, but were saved, the array length

@@ -47,7 +47,6 @@ end
 data		= varargin{1}; 
 plot_md.hist.dim = general.matrix.nof_dims(data);
 
-if ~isempty(data)
 %% Make the plot:
 if ~exist('h_figure', 'var')
 	plot_md.figure		=  metadata.create.plot.figure_from_defaults(plot_md.figure);
@@ -70,6 +69,3 @@ midpoints = hist.bins(plot_md.hist.Range, plot_md.hist.binsize);
 
 % And plot the Graphical Object in it:
 h_GraphObj	= macro.hist.create.GraphObj(h_axes, histogram, plot_md.GraphObj);
-else
-	disp('empty data matrix given')
-end

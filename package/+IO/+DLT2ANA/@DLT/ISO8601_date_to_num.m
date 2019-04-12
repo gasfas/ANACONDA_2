@@ -10,7 +10,7 @@ function [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
 % timezone_seconds  The timezone-info of the input date
 %
 % AUTHOR
-%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
+%  Erik M??nsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [Matlab_datnum, timezone_seconds] = ISO8601_date_to_num(str)
 
 try
   if length(str) == 28

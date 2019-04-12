@@ -21,7 +21,7 @@ if ischar(detectors) && strcmp(detectors, 'auto')
     det = DetDLD80();
     det.set_channels(0, 0:3);
     
-    TOF_anomaly = [dlt.get(dlt, 'Min timing anomaly'), dlt.get(dlt, 'Max timing anomaly')] * 1E-9; %[s]
+    TOF_anomaly = [dlt.get('Min timing anomaly'), dlt.get('Max timing anomaly')] * 1E-9; %[s]
     if length(TOF_anomaly) == 2
       % Default to use same TOF anomaly setting as when recorded (since it varies from set-up to set-up)
       det.set_TOF_anomaly_range(TOF_anomaly(1), TOF_anomaly(2));

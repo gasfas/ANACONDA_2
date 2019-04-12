@@ -1,4 +1,4 @@
-function [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
+function [value, full_property, indices] = get(property_name, require_datatype, which_list, which_occurence)
 %
 % Get a property from one of the property lists. The return ed full_property
 % is the struct as in the DLT.property_united list, while value is only its
@@ -30,7 +30,7 @@ function [value, full_property, indices] = get(dlt, property_name, require_datat
 %  indices          Which indices from the property list were returned.
 %
 % AUTHOR
-%  Erik Månsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
+%  Erik M??nsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
 
 if nargin < 3
   require_datatype = ''; % no data type requirement

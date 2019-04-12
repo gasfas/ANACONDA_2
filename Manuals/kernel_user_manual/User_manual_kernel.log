@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.12)  7 DEC 2018 11:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.12)  26 OCT 2018 11:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1913,13 +1913,13 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./introduction.tex) (./in
 stallation.tex
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 5.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 6.
 )
 (./getting_started.tex
 Overfull \hbox (14.65497pt too wide) in paragraph at lines 2--3
@@ -1948,81 +1948,7 @@ Package Fancyhdr Warning: \headheight is too small (11.38109pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[4]
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[5]
-Overfull \hbox (78.20573pt too wide) in paragraph at lines 41--42
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[6]
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[7]
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[8]
-Overfull \hbox (1.96788pt too wide) in paragraph at lines 125--126
-[]\OT1/cmr/bx/n/10.95 Maximum[]value \OT1/cmr/m/n/10.95 (op-tional) The max-i-m
-um of the his-togram count
- []
-
-
-Overfull \hbox (2.60205pt too wide) in paragraph at lines 129--129
-[]\OT1/cmr/bx/n/10.95 saturation[]limits \OT1/cmr/m/n/10.95 (op-tional), spec-i
-fy his-togram count val-ues (min-
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[9]
-Overfull \hbox (6.05971pt too wide) in paragraph at lines 130--131
-[]\OT1/cmr/bx/n/10.95 ifdo.Solid[]angle[]correction \OT1/cmr/m/n/10.95 (op-tion
-al), Solid an-gle his-togram cor-
- []
-
-
-Overfull \hbox (38.42027pt too wide) in paragraph at lines 130--131
-\OT1/cmr/m/n/10.95 rec-tion, used in an-gu-lar (po-lar) plots. by de-fault, ifd
-o.Solid[]angle[]correction
- []
-
-
-Overfull \hbox (1.74593pt too wide) in paragraph at lines 134--135
-[]\OT1/cmr/m/it/10.95 GraphObj \OT1/cmr/m/n/10.95 Con-tains in-for-ma-tion abou
-t the Graph-i-cal Ob-ject (line, patch,
- []
-
-
-Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[10]) 
+[4]) 
 AED: lastpage setting LastPage
 
 Package Fancyhdr Warning: \headheight is too small (11.38109pt): 
@@ -2030,7 +1956,7 @@ Package Fancyhdr Warning: \headheight is too small (11.38109pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[11]
+[5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 22.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 22.
  (./User_manual_kernel.aux)
@@ -2040,27 +1966,26 @@ Package rerunfilecheck Info: File `User_manual_kernel.out' has not changed.
 (rerunfilecheck)             Checksum: FC1F23654AB742BE785CC1EED1C2F0A7;410.
  ) 
 Here is how much of TeX's memory you used:
- 32542 strings out of 493029
- 556165 string characters out of 6136233
- 771722 words of memory out of 5000000
- 35433 multiletter control sequences out of 15000+600000
+ 32433 strings out of 493029
+ 554700 string characters out of 6136233
+ 755695 words of memory out of 5000000
+ 35387 multiletter control sequences out of 15000+600000
  18695 words of font info for 72 fonts, out of 8000000 for 9000
  1153 hyphenation exceptions out of 8191
- 48i,12n,72p,10411b,2252s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,12n,72p,10411b,2246s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmtt10.pfb>
-Output written on User_manual_kernel.pdf (11 pages, 159657 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmtt10.pfb>
+Output written on User_manual_kernel.pdf (5 pages, 125541 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 104 named destinations out of 1000 (max. 500000)
+ 128 PDF objects out of 1000 (max. 8388607)
+ 110 compressed objects within 2 object streams
+ 41 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

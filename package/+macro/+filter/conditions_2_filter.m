@@ -133,7 +133,7 @@ switch general.struct.probe_field(condition, 'value_type')
 			end
 			translate_condition = condition.translate_condition;
 			nof_hits            = size(f,1);
-			detnr               = general.data.pointer.det_nr_from_fieldname(condition.data_pointer);
+			[~, detnr]          = IO.data_pointer.pointer_2_detnames(condition.data_pointer);
 			events				= exp_data.e.raw;
 			f					= filter.hits_2_events(f, events(:,detnr), nof_hits, translate_condition);
 	end
