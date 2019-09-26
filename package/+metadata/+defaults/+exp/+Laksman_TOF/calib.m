@@ -25,8 +25,13 @@ signals.TOF_MB.axes.Lim = signals.TOF_MB.hist.Range;
 signals.m2q.hist.binsize	= 0.1;% [Da] binsize of the variable. 
 signals.m2q.hist.Range	= [1 400];% [Da] range of the variable. 
 % Axes metadata:
-signals.m2q.axes.Lim		= [0 100];% [Da] Lim of the axis that shows the variable. 
-signals.m2q.axes.Tick	= sort(exp_md.sample.fragment.masses); % [Da] Tick of the axis that shows the variable. 
+signals.m2q.axes.Lim		= [0 100];% [Da] Lim of the axis that shows the variable.
+try
+    signals.m2q.axes.Tick	= sort(exp_md.sample.fragment.masses); % [Da] Tick of the axis that shows the variable. 
+catch
+    signals.m2q.axes.Tick = [0 1];
+end
+
 signals.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Momentum:
@@ -48,12 +53,17 @@ signals.px.axes.Label.String	= {'$p_x$ [a.u.]'}; %The label of the variable
 
 
 [v_MB, v_MBx, v_MBy, v_MBz]	= macro.convert.momentum.fetch_v_MB(exp_md.sample);
-signals.X_MBcorr						= exp_md.plot.signal.X;
-signals.X_MBcorr.hist.pointer = ['(exp.h.det1.X - ' num2str(v_MBx) ' * exp.h.det1.TOF*1e-6)'];
 
-signals.Y_MBcorr						= exp_md.plot.signal.Y;
-signals.Y_MBcorr.hist.pointer = ['(exp.h.det1.Y - ' num2str(v_MBy) ' * exp.h.det1.TOF*1e-6)'];
+try
+    signals.X_MBcorr						= exp_md.plot.signal.X;
+    signals.X_MBcorr.hist.pointer = ['(exp.h.det1.X - ' num2str(v_MBx) ' * exp.h.det1.TOF*1e-6)'];
 
+    signals.Y_MBcorr						= exp_md.plot.signal.Y;
+    signals.Y_MBcorr.hist.pointer = ['(exp.h.det1.Y - ' num2str(v_MBy) ' * exp.h.det1.TOF*1e-6)'];
+catch
+    signals.X_MBcorr = 0;
+    signals.Y_MBcorr = 0;
+end
 
 %% Define the calibration metadata:
 
@@ -89,20 +99,27 @@ cd1.momentum.y_range		= [-1 1]*150; % [a.u.] y range of the data on y-axis.
 % cd1.momentum.cond = cond;
 
 % Molecular beam velocity calibration:
-cd1.MB.plot.X =  metadata.create.plot.signal_2_plot({signals.TOF_MB, signals.X_MBcorr});
-% cd1.MB.plot.X.cond						= exp_md.cond.cl_pyr;
-cd1.MB.plot.X.hist.binsize				= [5 1];
-cd1.MB.plot.X.hist.saturation_limits	= [0 0.01];
-cd1.MB.plot.X.hist.saturation_limits	= [0 0.02];
-cd1.MB.plot.X.axes.Title.String			= 'X';
-cd1.MB.plot.X.figure.Position			= plot.fig.Position('East');
+try
+    cd1.MB.plot.X =  metadata.create.plot.signal_2_plot({signals.TOF_MB, signals.X_MBcorr});
 
-cd1.MB.plot.Y =  metadata.create.plot.signal_2_plot({signals.TOF_MB, signals.Y_MBcorr});
-% cd1.MB.plot.Y.cond						= exp_md.cond.cl_pyr;
-cd1.MB.plot.Y.hist.binsize				= [5 1];
-cd1.MB.plot.Y.hist.saturation_limits	= [0 0.01];
-cd1.MB.plot.Y.hist.saturation_limits	= [0 0.02];
-cd1.MB.plot.Y.axes.Title.String			= 'Y';
+    % cd1.MB.plot.X.cond						= exp_md.cond.cl_pyr;
+    cd1.MB.plot.X.hist.binsize				= [5 1];
+    cd1.MB.plot.X.hist.saturation_limits	= [0 0.01];
+    cd1.MB.plot.X.hist.saturation_limits	= [0 0.02];
+    cd1.MB.plot.X.axes.Title.String			= 'X';
+    cd1.MB.plot.X.figure.Position			= plot.fig.Position('East');
+
+    cd1.MB.plot.Y =  metadata.create.plot.signal_2_plot({signals.TOF_MB, signals.Y_MBcorr});
+    
+    % cd1.MB.plot.Y.cond						= exp_md.cond.cl_pyr;
+    cd1.MB.plot.Y.hist.binsize				= [5 1];
+    cd1.MB.plot.Y.hist.saturation_limits	= [0 0.01];
+    cd1.MB.plot.Y.hist.saturation_limits	= [0 0.02];
+    cd1.MB.plot.Y.axes.Title.String			= 'Y';
+catch
+    cd1.MB.plot.X = 0;
+    cd1.MB.plot.Y = 0;
+end
 
 exp_md.calib.det1 = cd1;
 end

@@ -7,7 +7,8 @@ try
     spec_name = GUI.load.IO.dialogues.fetch_spec_name(md_GUI);
     %% Read the metadata from the selected spectrometer:
     exp_md = metadata.defaults.exp.(spec_name).md_all_defaults();
-catch
+catch e
+    fprintf(1,'Error: ',e.identifier);
     exp_md = [];
 end
 end
