@@ -21,7 +21,7 @@ end
 
 for i = 1:length(detnames)
     detname = detnames{i};
-	detnr	= general.data.pointer.det_nr_from_fieldname(detname);
+	detnr	= IO.det_nr_from_fieldname(detname);
 	
 %% Fetch
 	fit_md = metadata_in.fit.(detname).Abel_inversion;
