@@ -19,7 +19,7 @@ mkdir(temp_class_dir)
 copyfile(fullfile(class_dir, '+DLT2ANA'), temp_class_dir)
 addpath(temp_class_dir)
 
-%  run the conversion:
+%  run the conversion (code Erik Månsson):
 dlt = IO.DLT2ANA.DLT(dltfilename);
 
 dlt.set_detectors(dlt.detectors{1}); % read using DLD only

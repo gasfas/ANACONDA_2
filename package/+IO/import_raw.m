@@ -10,23 +10,28 @@ function [exp] = import_raw (filename)
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-if ~strcmpi(filename(end-3:end), '.mat') && ~strcmpi(filename(end-3:end), '.dlt')
+if ~strcmpi(filename(end-3:end), '.mat') && ~strcmpi(filename(end-3:end), '.dlt') ...
+     && ~strcmpi(filename(end-4:end), '.hdf5')
 	filename = [filename '.mat'];
 end
 
-[dir, file] = fileparts(filename);
+[dir, file, ext] = fileparts(filename);
 
 if  exist(fullfile(dir, [file '.mat']), 'file')
 	% load mat files:
 	exp = IO.load_exp(dir, file);
     
-elseif  exist(fullfile(dir, [file '.dlt']), 'file')
+elseif  exist(fullfile(dir, [file '.dlt']), 'file') % Labview DLT file
     dltfilename         = fullfile(dir, [file '.dlt']);
 	[exp]               = IO.DLT_2_ANA2(dltfilename);
 	IO.save_exp(exp, dir, file);
-    
+elseif exist(fullfile(dir, [file '.hdf5']), 'file') % Maxlab HDF5 file
+    [exp]               = IO.MAXIV_HDF5.HDF5_2_ANA2(dir, file);
+    IO.save_exp(exp, dir, file);
+% elseif TODO: automize EPICEA import as well.
 else
     error(['no file found in either dlt or mat format of file ' filename])
 end
+
 
 end

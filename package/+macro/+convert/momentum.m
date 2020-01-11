@@ -51,7 +51,8 @@ for i = 1:length(detnames)
 				m_l         = data_out.h.(detname).m_l;
 				% And from metadata:
 				labels      = metadata_in.conv.(detname).m2q_label.labels;
-				labels_mass = metadata_in.conv.(detname).m2q_label.masses;
+				try labels_mass = metadata_in.conv.(detname).m2q_label.masses;
+                catch labels_mass = metadata_in.conv.(detname).m2q_label.mass; end
 				% Obtain the TOF values that should correspond to zero momentum values:
 				labels_TOF_no_p = calc_labels_TOF_no_p(labels, metadata_in.conv.(detname).m2q);
 				% Calculate the momentum:
@@ -80,7 +81,8 @@ for i = 1:length(detnames)
 
 	elseif p_XY % There is only X, and Y component measured, so 2D momentum:
 		TOF_nominal = metadata_in.conv.(detname).momentum.TOF_nominal;
-		mass = metadata_in.conv.(detname).momentum.mass; % here we assume that the mass is not determined, if no TOF is known.
+		try mass = metadata_in.conv.(detname).momentum.masses; % here we assume that the mass is not determined, if no TOF is known.
+        catch mass = metadata_in.conv.(detname).momentum.mass; end;
 		[X_0, Y_0] = deal (metadata_in.conv.(detname).momentum.X_0, metadata_in.conv.(detname).momentum.Y_0);
 		[data_out.h.(detname).p, data_out.h.(detname).p_0] = convert.momentum.E_Field_2D(X, Y, X_0, Y_0, mass, TOF_nominal);
 		data_out.h.(detname).dp = data_out.h.(detname).p - data_out.h.(detname).p_0;

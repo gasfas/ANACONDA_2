@@ -41,7 +41,9 @@ for i = 1:length(detnames)
 	% the expected mass-to-charge labels:
 	exp_m2q_labels		= m2q_l_md.labels;
     % the expected mass labels:
-	exp_m_labels		= m2q_l_md.masses;
+	try exp_m_labels		= m2q_l_md.masses;
+    catch exp_m_labels		= m2q_l_md.mass;
+    end
 
 	% The mass-2-charge data:
 	m2q					= data_out.h.(detname).m2q;

@@ -11,8 +11,7 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-
- [dir, file, ext] = fileparts(filename);
+[dir, file, ext] = fileparts(filename);
 
  try 
 	 is_md_prefix = strcmp(file(1:3), 'md_');
