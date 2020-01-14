@@ -91,7 +91,11 @@ for i = 1:length(detnames)
 	% Sum of all momenta in one event (if possible):
     try data_out.e.(detname).dp_sum = convert.event_sum(data_out.h.(detname).dp, data_out.e.raw(:,detnr)); catch; end
     % calculate the norm of the momentum sum (if possible):
+%     data_out.e.(detname).dp_sum(:,2)=zeros;
+%     data_out.e.(detname).dp_sum(:,3)=zeros;
     try data_out.e.(detname).dp_sum_norm = general.vector.norm_vectorarray(data_out.e.(detname).dp_sum, 2); catch; end
+    
+%     try data_out.e.(detname).dp_sum_tot = general.vector.sum_vectorarray(data_out.e.(detname).dp_sum, 2); catch; end
 	
 	% remove unused fields for memory saving:
 	data_out.h.(detname) = rmfield(data_out.h.(detname), 'p');

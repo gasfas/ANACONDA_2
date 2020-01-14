@@ -7,7 +7,7 @@ function [ exp_md ] = conv ( exp_md )
 
 exp_md.conv.det1.ifdo.m2q						= true;% Does the user want to convert to mass-over-charge?
 exp_md.conv.det1.ifdo.m2q_label					= true; % Does the user want to convert to mass-2-charge labels?
-exp_md.conv.det1.ifdo.m2q_group_label			= true; % Does the user want to convert to mass-2-charge groups?
+exp_md.conv.det1.ifdo.m2q_group_label			= false; % Does the user want to convert to mass-2-charge groups?
 exp_md.conv.det1.ifdo.cluster_size				= true;% Does the user want to convert to cluster size?
 exp_md.conv.det1.ifdo.momentum					= true;% Does the user want to convert to momentum?
 exp_md.conv.det1.ifdo.KER 						= true;% Does the user want to convert to Kinetic energy?

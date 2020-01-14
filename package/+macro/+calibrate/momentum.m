@@ -16,6 +16,7 @@ rows = 3; cols = 3;
 figure; subplot(rows, cols, 1);
 set(gcf, 'Position', [961   529   960   445])
 
+
 %Note: In this case plot_metadata refers to the calib metadata, not the
 %plot metadata, so specifications are given in the metadata file calib-m
 labels_2_plot   = plot_metadata.labels_to_show; 
@@ -36,6 +37,7 @@ az(az_neg)      =  2*pi + az(az_neg);
 
 m2q_l           = det_data.m2q_l;
 dp_norm         = general.vector.norm_vectorarray(dp, 2);
+% dp_norm         = general.vector.sum_vectorarray(dp, 2);
 filt            = filter.hits.labeled_hits(m2q_l, labels_2_plot);
 
 
@@ -48,6 +50,9 @@ y_data_idx      = [1, 1, 2, 4, 4, 4, 5, 6, 5];
 plot_circle     = [1, 1, 1, 0, 0, 0, 0, 0, 0];
 plot_hor        = [0, 0, 0, 1, 1, 1, 0, 0, 0];
 
+
+
+
 if isfield(plot_metadata, 'cond')
 	e_f = macro.filter.conditions_2_filter(exp, plot_metadata.cond);
 	h_f = filter.events_2_hits_det(e_f, exp.e.raw(:,detnr), size(dp, 1));
@@ -59,7 +64,7 @@ for plotnr = 1:(rows*cols )
     x_edges = hist.bins(x_range, binsize(1));
     y_edges = hist.bins(y_ranges(y_data_idx(plotnr),:), binsize(2));
     ax = subplot(rows,cols,plotnr); 
-	set(gcf, 'Colormap', jet);
+	set(gcf, 'Colormap', parula); %can also be jet
     set(gcf,'Position', [250, 0, 1150, 1150]);
 	% Make the histogram:
 	

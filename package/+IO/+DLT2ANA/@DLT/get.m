@@ -1,4 +1,4 @@
-function [value, full_property, indices] = get(property_name, require_datatype, which_list, which_occurence)
+function [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
 %
 % Get a property from one of the property lists. The return ed full_property
 % is the struct as in the DLT.property_united list, while value is only its
@@ -13,6 +13,7 @@ function [value, full_property, indices] = get(property_name, require_datatype, 
 %  TODO: implement also something like lib_server.llb/sub_PropertyList_Set.vi
 %
 % PARAMETERS
+% dlt               The class from which we get the property.
 %  property_name    Name of the property.
 %  require_datatype (Defauilt: '', do not requiare any particular data type)
 %  which_list       (Default: '' which is equivalent to 'united')
@@ -32,13 +33,13 @@ function [value, full_property, indices] = get(property_name, require_datatype, 
 % AUTHOR
 %  Erik M??nsson, 2010--2015, erik.mansson@sljus.lu.se, erik.mansson@ifn.cnr.itfunction [value, full_property, indices] = get(dlt, property_name, require_datatype, which_list, which_occurence)
 
-if nargin < 3
+if nargin < 4
   require_datatype = ''; % no data type requirement
 end
-if nargin < 4
+if nargin < 5
   which_list = '';
 end
-if nargin < 5
+if nargin < 6
   which_occurence = 1; % get first
 end
 
@@ -83,4 +84,3 @@ try
 catch e
   % keep as cell
 end
-

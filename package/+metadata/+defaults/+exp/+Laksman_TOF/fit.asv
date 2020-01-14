@@ -69,7 +69,7 @@ exp_md.fit.det1.m2q.opt_4.MaxIter 	= 1e5; % Maximum number of iterations.
 %% p1 to p2 angle distribution fits:
 % Gaussian fit:
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.mu.value  = [pi pi]; %2*pi/3 depending on the no. of peaks 
+exp_md.fit.det1.angle_p_corr_C2.gauss.mu.value  = pi;%[pi 2*pi/3]; depending on the no. of peaks 
 exp_md.fit.det1.angle_p_corr_C2.gauss.mu.isfree = [false false];
 exp_md.fit.det1.angle_p_corr_C2.gauss.mu.min    = [pi/2 pi/2];
 exp_md.fit.det1.angle_p_corr_C2.gauss.mu.max    = [pi/2 pi/2];
