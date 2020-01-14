@@ -21,7 +21,7 @@ while ~satisfied
     % First plot the full TOF spectrum:
 	[h_TOFfig, h_TOFax, h_TOFGrO] = macro.plot.create.plot(exp, calib_md.TOF);
     
-            nof_points          = newid({'Please give the number of identified peaks in the spectrum: '},'Peaks',1);
+            nof_points          = inputdlg('Please give the number of identified peaks in the spectrum: ');
             nof_points          = str2double(nof_points{1});
             TOF_cs              = zeros(nof_points, 1);
             m2q_points          = zeros(nof_points, 1);
@@ -43,7 +43,7 @@ while ~satisfied
                 %plot.vline ([TOF_c-search_radius TOF_c TOF_c+search_radius], {'k--', 'k-', 'k--'}, {'.', 'TOF peak', '.'})
 
                 TOF_cs(i)       = TOF_c;
-                m2q_point = newid({'Please give the corresponding m/q value: '},'Peaks',1);
+                m2q_point = inputdlg('Please give the corresponding m/q value: ');               
                 m2q_points(i,1) = str2double(m2q_point);
                 m2q_names{i}     = m2q_point{:};
                   % calculate the factors from these inputs:

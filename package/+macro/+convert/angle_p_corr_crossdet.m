@@ -26,7 +26,7 @@ catch
 	p_corr_md.hitnrs		= [1 1];
 end
 
-detnrs		= general.data.pointer.det_nr_from_fieldname(p_corr_md.data_pointer);
+detnrs		= IO.det_nr_from_fieldname(p_corr_md.data_pointer);
 detnames	= IO.data_pointer.pointer_2_detnames(p_corr_md.data_pointer);
 
 % fetch momentum data:

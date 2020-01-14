@@ -135,17 +135,25 @@ d2.XY.figure.Position		= plot.fig.Position('SE');
 d2.dp						= metadata.create.plot.signal_2_plot({signals.i_dp});
 d2.dp.figure.Position		= plot.fig.Position('Full');
 
-d2.p_norm_hit1_hit2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm});
-d2.p_norm_hit1_hit2.hist.hitselect	= [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-d2.p_norm_hit1_hit2.axes.axis		= 'equal';
-[d2.p_norm_hit1_hit2.axes.XLabel.String, d2.p_norm_hit1_hit2.axes.YLabel.String]	= deal('$|p|$ hit 1 [a.u.]', '$|p|$ hit 2 [a.u.]');
-d2.p_norm_hit1_hit2.cond			= exp_md.cond.CHx_CF3;
+try
+    d2.p_norm_hit1_hit2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm});
+    d2.p_norm_hit1_hit2.hist.hitselect	= [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
+    d2.p_norm_hit1_hit2.axes.axis		= 'equal';
+    [d2.p_norm_hit1_hit2.axes.XLabel.String, d2.p_norm_hit1_hit2.axes.YLabel.String]	= deal('$|p|$ hit 1 [a.u.]', '$|p|$ hit 2 [a.u.]');
+    d2.p_norm_hit1_hit2.cond			= exp_md.cond.CHx_CF3;
+catch
+    d2.p_norm_hit1_hit2 = '-';
+end
 
-d2.p_norm					= metadata.create.plot.signal_2_plot({signals.i_p_norm});
-d2.p_norm.figure.Position		= plot.fig.Position('SE');
-d2.p_norm.hist.hitselect		= [1];
-% d2.p_norm.cond				= exp_md.cond.Npl_Npl;
-d2.p_norm.cond			= exp_md.cond.CHx_CF3;
+try
+    d2.p_norm					= metadata.create.plot.signal_2_plot({signals.i_p_norm});
+    d2.p_norm.figure.Position		= plot.fig.Position('SE');
+    d2.p_norm.hist.hitselect		= [1];
+    % d2.p_norm.cond				= exp_md.cond.Npl_Npl;
+    d2.p_norm.cond			= exp_md.cond.CHx_CF3;
+catch
+    dp.p_norm = '-';
+end
 
 d2.dp_sum					= metadata.create.plot.signal_2_plot({signals.i_dp_sum});
 d2.dp_sum.figure.Position		= plot.fig.Position('SW');
@@ -168,29 +176,36 @@ d2.angle_p_corr_C2.figure.Position = [1200 500 600 300];
 d2.angle_p_corr_C2.hist.Integrated_value = 1;
 d2.angle_p_corr_C2.cond			= exp_md.cond.C2Hx_CF3;
 
-d2.angle_p_corr_p.axes.Type	= 'polaraxes';
-d2.angle_p_corr_p				= metadata.create.plot.signal_2_plot({signals.i_angle_p_corr_C2, signals.i_p_norm}, d2.angle_p_corr_p);
-d2.angle_p_corr_p.hist.hitselect = [NaN, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-d2.angle_p_corr_p.hist.binsize(2)= 2*d2.angle_p_corr_p.hist.binsize(2);
-d2.angle_p_corr_p.cond			= exp_md.cond.CHx_CF3;
+try
+    d2.angle_p_corr_p.axes.Type	= 'polaraxes';
+    d2.angle_p_corr_p				= metadata.create.plot.signal_2_plot({signals.i_angle_p_corr_C2, signals.i_p_norm}, d2.angle_p_corr_p);
+    d2.angle_p_corr_p.hist.hitselect = [NaN, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
+    d2.angle_p_corr_p.hist.binsize(2)= 2*d2.angle_p_corr_p.hist.binsize(2);
+    d2.angle_p_corr_p.cond			= exp_md.cond.CHx_CF3;
+catch
+    d2.angle_p_corr_p = '-';
+end
 
-d2.Dalitz_C2.Type				= 'ternary';
-d2.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm, signals.i_dp_sum_norm}, d2.Dalitz_C2);
-d2.Dalitz_C2.hist.hitselect		= [1, 2, NaN]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-d2.Dalitz_C2.figure.Position	= [1200 300 600  600];
-d2.Dalitz_C2.figure.Name		= 'C2Hx_CF2';
-% d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (CH$_3^+$) [a.u.]';
-d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (C$_2$H$_3^+$) [a.u.]';
-d2.Dalitz_C2.axes.YLabel.String		= '$|p_2|$ (CF$_2^+$) [a.u.]';
-d2.Dalitz_C2.axes.ZLabel.String		= '$|p_{res}|$ [a.u.]';
-% d2.Dalitz_C2.axes.Xlim_scaled		= [0 0.5];
-% d2.Dalitz_C2.axes.Ylim_scaled		= [0 0.5];
-% d2.Dalitz_C2.axes.Zlim_scaled		= [0 0.5];
-d2.Dalitz_C2.axes.colormap			= plot.custom_RGB_colormap('w', 'k');
+try
+    d2.Dalitz_C2.Type				= 'ternary';
+    d2.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.i_p_norm, signals.i_p_norm, signals.i_dp_sum_norm}, d2.Dalitz_C2);
+    d2.Dalitz_C2.hist.hitselect		= [1, 2, NaN]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
+    d2.Dalitz_C2.figure.Position	= [1200 300 600  600];
+    d2.Dalitz_C2.figure.Name		= 'C2Hx_CF2';
+    % d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (CH$_3^+$) [a.u.]';
+    d2.Dalitz_C2.axes.XLabel.String		= '$|p_1|$ (C$_2$H$_3^+$) [a.u.]';
+    d2.Dalitz_C2.axes.YLabel.String		= '$|p_2|$ (CF$_2^+$) [a.u.]';
+    d2.Dalitz_C2.axes.ZLabel.String		= '$|p_{res}|$ [a.u.]';
+    % d2.Dalitz_C2.axes.Xlim_scaled		= [0 0.5];
+    % d2.Dalitz_C2.axes.Ylim_scaled		= [0 0.5];
+    % d2.Dalitz_C2.axes.Zlim_scaled		= [0 0.5];
+    d2.Dalitz_C2.axes.colormap			= plot.custom_RGB_colormap('w', 'k');
 
-d2.Dalitz_C2.axes.axis		= 'equal';
-d2.Dalitz_C2.cond			= exp_md.cond.C2Hx_CF2;
-
+    d2.Dalitz_C2.axes.axis		= 'equal';
+    d2.Dalitz_C2.cond			= exp_md.cond.C2Hx_CF2;
+catch
+    d2.Dalitz_C2 = '-';
+end
 % KER sum plot:
 d2.KER_sum							= metadata.create.plot.signal_2_plot({signals.i_KER_sum});
 d2.KER_sum.hist.Integrated_value	= 1;
