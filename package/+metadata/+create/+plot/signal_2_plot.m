@@ -30,7 +30,7 @@ end
 
 % preparing ararys:
 dim = 0; % the dimension of the plot.
-cond = {}; plot_md.hist.pointer = {};
+cond = {}; plot_md.hist.pointer = {}; plot_md.hist.Integrated_value = [];
 % Define the axes, if it is not already done:
 switch general.struct.probe_field(plot_md, 'axes.Type')
 case 'polaraxes'
@@ -58,6 +58,7 @@ for sign_nr = 1:numel(signal_md)
 	end
 	% Condition data: (only one defined for every signal)
 	try plot_md.cond.(['sign' num2str(sign_nr)]) = signal_cur.cond;			catch; end
+    try plot_md.hist.Integrated_value = signal_cur.hist.Integrated_value  ;			catch; end
 end
 
 % If the requested plot is a ternary one, this should be written in the
@@ -70,6 +71,9 @@ end
 
 % Fill in Histogram dimension:
 plot_md.hist.dim = dim;
+
+%Fill integration value:
+% plot_md.hist.dim = dim;
 
 %% Default Plot metadata properties:
 plot_md.figure		=  metadata.create.plot.figure_from_defaults(plot_md.figure);

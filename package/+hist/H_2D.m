@@ -20,10 +20,12 @@ if isempty(x_data)
 	y_midpoints = y_edges(1:end-1)+diff(y_edges)/2;
 else
 	[Count, ~, mid]= hist.histcn([x_data y_data], x_edges, y_edges);
+    
 
 	x_midpoints           = cell2mat(mid(1));
 	y_midpoints           = cell2mat(mid(2));
 
+    save('histout.mat','Count','x_midpoints','y_midpoints')
 	if any(size(Count) ~= [length(x_midpoints), length(y_midpoints)])
 		warning ('hist.histnc failed')
 		Count		= Count(1:length(x_midpoints), 1:length(y_midpoints));
