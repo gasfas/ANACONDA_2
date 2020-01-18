@@ -1,6 +1,7 @@
 %% Small example of loading a single file, and to run the macros.
 % where to find the file:
 filename = '/home/ina/Documents/Lund/DLT_example/Argon_001';
+filename = 'Argon_001';
 
 %% Import the data:
 mdata   = IO.import_metadata(filename); % Metadata
