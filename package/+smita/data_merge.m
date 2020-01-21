@@ -1,6 +1,7 @@
+%% this code merges multiple experiments into one
 S=data_list(); %struct containing all the experiments
 %% Make the new struct of data you need
-exp = [1:11]; %which exp you need
+exp = [1:5]; %which exp you need
 
 %% Creating a struct with separate experiments
 for i=exp
@@ -9,7 +10,7 @@ for i=exp
 end
 %% Merging data
 merge_data = IO.merge_exp(new_struct);
-%% Conitnue with teh
+%% Continue the normal analysis
 mdata = IO.import_metadata(S(exp(1)).dir_CO2); %%% select the mdata to use
 data            = macro.filter(merge_data, mdata);
 data_corrected = macro.correct(data, mdata);
