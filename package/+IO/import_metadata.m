@@ -39,9 +39,13 @@ function [exp_md, simu_md, th_md] = load_script(dir, file)
 % load a '.m' script:
 	exp_md = []; simu_md = []; th_md = [];
 	homedir = pwd;
-	cd(dir)
+    if ~isempty(dir) % If we should look in another directory:
+        cd(dir)
+    end
 	run(fullfile(dir, file));
-	cd(homedir)
+	if ~isempty(dir) % If we should look in another directory:
+        cd(homedir)
+    end
 % 	A = general.handle.function_handle(fullfile(dir, [file '.m']));
 % 	A();
  end
