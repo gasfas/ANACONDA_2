@@ -84,13 +84,13 @@ c.eRiXYiT.eR.value              = [4];
 c.eRiXYiT.eR.translate_condition = 'AND';
 
 c.i_XY.X.type					= 'continuous';
-c.i_XY.X.data_pointer			= 'h.det2.X';
+c.i_XY.X.data_pointer			= 'h.det1.X';
 c.i_XY.X.value					= [-8;8]';
 c.i_XY.X.translate_condition	= 'AND';
 c.i_XY.X.invert_filter			= false;
 
 c.i_XY.Y.type					= 'continuous';
-c.i_XY.Y.data_pointer			= 'h.det2.Y';
+c.i_XY.Y.data_pointer			= 'h.det1.Y';
 c.i_XY.Y.value					= [-8;8]';
 c.i_XY.Y.translate_condition	= 'AND';
 c.i_XY.Y.invert_filter			= false;
@@ -125,9 +125,8 @@ c.BR.C2				= macro.filter.write_coincidence_condition(2, 'det2');
 %% Conditions on multiplicity
 
 c.i.mult.type           = 'discrete';
-c.i.mult.data_pointer   = 'e.det2.mult';
-c.i.mult.value          = [1]';
-c.i.mult.translate_condition = 'OR';
+c.i.mult.data_pointer   = 'e.det1.mult';
+c.i.mult.value          = [1];
 
 c.e.mult.type           = 'discrete';
 c.e.mult.data_pointer   = 'e.det1.mult';

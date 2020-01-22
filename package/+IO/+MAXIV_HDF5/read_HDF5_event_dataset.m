@@ -6,6 +6,7 @@ function exp = read_HDF5_event_dataset(exp, filename, events_dataset_names, MAX_
 ANA_detnrs = MAX_detnrs + 1;
 
 %% Event timestamps
+% The events dataset has 3 columns: 1. event number, 2. timestamp, 3. index into hits of first hit for this event.
 
 % Load event info for all detectors:
 i = 0; all_event_nrs = [];
@@ -29,16 +30,18 @@ end
 
 %% Event indices
 % the number of unique event numbers dictates the list of the ANACONDA event matrix:
-nof_events = length(unique(all_event_nrs));
+unique_event_nrs    = unique(all_event_nrs);
+nof_events          = length(unique_event_nrs);
 % Initiate the data indices matrix:
-data.e.raw = NaN * ones(nof_events, length(MAX_detnrs));
-% get the indices of every event, per detector:
+exp.e.raw = NaN * ones(nof_events, length(MAX_detnrs));
+i = 0; all_event_nrs = [];
+for MAX_detnr = MAX_detnrs'
+    i = i + 1;
+    % get the indices of every event, per detector:
+    [~, A_ind] = ismember(enrs_MAX.(['MAXdet' num2str(MAX_detnrs(i))]), unique_event_nrs);
+    exp.e.raw(A_ind,i) = hitnrs_MAX.(['MAXdet' num2str(MAX_detnrs(i))]) + 1;
+end
 
 
-% The events dataset has 3 columns: 1. event number, 2. timestamp, 3. index into hits of first hit for this event.
-% Store the event indices in the correct place:
-exp.e.raw(:,ANA_detnr)  = data(:,3);
-% Store the timestamps in the correct place:
-exp.e.(['det' num2str(ANA_detnr)]).(['timestamps_det' num2str(ANA_detnr)]) = data(:,2);
 
 end
