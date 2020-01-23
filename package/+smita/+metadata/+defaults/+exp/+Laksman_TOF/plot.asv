@@ -13,11 +13,11 @@ function [exp_md] = plot(exp_md)
 % d1.ifdo.TOF_hit1_hit2				= true;
 % d1.ifdo.m2q_hit1_hit2				= true;
 % d1.ifdo.m2q_hit2_hit3				= true;
-d1.ifdo.dp						= true;
+% d1.ifdo.dp						= true;
 % d1.ifdo.dp_xR						= true;
 % d1.ifdo.dp_normphi					= true;
-% d1.ifdo.dp_norm						= true;
-% d1.ifdo.dp_sum_norm				= true;
+d1.ifdo.dp_norm						= true;
+d1.ifdo.dp_sum_norm				= true;
 % d1.ifdo.angle_p_corr_C2			= true;
 % d1.ifdo.angle_p_corr_C2_KER_sum	= true;
 % d1.ifdo.angle_p_corr_C2_dp_sum_norm = true;
@@ -102,8 +102,8 @@ d1.theta_R.axes.YLim			= [20 45];
 d1.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
 
 d1.dp							= metadata.create.plot.signal_2_plot(signals.dp);
-% d1.dp.cond						= exp_md.cond.CO2;%def.O2_CO2x;%O_CO;
-d1.dp.figure.Position		= plot.fig.Position('Full');
+d1.angle_p_corr_C2.axes.Type	= 'polaraxes';
+d1.dp.cond						= exp_md.cond.CO2;%def.O2_CO2x;%O_CO;
 
 d1.dp_xR						= metadata.create.plot.signal_2_plot({signals.dp_R, signals.dp_z});
 d1.dp_xR.axes.axis				= 'equal';

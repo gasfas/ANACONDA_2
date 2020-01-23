@@ -1,7 +1,7 @@
 %% this code merges multiple experiments into one
 S=data_list(); %struct containing all the experiments
 %% Make the new struct of data you need
-exp = [1:5]; %which exp you need
+exp = [11]; %which exp you need
 
 %% Creating a struct with separate experiments
 for i=exp

@@ -109,26 +109,26 @@ def.O_CO.dp_sum.value            = [0 ; 60];
 def.O_CO.dp_sum.translate_condition = 'AND';
 def.O_CO.dp_sum.invert_filter     = false;
 
-%% Condition: O2+ (CO2)n+ pair
+%% Condition: onO2+ CO+ pair
 % def.C2Hx_CF3.REAL_TRG		= macro.filter.write_coincidence_condition(1, 'det1');
-def.O2_CO2x.C2			= macro.filter.write_coincidence_condition(2, 'det1');
+def.O_CO.C2			= macro.filter.write_coincidence_condition(2, 'det1');
 
-def.O2_CO2x.O2.type				= 'discrete';
-def.O2_CO2x.O2.data_pointer		= 'h.det1.m2q_l';
-def.O2_CO2x.O2.value				= [32];
-def.O2_CO2x.O2.translate_condition = 'hit1';
+def.O_CO.O.type				= 'discrete';
+def.O_CO.O.data_pointer		= 'h.det1.m2q_l';
+def.O_CO.O.value				= [16];
+def.O_CO.O.translate_condition = 'hit1';
 
-def.O2_CO2x.CO2x.type					= 'discrete';
-def.O2_CO2x.CO2x.data_pointer			= 'h.det1.m2q_l';
-def.O2_CO2x.CO2x.value				= exp_md.sample.fragment.masses  ;
-def.O2_CO2x.CO2x.translate_condition	= 'hit2';
+def.O_CO.CO.type					= 'discrete';
+def.O_CO.CO.data_pointer			= 'h.det1.m2q_l';
+def.O_CO.CO.value				= [28];
+def.O_CO.CO.translate_condition	= 'hit2';
 
 % Get rid of large momenta:
-def.O2_CO2x.dp_sum.type             = 'continuous';
-def.O2_CO2x.dp_sum.data_pointer     = 'e.det1.dp_sum_norm';
-def.O2_CO2x.dp_sum.value            = [0 ; 300];
-def.O2_CO2x.dp_sum.translate_condition = 'AND';
-def.O2_CO2x.dp_sum.invert_filter     = false;
+def.O_CO.dp_sum.type             = 'continuous';
+def.O_CO.dp_sum.data_pointer     = 'e.det1.dp_sum_norm';
+def.O_CO.dp_sum.value            = [0 ; 60];
+def.O_CO.dp_sum.translate_condition = 'AND';
+def.O_CO.dp_sum.invert_filter     = false;
 %%
 % exp_md.cond = c;
 exp_md.cond.def = def;

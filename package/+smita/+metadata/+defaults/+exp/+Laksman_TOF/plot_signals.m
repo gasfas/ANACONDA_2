@@ -67,16 +67,16 @@ s.Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% Mass-to-charge:
 s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.m2q.hist.binsize	=0.1; %0.005;% [Da] binsize of the variable. 
+s.m2q.hist.binsize	=0.05; %0.005;% [Da] binsize of the variable. 
 % s.m2q.hist.Range	= [0 50];% [Da] range of the variable. 
-% s.m2q.hist.Range	= [0 50];% [Da] range of the variable. 
-s.m2q.hist.Range	= [0 440];% [Da] range of the variable. 
-s.m2q.hist.Integrated_value	= 100;
+s.m2q.hist.Range	= [30 150];% [Da] range of the variable. 
+% s.m2q.hist.Range	= [0 440];% [Da] range of the variable. 
+% s.m2q.hist.Integrated_value	= 100;
 % Axes metadata:
 s.m2q.axes.Lim		= s.m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
 s.m2q.axes.Tick	=  exp_md.conv.det1.m2q_label.labels; %[12 32 44 44.*(2:10)]; %; [Da] Tick of the axis that shows the variable.
 % s.m2q.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable.
-s.m2q.cond		=exp_md.cond;% macro.filter.write_coincidence_condition(2, 'det1');
+% s.m2q.cond		=exp_md.cond;% macro.filter.write_coincidence_condition(2, 'det1');
 s.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Mass-to-charge sum:
@@ -97,11 +97,11 @@ s.m2q_bgr.hist.pointer	= 'h.det1.m2q_bgr';% Data pointer, where the signal can b
 s.dp.hist.pointer	= 'h.det1.dp';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.dp.hist.binsize	= [1 1 1];% [a.u.] binsize of the variable. 
-s.dp.hist.Range	= [-50 50; -50 50; -50 50];% [au] range of the variable. 
+s.dp.hist.Range	= [-150 150; -150 150; -150 150];% [au] range of the variable. 
 % Axes metadata:
 s.dp.axes.Lim	= s.dp.hist.Range;% [au] Lim of the axis that shows the variable. 
-s.dp.axes.Tick	= s.dp.hist.Range(1):10:s.dp.hist.Range(2);% [au] Ticks on the respective axes.
-s.dp.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The label of the variable
+% s.dp.axes.Tick	= s.dp.hist.Range(1):10:s.dp.hist.Range(2);% [au] Ticks on the respective axes.
+s.dp.axes.Label.String	= {'p_x [a.u.]', 'p_y [a.u.]', 'p_z [a.u.]'}; %The label of the variable
 
 %%%%%% Momentum x:
 s.dp_x.hist.pointer	= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
@@ -153,12 +153,12 @@ s.dp_norm.axes.Label.String	= {'$|\vec{p}|$ [a.u.]','interpreter','latex'}; %The
 %%%%%% Momentum sum norm (event):
 s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_sum_norm.hist.binsize	= [0.1];%2 [a.u.] binsize of the variable. 
+s.dp_sum_norm.hist.binsize	= [0.5];%2 [a.u.] binsize of the variable. 
 s.dp_sum_norm.hist.Range	= [0 300];% [au] range of the variable. 
 % Axes metadata:
 s.dp_sum_norm.axes.Lim	=[-0.1 300];% s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_sum_norm.axes.Tick	= 0:50:300;% [au] Ticks on the respective axes.
-s.dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
+s.dp_sum_norm.axes.Label.String	= {'|p_{sum}| [a.u.]'}; %The label of the variable
 % Condition metadata:
 % s.dp_sum_norm.cond= mdata.calib.det1.momentum.cond  ;
 % s.dp_sum_norm.cond= mdata.calib.det1.momentum.cond  ;
@@ -166,15 +166,6 @@ s.dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the vari
 % s.dp_sum_norm.cond.co2.type = 'continuous';
 % s.dp_sum_norm.cond.co2.value= [0;60];
 
-%%%%%% Momentum Sum for event:
-% s.dp_sum.hist.pointer	= 'e.det1.dp_sum_tot';% Data pointer, where the signal can be found. 
-% % Histogram metadata:
-% s.dp_sum.hist.binsize	= [1]*0.15e2;% [a.u.] binsize of the variable. 
-% s.dp_sum.hist.Range	= [-150 150];% [au] range of the variable. 
-% % Axes metadata:
-% s.dp_sum.axes.Lim	= s.dp_sum.hist.Range;% [au] Lim of the axis that shows the variable. 
-% s.dp_sum.axes.Tick	= s.dp_sum.hist.Range(1):10:s.dp_sum.hist.Range(2);% [au] Ticks on the respective axes.
-% s.dp_sum.axes.Label.String	= {'p_{sum} [a.u.]'}; %The label of the variable
 
 %%%%%% angular correlation of momenta p_corr_C2:
 s.angle_p_corr_C2.hist.pointer	= 'e.det1.angle_p_corr_C2';% Data pointer, where the signal can be found. 
@@ -216,7 +207,7 @@ s.cluster_size_total.hist.pointer	= 'e.det1.cluster_size_total';% Data pointer, 
 % Histogram metadata:
 s.cluster_size_total.hist.binsize	=  1; %[eV] binsize of the CSD variable. 
 s.cluster_size_total.hist.Range	= [2 20]; % range of the variable. 
-s.cluster_size_total.cond= exp_md.cond.def.dp_sum  ;
+% s.cluster_size_total.cond= exp_md.cond.def.dp_sum  ;
 % Axes metadata:
 s.cluster_size_total.axes.Lim	= s.cluster_size_total.hist.Range;% [eV] Lim of the axis that shows the variable. 
 s.cluster_size_total.axes.Tick	= [2:4:20];%2:5:20;% [au] Ticks on the respective axes.
@@ -232,6 +223,81 @@ s.CSD.hist.Range	= [0 60]; %[?ngstr?m] range of the variable.
 s.CSD.axes.Lim	= s.CSD.hist.Range;% [?ngstr?m] Lim of the axis that shows the variable. 
 s.CSD.axes.Tick	= linspace(s.CSD.hist.Range(1), s.CSD.hist.Range(2), 7);% [au] Ticks on the respective axes.
 s.CSD.axes.Label.String	= {['CSD (',char(197),')'],'Interpreter','tex'}; %The label of the variable
+
+%% Dalitz plot signals
+%%%%%% Momentum:
+% s.dp.hist.pointer	= 'h.det1.dp';% Data pointer, where the signal can be found.
+% % Histogram metadata:
+% s.dp.hist.binsize	= [1 1 1];% [a.u.] binsize of the variable. 
+% s.dp.hist.Range	= [-200 200; -199 300; -100 100];% [au] range of the variable. 
+% % Axes metadata:
+% s.dp.axes.Lim	= s.dp.hist.Range;% [au] Lim of the axis that shows the variable. 
+% s.dp.axes.Tick	= s.dp.hist.Range;% [au] Ticks on the respective axes.
+% s.dp.axes.Label.String	= {'$p_x$ [a.u.]', '$p_y$ [a.u.]', '$p_z$ [a.u.]'}; %The label of the variable
+% 
+% %%%%%% Momentum norm:
+% s.dp_norm.hist.pointer	= 'h.det1.dp_norm';% Data pointer, where the signal can be found. 
+% % s.dp_norm.hist.pointer	= 'h.det1.dp(:,1)';% Data pointer, where the signal can be found. 
+% % Histogram metadata:
+% s.dp_norm.hist.binsize	= [3];% [a.u.] binsize of the variable. 
+% s.dp_norm.hist.Range	= [0 150];% [au] range of the variable. 
+% 
+% s.dp_norm.hist.binsize	= [3e10];% [a.u.] binsize of the variable. 
+% s.dp_norm.hist.Range	= [0e11 5e11];% [au] range of the variable. 
+% 
+% % % Axes metadata:
+% % s.dp_norm.axes.Lim	= s.dp_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+% % s.dp_norm.axes.Tick	= s.dp_norm.hist.Range(1):25:s.dp_norm.hist.Range(2);% [au] Ticks on the respective axes.
+% % s.dp_norm.axes.Label.String	= {'$|p|$ [a.u.]'}; %The label of the variable
+% 
+% 
+%%%%%% Momentum norm squared:
+s.dp_norm_squared.hist.pointer	= '(exp.h.det1.dp_norm).^2';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.dp_norm_squared.hist.binsize	= [3^2];% [a.u.] binsize of the variable. 
+s.dp_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
+% Axes metadata:
+s.dp_norm_squared.axes.Lim	= s.dp_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.dp_norm_squared.axes.Tick	= s.dp_norm_squared.hist.Range(1):25:s.dp_norm_squared.hist.Range(2);% [au] Ticks on the respective axes.
+s.dp_norm_squared.axes.Label.String	= {'$|p|^2$ [a.u.]'}; %The label of the variable
+
+% %%%%%% Momentum sum:
+% s.dp_sum.hist.pointer	= 'e.det1.dp_sum';% Data pointer, where the signal can be found. 
+% % Histogram metadata:
+% s.dp_sum.hist.binsize	= [2 2 2];% [a.u.] binsize of the variable. 
+% s.dp_sum.hist.Range	= [-50 50; -50 50; -50 50];% [au] range of the variable. 
+% % Axes metadata:
+% s.dp_sum.axes.Lim	= s.dp_sum.hist.Range;% [au] Lim of the axis that shows the variable. 
+% s.dp_sum.axes.Tick	= 0:50:150;% [au] Ticks on the respective axes.
+% s.dp_sum.axes.Label.String	= {'$p_{sum, x}$ [a.u.]', '$p_{sum, y}$ [a.u.]', '$p_{sum, z}$ [a.u.]'}; %The label of the variable
+% % Condition metadata:
+% s.dp_sum.cond			= [];
+% 
+% %%%%%% Momentum sum norm:
+% s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
+% % Histogram metadata:
+% s.dp_sum_norm.hist.binsize	= [1];% [a.u.] binsize of the variable. 
+% s.dp_sum_norm.hist.Range	= [0 100];% [au] range of the variable. 
+% % Axes metadata:
+% s.dp_sum_norm.axes.Lim	= s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+% s.dp_sum_norm.axes.Tick	= 0:20:300;% [au] Ticks on the respective axes.
+% s.dp_sum_norm.axes.Label.String	= {'$|p_{sum}|$ [a.u.]'}; %The label of the variable
+% % Condition metadata:
+% s.dp_sum_norm.cond			= [];
+% 
+%%%%%% Momentum sum norm squared:
+s.dp_sum_norm_squared.hist.pointer	= '(exp.e.det1.dp_sum_norm).^2';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.dp_sum_norm_squared.hist.binsize	= [500];%[1000] [a.u.] binsize of the variable. 
+s.dp_sum_norm_squared.hist.Range	= [0 100^2];% [au] range of the variable. 
+% Axes metadata:
+s.dp_sum_norm_squared.axes.Lim	= s.dp_sum_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.dp_sum_norm_squared.axes.Tick	= 0:20:300;% [au] Ticks on the respective axes.
+s.dp_sum_norm_squared.axes.Label.String	= {'$|p_{sum}|^2$ [a.u.]'}; %The label of the variable
+% Condition metadata:
+s.dp_sum_norm_squared.cond			= [];
+%% 
+
 
 
 %%%%%% Extra axes defaults:
