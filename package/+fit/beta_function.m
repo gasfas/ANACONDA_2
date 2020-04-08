@@ -22,7 +22,10 @@ beta_0 = 0;
 
 fun = @(beta_fun, theta) theory.function.beta(theta, beta_fun);
 
-beta = lsqcurvefit(fun,beta_0,theta,Int_norm, -1, 2);
+beta = lsqcurvefit(fun,beta_0,theta,Int_norm,-1, 2 ); 
 
 
+plot(theta,Int_norm,'b-',theta,theory.function.beta(theta,beta),'r--')
+legend('Data','Fitted curve')
+title('Beta Fitted Curve')
 end

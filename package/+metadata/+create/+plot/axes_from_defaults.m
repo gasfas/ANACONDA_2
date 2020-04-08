@@ -32,9 +32,9 @@ switch dim
 			case 'polaraxes'
 				try def.Title	= axes_md.RLabel; end
 		end
-		def.colormap		= plot.jet; %plot.custom_RGB_colormap,'parula';%
+		def.colormap		= plot.jet; %; %plot.custom_RGB_colormap,'parula';%
 	case 3
-		def.colormap		= plot.jet; %plot.custom_RGB_colormap;		
+		def.colormap		= plot.jet; %plot.jet; %plot.custom_RGB_colormap;		
 end
 
 %% Fill in the defaults

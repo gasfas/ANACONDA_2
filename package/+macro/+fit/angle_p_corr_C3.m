@@ -10,6 +10,6 @@ function  [fit_param, hFig, hAx, hLine] = angle_p_corr_C3(data_in, metadata_in, 
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-[fit_param, hFig, hAx, hLine] = angle_p_corr(data_in, metadata_in, 3, det_name);
+[fit_param, hFig, hAx, hLine] = macro.fit.angle_p_corr(data_in, metadata_in, 3, det_name);
 
 end

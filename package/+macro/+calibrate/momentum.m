@@ -45,8 +45,8 @@ data            = [dp dp_norm pol az];
 names           = {'$p_x [amu]$', '$p_y [amu]$', '$p_z [amu]$', '$|p| [amu]$', 'phi', 'theta'};
 ranges          = [x_range; x_range; x_range; [0 x_range(2)]; [0 x_range(2)]; [0 x_range(2)]];
 y_ranges        = [y_range; y_range; y_range; [0 max(x_range)];  [-pi pi]; [0 2*pi]]; 
-x_data_idx      = [2, 3, 3, 1, 2, 3, 1, 4, 4];
-y_data_idx      = [1, 1, 2, 4, 4, 4, 5, 6, 5];
+x_data_idx      = [2, 3, 3, 1, 2, 3, 4, 4, 4];
+y_data_idx      = [1, 1, 2, 4, 4, 4, 6, 5, 6];
 plot_circle     = [1, 1, 1, 0, 0, 0, 0, 0, 0];
 plot_hor        = [0, 0, 0, 1, 1, 1, 0, 0, 0];
 

@@ -45,11 +45,11 @@ signals.px.hist.Range		= p_Lim;
 % Axes metadata:
 signals.px.axes.Lim	= signals.px.hist.Range;% [au] Lim of the axis that shows the variable. 
 signals.px.axes.Tick	= hist.bins(p_Lim, 30);% [au] Ticks on the respective axes.
-signals.px.axes.Label.String	= {'$p_x$ [a.u.]'}; %The label of the variable
+signals.px.axes.Label.String	= {'p_x [a.u.]'}; %The label of the variable
 
 [signals.py, signals.pz, signals.pnorm] = deal(signals.px, signals.px, signals.px);
 [signals.py.hist.pointer, signals.pz.hist.pointer, signals.pnorm.hist.pointer]				= deal('h.det1.dp(:,2)', 'h.det1.dp(:,3)', 'h.det1.p_norm');
-[signals.py.axes.Label.String, signals.pz.axes.Label.String, signals.pnorm.axes.Label.String]	= deal({'$p_y$ [a.u.]'}, {'$p_z$ [a.u.]'}, {'$|p|$ [a.u.]'});
+[signals.py.axes.Label.String, signals.pz.axes.Label.String, signals.pnorm.axes.Label.String]	= deal({'p_y [a.u.]'}, {'p_z [a.u.]'}, {'|p| [a.u.]'});
 
 
 [v_MB, v_MBx, v_MBy, v_MBz]	= macro.convert.momentum.fetch_v_MB(exp_md.sample);
@@ -81,16 +81,16 @@ cd1.momentum.hist.pointer		= 'h.det1.raw';
 % Plot style for 2D momentum histogram:
 cd1.momentum.labels_to_show = exp_md.conv.det1.m2q_label.labels;%12;%exp_md.sample.fragment.masses; %exp_md.conv.det1.m2q_label.labels;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
 cd1.momentum.binsize       	= [1, 1]*0.5e0;%0.25e1; %[a.u.] binsize of the m2q variable. 
-cd1.momentum.x_range		= [-1 1]*50; % [a.u.] x range of the data on x-axis.
-cd1.momentum.y_range		= [-1 1]*50; % [a.u.] y range of the data on y-axis.
+cd1.momentum.x_range		= [-1 1]*150; % [a.u.] x range of the data on x-axis.
+cd1.momentum.y_range		= [-1 1]*150; % [a.u.] y range of the data on y-axis.
 
 
 %we add a condition to the data 
 cond.label1.type             = 'discrete';
 cond.label1.data_pointer     = 'h.det1.m2q_l';
-cond.label1.value            = exp_md.sample.fragment.masses;
+cond.label1.value            =  22; %exp_md.sample.fragment.masses;
 % cond.label1.value            =22; %44*(0:20);% 
-cond.label1.translate_condition = 'hit1';
+% cond.label1.translate_condition = 'hit1';
 
 % cond.label2					= cond.label1;
 % cond.label2.value           = exp_md.sample.fragment.masses;
@@ -104,6 +104,7 @@ cond.label1.translate_condition = 'hit1';
 % 
 % cond.C2				= macro.filter.write_coincidence_condition(2, 'det1');
 cd1.momentum.cond = cond;
+% cd1.momentum.cond = exp_md.cond.def.X_X;  
 
 % Molecular beam velocity calibration:
 try

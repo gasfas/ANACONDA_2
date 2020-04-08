@@ -61,7 +61,7 @@ catch % If some values are not given, we don't perform the MB correction:
 		T_0                 = TOF_no_dp;
 end
 
-if ~general.struct.probe_field(spec_md, 'Bfield')
+if ~general.struct.probe_field(spec_md, 'Bfield') 
         % p_0 is determined from the difference between the positions 
 		% without momentum difference, and the position expected from the molecular beam velocity:
         p_0_X = labels_mass.*general.constants({'amu'}).* (X_0./T_0 - X_no_p./TOF_no_dp)*1e6; % [kg*m/s] [m,1]

@@ -57,6 +57,6 @@ y = theory.function.gauss_PDF(theta_containers, fit_param.mu.value, fit_param.si
 if size(y, 2) > 1 % more than one curve fitted, so we give a total as well:
 	y(:, end+1) = sum(y, 2);
 end
-polarplot(ax, theta_containers, y, 'LineStyle', '-'); 
+polarplot(ax, theta_containers, y, 'LineStyle', '-', 'LineWidth',2)
 
 end

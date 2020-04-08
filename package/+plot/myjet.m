@@ -47,14 +47,21 @@ if nargin < 1
 end
 
 % Colors
+color_palette = [1 0.66 0.66;   % pink
+                 0.96 0.72 0.36;     % yellow ochre
+                 1 0.87 0.01;     % Yellow
+                 0.8 1 0;     % yellow green 
+                 0.56 0.98 0.95;     % light blue
+                 0.73 0.56 0.98;     % purple
+                 1    1    1];  % white
              
-color_palette = [1/2 0 0;   % Deep red
-                 1 0 0;     % Red
-                 1 1 0;     % Yellow
-                 0 1 0;     % green 
-                 0 1 1;     % Cyan
-                 0 0 1;     % Blue
-                 0.9020    0.9608    0.9608];  % Light blue blue 0 0 1/2];  % Deep blue
+% color_palette = [1/2 0 0;   % Deep red
+%                  1 0 0;     % Red
+%                  1 1 0;     % Yellow
+%                  0 1 0;     % green 
+%                  0 1 1;     % Cyan
+%                  0 0 1;     % Blue
+%                  0.9020    0.9608    0.9608];  % Light blue blue 0 0 1/2];  % Deep blue
              
 % Compute distributions along the samples
 color_dist = cumsum([0 1/10 1/5 1/5 1/5 1/5 1/10]);

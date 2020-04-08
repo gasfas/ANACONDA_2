@@ -26,5 +26,8 @@ imagesc_axes.Position(3:4)=  scale_factor*h_axes.Position(3:4);
 imagesc_axes.Position(1) =  imagesc_axes.Position(1)+scale_factor/2*(imagesc_axes.Position(3) - imagesc_axes.Position(1));
 hlink = linkprop([h_axes, imagesc_axes],'Position');
 uistack(h_axes, 'top')
-colormap(imagesc_axes, plot.custom_RGB_colormap('w','r',0,1));
+colormap(imagesc_axes, plot.myjet);  %plot.custom_RGB_colormap('w','r',0,1)  plot.myjet
+c = colorbar;
+% caxis([0 1])
+c.Position = [0.8733,0.288,0.04667,0.526];
 

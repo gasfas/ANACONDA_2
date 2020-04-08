@@ -69,33 +69,33 @@ exp_md.fit.det1.m2q.opt_4.MaxIter 	= 1e5; % Maximum number of iterations.
 %% p1 to p2 angle distribution fits:
 % Gaussian fit:
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.mu.value  = [pi 2*pi/3]; %2*pi/3 depending on the no. of peaks 
-exp_md.fit.det1.angle_p_corr_C2.gauss.mu.isfree = [false false];
-exp_md.fit.det1.angle_p_corr_C2.gauss.mu.min    = [pi/2 pi/2];
-exp_md.fit.det1.angle_p_corr_C2.gauss.mu.max    = [pi/2 pi/2];
+exp_md.fit.det1.angle_p_corr_C2.gauss.mu.value  = [90*pi/180, 120*pi/180, 180*pi/180]; %[pi 0.5*pi]; %104*pi/180; % depending on the no. of peaks 
+exp_md.fit.det1.angle_p_corr_C2.gauss.mu.isfree = [false false false]; %false; %[true true true]; %
+exp_md.fit.det1.angle_p_corr_C2.gauss.mu.min    = [0, 0, 0]; %pi/2;% [pi/2 pi/2];
+exp_md.fit.det1.angle_p_corr_C2.gauss.mu.max    = [pi, pi, pi]; %pi/2; %[pi/2 pi/2];
 
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.value  = [0.2 0.2];
-exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.isfree = [true true];
-exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.min    = [0.0 0.0];
-exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.max    = [4.0 4.0];
-exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.mode   = 'independent'; %'one width fits all';
+exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.value  = [0.2 0.2 0.2];% 0.2; %
+exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.isfree = [true true true]; % true; %
+exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.min    = [0.0 0.0 0.0]; %0; %[0.0  0.0]
+exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.max    = [0.5, 0.5, 0.5]; %4; %[4.0  4.0]
+exp_md.fit.det1.angle_p_corr_C2.gauss.sigma.mode   ='independent'; % 'one width fits all'; %
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.PH.value    = [0.7 0.7];
-exp_md.fit.det1.angle_p_corr_C2.gauss.PH.isfree   = [true true];
-exp_md.fit.det1.angle_p_corr_C2.gauss.PH.min      = [0.0 0.0];
-exp_md.fit.det1.angle_p_corr_C2.gauss.PH.max      = [1.5 1.5];
+exp_md.fit.det1.angle_p_corr_C2.gauss.PH.value    = [0.5, 0.8, 1.0]; %1; %;%[0.7 0.7]
+exp_md.fit.det1.angle_p_corr_C2.gauss.PH.isfree   = [true true true]; %true; %
+exp_md.fit.det1.angle_p_corr_C2.gauss.PH.min      = [0.0 0.0 0.0]; %0; %
+exp_md.fit.det1.angle_p_corr_C2.gauss.PH.max      = [[1.0, 1.0, 1.0]]; %1.5; %
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.value  = 0;
+exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.value  = 0.0;
 exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.min    = 0;
-exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.max    = 0.1;
-exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.isfree = false;
+exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.max    = 0.4; %0.1
+exp_md.fit.det1.angle_p_corr_C2.gauss.y_bgr.isfree = false; %true; %
 
-exp_md.fit.det1.angle_p_corr_C2.gauss.theta.value			= [0 pi];
+exp_md.fit.det1.angle_p_corr_C2.gauss.theta.value			= [0.1 pi-0.01];  %[0 pi];
 
 % optimization parameters:
-exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.TolX 			= 1E-7; % Tolerance in X
-exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.TolFun          = 1E-10;% Tolerance in function error
+exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.TolX 			= 1E-15; %-7 Tolerance in X
+exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.TolFun          = 1E-15;%-10 Tolerance in function error
 exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.MaxFunEvals     = 1e6;% Maximum evaluations of the function.
 exp_md.fit.det1.angle_p_corr_C2.gauss.fit_param.MaxIter         = 1e5; % Maximum number of iterations.
 
@@ -125,6 +125,9 @@ exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.value  = 0;
 exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.min    = 0;
 exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.max    = 0.4;
 exp_md.fit.det1.angle_p_corr_C3.gauss.y_bgr.isfree = false;
+
+exp_md.fit.det1.angle_p_corr_C3.plot                = exp_md.plot.det1.angle_p_corr_C3;
+
 
 end
 
