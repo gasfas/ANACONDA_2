@@ -90,7 +90,7 @@ cond.label1.type             = 'discrete';
 cond.label1.data_pointer     = 'h.det1.m2q_l';
 cond.label1.value            =  22; %exp_md.sample.fragment.masses;
 % cond.label1.value            =22; %44*(0:20);% 
-% cond.label1.translate_condition = 'hit1';
+cond.label1.translate_condition = 'hit1';
 
 % cond.label2					= cond.label1;
 % cond.label2.value           = exp_md.sample.fragment.masses;

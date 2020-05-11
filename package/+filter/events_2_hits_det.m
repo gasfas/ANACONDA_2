@@ -1,4 +1,4 @@
-function [hit_filter] = events_2_hits_det(event_filter, events, nof_hits)
+function [hit_filter] = events_2_hits_det(event_filter, events, nof_hits, cond, exp)
 % This function translates an event filter into a hit filter, for one detector only. 
 % Input:
 % event_filter:         Boolean array, the original event filter [nof_events, 1].
@@ -45,6 +45,13 @@ else
 	hit_filter = general.matrix.upfill_array(hit_filter, 'NaN', 1);
 	% make the array into a logical array:
 	hit_filter = logical(hit_filter);
+
+    if general.struct.probe_field(cond, 'hit_to_show')
+    %%% if only one hit is to be shown
+        new_filter = filter.hits.labeled_hits(exp.h.det1.m2q_l,cond.hit_to_show);
+        hit_filter = and(hit_filter, new_filter);
+    end
+    
 end
 
 end

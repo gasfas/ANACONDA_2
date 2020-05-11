@@ -47,7 +47,11 @@ if cond_sim % If the conditions are similar, we can just copy it from the experi
 	f = exp_data.e.filt.from_recent_cond;
 else
 	% Save the conditions to the experimental data, for later use:
-	exp_data.e.filt.cond_struct			= conditions;
+    if general.struct.issubfield(conditions, 'sign1')
+        exp_data.e.filt.cond_struct			= conditions.sign1;
+    else
+        exp_data.e.filt.cond_struct			= conditions;
+    end
 	[f, exp_data] = C2F(exp_data, conditions);
 end
 end
@@ -140,7 +144,7 @@ switch general.struct.probe_field(condition, 'value_type')
 	% Lastly, check whether the filter should be inverted:
 	if general.struct.probe_field(condition, 'invert_filter')
 		f = ~f;
-	end
+    end
 end
 end
 

@@ -67,8 +67,8 @@ s.Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% Mass-to-charge:
 s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.m2q.hist.binsize	=0.1; %0.005;% [Da] binsize of the variable. 
-s.m2q.hist.Range	= [0 440];% [Da] range of the variable. 
+s.m2q.hist.binsize	=0.005; %0.005;% [Da] binsize of the variable. 
+s.m2q.hist.Range	= [0 60];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [0 150];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [40 90];% [Da] range of the variable. 
 s.m2q.hist.Integrated_value	= 100;
@@ -76,7 +76,7 @@ s.m2q.hist.Integrated_value	= 100;
 s.m2q.axes.Lim		= s.m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
 s.m2q.axes.Tick	=  exp_md.conv.det1.m2q_label.labels; %[12 32 44 44.*(2:10)]; %; [Da] Tick of the axis that shows the variable.
 % s.m2q.axes.Tick	= exp_md.sample.fragment.masses; % [Da] Tick of the axis that shows the variable.
-% s.m2q.cond		=exp_md.cond.def.X_X;% macro.filter.write_coincidence_condition(2, 'det1');
+s.m2q.cond		=exp_md.cond.def.X_X;% macro.filter.write_coincidence_condition(2, 'det1');
 s.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 %%%%%% Mass-to-charge sum:
@@ -143,17 +143,17 @@ s.dp_phi.axes.Label.String	= {'$p_{\phi}$ [rad]'}; %The label of the variable
 %%%%%% Momentum norm (hit):
 s.dp_norm.hist.pointer	= 'h.det1.dp_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_norm.hist.binsize	= [1.0];% 0.4 [a.u.] binsize of the variable. 
+s.dp_norm.hist.binsize	= [4];% 0.4 [a.u.] binsize of the variable. 
 s.dp_norm.hist.Range	= [-0.1 300];% [au] range of the variable. 
 % Axes metadata:
 s.dp_norm.axes.Lim	= s.dp_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_norm.axes.Tick	= s.dp_norm.hist.Range(1):50:s.dp_norm.hist.Range(2);% [au] Ticks on the respective axes.
-s.dp_norm.axes.Label.String	= {'|\vec{p}| [a.u.]','interpreter','latex'}; %The label of the variable
+s.dp_norm.axes.Label.String	= {'$|\vec{p}|$ [a.u.]','Interpreter','latex'}; %The label of the variable
 
 %%%%%% Momentum sum norm (event):
 s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_sum_norm.hist.binsize	= [0.75];%0.75 2 0.5[a.u.] binsize of the variable. 
+s.dp_sum_norm.hist.binsize	= [2.5];%0.75 2 0.5[a.u.] binsize of the variable. 
 s.dp_sum_norm.hist.Range	= [0 300];% [au] range of the variable. 
 % Axes metadata:
 s.dp_sum_norm.axes.Lim	=[-0.1 300];% s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
@@ -192,8 +192,8 @@ s.angle_p_corr_C3.axes.Label.String	= {'mutual angle [deg]'}; %The label of the 
 %%%%%% Kinetic Energy Release:
 s.KER_sum.hist.pointer	= 'e.det1.KER_sum';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.KER_sum.hist.binsize	=  0.2;%0.01; 0.05 %[eV] binsize of the CSD variable. 
-s.KER_sum.hist.Range	= [0 6]; %[eV] range of the variable. 
+s.KER_sum.hist.binsize	=  0.1;%0.01; 0.05 %[eV] binsize of the CSD variable. 
+s.KER_sum.hist.Range	= [0 16]; %[eV] range of the variable. 
 % s.KER_sum.cond= exp_md.cond.def.dp_sum  ;
 % s.KER_sum.cond= exp_md.cond;
 % Axes metadata:
@@ -204,12 +204,11 @@ s.KER_sum.axes.Label.String	= {'Total ion KER [eV]'}; %The label of the variable
 %%%ker hit
 s.KER_hit.hist.pointer	= 'h.det1.KER';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.KER_hit.hist.binsize	=  0.01;%0.01; 0.05 %[eV] binsize of the CSD variable. 
-s.KER_hit.hist.Range	= [0 6]; %[eV] range of the variable. 
-
-% Axes metadata:
+s.KER_hit.hist.binsize	=  0.1;%0.01; 0.05 %[eV] binsize of the CSD variable. 
+% s.KER_hit.hist.Integrated_value	= 100;
+s.KER_hit.hist.Range	= [0 9]; %[eV] range of the variable. 
 s.KER_hit.axes.Lim	= s.KER_hit.hist.Range;% [eV] Lim of the axis that shows the variable. 
-s.KER_hit.axes.Tick	= linspace(s.KER_hit.axes.Lim(1), s.KER_hit.axes.Lim(2), 6);% [au] Ticks on the respective axes.
+s.KER_hit.axes.Tick	= s.KER_hit.axes.Lim(1):0.5: s.KER_hit.axes.Lim(2);% [au] Ticks on the respective axes.
 s.KER_hit.axes.Label.String	= {'Ion KER [eV]'}; %The label of the variable
 
 
@@ -240,7 +239,8 @@ s.CSD.axes.Label.String	= {['CSD (',char(197),')'],'Interpreter','tex'}; %The la
 %%%%%% Momentum norm squared:
 s.dp_norm_squared.hist.pointer	= '(exp.h.det1.dp_norm).^2';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_norm_squared.hist.binsize	= [18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
+% s.dp_norm_squared.hist.binsize	= [18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
+s.dp_norm_squared.hist.binsize  = 15^2; %[18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
 s.dp_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
 % Axes metadata:
 s.dp_norm_squared.axes.Lim	= s.dp_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 

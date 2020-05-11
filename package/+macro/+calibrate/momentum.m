@@ -55,7 +55,7 @@ plot_hor        = [0, 0, 0, 1, 1, 1, 0, 0, 0];
 
 if isfield(plot_metadata, 'cond')
 	e_f = macro.filter.conditions_2_filter(exp, plot_metadata.cond);
-	h_f = filter.events_2_hits_det(e_f, exp.e.raw(:,detnr), size(dp, 1));
+	h_f = filter.events_2_hits_det(e_f, exp.e.raw(:,detnr), size(dp, 1),plot_metadata.cond,exp);
 	filt = filt & h_f;
 end
 

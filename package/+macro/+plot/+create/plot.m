@@ -1,4 +1,4 @@
-function [h_figure, h_axes, h_GraphObj, exp] = plot(varargin)
+function [h_figure, h_axes, h_GraphObj, exp, histogram] = plot(varargin)
 % This function creates a plot figure, axes and Graphical object, 
 % with the specified styles in a new figure.
 % Inputs:

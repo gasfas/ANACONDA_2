@@ -168,7 +168,7 @@ elseif ~isevent%% This means we are dealing with hits:
 	nof_hits	= size(hit_data1, 1);
 	if exist('e_filter', 'var') % translate the event filter to a hit filter:
 		detnr		= IO.det_nr_from_fieldname(hist_md.pointer{1});
-		hit_filter	= filter.events_2_hits_det(e_filter, exp.e.raw(:,detnr), nof_hits);
+		hit_filter	= filter.events_2_hits_det(e_filter, exp.e.raw(:,detnr), nof_hits,exp.e.filt.cond_struct, exp);
 	else
 		hit_filter	= true(nof_hits, 1);
 	end

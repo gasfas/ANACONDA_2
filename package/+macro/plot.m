@@ -1,4 +1,4 @@
-function [h_figure, h_axes, h_GraphObj, exp] = plot(exp, metadata)
+function [h_figure, h_axes, h_GraphObj, exp, histogram] = plot(exp, metadata)
 % This macro produces plots, based on the corrected and converted signals.
 % The metadata.plot.(detname).ifdo list is checked for the plot types the
 % user wants to see, and they are shown.
@@ -26,7 +26,7 @@ for i = 1:length(detnames)
 			% If the user wants to plot that plottype:
 			if metadata.plot.(detname).ifdo.(plotname{:})
 				% Create the plot figure and its contents:
-				 [h_figure.(detname).(plotname{:}), h_axes.(detname).(plotname{:}), h_GraphObj.(detname).(plotname{:}), exp] = macro.plot.create.plot(exp, metadata.plot.(detname).(plotname{:}));
+				 [h_figure.(detname).(plotname{:}), h_axes.(detname).(plotname{:}), h_GraphObj.(detname).(plotname{:}), exp, histogram] = macro.plot.create.plot(exp, metadata.plot.(detname).(plotname{:}));
 			end
 		end
 	else % no plots requested:

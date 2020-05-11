@@ -1,31 +1,26 @@
 S=data_list(); %struct containing all the experiments
 %% Make the new struct of data you need
-exp = 18:20; %which exp you need
+exp = [1,32]; %which exp you need
 
 %% Creating a struct with separate experiments
 for i=exp
     tmp = sprintf('exp%d',i);
-    new_struct.(tmp).raw_data = IO.import_raw(S(i).dir_CO2);
+    new_struct.raw_data.(tmp) = IO.import_raw(S(i).dir_CO2);
     mdata = IO.import_metadata(S(i).dir_CO2); 
-    new_struct.(tmp).data = macro.filter(new_struct.(tmp).raw_data, mdata);
-    new_struct.(tmp).data_corrected = macro.correct(new_struct.(tmp).data, mdata);
-    new_struct.(tmp).data_converted = macro.convert(new_struct.(tmp).data_corrected, mdata);
+    new_struct.data.(tmp) = macro.filter(new_struct.raw_data.(tmp), mdata);
+    new_struct.data_corrected.(tmp) = macro.correct(new_struct.data.(tmp), mdata);
+    new_struct.data_converted.(tmp) = macro.convert(new_struct.data_corrected.(tmp), mdata);
 end
 %% Merging data
-merge_data = IO.merge_exp(new_struct);
-%% Conitnue with teh
-mdata = IO.import_metadata(S(exp(1)).dir_CO2); %%% select the mdata to use
-data            = macro.filter(merge_data, mdata);
-data_corrected = macro.correct(data, mdata);
-data_converted = macro.convert(data_corrected, mdata);
+merge_data = smita.merge_data_converted(new_struct.data_converted);
 
 %% 
 mdata = IO.import_metadata(S(exp(1)).dir_CO2); %%% select the mdata to use
-macro.calibrate.momentum(data_converted, 1, mdata)
-% macro.calibrate.Molecular_Beam(data_converted, 1, mdata.calib.det1.MB)
+macro.calibrate.momentum(merge_data, 1, mdata)
+% macro.calibrate.Molecular_Beam(merge_data, 1, mdata.calib.det1.MB)
 %% plotting
 mdata = IO.import_metadata(S(exp(1)).dir_CO2); %%% select the mdata to use
-macro.plot(data_converted, mdata)
+macro.plot(merge_data, mdata)
 %% Alternative manual input
 
 % new_struct.exp1 = IO.import_raw(S(1).dir_CO2)
