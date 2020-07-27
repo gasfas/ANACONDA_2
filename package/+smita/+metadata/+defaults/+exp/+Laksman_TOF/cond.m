@@ -32,7 +32,7 @@ def.dp_sum.invert_filter     = false;
 % make sure one only takes the labeled hits:
 def.label.type             = 'continuous';
 def.label.data_pointer     = 'h.det1.m2q_l';
-def.label.value            = [min(exp_md.conv.det1.m2q_label.labels); max(exp_md.conv.det1.m2q_label.labels)];
+def.label.value            = [min(exp_md.conv.det1.m2q_label.labels); max(exp_md.conv.det1.m2q_label.labels)]; 
 def.label.translate_condition = 'AND';
 
 %% Conditions
@@ -87,7 +87,44 @@ def.label.translate_condition = 'AND';
 % c.H.dp_norm.value			= [13; 100];
 % c.H.dp_norm.translate_condition = 'AND';
 
-%% 
+%% Condition: X+ alone ### 
+% % 
+def.X.C1			= macro.filter.write_coincidence_condition(2, 'det1');
+
+def.X.O.type					= 'discrete';
+def.X.O.data_pointer			= 'h.det1.m2q_l';
+def.X.O.value				    = [32] ;
+def.X.O.translate_condition	= 'AND'; %'AND'; %
+def.X.O.invert_filter         = false;
+
+% def.X.CO.type					= 'discrete';
+% def.X.CO.data_pointer			= 'h.det1.m2q_l';
+% def.X.CO.value				    = [34] ;
+% def.X.CO.translate_condition	= 'hit2'; %'AND'; %
+% def.X.CO.invert_filter         = false;
+% 
+% % def.X.COO.type					= 'discrete';
+% % def.X.COO.data_pointer			= 'h.det1.m2q_l';
+% % def.X.COO.value				    = [16] ;
+% % def.X.COO.translate_condition	= 'hit3'; %'AND'; %
+% % def.X.COO.invert_filter         = false;
+% 
+% % % 
+% def.X.hit_to_show           = def.X.CO.value; %CO
+
+% %  Get rid of large momenta:
+% def.X.ker_hit.type             = 'continuous';
+% def.X.ker_hit.data_pointer     = 'h.det1.KER  '; %%filter dalitz using this?
+% def.X.ker_hit.value            = [0 ; 0.5];%[200 ; 300] ;%[150 ; 200]; % 
+% def.X.ker_hit.translate_condition = 'hit2';
+% def.X.ker_hit.invert_filter     = false;
+% 
+% % Get rid of large momenta:
+def.X.dp_sum.type             = 'continuous';
+def.X.dp_sum.data_pointer     = 'e.det1.dp_sum_norm'; %%filter dalitz using this?
+def.X.dp_sum.value            = [0 ; 350];%[200 ; 300] ;%[150 ; 200]; % 
+def.X.dp_sum.translate_condition = 'AND';
+def.X.dp_sum.invert_filter     = false;
 
 %% Condition: X+ X+ pair ### 
 % % 
@@ -95,53 +132,52 @@ def.X_X.C2			= macro.filter.write_coincidence_condition(2, 'det1');
 
 def.X_X.O.type					= 'discrete';
 def.X_X.O.data_pointer			= 'h.det1.m2q_l';
-def.X_X.O.value				    = [32] ;
+def.X_X.O.value				    = [12] ;
 def.X_X.O.translate_condition	= 'hit1';
 def.X_X.O.invert_filter         = false;
 %   
 def.X_X.CO2.type				= 'discrete';
 def.X_X.CO2.data_pointer		= 'h.det1.m2q_l';
-def.X_X.CO2.value				= 44; %
+def.X_X.CO2.value				= 32; %
 def.X_X.CO2.translate_condition = 'hit2';
 def.X_X.CO2.invert_filter         = false;
 %
 % def.X_X.CO.type				= 'discrete';
 % def.X_X.CO.data_pointer		= 'h.det1.m2q_l';
-% def.X_X.CO.value				= 88; %exp_md.conv.det1.m2q_label.labels; %
+% def.X_X.CO.value				= 16; %exp_md.conv.det1.m2q_label.labels; %
 % def.X_X.CO.translate_condition = 'hit3';
 % def.X_X.CO.invert_filter         = false;
 % 
-def.X_X.hit_to_show           = def.X_X.CO2.value; %CO2
+% def.X_X.hit_to_show           = def.X_X.CO2.value; %CO2
 
 % Momentum filter for hit1
-def.X_X.dp_norm1.data_pointer	= 'h.det1.dp_norm';
-def.X_X.dp_norm1.type			= 'continuous';
-def.X_X.dp_norm1.value			= [35; 40];
-def.X_X.dp_norm1.translate_condition = 'hit1';
-def.X_X.dp_norm1.invert_filter     = false;     
+% def.X_X.dp_norm1.data_pointer	= 'h.det1.dp_norm';
+% def.X_X.dp_norm1.type			= 'continuous';
+% def.X_X.dp_norm1.value			= [0; 30]; %[0; 300];%
+% def.X_X.dp_norm1.translate_condition = 'hit1';
+% def.X_X.dp_norm1.invert_filter     = false;     
 % % % % % % % % % 
-% % % %Momentum filter for hit2
-def.X_X.dp_norm2.data_pointer	= 'h.det1.dp_norm';
-def.X_X.dp_norm2.type			= 'continuous';
-def.X_X.dp_norm2.value			= [0; 300]; %[100; 300];%
-def.X_X.dp_norm2.translate_condition = 'hit2';
-def.X_X.dp_norm2.invert_filter     = false;
+% % % % %Momentum filter for hit2
+% def.X_X.dp_norm2.data_pointer	= 'h.det1.dp_norm';
+% def.X_X.dp_norm2.type			= 'continuous';
+% def.X_X.dp_norm2.value			= [0; 300]; %[100; 300];%
+% def.X_X.dp_norm2.translate_condition = 'hit2';
+% def.X_X.dp_norm2.invert_filter     = false;
 
-
-% % Get rid of large momenta:
+% 
+% % % Get rid of large momenta:
 def.X_X.dp_sum.type             = 'continuous';
 def.X_X.dp_sum.data_pointer     = 'e.det1.dp_sum_norm'; %%filter dalitz using this?
-def.X_X.dp_sum.value            = [0 ; 300];%[200 ; 300] ;%[150 ; 200]; % 
+def.X_X.dp_sum.value            = [0; 40];%[0 ; 300] ;%[150 ; 200]; % 
 def.X_X.dp_sum.translate_condition = 'AND';
 def.X_X.dp_sum.invert_filter     = false;
 
-
+% 
 % def.X_X.angle_corr_C2.type             = 'continuous';
 % def.X_X.angle_corr_C2.data_pointer     = 'e.det1.angle_p_corr_C2 ';
-% def.X_X.angle_corr_C2.value            = [(120)*pi/180 ; (125)*pi/180];%[200 ; 300] ;%[150 ; 200]; % 
+% def.X_X.angle_corr_C2.value            = [(160)*pi/180 ; (180)*pi/180];%[200 ; 300] ;%[150 ; 200]; % 
 % def.X_X.angle_corr_C2.translate_condition = 'AND';
 % def.X_X.angle_corr_C2.invert_filter     = false;
-
 
 
 
