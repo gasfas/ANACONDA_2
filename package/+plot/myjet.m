@@ -47,7 +47,7 @@ if nargin < 1
 end
 
 % Colors
-color_palette = [1 0.66 0.66;   % pink
+color_palette = [1 0.66 0.66; %1 0.33 0.33;   % pink 1 0.66 0.66
                  0.96 0.72 0.36;     % yellow ochre
                  1 0.87 0.01;     % Yellow
                  0.8 1 0;     % yellow green 

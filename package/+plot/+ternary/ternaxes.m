@@ -103,17 +103,17 @@ if ~hold_state
     
     [lxc,       lyc]        = plot.ternary.terncoords(lim(2)-majorticks, majorticks, zerocomp);
     [arrow_xc,  arrow_yc]        = plot.ternary.terncoords(lim(2)-majorticks, majorticks - a_l, zerocomp + a_l);
-	text(lxc+0.1, lyc-0.025, [repmat('  ', size(labels,1), 1) labels], 'VerticalAlignment', 'Top', 'HorizontalAlignment', 'left');
+	text(lxc+0.1, lyc-0.025, [repmat('  ', size(labels,1), 1) labels], 'VerticalAlignment', 'Top', 'HorizontalAlignment', 'left','FontSize',12);
     
 	% Plot left labels (no b - only a c)
     [lxb, lyb] = plot.ternary.terncoords(majorticks, zerocomp, lim(2)-majorticks); % fB = 1-fA
     [arrow_xb, arrow_yb] = plot.ternary.terncoords(majorticks - a_l, zerocomp + a_l, lim(2)-majorticks); % fB = 1-fA
-    text(lxb-0.115, lyb-0.065, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center');
+    text(lxb-0.115, lyb-0.065, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center','FontSize',12);
 
 	% Plot right labels (no a, only c b)
 	[lxa, lya] = plot.ternary.terncoords(zerocomp, lim(2)-majorticks, majorticks);
     [arrow_xa, arrow_ya] = plot.ternary.terncoords(zerocomp + a_l, lim(2)-majorticks, majorticks - a_l);
-	text(lxa, lya+0.115, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center');
+	text(lxa, lya+0.115, labels, 'VerticalAlignment', 'middle', 'HorizontalAlignment', 'center','FontSize',12);
 	
 	nlabels = length(labels)-1;
 	for i = 1:nlabels
