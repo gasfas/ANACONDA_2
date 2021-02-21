@@ -45,7 +45,7 @@ else
 	hit_filter = general.matrix.upfill_array(hit_filter, 'NaN', 1);
 	% make the array into a logical array:
 	hit_filter = logical(hit_filter);
-
+    
     if general.struct.probe_field(cond, 'hit_to_show')
     %%% if only one hit is to be shown
         new_filter = filter.hits.labeled_hits(exp.h.det1.m2q_l,cond.hit_to_show);
