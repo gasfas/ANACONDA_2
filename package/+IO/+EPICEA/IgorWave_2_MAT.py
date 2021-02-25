@@ -12,61 +12,20 @@ import sys
 import os
 
 
-# git clone https://github.com/wking/igor/
-# cd igor
-# pip install -e .
+#git clone https://github.com/wking/igor/
+#cd igor
+#pip install -e .
 
 import igor.binarywave as ibw
 import igor.packed as pxp
 
+
 import argparse
 
-#This is done by running 'python Preprocessdata.py **arguments**' in the command line. The arguments you can specify are as follows:
-#
-#--base-path (shorthand -b): the path in which the raw data is saved. The program expects this directory to contain a
-# configuration file saved as cfg.txt, along with a further directory called 'rawdata' in which the Igor binary wave
-# files themselves are stored.
-#--save-path (shorthand -s): the path in which to save the processed data.
-#
-#--max-n: the maximum number of events to be read in, default=all
-#--n-files: the maximum number of Igor binary wave files to be read in (useful for debugging etc.), default=all
-#--max-ions (shorthand -mi): maximum number of ions you want to save data for for each event, default=4
-#--max-electrons (shorthand -me): maximum number of electrons you want to save data for for each event, default=2
-#
-#If you have your file structure set up such that you have your raw data saved in some directory:
-# '*base_path*/RawData/*name_for_run*' (where, as described above, the folder '*name_for_run*' holds the cfg.txt file
-# and another folder called 'rawdata'), then you can save some time by simply specifying '*name_for_run*' instead of
-# the base path and save path. This argument is accessed by:
-#--name (shorthand -n)
-#and if you provide this, the program saves the processed data in a folder called '*base_path*/ProcessedData/*name_for_run*'
-# (and creates this folder if it doesn't already exist).
-#
-#Finally, a couple of things about the output of the program. The program saves both a .mat matlab file, and a .npz
-# Numpy (Python) file in the specified folder when it is finished. Both these files have the same basic structure,
-# with data saved in the following fields (N is the number of events in each run):
-#
-#'idx': 1D array with index of each event, dims.=(N)
-#'itof': time-of-flight for each ion, dims.=(N, max_ions)
-#'iXuv': x-coordinate of each ion according to delay lines u and v, dims.=(N,max_ions)
-#'iXuw': x-coordinate of each ion according to delay lines u and w, dims.=(N,max_ions)
-#'iXvw': x-coordinate of each ion according to delay lines v and w, dims.=(N,max_ions)
-#'iYuv': y-coordinate of each ion according to delay lines u and v, dims.=(N,max_ions)
-#'iYuw': y-coordinate of each ion according to delay lines u and w, dims.=(N,max_ions)
-#'iYvw': y-coordinate of each ion according to delay lines v and w, dims.=(N,max_ions)
-#'eX': x-coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
-#'eY': y-coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
-#'eR': radial coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
-#'ePhi': angular coordinate of each detected electron, dims.=(N,max_electrons). If event is random, this is the value for the most recent electron-triggered event.
-#'rand': Boolean array, denoting whether event is 'random' (True) or electron-triggered (False), dims.=(N,max_electrons)
-#'timestamps': timestamp for each event, dims.=(N).
-
-# example:
-#  python Preprocessdata.py --name /home/bart/PhD/Pedagogy/Courses/Python/scripts/EPICEA_import/ --n-files 2
 
 class ConfigParser():
     def __init__(self,path):
         self.path=path
-        print path
         f=open(self.path,'r')
         self.cfg={}
         for line in f:
@@ -87,7 +46,6 @@ class ConfigParser():
                 raise ValueError('Not recognized config entry')
             self.cfg[name]=value
         f.close()
-
 
     def GetValue(self,name,varname='VAL',default=None):
         value=self.cfg[name]
@@ -111,7 +69,7 @@ class Client():
         self.maxelecthits=2 if self.args.max_electrons is None else self.args.max_electrons
         
         self.basepath='***CHANGE_ME***' if self.args.base_path is None else self.args.base_path
-        self.data_path=os.path.join(self.basepath,'RawData',self.args.name,'rawdata')
+        self.data_path=os.path.join(self.basepath,self.args.name,'rawdata')
         
         if self.args.save_path is None:
             self.save_path=os.path.join(self.basepath,'ProcessedData',self.args.name)
@@ -126,7 +84,7 @@ class Client():
     def LoadCfg(self):
         
         ## -- load configuration file --
-        cfgparser=ConfigParser(os.path.join(self.data_path,'..','cfg.txt'))
+        cfgparser=ConfigParser(os.path.join(self.data_path,'cfg.txt'))
         
         self.cfg['ifu']=cfgparser.GetValue('psd:ions:u_conv_factor_in_mm_per_ps')
         self.cfg['ifv']=cfgparser.GetValue('psd:ions:v_conv_factor_in_mm_per_ps')
@@ -163,16 +121,14 @@ class Client():
         maxFile=len(rawdata_list) if self.args.n_files is None else self.args.n_files
         
         for j in range(0,maxFile):
-		## Load ibw file number j:
             DataArray=ibw.load(rawdata_list[j])
             SigArray=ibw.load(rawsig_list[j])
-		## Place it into a numpy DataArray:
             Data=np.array(DataArray['wave']['wData'])
             Sig=np.array(SigArray['wave']['wData'])
-		## Clear memory of ibw import:
+
             del DataArray
             del SigArray
-            	## Set initial parameters before loop:
+            
             MaxNions=0
             MaxNelectrons=0
             index1=0
@@ -199,7 +155,7 @@ class Client():
             del Sig
             
         Nevt=len(Evt_Data_list)
-        print Nevt
+        print(Nevt)
        
         ## -- Fill lists with ions and electrons measurements -- ##
 
@@ -225,7 +181,7 @@ class Client():
         count=0
         for i in range(0,Nevt):
            if i%10000 == 0:
-               print i
+               print(i)
            
            if len(Evt_Sig_list[i])<=2:
                continue
@@ -277,7 +233,7 @@ class Client():
               
            count+=1
                
-        print 'process done'
+        print('process done')
  
         if not os.path.exists(self.save_path):
             os.makedirs(self.save_path)
@@ -306,7 +262,7 @@ class Client():
         try:            
             evt_idx=evt[1][evt[0]==-1]
         except:
-            print 'error'
+            print('error')
             return None
         return evt_idx
         
@@ -329,7 +285,7 @@ class Client():
             itof=evt[1][evt[0]==2]
             
         except:
-            print 'error itof'
+            print('error itof')
             itof=np.zeros((MIH))*np.nan
 
         try:  

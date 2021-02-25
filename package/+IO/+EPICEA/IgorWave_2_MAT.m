@@ -24,9 +24,10 @@ args = general.cell.unpack_cell_recurse(varargin);
 %% Convert to .mat
 d = [reshape(args, 1, numel(args)); repmat({'  '},1,numel(args))];
 optional_argumentstr = [d{:}];
-pyv = pyversion;
+% pyv = pyversion;
 
 % Run the IGOR binary wave to .MAT conversion
-system(['python' pyv ' ' mfilename('fullpath'), '.py --name ' base_path ' ' optional_argumentstr]);
+% system(['python' pyv ' ' mfilename('fullpath'), '.py --name ' base_path ' ' optional_argumentstr]);
+system(['py' ' ' mfilename('fullpath'), '.py --name ' base_path ' ' optional_argumentstr]);
 
 end
