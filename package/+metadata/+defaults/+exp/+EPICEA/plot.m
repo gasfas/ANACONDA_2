@@ -12,14 +12,14 @@ function [exp_md] = plot(exp_md)
 % d1.ifdo.theta_R		= true;
 % d1.ifdo.theta_E		= true;
 % d1.ifdo.R				= true;
-% d1.ifdo.E				= true;
+d1.ifdo.E				= true;
 
 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 
 d2.labels_to_show     = exp_md.sample.fragment.masses;
 
 % Specify which plot to show:
-d2.ifdo.BR_Ci							= true;
+% d2.ifdo.BR_Ci							= true;
 % d2.ifdo.TOF							= true;
 % d2.ifdo.TOF_X						= true;
 % d2.ifdo.TOF_R						= true;
@@ -64,11 +64,11 @@ d1.R.axes.YDir	= 'reverse';
 d1.R.axes.XDir				= 'reverse';
 
 d1.E						= metadata.create.plot.signal_2_plot({signals.e_E});
-d1.E.axes.camroll			= -90;
+d1.E.axes.camroll			= 0;%-90;
 d1.E.axes.Position			= [0.1 0.2 0.6 0.6];
 d1.E.axes.YTickLabel		= '';
 d1.E.figure.Position		= [1400 434 300   540];
-d1.E.axes.XAxisLocation		= 'top';
+d1.E.axes.XAxisLocation		= 'bottom';%'top';
 
 d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});
 d1.XY.figure.Position		= plot.fig.Position('SE');

@@ -11,7 +11,7 @@ function [exp_md] = plot(exp_md)
 % d1.ifdo.XY						= true;
 % d1.ifdo.theta_R					= true;
 % d1.ifdo.theta					= true;
-% d1.ifdo.TOF_hit1_hit2				= true;
+d1.ifdo.TOF_hit1_hit2				= true;
 % d1.ifdo.m2q_hit1_hit2				= true;
 % d1.ifdo.m2q_hit2_hit3				= true;
 % d1.ifdo.dp						= true;
@@ -38,7 +38,7 @@ signals = exp_md.plot.signal;
 %% %%%%%%%%%%%%%%%%%%%%%%% PLOTTYPE DEFAULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 d1.BR_Ci						= metadata.create.plot.signal_2_plot({signals.m2q_l}); %signals.m2q signals.mult
 d1.BR_Ci.GraphObj.Type			= 'bar';
-d1.BR_Ci.hist.Integrated_value		= 100;
+% d1.BR_Ci.hist.Integrated_value		= 100;
 d1.BR_Ci.cond			=exp_md.cond.def.X; %exp_md.cond;  %def.C;exp_md.cond.def.X_X; %
 
 d1.TOF							= metadata.create.plot.signal_2_plot({signals.TOF});
@@ -48,7 +48,7 @@ d1.TOF.GraphObj.ax_nr			= 1;
 d1.TOF.axes(1).YTick			= linspace(0, 1000, 1e1);
 d1.TOF.axes(1).YLim				= [0 2e3];
 d1.TOF.axes						= macro.plot.add_axes(d1.TOF.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q', 'X');
-% d1.TOF.cond			=exp_md.cond.CO2;
+d1.TOF.cond			=exp_md.cond.def.X;
 
 d1.TOF_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.TOF, signals.TOF});
 d1.TOF_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
@@ -56,7 +56,7 @@ d1.TOF_hit1_hit2.hist.binsize	= 2*d1.TOF_hit1_hit2.hist.binsize;
 % d1.TOF_hit1_hit2.hist.saturation_limits = [0 5e-1]; % relative intensities. Everything above or below these limits will be set equal to the limit value.
 d1.TOF_hit1_hit2.axes.axis		= 'equal';
 d1.TOF_hit1_hit2.axes			= macro.plot.add_axes(d1.TOF_hit1_hit2.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q');
-d1.TOF_hit1_hit2.cond			=exp_md.cond.def.X; %CO2;
+d1.TOF_hit1_hit2.cond			=exp_md.cond.def.X_X; %CO2;
 
 d1.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
 d1.m2q.hist.Integrated_value	= 1;
@@ -77,7 +77,7 @@ d1.m2q_hit1_hit2.GraphObj.SizeData = 150;
 d1.m2q_hit1_hit2.GraphObj.Marker = 'o';
 % d1.m2q_hit1_hit2.GraphObj.MarkerEdgeColor = 'r';
 d1.m2q_hit1_hit2.figure.Position = [1200 1000 600 350];
-d1.m2q_hit1_hit2.cond			=exp_md.cond.def.X_X; %exp_md.cond.def.O_C.dp_sum;  %exp_md.cond.def.dp_norm;  %exp_md.cond.def.C; 
+% d1.m2q_hit1_hit2.cond			=exp_md.cond.def.X_X; %exp_md.cond.def.O_C.dp_sum;  %exp_md.cond.def.dp_norm;  %exp_md.cond.def.C; 
 
 d1.m2q_hit2_hit3				= metadata.create.plot.signal_2_plot({signals.m2q, signals.m2q});
 d1.m2q_hit2_hit3.hist.hitselect = [2, 3]; %hitselect can be used to select only the first, second, etc hit of a hit variable.d1.m2q_hit2_hit3.axes.Title.String = 'PEPIPICO Mass spectrum';
@@ -120,7 +120,7 @@ d1.dp.figure.Position		= plot.fig.Position('Full');
 
 d1.KERhit							= metadata.create.plot.signal_2_plot(signals.KER_hit);
 d1.KERhit.hist.Integrated_value	= 1;
-d1.KERhit.cond						= exp_md.cond.def.X;%def.O2_CO2x;%O_CO;
+d1.KERhit.cond						= exp_md.cond.def.X_X;%def.O2_CO2x;%O_CO;
 
 d1.ker_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.dp_sum_norm, signals.KER_sum}); %signals.KER_sum
 % d1.ker_hit1_hit2.hist.hitselect = [1,2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
@@ -169,7 +169,7 @@ d1.dp_sum_norm_squared.cond				= exp_md.cond.def.X_X;
 d1.angle_p_corr_C2.axes.Type	= 'polaraxes';
 d1.angle_p_corr_C2				= metadata.create.plot.signal_2_plot(signals.angle_p_corr_C2, d1.angle_p_corr_C2);
 d1.angle_p_corr_C2.hist.Maximum_value = 1;
-d1.angle_p_corr_C2.cond			=  exp_md.cond.def.X; %exp_md.cond.def.O_C;exp_md.cond.CO2;%
+d1.angle_p_corr_C2.cond			=  exp_md.cond.def.X_X; %exp_md.cond.def.O_C;exp_md.cond.CO2;%
 % d1.angle_p_corr_C2.cond			= exp_md.cond.angle_p_corr_C2;
 % d1.angle_p_corr_C2.cond			= exp_md.cond.incompl;
 % d1.angle_p_corr_C2.cond			= exp_md.cond.NH2_H;
@@ -182,7 +182,7 @@ d1.angle_p_corr_C3.cond			= exp_md.cond.def.X_X; %exp_md.cond.def.O_C; %exp_md.c
 
 
 d1.KER_sum							= metadata.create.plot.signal_2_plot({signals.KER_sum});
-% d1.KER_sum.hist.Integrated_value	= 1;
+d1.KER_sum.hist.Integrated_value	= 1;
 d1.KER_sum.cond						= exp_md.cond.def.X_X; % exp_md.cond.def.CO2_C; %exp_md.cond.def.O_C; %exp_md.calib.det1.momentum.cond;
 % d1.KER_sum.axes.YTick				= [];
 
@@ -222,7 +222,7 @@ d1.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.dp_norm_squared, 
 % d1.Dalitz_C2					= metadata.create.plot.signal_2_plot({signals.dp_norm_squared, signals.dp_norm_squared, signals.dp_norm_squared}, d1.Dalitz_C2);
 d1.Dalitz_C2.hist.hitselect		= [1, 2, NaN]; %[1, 2, NaN]hitselect can be used to select only the first, second, etc hit of a hit variable.
 % d1.Dalitz_C2.hist.Maximum_value = 1;%
-d1.Dalitz_C2.hist.saturation_limits = [0 4e-1]; % [0 4e-1] relative intensities. Everything above or below these limits will be set equal to the limit value.
+% d1.Dalitz_C2.hist.saturation_limits = [0 4e-1]; % [0 4e-1] relative intensities. Everything above or below these limits will be set equal to the limit value.
 d1.Dalitz_C2.figure.Position	= [1200 300 600 600];
 d1.Dalitz_C2.figure.Name		= 'O2_C';
 d1.Dalitz_C2.axes.XLabel.String		= '|p_1|^2 O_2^+ [a.u.]';

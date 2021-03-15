@@ -4,7 +4,7 @@ function [ exp_md ] = conv ( exp_md )
 
 % DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1 DETECTOR 1
 exp_md.conv.det1.ifdo.R_theta				= true;% Does the user want to convert to R-theta coordinates?
-
+exp_md.conv.det1.ifdo.KER 		= true;% Does the user want to convert to Kinetic energy?
 
 % DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2 DETECTOR 2
 

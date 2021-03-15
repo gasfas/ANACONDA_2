@@ -22,7 +22,7 @@ s.e_R.hist.binsize		= 0.05;% [mm] binsize of the variable.
 s.e_R.hist.Range			= [0 40];% [mm] range of the variable. 
 % Axes metadata:
 s.e_R.axes.Lim			= [0 40];% [mm] Lim of the axis that shows the variable. 
-s.e_R.axes.Tick			=  linspace(-40, 40, 41);% [mm] Ticks shown 
+s.e_R.axes.Tick			=  0:5:40;% [mm] Ticks shown 
 s.e_R.axes.Label.String	= 'R [mm]'; %The label of the variable
 
 s.e_R_only = s.e_R;
@@ -43,7 +43,7 @@ s.e_Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% electron X:
 s.e_X.hist.pointer		= 'h.det1.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_X.hist.binsize		= 0.08;% [mm] binsize of the variable. 
+s.e_X.hist.binsize		= 0.05;% [mm] binsize of the variable. 
 s.e_X.hist.Range			= [-40 40];% [mm] range of the variable. 
 % Axes metadata:
 s.e_X.axes.Lim			= [-40 40];% [mm] Lim of the axis that shows the variable. 
@@ -53,7 +53,7 @@ s.e_X.axes.Label.String	= 'X [mm]'; %The label of the variable
 %%%%%% electron Y:
 s.e_Y.hist.pointer		= 'h.det1.Y';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_Y.hist.binsize		= 0.08;% [mm] binsize of the variable. 
+s.e_Y.hist.binsize		= 0.05;% [mm] binsize of the variable. 
 s.e_Y.hist.Range			= [-40 40];% [mm] range of the variable. 
 % Axes metadata:
 s.e_Y.axes.Lim			= [-40 40];% [mm] Lim of the axis that shows the variable. 
@@ -63,11 +63,11 @@ s.e_Y.axes.Label.String	= 'Y [mm]'; %The label of the variable
 %%%%%% electron Energy:
 s.e_E.hist.pointer		= 'h.det1.KER';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_E.hist.binsize		= 0.1;% [eV] binsize of the variable. 
-s.e_E.hist.Range			= [-1 10];% [eV] range of the variable. 
+s.e_E.hist.binsize		= 0.075;% [eV] binsize of the variable. 
+s.e_E.hist.Range			= [-1 200];% [eV] range of the variable. 
 % Axes metadata:
-s.e_E.axes.Lim			= [-1 10];% [eV] Lim of the axis that shows the variable. 
-s.e_E.axes.Tick			=  linspace(-1, 11, 2);% Ticks shown 
+s.e_E.axes.Lim			= [-1 200];% [eV] Lim of the axis that shows the variable. 
+s.e_E.axes.Tick			=  linspace(-1, 200, 20);% Ticks shown 
 s.e_E.axes.Label.String	= 'E [eV]'; %The label of the variable
 
 %%%%%%%%%%%%%%%% ION (DET2) SIGNALS
@@ -85,13 +85,13 @@ s.i_mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 %%%%%% TOF:
 s.i_TOF.hist.pointer	= 'h.det2.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_TOF.hist.binsize	= 6;% [ns] binsize of the variable. 
-s.i_TOF.hist.Range	= [3000 10000];% [ns] range of the variable. 
+s.i_TOF.hist.binsize	= 0.5;% [ns] binsize of the variable. 
+s.i_TOF.hist.Range	= [9500 10400];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF.axes.Lim		= s.i_TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
-s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
-								exp_md.conv.det2.m2q.factor, ...
-								exp_md.conv.det2.m2q.t0)));% [ns] Tick of the axis that shows the variable.
+% s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det2.m2q_label.labels, ...
+% 								exp_md.conv.det2.m2q.factor, ...
+% 								exp_md.conv.det2.m2q.t0)));% [ns] Tick of the axis that shows the variable.
 s.i_TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 %%%%%% TOF background:
@@ -110,7 +110,7 @@ s.i_TOF_bgr.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 %%%%%% X:
 s.i_X.hist.pointer		= 'h.det2.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_X.hist.binsize		= 2;% [mm] binsize of the variable. 
+s.i_X.hist.binsize		= 0.5;% [mm] binsize of the variable. 
 s.i_X.hist.Range			= [-20 20];% [mm] range of the variable. 
 % Axes metadata:
 s.i_X.axes.Lim			= [-20 20];% [ns] Lim of the axis that shows the variable. 
@@ -133,8 +133,8 @@ s.i_R.axes.Label.String	= 'R [mm]'; %The label of the variable
 %%%%%% Mass-to-charge:
 s.i_m2q.hist.pointer	= 'h.det2.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_m2q.hist.binsize	= 1;% [Da] binsize of the variable. 
-s.i_m2q.hist.Range	= [10 100];% [Da] range of the variable. 
+s.i_m2q.hist.binsize	= 0.05;% [Da] binsize of the variable. 
+s.i_m2q.hist.Range	= [0 140];% [Da] range of the variable. 
 % Axes metadata:
 s.i_m2q.axes.Lim		= s.i_m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
 s.i_m2q.axes.Tick	= sort(exp_md.conv.det2.m2q_label.labels); % [Da] Tick of the axis that shows the variable. 

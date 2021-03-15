@@ -7,7 +7,7 @@ function [ exp_md ] = calib ( exp_md )
 signals.TOF.hist.pointer	= 'h.det2.raw(:,3)';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 signals.TOF.hist.binsize	= 2;% [ns] binsize of the variable. 
-signals.TOF.hist.Range	= [0 1e4];% [ns] range of the variable. 
+signals.TOF.hist.Range	= [0 1.5e4];% [ns] range of the variable. 
 % Axes metadata:
 signals.TOF.axes.Lim		= signals.TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
 signals.TOF.axes.Tick		= 0:1e3:1e5;% [ns] Tick of the axis that shows the variable.

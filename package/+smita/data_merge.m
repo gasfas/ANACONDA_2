@@ -19,7 +19,7 @@ data_converted = macro.convert(data_corrected, mdata);
 mdata = IO.import_metadata(S(exp(1)).dir_CO2); %%% select the mdata to use
 % macro.calibrate.momentum(data_converted, 1, mdata)
 macro.calibrate.Molecular_Beam(data_converted, 1, mdata.calib.det1.MB)
-% macro.plot(data_converted, mdata)
+macro.plot(data_converted, mdata)
 
 %% Beta fitting
 
