@@ -13,7 +13,7 @@ function [h_figure, h_axes, h_GraphObj, exp, histogram] = plot(exp, metadata)
 % we fetch the detector names:
 detnames            = fieldnames(metadata.det);
 % we add the cross detector name:
-detnames			= {detnames{:}, 'crossdet'};
+detnames			= [detnames(:)', {'crossdet'}];
 
 % We check all the detectors:
 for i = 1:length(detnames)

@@ -16,6 +16,6 @@ function R_corr = R_circle(R_raw, theta_raw, R_maxs, R_avg, theta_scaling_factor
 R_shift_c = R_maxs - repmat(R_avg', length(theta_scaling_factor), 1);
 
 % Interpolate the scaling factors to the points of the data:
-R_corr = R_raw - interp2(R_avg, theta_scaling_factor, R_shift_c, R_raw, theta_raw, 'spline');
+R_corr = R_raw - interp2(R_avg, theta_scaling_factor, R_shift_c, R_raw, theta_raw, 'spline');%'spline'
 
 end

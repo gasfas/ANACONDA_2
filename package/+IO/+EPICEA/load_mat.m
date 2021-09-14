@@ -22,7 +22,7 @@ fn = fieldnames(ion.d);
 % In case no header is given:
 switch fn{1}
 	case 'Var1'
-		ion.d = general.struct.rename_structfield(ion.d, {'Var1', 'Var8', 'Var9' , 'Var2'}, {'eventId_', 'pos_x', 'pos_y' ,  'tof_fallingEdge_'});
+		ion.d = general.struct.rename_structfield(ion.d, {'Var1', 'Var9', 'Var10' , 'Var2'}, {'eventId_', 'pos_x', 'pos_y' ,  'tof_fallingEdge_'});
 end
 
 % Initialize an empty event pointer array:

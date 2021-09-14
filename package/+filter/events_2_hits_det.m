@@ -46,12 +46,19 @@ else
 	% make the array into a logical array:
 	hit_filter = logical(hit_filter);
     
-    if general.struct.probe_field(cond, 'hit_to_show')
-    %%% if only one hit is to be shown
-        new_filter = filter.hits.labeled_hits(exp.h.det1.m2q_l,cond.hit_to_show);
-        hit_filter = and(hit_filter, new_filter);
+    if general.struct.issubfield(cond, 'hit_to_show') %%% if only one hit is to be shown
+        %%%is it ions or electron?
+        if strcmp(cond.hit_to_show.det,'e')
+            % case electron (WIP)
+            %new_filter = filter.hits.labeled_hits(exp.h.det1.m2q_l,cond.hit_to_show.value);
+            %hit_filter = and(hit_filter, new_filter);
+        else 
+            % case ion: filter based on mass label
+            new_filter = filter.hits.labeled_hits(exp.h.(cond.hit_to_show.det).m2q_l,cond.hit_to_show.value);
+            hit_filter = and(hit_filter, new_filter);
+        end
     end
-    
 end
+    
 
 end

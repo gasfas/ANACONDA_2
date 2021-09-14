@@ -11,7 +11,7 @@ function [exp_md] = plot(exp_md)
 % d1.ifdo.XY						= true;
 % d1.ifdo.theta_R					= true;
 % d1.ifdo.theta					= true;
-d1.ifdo.TOF_hit1_hit2				= true;
+% d1.ifdo.TOF_hit1_hit2				= true;
 % d1.ifdo.m2q_hit1_hit2				= true;
 % d1.ifdo.m2q_hit2_hit3				= true;
 % d1.ifdo.dp						= true;
@@ -27,6 +27,8 @@ d1.ifdo.TOF_hit1_hit2				= true;
 % d1.ifdo.angle_p_corr_C3			= true;
 % d1.ifdo.angle_p_corr_C2_KER_sum	= true;
 % d1.ifdo.angle_p_corr_C2_dp_sum_norm = true;
+% d1.ifdo.angle_p_corr_C2_p_ratio = true;
+
 % d1.ifdo.KER_sum					= true;
 % d1.ifdo.m2q_l_sum_KER_sum			= true;
 % d1.ifdo.m2q_sum_CSD				= true;
@@ -39,27 +41,27 @@ signals = exp_md.plot.signal;
 d1.BR_Ci						= metadata.create.plot.signal_2_plot({signals.m2q_l}); %signals.m2q signals.mult
 d1.BR_Ci.GraphObj.Type			= 'bar';
 % d1.BR_Ci.hist.Integrated_value		= 100;
-d1.BR_Ci.cond			=exp_md.cond.def.X; %exp_md.cond;  %def.C;exp_md.cond.def.X_X; %
+% d1.BR_Ci.cond			=exp_md.cond.def.X; %exp_md.cond;  %def.C;exp_md.cond.def.X_X; %
 
 d1.TOF							= metadata.create.plot.signal_2_plot({signals.TOF});
-% d1.TOF.hist.Integrated_value	= 1;
+d1.TOF.hist.Integrated_value	= 1;
 d1.TOF.GraphObj.ax_nr			= 1;
 % Axes properties:
-d1.TOF.axes(1).YTick			= linspace(0, 1000, 1e1);
-d1.TOF.axes(1).YLim				= [0 2e3];
+d1.TOF.axes(1).YTick			= linspace(0, 1, 1e1);
+d1.TOF.axes(1).YLim				= [0 1];
 d1.TOF.axes						= macro.plot.add_axes(d1.TOF.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q', 'X');
-d1.TOF.cond			=exp_md.cond.def.X;
+% d1.TOF.cond			=exp_md.cond.def.X;
 
 d1.TOF_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.TOF, signals.TOF});
 d1.TOF_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
 d1.TOF_hit1_hit2.hist.binsize	= 2*d1.TOF_hit1_hit2.hist.binsize;
-% d1.TOF_hit1_hit2.hist.saturation_limits = [0 5e-1]; % relative intensities. Everything above or below these limits will be set equal to the limit value.
+% d1.TOF_hit1_hit2.hist.saturation_limits = [0 0.25e-2]; % relative intensities. Everything above or below these limits will be set equal to the limit value.
 d1.TOF_hit1_hit2.axes.axis		= 'equal';
 d1.TOF_hit1_hit2.axes			= macro.plot.add_axes(d1.TOF_hit1_hit2.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q');
-d1.TOF_hit1_hit2.cond			=exp_md.cond.def.X_X; %CO2;
+% d1.TOF_hit1_hit2.cond			=exp_md.cond.def.X_X; %CO2;
 
 d1.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
-d1.m2q.hist.Integrated_value	= 1;
+d1.m2q.hist.Integrated_value	= 100;
 d1.m2q.GraphObj.ax_nr			= 1;
 % Axes properties:
 d1.m2q.axes(1).YTick			= linspace(0, 1, 101);
@@ -69,7 +71,7 @@ d1.m2q.axes						= macro.plot.add_axes(d1.m2q.axes(1), signals.add_m2q.axes, exp
 
 d1.m2q_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.m2q, signals.m2q});
 d1.m2q_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.
-% d1.m2q_hit1_hit2.hist.saturation_limits = [0 1e-3]; % [0 5e-4] relative intensities. Everything above or below these limits will be set equal to the limit value.
+d1.m2q_hit1_hit2.hist.saturation_limits = [0 1e-3]; % [0 5e-4] relative intensities. Everything above or below these limits will be set equal to the limit value.
 % d1.m2q_hit1_hit2.hist.saturation_limits = [0 7e-1]; % [0 5e-4] relative intensities. Everything above or below these limits will be set equal to the limit value.
 d1.m2q_hit1_hit2.axes.axis		= 'equal';
 d1.m2q_hit1_hit2.GraphObj.Type = 'imagesc';
@@ -115,7 +117,7 @@ d1.theta_R.cond					= exp_md.cond.def.X_X; %exp_md.cond.H;
 d1.m2q							= metadata.create.plot.signal_2_plot({signals.m2q});
 
 d1.dp							= metadata.create.plot.signal_2_plot(signals.dp);
-d1.dp.cond						= exp_md.cond.CO2;%def.O2_CO2x;%O_CO;
+d1.dp.cond						= exp_md.cond.def.X_X;%CO2;%def.O2_CO2x;%O_CO;
 d1.dp.figure.Position		= plot.fig.Position('Full');
 
 d1.KERhit							= metadata.create.plot.signal_2_plot(signals.KER_hit);
@@ -168,7 +170,7 @@ d1.dp_sum_norm_squared.cond				= exp_md.cond.def.X_X;
 
 d1.angle_p_corr_C2.axes.Type	= 'polaraxes';
 d1.angle_p_corr_C2				= metadata.create.plot.signal_2_plot(signals.angle_p_corr_C2, d1.angle_p_corr_C2);
-d1.angle_p_corr_C2.hist.Maximum_value = 1;
+% d1.angle_p_corr_C2.hist.Maximum_value = 1;
 d1.angle_p_corr_C2.cond			=  exp_md.cond.def.X_X; %exp_md.cond.def.O_C;exp_md.cond.CO2;%
 % d1.angle_p_corr_C2.cond			= exp_md.cond.angle_p_corr_C2;
 % d1.angle_p_corr_C2.cond			= exp_md.cond.incompl;
@@ -196,6 +198,12 @@ d1.angle_p_corr_C2_dp_sum_norm				= metadata.create.plot.signal_2_plot({signals.
 d1.angle_p_corr_C2_dp_sum_norm.cond         = exp_md.cond.def.X_X;
 % d1.angle_p_corr_C2_dp_sum_norm.hist.saturation_limits = [0 5e-3]; %
 % d1.angle_p_corr_C2_dp_sum_norm.axes.colormap         = plot.myjet;
+
+d1.angle_p_corr_C2_p_ratio.axes.Type	= 'polaraxes';
+d1.angle_p_corr_C2_p_ratio				= metadata.create.plot.signal_2_plot({signals.angle_p_corr_C2, signals.p_ratio}, d1.angle_p_corr_C2_p_ratio);
+d1.angle_p_corr_C2_p_ratio.cond         = exp_md.cond.def.X_X;
+% d1.angle_p_corr_C2_p_ratio.hist.saturation_limits = [0 5e-3]; %
+% d1.angle_p_corr_C2_p_ratio.axes.colormap         = plot.myjet;
 
 
 d1.m2q_l_sum_KER_sum				= metadata.create.plot.signal_2_plot({signals.m2q_l_sum, signals.KER_sum});
@@ -228,7 +236,7 @@ d1.Dalitz_C2.figure.Name		= 'O2_C';
 d1.Dalitz_C2.axes.XLabel.String		= '|p_1|^2 O_2^+ [a.u.]';
 % d1.Dalitz_C2.axes.XLabel.String		= '|p_1|^2 (O_2^+) [a.u.]';
 % d1.Dalitz_C2.axes.XLabel.String		= '|p_1|^2 (O^+) [a.u.]';
-d1.Dalitz_C2.axes.YLabel.String		= '|p_2|^2 CO_2^+ [a.u.] ';
+d1.Dalitz_C2.axes.YLabel.String		= '|p_2|^2 (CO_2)_2^+ [a.u.] ';
 % d1.Dalitz_C2.axes.YLabel.String		= '|p_2|^2 ((CO_2)_n^+) [a.u.] ';
 % d1.Dalitz_C2.axes.YLabel.String		= '|p_2|^2 (CO^+) [a.u.] ';
 d1.Dalitz_C2.axes.ZLabel.String		= '|p_{res}|^2 [a.u.]';

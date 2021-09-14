@@ -51,7 +51,7 @@ function handles = ternplot(A, B, C, varargin)
 
 if nargin < 3
     C = 1 - (A+B);
-end;
+end
 
 [varargin, majors] = plot.ternary.extractpositional(varargin, 'majors', 10);
 

@@ -40,8 +40,8 @@ d_Imp = load(fullfile(path, [filename '.mat']));
 
 %% Electrons (DLD)
 % Fill in 'NaN' to all electron hit values when the event is a random triggered one:
-% d_Imp.eX(d_Imp.rand,:) = NaN; 
-% d_Imp.eY(d_Imp.rand,:) = NaN;
+d_Imp.eX(d_Imp.rand,:) = NaN; 
+d_Imp.eY(d_Imp.rand,:) = NaN;
 % Check which event indices should be written, because they contain both an X and Y hit:
 is_approved = ~isnan(d_Imp.eX)' &  ~isnan(d_Imp.eY)' & (abs(d_Imp.eX) < 1e2)' &  (abs(d_Imp.eY) < 1e2)';
 % Check the number of approved hits per event:

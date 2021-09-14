@@ -16,11 +16,11 @@ s.mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 s.TOF.hist.pointer	= 'h.det1.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 % s.TOF.hist.binsize	= 5;% [ns] binsize of the variable. 
-s.TOF.hist.binsize	= 3;% [ns] binsize of the variable. 
-% s.TOF.hist.Range	= [3.74e3 8.2e3];% [ns] range of the variable. 
+s.TOF.hist.binsize	= 10;% [ns] binsize of the variable. 
+s.TOF.hist.Range	= [0 8e3];% [ns] range of the variable. 
 % s.TOF.hist.Range	= [5.4e3 20000];% [ns] range of the variable. 
 % s.TOF.hist.binsize	= 0.5;% [ns] binsize of the variable. 
-s.TOF.hist.Range	= [1000 20000];% [ns] range of the variable. 
+% s.TOF.hist.Range	= [3.4e3 12800];% [ns] range of the variable. 
 % s.TOF.hist.binsize	= 0.09;% [ns] binsize of the variable. 
 % Axes metadata:
 s.TOF.axes.Lim		= s.TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
@@ -32,7 +32,7 @@ s.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 %%%%%% X:
 s.X.hist.pointer		= 'h.det1.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.X.hist.binsize		= 0.1;% [mm] binsize of the variable. 
+s.X.hist.binsize		= 0.5;% [mm] binsize of the variable. 
 s.X.hist.Range			= [-60 60];% [mm] range of the variable. 
 % Axes metadata:
 s.X.axes.Lim			= [-60 60];% [ns] Lim of the axis that shows the variable. 
@@ -111,7 +111,7 @@ s.m2q_bgr.hist.pointer	= 'h.det1.m2q_bgr';% Data pointer, where the signal can b
 %%%%%% Momentum:
 s.dp.hist.pointer	= 'h.det1.dp';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp.hist.binsize	= [0.5 0.5 0.5];% [a.u.] binsize of the variable. 
+s.dp.hist.binsize	= [1 1 1];% [a.u.] binsize of the variable. 
 s.dp.hist.Range	= [-200 200; -200 200; -200 200];% [au] range of the variable. 
 % Axes metadata:
 s.dp.axes.Lim	= s.dp.hist.Range;% [au] Lim of the axis that shows the variable. 
@@ -158,8 +158,8 @@ s.dp_phi.axes.Label.String	= {'$p_{\phi}$ [rad]'}; %The label of the variable
 %%%%%% Momentum norm (hit):
 s.dp_norm.hist.pointer	= 'h.det1.dp_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_norm.hist.binsize	= [5];% 0.4 [a.u.] binsize of the variable. 
-s.dp_norm.hist.Range	= [-0.1 300];% [au] range of the variable. 
+s.dp_norm.hist.binsize	= [4];% 0.4 [a.u.] binsize of the variable. 
+s.dp_norm.hist.Range	= [0 400];% [au] range of the variable. 
 % Axes metadata:
 s.dp_norm.axes.Lim	= s.dp_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_norm.axes.Tick	= s.dp_norm.hist.Range(1):50:s.dp_norm.hist.Range(2);% [au] Ticks on the respective axes.
@@ -168,8 +168,8 @@ s.dp_norm.axes.Label.String	= {'$|\vec{p}|$ [a.u.]','Interpreter','latex'}; %The
 %%%%%% Momentum sum norm (event):
 s.dp_sum_norm.hist.pointer	= 'e.det1.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_sum_norm.hist.binsize	= [5];%0.75 2 0.5[a.u.] binsize of the variable. 
-s.dp_sum_norm.hist.Range	= [0 300];% [au] range of the variable. 
+s.dp_sum_norm.hist.binsize	= [4];%0.75 2 0.5[a.u.] binsize of the variable. 
+s.dp_sum_norm.hist.Range	= [0 400];% [au] range of the variable. 
 % Axes metadata:
 s.dp_sum_norm.axes.Lim	=[-0.1 300];% s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_sum_norm.axes.Tick	= 0:50:300;% [au] Ticks on the respective axes.
@@ -181,13 +181,22 @@ s.dp_sum_norm.axes.Label.String	= {'|p_{sum}| [a.u.]'}; %The label of the variab
 % s.dp_sum_norm.cond.co2.type = 'continuous';
 % s.dp_sum_norm.cond.co2.value= [0;60];
 
+%%%%%% Momentum ratio hit1/hit2 (event):
+s.p_ratio.hist.pointer	= 'e.det1.p_ratio';% Data pointer, where the signal can be found. 
+% Histogram metadata:
+s.p_ratio.hist.binsize	= [0.1];%0.75 2 0.5[a.u.] binsize of the variable. 
+s.p_ratio.hist.Range	= [0 5];% [au] range of the variable. 
+% Axes metadata:
+s.p_ratio.axes.Lim	=[-0.1 5];% s.dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 
+s.p_ratio.axes.Tick	= 0:0.5:5;% [au] Ticks on the respective axes.
+s.p_ratio.axes.Label.String	= {'p_{ratio}= |p_{hit1}|/|p_{hit2}| '}; %The label of the variable
 
 %%%%%% angular correlation of momenta p_corr_C2:
 s.angle_p_corr_C2.hist.pointer	= 'e.det1.angle_p_corr_C2';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.angle_p_corr_C2.hist.binsize	= [5.0*pi/180];% pi/40[a.u.] binsize of the variable. 
-s.angle_p_corr_C2.hist.Range	= [0.1 pi-0.01];%[0.1e-8 pi-0.1e-8];%0.1 pi-0.01 [au] range of the variable. 
-s.angle_p_corr_C2.hist.ifdo.Solid_angle_correction	= true;% The binsize is equal for equal solid angle sizes (sin(theta)^-1)
+s.angle_p_corr_C2.hist.binsize	= [2.5*pi/180];% pi/40[a.u.] binsize of the variable. 
+s.angle_p_corr_C2.hist.Range	= [0 pi];%[0.1e-8 pi-0.1e-8];%0.1 pi-0.01 [au] range of the variable. 
+s.angle_p_corr_C2.hist.ifdo.Solid_angle_correction	= false;% The binsize is equal for equal solid angle sizes (sin(theta)^-1)
 % Axes metadata:
 s.angle_p_corr_C2.axes.Lim	= [0 180];% [0 180] [au] Lim of the axis that shows the variable. 
 s.angle_p_corr_C2.axes.Tick	= linspace(0, 180, 7);% [au] Ticks on the respective axes.
@@ -255,7 +264,7 @@ s.CSD.axes.Label.String	= {['CSD (',char(197),')'],'Interpreter','tex'}; %The la
 s.dp_norm_squared.hist.pointer	= '(exp.h.det1.dp_norm).^2';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 % s.dp_norm_squared.hist.binsize	= [18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
-s.dp_norm_squared.hist.binsize  = 300; %600; %[18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
+s.dp_norm_squared.hist.binsize  = 350; %600; %[18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
 s.dp_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
 % Axes metadata:
 s.dp_norm_squared.axes.Lim	= s.dp_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 
@@ -266,7 +275,7 @@ s.dp_norm_squared.axes.Label.String	= {'$|p|^2$ [a.u.]'}; %The label of the vari
 %%%%%% Momentum sum norm squared:
 s.dp_sum_norm_squared.hist.pointer	= '(exp.e.det1.dp_sum_norm).^2';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.dp_sum_norm_squared.hist.binsize	= 300; %[25^2] ; %[250];%[1000][a.u.] binsize of the variable. 
+s.dp_sum_norm_squared.hist.binsize	= 350; %[25^2] ; %[250];%[1000][a.u.] binsize of the variable. 
 s.dp_sum_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
 % Axes metadata:
 s.dp_sum_norm_squared.axes.Lim	= s.dp_sum_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 

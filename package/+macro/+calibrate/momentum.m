@@ -12,9 +12,9 @@ function [h_GraphObj] = momentum(exp, detnr, exp_md)
 det_data = exp.h.(['det' num2str(detnr)]);
 plot_metadata = exp_md.calib.(['det' num2str(detnr)]).momentum;
 
-rows = 3; cols = 3;
+rows = 2; cols = 3;
 figure; subplot(rows, cols, 1);
-set(gcf, 'Position', [961   529   960   445])
+% set(gcf, 'Position', [961   529   960   445])
 
 
 %Note: In this case plot_metadata refers to the calib metadata, not the
@@ -65,7 +65,7 @@ for plotnr = 1:(rows*cols )
     y_edges = hist.bins(y_ranges(y_data_idx(plotnr),:), binsize(2));
     ax = subplot(rows,cols,plotnr); 
 	set(gcf, 'Colormap', parula); %can also be jet
-    set(gcf,'Position', [250, 0, 1150, 1150]);
+%     set(gcf,'Position', [250, 0, 1150, 1150]);
 	% Make the histogram:
 	
     [Count, mids.dim1, mids.dim2] = hist.H_2D(data(filt,x_data_idx(plotnr)), data(filt,y_data_idx(plotnr)), x_edges, y_edges);
@@ -99,6 +99,9 @@ end
 
 
 subplot(rows,cols,ceil(cols/2));
+try
+title(num2str(plot_metadata.cond.type.hit_to_show.value),'FontSize',20)
+end
 if length(labels_2_plot)<5
 	try title(['Bfield:' num2str(exp_md.spec.Bfield) ' . TOF_factor' num2str(exp_md.conv.(['det' num2str(detnr)]).TOF_2_m2q.factor) ' . Efield:' num2str(exp_md.spec.Efield) ' .']); end
 else

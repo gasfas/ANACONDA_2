@@ -26,7 +26,7 @@ for i = 1:length(detnames);
     idx_Y       = find(strcmp(metadata_in.det.(detname).signals, 'Y [mm]'));
 %     idx_TOF     = find(strcmp(metadata_in.det.(detname).signals, 'TOF [ns]'));
 
-    if ~general.struct.probe_field(data_out.h.(detname).corr_log, 'lensabb')       
+    if ~general.struct.probe_field(data_out.h.(detname), 'corr_log.lensabb')       
         % First we correct the absolute TOF difference (from the theoretical value)
         % zero-Kinetic energy TOF correction:
         TOF_measured        = data_out.h.(detname).TOF;

@@ -80,7 +80,7 @@ cd1.momentum.hist.pointer		= 'h.det1.raw';
 
 % Plot style for 2D momentum histogram:
 cd1.momentum.labels_to_show = exp_md.conv.det1.m2q_label.labels;%12;%exp_md.sample.fragment.masses; %exp_md.conv.det1.m2q_label.labels;%(3:end);%general.fragment_masses(exp_md.sample.constituent.masses, exp_md.sample.constituent.nof); 
-cd1.momentum.binsize       	= [1, 1]*0.5e0;%0.25e1; %[a.u.] binsize of the m2q variable. 
+cd1.momentum.binsize       	= [1, 1]*2.5e0;%0.25e1; %[a.u.] binsize of the m2q variable. 
 cd1.momentum.x_range		= [-1 1]*150; % [a.u.] x range of the data on x-axis.
 cd1.momentum.y_range		= [-1 1]*150; % [a.u.] y range of the data on y-axis.
 
@@ -88,21 +88,21 @@ cd1.momentum.y_range		= [-1 1]*150; % [a.u.] y range of the data on y-axis.
 %we add a condition to the data 
 cond.label1.type             = 'discrete';
 cond.label1.data_pointer     = 'h.det1.m2q_l';
-cond.label1.value            =  22; %exp_md.sample.fragment.masses;
-% cond.label1.value            =22; %44*(0:20);% 
+cond.label1.value            =  32; %exp_md.sample.fragment.masses;
+% cond.label1.value            =44; %44*(0:20);% 
 cond.label1.translate_condition = 'hit1';
 
-% cond.label2					= cond.label1;
-% cond.label2.value           = exp_md.sample.fragment.masses;
-% cond.label2.translate_condition = 'hit2';
-% % cond.label2.value           = 44*(0:20);
+cond.label2					= cond.label1;
+cond.label2.value           = exp_md.sample.fragment.masses;
+cond.label2.translate_condition = 'hit2';
+cond.label2.value           = 44;
 % 
 % % cond.label2					= cond.label1;
 % % cond.label2.value           = exp_md.sample.fragment.masses;
 % % cond.label2.translate_condition = 'hit3';
 % % % cond.label2.value           = 44*(0:20);
 % 
-% cond.C2				= macro.filter.write_coincidence_condition(2, 'det1');
+cond.C2				= macro.filter.write_coincidence_condition(2, 'det1');
 cd1.momentum.cond = cond;
 % cd1.momentum.cond = exp_md.cond.def.X_X;  
 

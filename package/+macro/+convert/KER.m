@@ -58,9 +58,14 @@ function [KER] = R_2_KE_EPICEA(KER_md, R)
 % This function converts radia to energy values, specifically for the EPICEA 
 % spectrometer electrons:
 % We use the formula from Liu, Nicolas, and Miron, Rev. Sci. Instrum. 84, 033105 (2013)
-a_50			= -0.16504; %Dispersion coefficientat 50 eV pass;
-b_50			= 110.7; %Dispersion coefficient at 50 eV pass;
-[a, b]			= deal (a_50*KER_md.E_pass./50, b_50*KER_md.E_pass./50);
+% a_50			= -0.16504; %Dispersion coefficientat 50 eV pass;
+% b_50			= 110.7; %Dispersion coefficient at 50 eV pass;
+% [a, b]			= deal (a_50*KER_md.E_pass./50, b_50*KER_md.E_pass./50);
+
+a			= -1.075  ; %(-1.523, -0.6275); %Dispersion coefficientat 250 eV pass;
+b			= 430.2 ;%(316.8, 543.6); %Dispersion coefficient at 250 eV pass;
+
+
 E0				= KER_md.E0;
 R0				= KER_md.R0;
 KER = E0 + a*(R - R0) + b*(1./R - 1./R0);

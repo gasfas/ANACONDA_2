@@ -1,4 +1,4 @@
-function [hit_filter] = events_2_hits(event_filter, events, nof_hits)
+function [hit_filter] = events_2_hits(event_filter, events, nof_hits, cond, exp)
 % This function translates an event filter into a hit filter. 
 % Input:
 % event_filter:         Boolean array, the original event filter [nof_events, 1].
@@ -28,7 +28,7 @@ for det_nr = 1:nof_det
     det_nr_char = ['det' num2str(det_nr)]; % string with current detector number.
     
     % Make the filter for this detector:
-    [hit_filter_det] = filter.events_2_hits_det(event_filter, events(:,det_nr), nof_hits(det_nr));
+    [hit_filter_det] = filter.events_2_hits_det(event_filter, events(:,det_nr), nof_hits(det_nr), cond, exp);
 
     % Store it in the right place:
     hit_filter.(det_nr_char).filt = logical(hit_filter_det);
