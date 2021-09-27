@@ -1,4 +1,4 @@
-function [  ] = ASCII_2_mat(electrons_path, ions_path)
+function [  ] = ASCII_2_mat(electrons_path, ions_path, events_path)
 %General function to convert EPICEA ASCII datafiles to ANACONDA 2
 %datafiles. 
 % Inputs:
@@ -20,5 +20,7 @@ if cell2mat(strfind(d_e.VariableNames,'eventId_'))
 else
 	IO.EPICEA.ASCII_2_mat_one(ions_path, {'Var1', 'Var9', 'Var10' , 'Var2'},1);
 end
+% read the events datafile
+IO.EPICEA.ASCII_2_mat_one(events_path, {'Var1', 'Var2', 'Var6'},1);
 end
 
