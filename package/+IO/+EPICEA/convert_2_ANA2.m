@@ -6,7 +6,7 @@ function [exp] = convert_2_ANA2(dir, filename_base)
 % Outputs:
 % exp			The experimental data in ANACONDA_2 format.
 %
-% Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
+% Written by Smita Ganguly, 2021, Lund university: smita.ganguly(at)sljus.lu.se
 
 dir = fullfile(dir, filename_base);
 % Convert to mat file:

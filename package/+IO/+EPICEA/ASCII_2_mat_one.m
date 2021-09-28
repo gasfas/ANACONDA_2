@@ -1,4 +1,4 @@
-function [  ] = ASCII_2_mat_one(file_path, headername, data_row)
+function [  ] = ASCII_2_mat_one(file_path, headername)
 %General function to convert EPICEA ASCII datafiles to ANACONDA 2
 %datafiles. This function only converts either ions or electrons. The
 %function automatically saves the mat file in the same folder as the ASCII
@@ -7,7 +7,6 @@ function [  ] = ASCII_2_mat_one(file_path, headername, data_row)
 % file_path		the filepath where the ASCII file can be found
 % headername	EPICEA ASCII files can have different headers, and this one
 %				needs to be known to read it.
-%data_row where the real data starts
 % Outputs
 % -
 %
@@ -19,8 +18,10 @@ d_e.SelectedVariableNames = headername;
 data = d_e.readall;
 data = table2array(data);
 
+% define where the real data starts aka event id 1
 % Remove the first line, which for some reason does not contain data:
-data = data(data_row:end, :);
+data_row = find(data(:,1) > 0);
+data = data(data_row(1):end, :);
 
 for i = 1:length(d_e.SelectedVariableNames)
 d.(d_e.SelectedVariableNames{i}) = data(:,i);

@@ -18,12 +18,12 @@ function [ exp ] =load_mat_with_event(event_path, electrons_path, ions_path)
 el		= load(electrons_path);	% read the electron datafile
 ion		= load(ions_path);	% read the ion datafile
 events  = load(event_path);	% read the events datafile
-
-fn = fieldnames(events.d);
+%% assign proper field names
+fn = fieldnames(el.d);
 % In case no header is given:
 switch fn{1}
 	case 'Var1'
-		events.d = general.struct.rename_structfield(events.d, {'Var1', 'Var2', 'Var6'}, {'eventId_', 'nof_e_trig', 'nof_rnd_trig' });
+		el.d = general.struct.rename_structfield(el.d, {'Var1', 'Var6', 'Var7' , 'Var10'}, {'eventId_', 'pos_x', 'pos_y', 'energy'});
 end
 
 fn = fieldnames(ion.d);
@@ -32,9 +32,18 @@ switch fn{1}
 	case 'Var1'
 		ion.d = general.struct.rename_structfield(ion.d, {'Var1', 'Var9', 'Var10' , 'Var2'}, {'eventId_', 'pos_x', 'pos_y' ,  'tof_fallingEdge_'});
 end
+
+fn = fieldnames(events.d);
+% In case no header is given:
+switch fn{1}
+	case 'Var1'
+		events.d = general.struct.rename_structfield(events.d, {'Var1', 'Var2','Var4', 'Var6'}, {'eventId_', 'num_E_', 'num_I_','num_RandomHits' });
+end
+
 %% define the number of events from events file
-exp.e.e_trig   = logical(events.d.nof_e_trig);
-exp.e.rnd_trig = logical(events.d.nof_rnd_trig);
+exp.e.e_trig   = logical(events.d.num_E_);
+exp.e.rnd_trig = logical(events.d.num_RandomHits);
+exp.e.nof_ion = events.d.num_I_;
 
 % Initialize an empty event pointer array:
 % exp.e.raw = NaN*ones(max(ion.d.eventId_(end), el.d.eventId_(end)), 2);
