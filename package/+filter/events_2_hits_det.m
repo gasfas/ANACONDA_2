@@ -55,7 +55,10 @@ else
         else 
             % case ion: filter based on mass label
             new_filter = filter.hits.labeled_hits(exp.h.(cond.hit_to_show.det).m2q_l,cond.hit_to_show.value);
-            hit_filter = and(hit_filter, new_filter);
+            try hit_filter = and(hit_filter, new_filter);
+            catch
+%                 disp('hit to show filtering failed')
+            end
         end
     end
 end

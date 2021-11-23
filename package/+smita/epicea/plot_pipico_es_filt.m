@@ -1,4 +1,4 @@
-function [Tet_tof2] = plot_pipico(data_converted, data_stats);
+function [Tet_tof2] = plot_pipico_es_filt(data_converted, data_stats, e_KER_range);
 SC = data_stats.SC;
 TP_0 =data_stats.TP_0;
 
@@ -9,9 +9,9 @@ Bincenters = Binedges(1:end-1) + diff(Binedges) / 2; %tof values
 %% Define etII(tof1, tof2)
 etN.e_TRG.C1 = macro.filter.write_coincidence_condition(1, 'det1'); %electron trigger
 etN.e_TRG.type	        = 'continuous';
-etN.e_TRG.data_pointer	= 'h.det1.R';
+etN.e_TRG.data_pointer	= 'h.det1.KER';
 etN.e_TRG.translate_condition = 'AND';
-etN.e_TRG.value		= data_stats.e_R_range;
+etN.e_TRG.value		= e_KER_range;
 
 etN.ions= macro.filter.write_coincidence_condition(2, 'det2');
 [e_filter_etN, ~]	= macro.filter.conditions_2_filter(data_converted,etN);
@@ -30,17 +30,17 @@ et_c2_tof2 = et_tof_c2(2:2:end) ;
 
 
 [et_tof2,~,~] = histcounts2(et_c2_tof1,et_c2_tof2,Binedges,Binedges);
-figure
-subplot(1,3,1)
-histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',et_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
-% colorbar
-title('etII(tof1, tof2)')
-xlabel('TOF_1 (ns)')
-ylabel('TOF_2 (ns)')
-axis equal
-xlim([2000 10000])
-ylim([2000 10000])
-caxis([0 10])
+% figure
+% subplot(1,3,1)
+% histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',et_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
+% % colorbar
+% title('etII(tof1, tof2)')
+% xlabel('TOF_1 (ns)')
+% ylabel('TOF_2 (ns)')
+% axis equal
+% xlim([2000 10000])
+% ylim([2000 10000])
+% caxis([0 5])
 % xlim([4006 9670])
 % ylim([4888 10553])
 
@@ -86,9 +86,9 @@ rt_c2_tof2 = rt_tof_c2(2:2:end) ;
 %% Define etI(tof)
 etN.e_TRG.C1 = macro.filter.write_coincidence_condition(1, 'det1'); %electron trigger
 etN.e_TRG.type	        = 'continuous';
-etN.e_TRG.data_pointer	= 'h.det1.R';
+etN.e_TRG.data_pointer	= 'h.det1.KER';
 etN.e_TRG.translate_condition = 'AND';
-etN.e_TRG.value		= data_stats.e_R_range;
+etN.e_TRG.value		= data_stats.e_KER_range;
 
 etN.ions= macro.filter.write_coincidence_condition(1, 'det2');
 [e_filter_etN, ~]	= macro.filter.conditions_2_filter(data_converted,etN);
@@ -141,16 +141,16 @@ for ii= 1:length(Bincenters)
 end
 Bet_tof2=max(Bet_tof2,0);
 % figure
-subplot(1,3,2)
-histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Bet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
-% colorbar
-title('BetII(tof1, tof2)')
-xlabel('TOF_1 (ns)')
-ylabel('TOF_2 (ns)')
-axis equal
-xlim([2000 10000])
-ylim([2000 10000])
-caxis([0 10])
+% subplot(1,3,2)
+% histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Bet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
+% % colorbar
+% title('BetII(tof1, tof2)')
+% xlabel('TOF_1 (ns)')
+% ylabel('TOF_2 (ns)')
+% axis equal
+% xlim([2000 10000])
+% ylim([2000 10000])
+% caxis([0 5])
 
 %% Final filter True 2D map
 Tet_tof2 = et_tof2 - Bet_tof2;
@@ -166,7 +166,7 @@ Tet_tof2 = max(Tet_tof2,0);
 % caxis([0 5])
 
 % figure
-subplot(1,3,3)
+% subplot(1,3,3)
 % set(gcf,'Visible','on')
 % histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
 Tet_tof2_new = imresize(Tet_tof2,0.5);
@@ -177,9 +177,9 @@ title('TetII(tof1, tof2)')
 xlabel('TOF_1 (ns)')
 ylabel('TOF_2 (ns)')
 axis square
-caxis([0 5])
-xlim([2000 10000])
-ylim([2000 10000])
+caxis([0 1])
+xlim([3000 10000])
+ylim([3000 10000])
 % caxis([0 4])
 % xlim([4388 6221])
 % ylim([7543 9376])

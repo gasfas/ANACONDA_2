@@ -16,7 +16,7 @@ signals.TOF.axes.Tick		= 0:1e3:1e5;% [ns] Tick of the axis that shows the variab
 signals.TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 
 signals.TOF_MB = signals.TOF;
-signals.TOF_MB.hist.Range = [00 30000];
+signals.TOF_MB.hist.Range = [00 50000];
 signals.TOF_MB.axes.Lim = signals.TOF_MB.hist.Range;
 
 

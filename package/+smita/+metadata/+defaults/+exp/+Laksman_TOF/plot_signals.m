@@ -67,8 +67,8 @@ s.Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% Mass-to-charge:
 s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.m2q.hist.binsize	=0.1; %0.005;% [Da] binsize of the variable. 
-s.m2q.hist.Range	= [0 1000];% [Da] range of the variable. 
+s.m2q.hist.binsize	=2; %0.005;% [Da] binsize of the variable. 
+s.m2q.hist.Range	= [0 44*30];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [0 150];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [40 90];% [Da] range of the variable. 
 s.m2q.hist.Integrated_value	= 100;
@@ -83,7 +83,7 @@ s.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 s.m2q_l.hist.pointer	= 'h.det1.m2q_l';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.m2q_l.hist.binsize	=1; %0.005;% [Da] binsize of the variable. 
-s.m2q_l.hist.Range	= [0 10*44];% [Da] range of the variable. 
+s.m2q_l.hist.Range	= [0 44*30];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [0 150];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [40 90];% [Da] range of the variable. 
 % s.m2q_l.hist.Integrated_value	= 100;

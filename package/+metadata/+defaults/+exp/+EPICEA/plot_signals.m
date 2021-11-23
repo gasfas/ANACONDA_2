@@ -99,7 +99,7 @@ s.i_TOF.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 s.i_TOF_bgr.hist.pointer	= 'h.det2.TOF_bgr';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.i_TOF_bgr.hist.dim		= 1;
-s.i_TOF_bgr.hist.binsize	= 6;% [ns] binsize of the variable. 
+s.i_TOF_bgr.hist.binsize	= 1;% [ns] binsize of the variable. 
 s.i_TOF_bgr.hist.Range	= [3000 10000];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF_bgr.axes.Lim		= s.i_TOF_bgr.hist.Range;% [ns] Lim of the axis that shows the variable. 
@@ -111,10 +111,10 @@ s.i_TOF_bgr.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 %%%%%% X:
 s.i_X.hist.pointer		= 'h.det2.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_X.hist.binsize		= 0.5;% [mm] binsize of the variable. 
-s.i_X.hist.Range			= [-20 20];% [mm] range of the variable. 
+s.i_X.hist.binsize		= 1;% [mm] binsize of the variable. 
+s.i_X.hist.Range			= [-30 30];% [mm] range of the variable. 
 % Axes metadata:
-s.i_X.axes.Lim			= [-20 20];% [ns] Lim of the axis that shows the variable. 
+s.i_X.axes.Lim			= [-30 30];% [ns] Lim of the axis that shows the variable. 
 s.i_X.axes.Tick			=  linspace(-40, 40, 11);% [ns] Ticks shown 
 s.i_X.axes.Label.String	= 'X [mm]'; %The label of the variable
 
@@ -126,7 +126,7 @@ s.i_Y.axes.Label.String	= 'Y [mm]'; %The label of the variable
 %%%%%% R:
 s.i_R						= s.i_X; % This has the same properties as X-coordinate.
 s.i_R.hist.Range			= [0 20];% [mm] range of the variable. 
-s.i_X.hist.binsize		= 0.25;% [mm] binsize of the variable. 
+s.i_R.hist.binsize		= 0.05;% [mm] binsize of the variable. 
 s.i_R.axes.Lim			= [0 20];% [ns] Lim of the axis that shows the variable. 
 s.i_R.hist.pointer		= 'h.det2.R';% Data pointer, where the signal can be found. 
 s.i_R.axes.Label.String	= 'R [mm]'; %The label of the variable
@@ -206,7 +206,7 @@ s.i_dp_sum.cond			= [];
 %%%%%% Momentum sum norm:
 s.i_dp_sum_norm.hist.pointer	= 'e.det2.dp_sum_norm';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_dp_sum_norm.hist.binsize	= [10];% [a.u.] binsize of the variable. 
+s.i_dp_sum_norm.hist.binsize	= [5];% [a.u.] binsize of the variable. 
 s.i_dp_sum_norm.hist.Range	= [0 300];% [au] range of the variable. 
 % Axes metadata:
 s.i_dp_sum_norm.axes.Lim	= s.i_dp_sum_norm.hist.Range;% [au] Lim of the axis that shows the variable. 

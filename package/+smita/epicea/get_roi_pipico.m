@@ -98,10 +98,10 @@ Tet_tof2 = et_tof2 - Bet_tof2;
 Tet_tof2 = max(Tet_tof2,0);
 figure
 set(gcf,'Visible','on')
-% histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
-Tet_tof2_new = imresize(Tet_tof2,0.5);
-Bincenters_new = imresize(Bincenters,0.5);
-surface(Bincenters_new, Bincenters_new, Tet_tof2_new'); shading interp
+histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
+% Tet_tof2_new = imresize(Tet_tof2,0.5);
+% Bincenters_new = imresize(Bincenters,0.5);
+% surface(Bincenters_new, Bincenters_new, Tet_tof2_new'); shading interp
 colorbar
 title('TetII(tof1, tof2)')
 xlabel('TOF_1 (ns)')
@@ -110,7 +110,7 @@ axis equal
 caxis([0 2])
 roi = drawellipse('Color','r', 'Center',Center, 'SemiAxes',[50,100],'FaceAlpha',0,'InteractionsAllowed','reshape');
 waitforbuttonpress;
-
+disp('roi updated')
 % pos = customWait(roi);
 
 % xlim([4006 9670])

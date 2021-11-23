@@ -77,10 +77,10 @@ def.label.translate_condition = 'AND';
 % c.H.l.value	= [1];
 % c.H.l.translate_condition	= 'AND';
 % % 
-% % c.H.dpY.data_pointer	= 'h.det1.Y';
-% % c.H.dpY.type	= 'continuous';
-% % c.H.dpY.value	= [-12; 12];
-% % c.H.dpY.translate_condition = 'AND';
+def.H.dpY.data_pointer	= 'h.det1.X';
+def.H.dpY.type	= 'continuous';
+def.H.dpY.value	= [-5; 5];
+def.H.dpY.translate_condition = 'AND';
 % 
 % c.H.dp_norm.data_pointer	= 'h.det1.dp_norm';
 % c.H.dp_norm.type			= 'continuous';

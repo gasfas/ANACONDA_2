@@ -21,7 +21,7 @@ rt_m2q= data_converted.h.det2.m2q(hit_filter_rt.det2.filt);
 
 %% make histogram
 
-Binsize = 0.1; Binedges = 0: Binsize: 150;
+Binsize = 0.2; Binedges = 1: Binsize: 150;
 Bincenters = Binedges(1:end-1) + diff(Binedges) / 2;
 et_m2q_hist= histcounts(et_m2q, Binedges);%,'Normalization','probability');
 rt_m2q_hist= histcounts(rt_m2q, Binedges);%,'Normalization','probability');
@@ -32,10 +32,14 @@ rt_m2q_hist= histcounts(rt_m2q, Binedges);%,'Normalization','probability');
 % legend
 
 %% Filter Ion TOF
-figure
+% figure
 Tet_m2q = et_m2q_hist - data_stats.SC.* rt_m2q_hist;
 % Tet_tof = max(Tet_tof,0);
 Tet_m2q_error = sqrt(et_m2q_hist + (data_stats.SC.^2).* rt_m2q_hist);
+
+% normalise the max amplitude to 1
+% Tet_m2q = Tet_m2q./sum(Tet_m2q);
+% Tet_m2q_error = Tet_m2q_error./sum(Tet_m2q);
 plot(Bincenters, Tet_m2q ,'LineWidth',1,'DisplayName','TetAI(m2q)')
 xlabel('m2q (a.u.)')
 legend

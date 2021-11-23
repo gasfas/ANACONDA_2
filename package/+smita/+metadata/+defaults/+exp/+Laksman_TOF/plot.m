@@ -4,8 +4,8 @@ function [exp_md] = plot(exp_md)
 
 % Specify which plot to show:
 % d1.ifdo.BR_Ci						= true;
-% d1.ifdo.TOF							= true;
-% d1.ifdo.m2q							= true;
+d1.ifdo.TOF							= true;
+d1.ifdo.m2q							= true;
 % d1.ifdo.TOF_X						= true;
 % d1.ifdo.TOF_Px                      = true;
 % d1.ifdo.XY						= true;
@@ -67,7 +67,7 @@ d1.m2q.GraphObj.ax_nr			= 1;
 d1.m2q.axes(1).YTick			= linspace(0, 1, 101);
 d1.m2q.axes(1).YLim				= [0 0.1];
 d1.m2q.axes						= macro.plot.add_axes(d1.m2q.axes(1), signals.add_m2q.axes, exp_md.conv.det1, 'm2q', 'X');
-% d1.m2q.cond                     = exp_md.cond.def.O_C;%dp_sum; %X_X;
+d1.m2q.cond                     = exp_md.cond.def.H.dpY;%dp_sum; %X_X;
 
 d1.m2q_hit1_hit2				= metadata.create.plot.signal_2_plot({signals.m2q, signals.m2q});
 d1.m2q_hit1_hit2.hist.hitselect = [1, 2]; %hitselect can be used to select only the first, second, etc hit of a hit variable.

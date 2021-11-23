@@ -1,14 +1,14 @@
-function [data_stats] =get_data_stats(data_converted)
+function [data_stats] =get_data_stats_es_filt(data_converted,e_KER_range)
 
 %% define filter for electrons and ions
 % electron radius
-data_stats.e_R_range = [0; 40.0];%[0; 19.0];
+data_stats.e_KER_range = e_KER_range;%[0; 19.0];
 % data_stats.TOF_range = [2000 ; 11000];%[0; 19.0];
 
 radius.type	        = 'continuous';
-radius.data_pointer	= 'h.det1.R';
+radius.data_pointer	= 'h.det1.KER';
 radius.translate_condition = 'AND';
-radius.value		= data_stats.e_R_range;
+radius.value		= data_stats.e_KER_range;
 
 % ion tof
 % TOF.type	        = 'continuous';
