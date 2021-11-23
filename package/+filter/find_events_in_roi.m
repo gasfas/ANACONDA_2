@@ -35,10 +35,10 @@ hit_filter_rect = filter.events_2_hits(e_filter_rect, data_converted.e.raw, [2, 
 tof_rect= data_converted.h.det2.TOF(hit_filter_rect.det2.filt);
 idx = find(hit_filter_rect.det2.filt==1);
 
-%%% the odd index values of et_m2q_c2 are m2q1%%%
+%%% the odd index values of tof_rect are hit1%%%
 % odd index values
 tof1 = tof_rect(1:2:end) ;
-%%% the even index values of et_m2q_c2 are m2q2%%%
+%%% the even index values of tof_rect are hit2%%%
 % even index values
 tof2 = tof_rect(2:2:end) ;
 %% find the overlap between the rectangle and the roi
