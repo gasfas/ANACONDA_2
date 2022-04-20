@@ -1,8 +1,11 @@
 function [centres, electron_KE] = get_AES(data_converted, data_stats)
 electron_KE = struct();
 %% define plot parameters
-binsize = 0.2;
+binsize = 0.5;
 edges = 200:binsize:300;
+
+% binsize = 0.1;
+% edges = 50:binsize:70;
 centres = edges(1:end-1)+ diff(edges)/2;
 %% measured spectrum with j ions
 
@@ -22,8 +25,8 @@ electron_KE.AES = electron_KE.ES_0 +electron_KE.ES_1+electron_KE.ES_2+...
                     electron_KE.ES_3+electron_KE.ES_4;
 % figure
 % plot(centres,electron_KE.AES,'DisplayName','All electron spectrum (AES)')
-xlabel('Electron Kinetic energy (eV)')
-ylabel('Counts' )
+% xlabel('Electron Kinetic energy (eV)')
+% ylabel('Counts' )
 % hold on
 
 %define constants for RND backgrounds BES
@@ -34,10 +37,10 @@ c3 = (data_stats.rtP_3/data_stats.rtP_0) + (data_stats.rtP_1^2/data_stats.rtP_2)
                 - 2*(data_stats.rtP_1 * data_stats.rtP_2/data_stats.rtP_0^2);
 
 %calculate the RND backgrounds BES
-electron_KE.BES_1 = c1 * electron_KE.ES_0;
-electron_KE.BES_2 = c2 * electron_KE.ES_0 + c1 * electron_KE.ES_1;
-electron_KE.BES_3 = c3 * electron_KE.ES_0 + c2 * electron_KE.ES_1...
-                          + c1 * electron_KE.ES_2;
+electron_KE.BES_1 = max(c1 * electron_KE.ES_0,0);
+electron_KE.BES_2 = max(c2 * electron_KE.ES_0 + c1 * electron_KE.ES_1,0);
+electron_KE.BES_3 = max(c3 * electron_KE.ES_0 + c2 * electron_KE.ES_1...
+                          + c1 * electron_KE.ES_2,0);
 
 electron_KE.BES = electron_KE.BES_1 + electron_KE.BES_2 +electron_KE.BES_3;
 % plot(centres,electron_KE.BES, 'DisplayName','Background electron spectrum (BES)')
@@ -52,7 +55,7 @@ electron_KE.TES_3  = electron_KE.ES_3  - electron_KE.BES_3 ;
 electron_KE.TES = max(electron_KE.TES_0,0)  + max(electron_KE.TES_1,0) +max(electron_KE.TES_2,0) +...
                     max(electron_KE.TES_3,0) ;
 % figure
-plot(centres,electron_KE.TES./max(electron_KE.TES), 'LineWidth', 2, 'DisplayName','True electron spectrum (TES)')
+plot(centres,electron_KE.TES./max(electron_KE.TES), 'LineWidth', 2, 'DisplayName','True electron spectrum (TES)') %
 legend
 %% plot 
 % figure; hold on

@@ -1,4 +1,4 @@
-function [Tet_tof,Tet_tof_error] = plot_ion_tof(data_converted, data_stats)
+function [Bincenters,Tet_tof,Tet_tof_error] = plot_ion_tof(data_converted, data_stats)
 e_TRG.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
 e_TRG.type	        = 'continuous';
 e_TRG.data_pointer	= 'h.det1.R';
@@ -25,11 +25,11 @@ Binsize = 10; Binedges = 0: Binsize: 11e3;
 Bincenters = Binedges(1:end-1) + diff(Binedges) / 2;
 et_tof_hist= histcounts(et_tof, Binedges);%,'Normalization','probability');
 rt_tof_hist= histcounts(rt_tof, Binedges);%,'Normalization','probability');
-figure
-plot(Bincenters, et_tof_hist,'LineWidth',1,'DisplayName','etAI(tof)')
-hold on
-plot(Bincenters, rt_tof_hist,'LineWidth',1,'DisplayName','rtAI(tof)' )
-legend
+% figure
+% plot(Bincenters, et_tof_hist,'LineWidth',1,'DisplayName','etAI(tof)')
+% hold on
+% plot(Bincenters, rt_tof_hist,'LineWidth',1,'DisplayName','rtAI(tof)' )
+% legend
 %% Filter Ion TOF
 % figure
 Tet_tof = et_tof_hist - data_stats.SC.* rt_tof_hist;

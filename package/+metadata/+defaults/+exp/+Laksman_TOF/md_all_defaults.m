@@ -30,13 +30,9 @@ exp_md = metadata.defaults.exp.Laksman_TOF.det( exp_md );
 exp_md = metadata.defaults.exp.Laksman_TOF.corr( exp_md );
 %exp_md = my_md.Laksman_TOF_clusters.corr( exp_md );
 
-%% Calibration parameters:
-exp_md = metadata.defaults.exp.Laksman_TOF.calib( exp_md );
+
 %exp_md = my_md.Laksman_TOF_clusters.calib( exp_md );
 
-%% Fitting parameters:
-exp_md = metadata.defaults.exp.Laksman_TOF.fit( exp_md );
-%exp_md = my_md.Laksman_TOF_clusters.fit( exp_md );
 
 %% Conversion factors:
 % Which conversions should be performed on the data:
@@ -50,4 +46,9 @@ exp_md = metadata.defaults.exp.Laksman_TOF.cond( exp_md );
 %% Plot Styles are defined in this file.
 exp_md = metadata.defaults.exp.Laksman_TOF.plot(exp_md);
 %exp_md = my_md.Laksman_TOF_clusters.plot(exp_md);
+%% Calibration parameters:
+exp_md = metadata.defaults.exp.Laksman_TOF.calib( exp_md );
+%% Fitting parameters:
+exp_md = metadata.defaults.exp.Laksman_TOF.fit( exp_md );
+%exp_md = my_md.Laksman_TOF_clusters.fit( exp_md );
 end

@@ -1,4 +1,4 @@
-function [e_filter_roi, hit_filter_roi] = find_events_in_roi(data_converted,roi)
+function [e_filter_roi, hit_filter_roi] = find_events_in_roi(data_converted,roi,m2q_1,m2q_2)
 %This function calculates the event filter and hit filter for events in the 
 %roi selected in pipico (TOF-TOF) plot. Useful for selecting the slope and
 %area in PIPICO.
@@ -13,19 +13,19 @@ function [e_filter_roi, hit_filter_roi] = find_events_in_roi(data_converted,roi)
 % hit_filter:           The filter that can be applied to the ion hits 
 %
 % Written by Smita Ganguly, 2021, Lund university: smita.ganguly(at)sljus.lu.se
-%% take a rectangle from the pipico
-tof_1 =[roi.Center(1)-500 ; roi.Center(1)+500];
-tof_2 =[roi.Center(2)-500 ; roi.Center(2)+500];
+%% take a rectangle from the pipico using the m2q labels
+% tof_1 =[roi.Center(1)-500 ; roi.Center(1)+500];
+% tof_2 =[roi.Center(2)-500 ; roi.Center(2)+500];
 
 ion.C2			= macro.filter.write_coincidence_condition(2, 'det2');
-ion.hit1.type				= 'continuous';
-ion.hit1.data_pointer		= 'h.det2.TOF';
-ion.hit1.value				= tof_1;
+ion.hit1.type				= 'discrete';
+ion.hit1.data_pointer		= 'h.det2.m2q_l';
+ion.hit1.value				= m2q_1;
 ion.hit1.translate_condition = 'hit1';
 
-ion.hit2.type					= 'continuous';
-ion.hit2.data_pointer			= 'h.det2.TOF';
-ion.hit2.value				= tof_2;
+ion.hit2.type					= 'discrete';
+ion.hit2.data_pointer			= 'h.det2.m2q_l';
+ion.hit2.value				= m2q_2;
 ion.hit2.translate_condition	= 'hit2';
 
 %% filter events in rectangle around roi

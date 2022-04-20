@@ -26,6 +26,7 @@ for i = 1:length(detnames)
     % Preparing the variables needed:
     X           = data_out.h.(detname).X;
     Y           = data_out.h.(detname).Y;
+    
 	% Determine in which coordinates the momentum can be calculated:
 	try p_XY	= sum(contains({'X','Y'}, metadata_in.conv.(detname).momentum.coordinates)) == 2; % if it is 2D (X, Y)
 		p_XYTOF	= sum(contains({'X','Y','TOF'}, metadata_in.conv.(detname).momentum.coordinates)) == 3; % if it is 3D (X, Y, TOF)
@@ -100,7 +101,7 @@ for i = 1:length(detnames)
     try data_out.e.(detname).dp_sum_norm = general.vector.norm_vectorarray(data_out.e.(detname).dp_sum, 2); catch; end
     
 %     try data_out.e.(detname).dp_sum_tot = general.vector.sum_vectorarray(data_out.e.(detname).dp_sum, 2); catch; end
-	
+
 	% remove unused fields for memory saving:
 	data_out.h.(detname) = rmfield(data_out.h.(detname), 'p');
 	data_out.h.(detname) = rmfield(data_out.h.(detname), 'p_0');

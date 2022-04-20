@@ -65,6 +65,13 @@ function [KER] = R_2_KE_EPICEA(KER_md, R)
 a			= -1.075  ; %(-1.523, -0.6275); %Dispersion coefficientat 250 eV pass;
 b			= 430.2 ;%(316.8, 543.6); %Dispersion coefficient at 250 eV pass;
 
+if KER_md.E_pass ~=	250
+    try a =KER_md.a	;	
+        b =KER_md.a	;	
+    catch
+        error('Warning: a and b for 250 ev pass energy used')
+    end
+end
 
 E0				= KER_md.E0;
 R0				= KER_md.R0;

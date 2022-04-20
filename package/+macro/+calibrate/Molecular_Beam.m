@@ -13,7 +13,7 @@ function [] = Molecular_Beam(exp, detnr, calib_md)
 plot_md = calib_md.plot;
 
 TOF				= general.data.pointer.read(plot_md.X.hist.pointer{1}, exp);
-X				= general.data.pointer.read(plot_md.X.hist.pointer{2}, exp);
+X				= general.data.pointer.read(plot_md.Y.hist.pointer{1}, exp);
 Y				= general.data.pointer.read(plot_md.Y.hist.pointer{2}, exp);
 % create the figure:
 fig				= macro.plot.create.fig(plot_md.X.figure);

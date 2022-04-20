@@ -67,7 +67,7 @@ s.Theta.axes.Label.String	= 'Theta [rad]'; %The label of the variable
 %%%%%% Mass-to-charge:
 s.m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.m2q.hist.binsize	=2; %0.005;% [Da] binsize of the variable. 
+s.m2q.hist.binsize	=0.005;% [Da] binsize of the variable. 
 s.m2q.hist.Range	= [0 44*30];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [0 150];% [Da] range of the variable. 
 % s.m2q.hist.Range	= [40 90];% [Da] range of the variable. 
@@ -265,7 +265,7 @@ s.dp_norm_squared.hist.pointer	= '(exp.h.det1.dp_norm).^2';% Data pointer, where
 % Histogram metadata:
 % s.dp_norm_squared.hist.binsize	= [18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
 s.dp_norm_squared.hist.binsize  = 350; %600; %[18^2]; %[2^2];%[3^2]; % [a.u.] binsize of the variable. 
-s.dp_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
+s.dp_norm_squared.hist.Range	= [0 200^2];% [au] range of the variable. 
 % Axes metadata:
 s.dp_norm_squared.axes.Lim	= s.dp_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_norm_squared.axes.Tick	= s.dp_norm_squared.hist.Range(1):4000:s.dp_norm_squared.hist.Range(2);% [au] Ticks on the respective axes.
@@ -276,7 +276,7 @@ s.dp_norm_squared.axes.Label.String	= {'$|p|^2$ [a.u.]'}; %The label of the vari
 s.dp_sum_norm_squared.hist.pointer	= '(exp.e.det1.dp_sum_norm).^2';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.dp_sum_norm_squared.hist.binsize	= 350; %[25^2] ; %[250];%[1000][a.u.] binsize of the variable. 
-s.dp_sum_norm_squared.hist.Range	= [0 150^2];% [au] range of the variable. 
+s.dp_sum_norm_squared.hist.Range	= [0 200^2];% [au] range of the variable. 
 % Axes metadata:
 s.dp_sum_norm_squared.axes.Lim	= s.dp_sum_norm_squared.hist.Range;% [au] Lim of the axis that shows the variable. 
 s.dp_sum_norm_squared.axes.Tick	= s.dp_sum_norm_squared.hist.Range(1):4000:s.dp_sum_norm_squared.hist.Range(2);% [au] Ticks on the respective axes.

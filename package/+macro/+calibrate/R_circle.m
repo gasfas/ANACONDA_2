@@ -110,7 +110,7 @@ if general.struct.probe_field(calib_md, 'ifdo.plot') && general.struct.probe_fie
 	plot_md			= plot_md_bck;
 	plot_md.axes.Position = [0.53 0.3 0.3 0.6];
 	plot_md.axes.Title.String = 'Corrected';
-	plot_md.axes.colormap	= plot.custom_RGB_colormap('w', 'r', 0, 1);
+	plot_md.axes.colormap	=plot.jet;% plot.custom_RGB_colormap('w', 'r', 0, 1);
 	[h_fig, h_ax_corr] = plot.quickhist(h_fig, [theta_data, R_corr], 'plot_md', plot_md);
 	h_ax_corr.YAxis.Visible = 'off';
 end

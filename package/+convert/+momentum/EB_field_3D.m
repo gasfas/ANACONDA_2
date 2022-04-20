@@ -1,4 +1,4 @@
-function [p, p_0] = EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
+function [p, p_0, X, Y] = EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
 % The function converts TOF, X, Y to momentum, in the case of an 
 % electrostatic and magnetostatic field.
 % Only hits that are recognized to belong to a certain m/q are considered.
@@ -116,4 +116,5 @@ p(find(label_loc),:) = [p_X p_Y p_Z];
 % Convert to atomic units: 
 p = p ./ general.constants('momentum_au');
 p_0= p_0./ general.constants('momentum_au');
+
 end

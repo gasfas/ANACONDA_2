@@ -30,17 +30,17 @@ et_c2_tof2 = et_tof_c2(2:2:end) ;
 
 
 [et_tof2,~,~] = histcounts2(et_c2_tof1,et_c2_tof2,Binedges,Binedges);
-figure
-subplot(1,3,1)
-histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',et_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
-% colorbar
-title('etII(tof1, tof2)')
-xlabel('TOF_1 (ns)')
-ylabel('TOF_2 (ns)')
-axis equal
-xlim([2000 10000])
-ylim([2000 10000])
-caxis([0 10])
+% figure
+% subplot(1,3,1)
+% histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',et_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
+% % colorbar
+% title('etII(tof1, tof2)')
+% xlabel('TOF_1 (ns)')
+% ylabel('TOF_2 (ns)')
+% axis equal
+% xlim([2000 10000])
+% ylim([2000 10000])
+% caxis([0 10])
 % xlim([4006 9670])
 % ylim([4888 10553])
 
@@ -141,16 +141,16 @@ for ii= 1:length(Bincenters)
 end
 Bet_tof2=max(Bet_tof2,0);
 % figure
-subplot(1,3,2)
-histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Bet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
-% colorbar
-title('BetII(tof1, tof2)')
-xlabel('TOF_1 (ns)')
-ylabel('TOF_2 (ns)')
-axis equal
-xlim([2000 10000])
-ylim([2000 10000])
-caxis([0 10])
+% subplot(1,3,2)
+% histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Bet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
+% % colorbar
+% title('BetII(tof1, tof2)')
+% xlabel('TOF_1 (ns)')
+% ylabel('TOF_2 (ns)')
+% axis equal
+% xlim([2000 10000])
+% ylim([2000 10000])
+% caxis([0 10])
 
 %% Final filter True 2D map
 Tet_tof2 = et_tof2 - Bet_tof2;
@@ -166,7 +166,7 @@ Tet_tof2 = max(Tet_tof2,0);
 % caxis([0 5])
 
 % figure
-subplot(1,3,3)
+% subplot(1,3,3)
 % set(gcf,'Visible','on')
 % histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
 Tet_tof2_new = imresize(Tet_tof2,0.5);

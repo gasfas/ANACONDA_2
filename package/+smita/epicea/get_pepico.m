@@ -1,4 +1,4 @@
-function [TetEI_x_tof,Xcenters,Ycenters] = get_pepico(data_converted, data_stats,tof_range);
+function [TetEI_x_tof,Xedges,Yedges] = get_pepico(data_converted, data_stats,tof_range);
 %% define etEI_x_tof
 pepico.elec.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
 pepico.elec.type	        = 'continuous';
@@ -22,7 +22,7 @@ hit_filter_ion = filter.events_2_hits_det(e_filter_pepico, data_converted.e.raw(
 e_KER_new = data_converted.h.det1.KER(hit_filter_elec);
 i_TOF_new = data_converted.h.det2.TOF(hit_filter_ion);
 
-Xedges = [230:0.5:280];
+Xedges = [230:2:280];
 Yedges = [pepico.ions.tof.value(1):10:pepico.ions.tof.value(2)];
 
 [etEI_x_tof,Xedges,Yedges] =histcounts2(e_KER_new,i_TOF_new,Xedges,Yedges);

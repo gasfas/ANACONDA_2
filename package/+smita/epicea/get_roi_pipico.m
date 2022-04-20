@@ -96,22 +96,35 @@ Bet_tof2=max(Bet_tof2,0);
 %% Final filter True 2D map
 Tet_tof2 = et_tof2 - Bet_tof2;
 Tet_tof2 = max(Tet_tof2,0);
-figure
-set(gcf,'Visible','on')
+figure ;%fig =  uifigure
+% ax = axes(fig);
+% set(gcf,'Visible','on')
 histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
 % Tet_tof2_new = imresize(Tet_tof2,0.5);
 % Bincenters_new = imresize(Bincenters,0.5);
 % surface(Bincenters_new, Bincenters_new, Tet_tof2_new'); shading interp
-colorbar
+colormap('jet')
 title('TetII(tof1, tof2)')
 xlabel('TOF_1 (ns)')
 ylabel('TOF_2 (ns)')
 axis equal
-caxis([0 2])
-roi = drawellipse('Color','r', 'Center',Center, 'SemiAxes',[50,100],'FaceAlpha',0,'InteractionsAllowed','reshape');
-waitforbuttonpress;
-disp('roi updated')
-% pos = customWait(roi);
+caxis([0 10])
+roi = drawellipse('Color','r', 'Center',Center,'SemiAxes',[120,120],'FaceAlpha',0,'InteractionsAllowed','translate');%,'RotationAngle',135);%,'InteractionsAllowed','reshape');
+pos = customWait(roi);
+disp("roi updated")
+
+% waitforbuttonpress;
+
+% msg = 'Are you happy with your selection?';
+% selection = uiconfirm(fig,msg,'ROI selection');%,'Interpreter','latex');
+% switch selection
+%     case 'OK'
+%     case 'Cancel'
+%         return
+% end
+% 
+
+% text()
 
 % xlim([4006 9670])
 % ylim([4888 10553])
@@ -134,6 +147,7 @@ delete(l);
 pos = hROI.Position;
 
 end
+
 
 function clickCallback(~,evt)
 

@@ -23,7 +23,7 @@ rt_tof= data_converted.h.det2.TOF(hit_filter_rt.det2.filt);
 
 %% make histogram
 
-Binsize = 10; Binedges = 0: Binsize: 10e3;
+Binsize = 10; Binedges = 2000: Binsize: 11000;
 Bincenters = Binedges(1:end-1) + diff(Binedges) / 2;
 et_tof_hist= histcounts(et_tof, Binedges);%,'Normalization','probability');
 rt_tof_hist= histcounts(rt_tof, Binedges);%,'Normalization','probability');
@@ -38,7 +38,7 @@ hold on
 Tet_tof = et_tof_hist - data_stats.SC.* rt_tof_hist;
 % Tet_tof = max(Tet_tof,0);
 Tet_tof_error = sqrt(et_tof_hist + (data_stats.SC.^2).* rt_tof_hist);
-plot(Bincenters, Tet_tof./max(Tet_tof) ,'LineWidth',1,'DisplayName','TetAI(tof)', 'LineWidth', 2)
+plot(Bincenters, Tet_tof./max(Tet_tof) ,'LineWidth',1,'DisplayName','TetAI(tof)', 'LineWidth', 2)%
 xlabel('Ion TOF (ns)')
 legend
 
