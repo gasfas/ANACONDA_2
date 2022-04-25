@@ -1,4 +1,4 @@
-function [h_axes] = ax(h_figure, axes_md)
+function [h_axes] = ax(h_figure, axes_md, h_axes_in)
 % This function creates a plot axis into a specified figure, with the 
 % specified plotstyle.
 % Inputs:
@@ -15,7 +15,11 @@ function [h_axes] = ax(h_figure, axes_md)
 if numel(axes_md)>1
 	for i = 1:numel(axes_md)
 		% Create the new axes:
-		h_axes(i) = macro.plot.create.ax(h_figure, axes_md(i));
+        if exist('ax_in', 'var')
+            h_axes(i) = macro.plot.create.ax(h_figure, axes_md(i), h_axes_in(i));
+        else
+            h_axes(i) = macro.plot.create.ax(h_figure, axes_md(i));
+        end
 
 		% If axes have similar ranges, link them:
 		if i > 1, coor = [];
@@ -29,34 +33,41 @@ if numel(axes_md)>1
 		end
 	end
 else
-	% Create the new axes:
-	if ~isfield(axes_md, 'Type')
-		axes_md.Type = 'axes';
-	end
-	switch axes_md.Type
-		case 'polaraxes'
-			h_axes = polaraxes('Parent', h_figure);
-		case 'ternary'
-			try [~, h_axes] = plot.ternary.ternaxes(11, axes_md.Xlim_scaled);
-			catch [~, h_axes] = plot.ternary.ternaxes(11); end
-% 			h_axes = axes('Parent', h_figure);
-			plot.ternary.ternlabel(axes_md.XLabel.String, axes_md.YLabel.String, axes_md.ZLabel.String);
-			try axes_md.XLim = axes_md.Xlim_scaled;
-			catch axes_md.XLim = [0 1]; end
-			try axes_md.YLim = axes_md.Ylim_scaled;
-			catch axes_md.YLim = [0 1]; end
-			axes_md.XTick = [];
-			axes_md.YTick = [];
-			axes_md = rmfield(axes_md, {'XLabel', 'YLabel', 'ZLabel'});
-		otherwise
-			h_axes = axes('Parent', h_figure);
-	end
-	% Copy the axes values into the handle:
-	if ~isempty(axes_md)
-		h_axes = macro.plot.fill.ax(h_axes, axes_md);
-	end
-	% put the first handle on top:
-	uistack(h_axes(1), 'top')
+    if ~isfield(axes_md, 'Type')
+        axes_md.Type = 'axes';
+    end
+    if ~exist('h_axes_in', 'var') % If there is no axes given as input, creat a new one:
+        % Create the new axes:
+        
+        switch axes_md.Type
+            case 'polaraxes'
+                h_axes = polaraxes('Parent', h_figure);
+            case 'ternary'
+                try [~, h_axes] = plot.ternary.ternaxes(11, axes_md.Xlim_scaled);
+                catch [~, h_axes] = plot.ternary.ternaxes(11); end
+    % 			h_axes = axes('Parent', h_figure);
+                plot.ternary.ternlabel(axes_md.XLabel.String, axes_md.YLabel.String, axes_md.ZLabel.String);
+                try axes_md.XLim = axes_md.Xlim_scaled;
+                catch axes_md.XLim = [0 1]; end
+                try axes_md.YLim = axes_md.Ylim_scaled;
+                catch axes_md.YLim = [0 1]; end
+                axes_md.XTick = [];
+                axes_md.YTick = [];
+                axes_md = rmfield(axes_md, {'XLabel', 'YLabel', 'ZLabel'});
+            otherwise
+                h_axes = axes('Parent', h_figure);
+        end
+
+    else 
+        h_axes = h_axes_in;
+    end
+    
+    % Copy the axes values into the handle:
+    if ~isempty(axes_md)
+        h_axes = macro.plot.fill.ax(h_axes, axes_md);
+    end
+    % put the first handle on top:
+    uistack(h_axes(1), 'top');
 end
 
 end

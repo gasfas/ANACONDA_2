@@ -204,7 +204,7 @@ s.KER_sum.hist.pointer	= 'e.det1.KER_sum';% Data pointer, where the signal can b
 s.KER_sum.hist.binsize	=  0.01; %[eV] binsize of the CSD variable. 
 s.KER_sum.hist.Range	= [0 10]; %[eV] range of the variable. 
 % s.KER_sum.cond= exp_md.cond.def.dp_sum  ;
-s.KER_sum.cond= exp_md.cond
+s.KER_sum.cond= exp_md.cond;
 % Axes metadata:
 s.KER_sum.axes.Lim	= s.KER_sum.hist.Range;% [eV] Lim of the axis that shows the variable. 
 s.KER_sum.axes.Tick	= linspace(s.KER_sum.axes.Lim(1), s.KER_sum.axes.Lim(2), 6);% [au] Ticks on the respective axes.
