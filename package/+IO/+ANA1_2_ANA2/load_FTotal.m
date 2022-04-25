@@ -12,7 +12,7 @@ function [ data, maxcoinc ] = load_FTotal(filename)
 [pathstr,name,ext] = fileparts(filename); 
 
 switch ext
-	case 'mat'
+	case '.mat'
 		load(filename);
 		% storing it all in another, more compact manner:
 		if exist('F1T1', 'var')

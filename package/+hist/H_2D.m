@@ -25,7 +25,7 @@ else
 	x_midpoints           = cell2mat(mid(1));
 	y_midpoints           = cell2mat(mid(2));
 
-    save('histout.mat','Count','x_midpoints','y_midpoints')
+    %save('histout.mat','Count','x_midpoints','y_midpoints')
 	if any(size(Count) ~= [length(x_midpoints), length(y_midpoints)])
 		warning ('hist.histnc failed')
 		Count		= Count(1:length(x_midpoints), 1:length(y_midpoints));

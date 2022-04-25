@@ -1,4 +1,4 @@
-function [Tet_tof2] = plot_pipico_es_filt(data_converted, data_stats, e_KER_range);
+function [Tet_tof2,Bincenters] = plot_pipico_es_filt(data_converted, data_stats, e_KER_range);
 SC = data_stats.SC;
 TP_0 =data_stats.TP_0;
 

@@ -1,4 +1,4 @@
-function [ exp_f ] = exp(exp, filt_events, nof_hits)
+function [ exp_f ] = exp(exp, filt_events, nof_hits,cond)
 % Filter out the specified events of interest from a data file.
 % Inputs:
 % exp               The experimental data (must contain at least hits and events
@@ -51,7 +51,7 @@ for detnr = 1:size(exp.e.raw, 2)
     detname = ['det' num2str(detnr)];
 
     % Translate the event filter to the hit filter of this detector:
-    [h_filt_det] = filter.events_2_hits_det(filt_events, exp.e.raw(:,detnr), nof_hits(detnr));
+    [h_filt_det] = filter.events_2_hits_det(filt_events, exp.e.raw(:,detnr), nof_hits(detnr),cond,exp);
     % copy the structs into the new (filtered) struct:
     h_f = filter.structfields(exp_to_copy.h.(detname), logical(h_filt_det));
     % Write it in the new struct:

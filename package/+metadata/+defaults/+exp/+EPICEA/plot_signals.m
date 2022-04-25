@@ -18,7 +18,7 @@ s.e_mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 %%%%%% electron Radius:
 s.e_R.hist.pointer		= 'h.det1.R';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_R.hist.binsize		= 0.1;% [mm] binsize of the variable. 
+s.e_R.hist.binsize		= 0.3;% [mm] binsize of the variable. 
 s.e_R.hist.Range			= [0 40];% [mm] range of the variable. 
 % Axes metadata:
 s.e_R.axes.Lim			= [0 40];%% [mm] Lim of the axis that shows the variable. 
@@ -63,11 +63,13 @@ s.e_Y.axes.Label.String	= 'Y [mm]'; %The label of the variable
 %%%%%% electron Energy:
 s.e_E.hist.pointer		= 'h.det1.KER';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.e_E.hist.binsize		= 0.3;% [eV] binsize of the variable. 
+s.e_E.hist.binsize		= 0.01;% [eV] binsize of the variable. 
 s.e_E.hist.Range			= [200 300];% [eV] range of the variable. 
+s.e_E.hist.Range			= [45 55];% [eV] range of the variable. 
+
 % Axes metadata:
-s.e_E.axes.Lim			= [200 300];% [eV] Lim of the axis that shows the variable. 
-s.e_E.axes.Tick			=  linspace(-1, 300, 20);% Ticks shown 
+% s.e_E.axes.Lim			= [200 300];% [eV] Lim of the axis that shows the variable. 
+% s.e_E.axes.Tick			=  linspace(-1, 300, 20);% Ticks shown 
 s.e_E.axes.Label.String	= 'E [eV]'; %The label of the variable
 
 %%%%%%%%%%%%%%%% ION (DET2) SIGNALS
@@ -86,7 +88,7 @@ s.i_mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 s.i_TOF.hist.pointer	= 'h.det2.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.i_TOF.hist.binsize	= 10;% [ns] binsize of the variable. 
-s.i_TOF.hist.Range	= [2000 12000];% [ns] range of the variable. 
+s.i_TOF.hist.Range	= [5000 55000];% [ns] range of the variable. 
 % s.i_TOF.hist.Range	= [9500 10500];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF.axes.Lim		= s.i_TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
@@ -111,7 +113,7 @@ s.i_TOF_bgr.axes.Label.String	= 'TOF [ns]'; %The label of the variable
 %%%%%% X:
 s.i_X.hist.pointer		= 'h.det2.X';% Data pointer, where the signal can be found. 
 % Histogram metadata:
-s.i_X.hist.binsize		= 1;% [mm] binsize of the variable. 
+s.i_X.hist.binsize		= 0.5;% [mm] binsize of the variable. 
 s.i_X.hist.Range			= [-30 30];% [mm] range of the variable. 
 % Axes metadata:
 s.i_X.axes.Lim			= [-30 30];% [ns] Lim of the axis that shows the variable. 

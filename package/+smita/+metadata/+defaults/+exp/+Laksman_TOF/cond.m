@@ -122,7 +122,7 @@ def.X_X.O.invert_filter         = false;
   
 def.X_X.CO2.type				= 'discrete';
 def.X_X.CO2.data_pointer		= 'h.det1.m2q_l';
-def.X_X.CO2.value				= 88; %88; %
+def.X_X.CO2.value				= 44; %88; %
 def.X_X.CO2.translate_condition = 'hit2';
 def.X_X.CO2.invert_filter         = false;
 
@@ -135,19 +135,19 @@ def.X_X.CO2.invert_filter         = false;
 % def.X_X.hit_to_show.det           = 'det1';
 % def.X_X.hit_to_show.value         = def.X_X.O.value; %CO2
 
-% % Momentum filter for hit1
-% def.X_X.dp_norm1.data_pointer	= 'h.det1.dp_norm';
-% def.X_X.dp_norm1.type			= 'continuous';
-% def.X_X.dp_norm1.value			= [0; 40]; %[0; 300];%
-% def.X_X.dp_norm1.translate_condition = 'hit1';
-% def.X_X.dp_norm1.invert_filter     = false;     
-% % % % % % % % % % % % % % 
-% % % % % % % % %Momentum filter for hit2
-% def.X_X.dp_norm2.data_pointer	= 'h.det1.dp_norm';
-% def.X_X.dp_norm2.type			= 'continuous';
-% def.X_X.dp_norm2.value			= [30; 350]; %[100; 300];%
-% def.X_X.dp_norm2.translate_condition = 'hit2';
-% def.X_X.dp_norm2.invert_filter     = false;
+% Momentum filter for hit1
+def.X_X.dp_norm1.data_pointer	= 'h.det1.dp_norm';
+def.X_X.dp_norm1.type			= 'continuous';
+def.X_X.dp_norm1.value			= [0; 400]; %[0; 300];%
+def.X_X.dp_norm1.translate_condition = 'hit1';
+def.X_X.dp_norm1.invert_filter     = false;     
+% % % % % % % % % % % % % 
+% % % % % % % %Momentum filter for hit2
+def.X_X.dp_norm2.data_pointer	= 'h.det1.dp_norm';
+def.X_X.dp_norm2.type			= 'continuous';
+def.X_X.dp_norm2.value			= [0; 40]; %[100; 300];%
+def.X_X.dp_norm2.translate_condition = 'hit2';
+def.X_X.dp_norm2.invert_filter     = false;
 
 % % 
 % % % % % Get rid of large momenta:

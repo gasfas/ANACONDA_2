@@ -15,5 +15,6 @@ IO.EPICEA.ASCII_2_mat([dir '_electrons.txt'], [dir '_ions.txt'],[dir '_events.tx
 % exp = IO.EPICEA.load_mat([dir '_events'], [dir '_electrons'], [dir '_ions']);
 
 exp = IO.EPICEA.load_mat_with_event([dir '_events'], [dir '_electrons'], [dir '_ions']);
+% exp = IO.EPICEA.load_mat_with_event_electron_only([dir '_events'], [dir '_electrons']);
 
 end

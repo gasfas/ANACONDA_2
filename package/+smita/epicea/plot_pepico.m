@@ -22,8 +22,11 @@ hit_filter_ion = filter.events_2_hits_det(e_filter_pepico, data_converted.e.raw(
 e_KER_new = data_converted.h.det1.KER(hit_filter_elec);
 i_TOF_new = data_converted.h.det2.TOF(hit_filter_ion);
 
-Xedges = [230:0.5:280];
-Yedges = [pepico.ions.tof.value(1):20:pepico.ions.tof.value(2)];
+Xedges = [230:1.5:280];
+% Xedges = [50:0.2:70];
+
+Yedges = [pepico.ions.tof.value(1):5:pepico.ions.tof.value(2)];
+% Yedges = [pepico.ions.tof.value(1):50:pepico.ions.tof.value(2)];
 
 [etEI_x_tof,Xedges,Yedges] =histcounts2(e_KER_new,i_TOF_new,Xedges,Yedges);
 % figure
@@ -72,7 +75,7 @@ BetEI_x_tof = kron((ES_0./data_stats.rtP_0)',(rtI_tof./data_stats.N_RND));
 
 %% True pepicco
 TetEI_x_tof=etEI_x_tof - BetEI_x_tof;
-figure
+% figure
 imagesc(Xedges,Yedges,TetEI_x_tof')
 % colorbar
 xlabel('Electron kinetic energy (eV)')
@@ -84,7 +87,7 @@ title('TetEI(x,tof)')
 % figure
 Xcenters = Xedges(1:end-1) + (diff(Xedges)/2);
 Ycenters = Yedges(1:end-1) + (diff(Yedges)/2);
-
+% 
 % plot(Xcenters,sum(etEI_x_tof,2),'DisplayName','etEI(x)')
 % hold on
 % % figure

@@ -1,4 +1,4 @@
-function [Tet_m2q,Tet_m2q_error] = plot_ion_m2q(data_converted, data_stats)
+function [Bincenters,Tet_m2q,Tet_m2q_error] = plot_ion_m2q(data_converted, data_stats)
 e_TRG.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
 e_TRG.type	        = 'continuous';
 e_TRG.data_pointer	= 'h.det1.R';
@@ -21,14 +21,14 @@ rt_m2q= data_converted.h.det2.m2q(hit_filter_rt.det2.filt);
 
 %% make histogram
 
-Binsize = 0.2; Binedges = 1: Binsize: 150;
+Binsize = 0.1; Binedges = 1: Binsize: 140;
 Bincenters = Binedges(1:end-1) + diff(Binedges) / 2;
 et_m2q_hist= histcounts(et_m2q, Binedges);%,'Normalization','probability');
 rt_m2q_hist= histcounts(rt_m2q, Binedges);%,'Normalization','probability');
 % figure
 % plot(Bincenters, et_m2q_hist,'LineWidth',1,'DisplayName','etAI(m2q)')
 % hold on
-% plot(Bincenters, rt_m2q_hist,'LineWidth',1,'DisplayName','rtAI(m2q)' )
+% plot(Bincenters, data_stats.SC.*rt_m2q_hist,'LineWidth',1,'DisplayName','rtAI(m2q)' )
 % legend
 
 %% Filter Ion TOF
@@ -40,13 +40,13 @@ Tet_m2q_error = sqrt(et_m2q_hist + (data_stats.SC.^2).* rt_m2q_hist);
 % normalise the max amplitude to 1
 % Tet_m2q = Tet_m2q./sum(Tet_m2q);
 % Tet_m2q_error = Tet_m2q_error./sum(Tet_m2q);
-plot(Bincenters, Tet_m2q ,'LineWidth',1,'DisplayName','TetAI(m2q)')
-xlabel('m2q (a.u.)')
-legend
+plot(Bincenters, Tet_m2q ,'LineWidth',2,'DisplayName','TetAI(m2q)') %./max(Tet_m2q)
+% xlabel('m2q (a.u.)')
+% legend
 % for kk =1:10
 %     xline(12*(kk));
 % end
-xticks(0:12:150)
+% xticks(0:12:150)
 % figure
 % errorbar(Bincenters,Tet_m2q ,Tet_m2q_error, 'LineWidth',1,'DisplayName','TetAI(m2q)')
 
