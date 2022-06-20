@@ -10,6 +10,7 @@ function [  ] = ASCII_2_mat_one(file_path)
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
+
 % read the event ID datafile:
 d_e = datastore(file_path);
 data = d_e.readall;
@@ -24,7 +25,7 @@ else
 end
 
 [fn_path, fn_file] = fileparts(file_path);
-save(fullfile(fn_path, [fn_file '.mat']), 'd', '-mat');
+save(fullfile(fn_path, [fn_file '.mat']), 'd', '-mat', '-v7.3');
 clear d data
 
 end
