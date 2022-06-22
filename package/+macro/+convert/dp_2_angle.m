@@ -21,7 +21,7 @@ end
 for i = 1:length(detnames)
     detname = detnames{i}; 
     
-    [data_out.h.(detname).dpxzPolar ] = car2pol(data_out.h.(detname).dp(:,1), data_out.h.(detname).dp(:,3));
+    [data_out.h.(detname).dpxzPolar ] = cart2pol(data_out.h.(detname).dp(:,1), data_out.h.(detname).dp(:,3));
     disp(['Log: dp to angle conversion performed on ' det_name])
 end
 end
