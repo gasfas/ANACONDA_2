@@ -19,7 +19,7 @@ data = d_e.readall;
 data = table2array(data);
 
 % define where the real data starts aka event id 1
-% Remove the first line, which for some reason does not contain data:
+% Remove the first line(s), if they for some reason do not contain data:
 data_row = find(data(:,1) > 0);
 data = data(data_row(1):end, :);
 

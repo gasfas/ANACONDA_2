@@ -19,7 +19,8 @@ plot_md_bck = plot_md;
 
 if general.struct.probe_field(calib_md, 'ifdo.plot')
 	% Plot (for the visual minds):
-	[h_fig, h_ax] = macro.plot.create.plot(exp, calib_md.plot);
+% 	[h_fig, h_ax] = macro.plot.create.plot(exp, plot_md);
+    [h_fig, h_ax] = macro.plot.create.plot(exp, plot_md);
 end
 
 
@@ -68,10 +69,11 @@ for i = 1:size(ROI_R, 1)
 			Count_ROI_f = medfilt2(Count_ROI, [calib_md.medfilt_theta(i), calib_md.medfilt_R(i)]);
 		catch
 			Count_ROI_f = medfilt2(Count_ROI, [calib_md.medfilt_theta, calib_md.medfilt_R]);
-		end
+        end
+    else % No median filter requested:
+        Count_ROI_f = Count_ROI;
 	end
 	%% Peak finding
-
 	switch calib_md.PeakType{i}
 		case {'Peak', 'peak'}
 			% Now we perform a two-dimensional peak finding (maximum) to find the correction

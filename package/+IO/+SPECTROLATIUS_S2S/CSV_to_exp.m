@@ -81,8 +81,8 @@ M_m2q  = hist.H_1D_rebin_intensity(M_scan(:,2), rebin_factor);
 % M_m2q = mean(reshape(M_scan(:,2),rebin_factor,floor(hist_length/rebin_factor)),1); % re-bin
 
 if strcmp(csv_version, 'column')
-    exp.hist.det1.TOF.bins = transpose(M_TOF(1:5:end));
-    exp.hist.det1.m2q.bins = transpose(M_m2q(1:5:end));
+    exp.hist.det1.TOF.bins = transpose(M_TOF);
+    exp.hist.det1.m2q.bins = transpose(M_m2q);
 else
     exp.hist.det1.TOF.bins = transpose(M_TOF);
     exp.hist.det1.m2q.bins = transpose(M_m2q);

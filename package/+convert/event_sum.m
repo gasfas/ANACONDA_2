@@ -16,7 +16,7 @@ function [ var_sum ] = event_sum(hit_var, events, remove_NaN)
 e_NaN_f             = isnan(events);
 h_NaN_f             = isnan(hit_var);
 % removing the NaNs from the events:
-events_noNaN = events(~e_NaN_f);
+events_noNaN        = events(~e_NaN_f);
 
 % changing the NaNs from the hits to zero (so they do not disturb the sum):
 hit_var_noNaN           = hit_var;

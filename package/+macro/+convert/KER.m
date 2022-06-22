@@ -34,7 +34,7 @@ for i = 1:length(detnames)
 		case 'electron' % we assume that we need to calculate KE with a custom formula for each spectrometer:
 			switch metadata_in.spec.name
 				case 'EPICEA'
-					data_out.h.(detname).KER = R_2_KE_EPICEA(metadata_in.conv.det1.KER, data_out.h.(detname).R)
+					data_out.h.(detname).KER = R_2_KE_EPICEA(metadata_in.conv.det1.KER, data_out.h.(detname).R);
                 case 'CIEL'
                 	% Momentum to Kinetic energy conversion:
 					m_l         = data_out.h.(detname).m_l;
@@ -65,9 +65,9 @@ function [KER] = R_2_KE_EPICEA(KER_md, R)
 a			= -1.075  ; %(-1.523, -0.6275); %Dispersion coefficientat 250 eV pass;
 b			= 430.2 ;%(316.8, 543.6); %Dispersion coefficient at 250 eV pass;
 
-if KER_md.E_pass ~=	250
+if KER_md.E_pass ~=	250 % If pass energy is not 250 eV, read the a and b values from metadata, if given:
     try a =KER_md.a	;	
-        b =KER_md.a	;	
+        b =KER_md.b	;	
     catch
         error('Warning: a and b for 250 ev pass energy used')
     end
@@ -75,5 +75,5 @@ end
 
 E0				= KER_md.E0;
 R0				= KER_md.R0;
-KER = E0 + a*(R - R0) + b*(1./R - 1./R0);
+KER = convert.EPICEA.KE(R, E0, a, b, R0);
 end

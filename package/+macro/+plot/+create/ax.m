@@ -3,19 +3,17 @@ function [h_axes] = ax(h_figure, axes_md, h_axes_in)
 % specified plotstyle.
 % Inputs:
 % fig_h		The figure handle in which to plot.
-% plot_md	The plot metadata struct, with the optional fields: 
-% 				fig (Figure properties)
-%				axes (axes properties)
-%				hist (histogram properties)
+% axes_md	The axes metadata struct
+% h_axes_in (optional) input axes to write the axes properties into.
 % Outputs:
 % h_axes	The Axes handle
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-if numel(axes_md)>1
+if numel(axes_md)>1 % Multiple axes given
 	for i = 1:numel(axes_md)
 		% Create the new axes:
-        if exist('ax_in', 'var')
+        if exist('h_axes_in', 'var')
             h_axes(i) = macro.plot.create.ax(h_figure, axes_md(i), h_axes_in(i));
         else
             h_axes(i) = macro.plot.create.ax(h_figure, axes_md(i));
@@ -32,7 +30,7 @@ if numel(axes_md)>1
 			linkaxes([h_axes(1) h_axes(i)], coor);
 		end
 	end
-else
+else % Only one axes given
     if ~isfield(axes_md, 'Type')
         axes_md.Type = 'axes';
     end
@@ -58,7 +56,7 @@ else
                 h_axes = axes('Parent', h_figure);
         end
 
-    else 
+    else % Input axes given, so the new axes variable is copied from the old one:
         h_axes = h_axes_in;
     end
     

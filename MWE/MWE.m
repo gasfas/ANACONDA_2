@@ -4,8 +4,8 @@ filename = '/home/ina/Documents/Lund/DLT_example/Argon_001';
 filename = 'Argon_001';
 
 %% Import the data:
-mdata   = IO.import_metadata(filename); % Metadata
-data       = IO.import_raw(filename); % Data
+mdata       = IO.import_metadata(filename); % Metadata
+data        = IO.import_raw(filename); % Data
 
 %% Treatment of the data
 

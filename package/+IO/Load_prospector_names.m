@@ -17,13 +17,13 @@ if ~exist('settings', 'var')
 end
 % Default settings
 if ~isfield(settings, 'ifdo_show_evaporated')
-    settings.ifdo_show_evaporated  = false;
+    settings.ifdo_show_evaporated  = true;
 end
 if ~isfield(settings, 'ifdo_show_hydrated')
-    settings.ifdo_show_hydrated  = false;
+    settings.ifdo_show_hydrated  = true;
 end
 if ~isfield(settings, 'ifdo_show_doubly_charged_parent')
-    settings.ifdo_show_doubly_charged_parent  = false;
+    settings.ifdo_show_doubly_charged_parent  = true;
 end
 
 table.idTableBy.plaintextPreceedingTable = 'Theoretical Peak Table';
@@ -91,10 +91,10 @@ if isfield(settings, 'fragment_names_to_add')
     Prospector_names    = [Prospector_names; settings.fragment_names_to_add];
     Prospector_M2Q      = [Prospector_M2Q; settings.fragment_masses_to_add];
     Prospector_formulas = [Prospector_formulas; settings.fragment_formulas_to_add];
-
+end
 %% Sorting output
 % Make sure the fragments are well ordered:
-[Prospector_M2Q, idx, ~] = unique(Prospector_M2Q, 'rows');
+[Prospector_M2Q, idx, ~] = unique(Prospector_M2Q);
 Prospector_names        = Prospector_names(idx);
 Prospector_formulas     = Prospector_formulas(idx);
 
