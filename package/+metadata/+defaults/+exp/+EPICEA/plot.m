@@ -37,7 +37,8 @@ d2.labels_to_show     = exp_md.sample.fragment.masses;
 % d2.ifdo.KER_sum					= true;
 
 % cross-detector histograms:
-% exp_md.plot.e.ifdo.m2q_2_KER	= false;
+exp_md.plot.e.ifdo.m2q_2_KER	= false;
+exp_md.plot.e.ifdo.iTOF_2_e_KE	= true;
 
 % load the signal plotting metadata:
 exp_md = metadata.defaults.exp.EPICEA.plot_signals(exp_md);
@@ -55,19 +56,19 @@ d1.theta_R.figure.Position		= plot.fig.Position('SE');
 % d1.theta_R.cond					= exp_md.cond.e_KE;
 
 d1.R						= metadata.create.plot.signal_2_plot({signals.e_R_only});
-d1.R.axes.camroll			= 90;
+d1.R.axes.camroll			= 0;
 d1.R.axes.Position			= [0.1 0.2 0.6 0.6];
 d1.R.axes.YTickLabel		= '';
-d1.R.figure.Position		= [1400 434 300   540];
-d1.R.axes.XAxisLocation		= 'top';
-d1.R.axes.YDir	= 'reverse';
-d1.R.axes.XDir				= 'reverse';
+d1.R.figure.Position		= [300 134 200 440];
+d1.R.axes.XAxisLocation		= 'bottom';
+d1.R.axes.YDir              = 'normal';
+d1.R.axes.XDir				= 'normal';
 
 d1.E						= metadata.create.plot.signal_2_plot({signals.e_E});
 d1.E.axes.camroll			= 0;%-90;
 d1.E.axes.Position			= [0.1 0.2 0.6 0.6];
 d1.E.axes.YTickLabel		= '';
-d1.E.figure.Position		= [1400 434 300   540];
+d1.E.figure.Position		= [400 234 300   540];
 d1.E.axes.XAxisLocation		= 'bottom';%'top';
 
 d1.XY						= metadata.create.plot.signal_2_plot({signals.e_X, signals.e_Y});

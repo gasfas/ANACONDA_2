@@ -36,11 +36,11 @@ def.label.value            = [min(exp_md.conv.det2.m2q_label.labels); max(exp_md
 def.label.translate_condition = 'AND';
 
 % select the real triggers:
-def.REAL_TRG.C1				= macro.filter.write_coincidence_condition(1, 'det1');
+def.REAL_TRG.C1                 = macro.filter.write_coincidence_condition(1, 'det1');
 def.REAL_TRG.R_e.type			= 'continuous';
 def.REAL_TRG.R_e.data_pointer	= 'h.det1.R';
 def.REAL_TRG.R_e.translate_condition = 'AND';
-def.REAL_TRG.R_e.value		= [0; 40];
+def.REAL_TRG.R_e.value          = [0; 40];
 
 def.REAL_TRG.R_i.type			= 'continuous';
 def.REAL_TRG.R_i.data_pointer	= 'h.det2.R';

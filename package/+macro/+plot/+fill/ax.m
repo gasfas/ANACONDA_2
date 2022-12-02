@@ -9,7 +9,9 @@ function h_axes = ax(h_axes, axes_md)
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-axes_md = rmfield(axes_md, 'Type');
+if general.struct.probe_field(axes_md, 'Type')
+    axes_md = rmfield(axes_md, 'Type'); % Remove 'Type' field if present.
+end
 
 % Some fields cannot be directly copied from struct to handle, for some
 % mysterious reason MATLAB decided to not store those properties in

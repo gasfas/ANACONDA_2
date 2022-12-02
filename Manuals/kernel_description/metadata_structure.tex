@@ -35,7 +35,7 @@ Most fields in the metadata are obvious to understand. We elaborate on a few tha
 \end{itemize}
 
 
-\subsection {storage}
+\subsection {Storage}
 The metadata is stored as a struct, with the above categories as their fieldnames. 
 
 The metadata, or data settings, belong to a separate datafile. They are stored in a separate file with the same base name as the main datafile (\emph{'filename.mat'}), but with the addition \emph{'md\_.m'} before the filename, so \emph{'md\_filename.m'}. This is done to make it easy to manually copy metadata files to different datafiles. For example: reading the datafile \emph{H2O\_003.mat} will read its metadata from the file \emph{md\_H2O003.m}. The metadata is stored in a plain-text m-file, which makes it possible to read and change parameters from outside MATLAB.

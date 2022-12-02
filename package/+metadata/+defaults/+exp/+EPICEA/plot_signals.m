@@ -65,7 +65,7 @@ s.e_E.hist.pointer		= 'h.det1.KER';% Data pointer, where the signal can be found
 % Histogram metadata:
 s.e_E.hist.binsize		= 0.01;% [eV] binsize of the variable. 
 s.e_E.hist.Range			= [200 300];% [eV] range of the variable. 
-s.e_E.hist.Range			= [45 55];% [eV] range of the variable. 
+s.e_E.hist.Range			= [10 25];% [eV] range of the variable. 
 
 % Axes metadata:
 % s.e_E.axes.Lim			= [200 300];% [eV] Lim of the axis that shows the variable. 

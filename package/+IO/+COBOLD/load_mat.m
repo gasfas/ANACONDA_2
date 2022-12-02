@@ -21,15 +21,60 @@ ion		= load(ions_path);	% read the ion datafile
 % make sure the correlation between detector numbers and ions is correct:
 % We do this by verifying the number of hits on each detector:
 % we will place electrons on detector 1, ions on detector 2:
+fields = fieldnames(events.d);
+nrfields = size(fields);
+
+old = 0;
+% Old:
+% | Var1  | Var2 | Var3 | Var4 | Var6+ 
+% | index | time | det1 | det2 | extra event info, e.g. delay & CEP
+
+% Edit, 2022-04-15
+% | Var1  | Var2 | Var3 | Var4 | Var5       | Var6+ 
+% | index | time | det1 | det2 | det3 (cep) | extra event info, e.g. delay & CEP
+
+
 if abs(size(el.d.Var1, 1)-max(events.d.Var3+1)) < abs(size(el.d.Var1, 1)-max(events.d.Var4+1))
 	% the first detector in the event index is the electron detector:
-	exp.e.raw = [events.d.Var3+1 events.d.Var4+1];
+    if old
+        exp.e.raw = [events.d.Var3+1 events.d.Var4+1 events.d.Var1];
+        exp.h.det3.raw = events.d.Var2;
+        for i = 4:nrfields(1)
+            exp.h.det3.raw = [exp.h.det3.raw events.d.(['Var',num2str(i)])];
+        end
+    else
+        exp.e.raw = [events.d.Var3+1 events.d.Var4+1 events.d.Var1 events.d.Var5+1];
+        exp.h.det3.raw = events.d.Var2;
+        for i = 5:nrfields(1)
+            exp.h.det3.raw = [exp.h.det3.raw events.d.(['Var',num2str(i)])];
+        end
+    end
+%     if nrfields(1) > 4
+%         exp.e.raw = [events.d.Var3+1 events.d.Var4+1 events.d.Var5 events.d.Var2]; %ele ion delay timestamp
+%     else
+%         exp.e.raw = [events.d.Var3+1 events.d.Var4+1 events.d.Var2]; %ele ion timestamp
+%     end
 else
 	% the first detector in the event index is the ion detector:
-	exp.e.raw = [events.d.Var4+1 events.d.Var3+1];
+    if old
+        exp.e.raw = [events.d.Var4+1 events.d.Var3+1 events.d.Var1];
+        exp.h.det3.raw = events.d.Var2;
+        for i = 5:nrfields(1)
+            exp.h.det3.raw = [exp.h.det3.raw events.d.(['Var',num2str(i)])];
+        end
+    else
+        exp.e.raw = [events.d.Var4+1 events.d.Var3+1 events.d.Var1 events.d.Var5+1];
+        exp.h.det3.raw = events.d.Var2;
+        for i = 5:nrfields(1)
+            exp.h.det3.raw = [exp.h.det3.raw events.d.(['Var',num2str(i)])];
+        end
+    end
+%     if nrfields(1) > 4
+%         exp.e.raw = [events.d.Var4+1 events.d.Var3+1 events.d.Var5 events.d.Var2]; %ion ele delay timestamp
+%     else
+%         exp.e.raw = [events.d.Var4+1 events.d.Var3+1 events.d.Var2]; %ion ele timestamp
+%     end
 end
-	
-	
 
 % Fill in electron data: (format [x, y, TOF])
 try
@@ -44,3 +89,5 @@ try
 catch
 	exp.h.det2.raw = double.empty(0, 3);
 end
+
+exp.h = orderfields(exp.h);

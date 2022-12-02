@@ -1,4 +1,4 @@
-function [p, p_0, X, Y] = EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
+function [p, p_0] = EB_field_3D(TOF, X, Y, m2q_l, m_l, labels, labels_mass, labels_TOF_no_p, E_ER, sample_md, spec_md)
 % The function converts TOF, X, Y to momentum, in the case of an 
 % electrostatic and magnetostatic field.
 % Only hits that are recognized to belong to a certain m/q are considered.
@@ -98,17 +98,28 @@ else % If there is a magnetic field, we have to take the cyclotron motion into a
         Y_no_p_f      = Y_no_p(label_nr_f); % [q, 1]
         TOF_no_p_f    = TOF_no_dp(label_nr_f);
         %offset = 16;
+
+        if sum(general.struct.probe_field(spec_md, 'XYpolynomial')) ~= 0
+            X_f = polyval(spec_md.XYpolynomial,X_f);
+            Y_f = polyval(spec_md.XYpolynomial,Y_f);
+        end
+
+        if sum(general.struct.probe_field(spec_md, 'TOFpolynomial')) ~= 0
+            TOF_f_Z = polyval(spec_md.TOFpolynomial,(TOF_f - TOF_no_p_f)*1e-9);
+        else
+            TOF_f_Z = (TOF_f - TOF_no_p_f)*1e-9;
+        end
+    
         A = 0.5*general.constants({'q'}).*Bfield;
-        
         B =  sin(omega.*( TOF_f).*1e-9)./( 1 - cos(omega.*(TOF_f).*1e-9) );
-        
         C =  sin(omega.*( TOF_no_p_f ).*1e-9)./( 1 - cos(omega.*( TOF_no_p_f).*1e-9));
         
-        p_X = (A.*(B.*X_f - C.*X_no_p_f + (Y_f - Y_no_p_f) ))*1e-3;
-        p_Y = A.*( X_f - X_no_p_f - B.*Y_f + C.*Y_no_p_f  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];
-        fac_1 = -0.0*10^9; % second order correction
-        fac_2 = 0.0*10^18; % third order correction
-        p_Z = -ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f - TOF_no_p_f)*1e-9 - ch_l_f.*general.constants({'q'}) .*fac_1.*((TOF_f - TOF_no_p_f)*1e-9).^2 - ch_l_f.*general.constants({'q'}) .*fac_2.*((TOF_f - TOF_no_p_f)*1e-9).^3;  %
+%         p_X = A.*(B.*X_f - C.*X_no_p_f +   (Y_f - Y_no_p_f) )*1e-3;
+%         p_Y = A.*(   X_f -    X_no_p_f - B.*Y_f + C.*Y_no_p_f  )*1e-3;% [kg*m/s] [q,1]; % [kg*m/s] [q,1];   
+
+        p_X =   0.5*general.constants({'me'})*omega*(X_f.*cot(omega*(TOF_f)*1e-9/2)+Y_f)*1e-3;   
+        p_Y =   0.5*general.constants({'me'})*omega*(Y_f.*cot(omega*(TOF_f)*1e-9/2)-X_f)*1e-3;   
+        p_Z =   -ch_l_f .*general.constants({'q'})   .* E_ER.*(TOF_f_Z);  %
 end
 % fill this into the momentum (hit array, [n, 1]):
 p(find(label_loc),:) = [p_X p_Y p_Z];
@@ -116,5 +127,4 @@ p(find(label_loc),:) = [p_X p_Y p_Z];
 % Convert to atomic units: 
 p = p ./ general.constants('momentum_au');
 p_0= p_0./ general.constants('momentum_au');
-
 end

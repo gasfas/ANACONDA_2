@@ -28,7 +28,6 @@ signals.m2q.axes.Label.String	= 'm/q [Da]'; %The label of the variable
 
 d1.R_circle.isplotted			= true ;% Should the calibration procedure be visual (show plot)
 d1.R_circle.ROI					= [17.6 20; 15.8 17.5; 14 15.5; 12.6 14];% [mm] the regions of interest to find the peaks. The first row defines the ROI that is used as global scaling.
-d1.R_circle.filter_width		= 1; %[mm] width of the median filter applied before maximum finding.
 d1.R_circle.plot.binsize       = [0.05 0.05]; %[rad, mm] binsize of the m2q variable. 
 d1.R_circle.plot.x_range		= [-pi pi]; % [mm] x range of the data on x-axis.
 d1.R_circle.plot.y_range		= [10 25]; % [mm] y range of the data on y-axis.

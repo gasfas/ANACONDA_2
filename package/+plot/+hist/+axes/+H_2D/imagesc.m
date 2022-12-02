@@ -18,6 +18,19 @@ if exist('GraphObj_md', 'var')
 	end
 end
 
+if ~size(midpoints.dim1, 1) == size(Count,1)
+    error('The midpoints of dimension 1 does not have the same size as the first dimension of Count matrix')
+end
+if ~size(midpoints.dim2, 1) == size(Count,2)
+    error('The midpoints of dimension 2 does not have the same size as the second dimension of Count matrix')
+end
+if round(min(diff(midpoints.dim1)), 3, 'significant') ~= round(max(diff(midpoints.dim1)), 3, 'significant')
+    error('The midpoints in dimension 1 are not uniformly spaced.')
+end
+if round(min(diff(midpoints.dim2)), 3, 'significant') ~= round(max(diff(midpoints.dim2)), 3, 'significant')
+    error('The midpoints in dimension 2 are not uniformly spaced.')
+end
+
 if ~isempty(Count)
 	h_GraphObj = imagesc(h_axes, midpoints.dim1([1 end]), midpoints.dim2([1 end]), permute(Count, [2 1]), 'Parent', h_axes);
 else

@@ -64,7 +64,7 @@ end
 
 % Fill back in the NaN events:
 if any(strcmp(type, {'min', 'max', 'min&max'}))
-	var_extr1			= NaN*size(events);
+	var_extr1			= NaN*ones(size(events));
 	var_extr1(events_noNaN)	= var_extr1_noNaN;
 	if exist('var_extr2_noNaN', 'var')
 	var_extr2			= NaN*size(events);
