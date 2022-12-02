@@ -1,4 +1,4 @@
-function [Tet_tof2] = plot_pipico(data_converted, data_stats);
+function [Tet_tof2, Bincenters] = plot_pipico(data_converted, data_stats);
 SC = data_stats.SC;
 TP_0 =data_stats.TP_0;
 
@@ -171,7 +171,9 @@ Tet_tof2 = max(Tet_tof2,0);
 % histogram2('XBinEdges',Binedges,'YBinEdges',Binedges,'BinCounts',Tet_tof2,'DisplayStyle','tile','ShowEmptyBins','on')
 Tet_tof2_new = imresize(Tet_tof2,0.5);
 Bincenters_new = imresize(Bincenters,0.5);
-surface(Bincenters_new, Bincenters_new, Tet_tof2_new'); shading interp
+h=surface(Bincenters_new, Bincenters_new, Tet_tof2_new'); shading interp
+z = get(h,'ZData');
+set(h,'ZData',z-10)  
 % colorbar
 title('TetII(tof1, tof2)')
 xlabel('TOF_1 (ns)')

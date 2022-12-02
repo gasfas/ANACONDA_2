@@ -1,12 +1,21 @@
-function [centres, electron_KE] = get_AES(data_converted, data_stats)
+function [centres, electron_KE] = get_AES(data_converted, data_stats, epicea_2_scienta)
 electron_KE = struct();
 %% define plot parameters
-binsize = 0.5;
-edges = 200:binsize:300;
+% 
 
 % binsize = 0.1;
 % edges = 50:binsize:70;
-centres = edges(1:end-1)+ diff(edges)/2;
+% centres = edges(1:end-1)+ diff(edges)/2;
+try
+    centres =epicea_2_scienta.centres;
+    edges = conv(centres, [0.5, 0.5], 'valid');
+    binsize = edges(2) - edges(1);
+    edges = [edges(1)-binsize; edges; edges(end)+binsize];
+catch
+    binsize = 1;
+    edges = 230:binsize:280;
+    centres = edges(1:end-1)+ diff(edges)/2;
+end
 %% measured spectrum with j ions
 
 for j =0:4
@@ -54,9 +63,13 @@ electron_KE.TES_3  = electron_KE.ES_3  - electron_KE.BES_3 ;
 
 electron_KE.TES = max(electron_KE.TES_0,0)  + max(electron_KE.TES_1,0) +max(electron_KE.TES_2,0) +...
                     max(electron_KE.TES_3,0) ;
+% subplot (3,1,2); hold on; box on;
+plot(centres,smooth(electron_KE.TES./sum(electron_KE.TES)), 'LineWidth', 2, 'DisplayName','True electron spectrum (TES)') %
+% change by transmission function
+electron_KE.TES = electron_KE.TES .* epicea_2_scienta.trans_function';
 % figure
-plot(centres,electron_KE.TES./max(electron_KE.TES), 'LineWidth', 2, 'DisplayName','True electron spectrum (TES)') %
-legend
+plot(centres,smooth(electron_KE.TES./sum(electron_KE.TES)), 'LineWidth', 2, 'DisplayName','True electron spectrum (TES)') %
+% legend
 %% plot 
 % figure; hold on
 % for j =0:3
@@ -64,4 +77,8 @@ legend
 %     plot(centres, electron_KE.(strg), 'DisplayName', ['TES_', num2str(j)])%./max(electron_KE.(strg))
 % end
 % legend
+%%
+% subplot (3,1,3);
+% plot(centres,epicea_2_scienta.trans_function)
+% box on;
 end

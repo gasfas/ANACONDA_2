@@ -33,9 +33,9 @@ rt_tof_hist= histcounts(rt_tof, Binedges);%,'Normalization','probability');
 %% Filter Ion TOF
 % figure
 Tet_tof = et_tof_hist - data_stats.SC.* rt_tof_hist;
-% Tet_tof = max(Tet_tof,0);
+Tet_tof = max(Tet_tof,0);
 Tet_tof_error = sqrt(et_tof_hist + (data_stats.SC.^2).* rt_tof_hist);
-plot(Bincenters, Tet_tof ,'LineWidth',1,'DisplayName','TetAI(tof)')
+plot(Bincenters, smooth(Tet_tof./sum(Tet_tof)) ,'LineWidth',2,'DisplayName','TetAI(tof)')
 xlabel('Ion TOF (ns)')
 legend
 

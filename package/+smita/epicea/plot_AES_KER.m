@@ -1,4 +1,5 @@
 function plot_AES_KER(roi_path,data_corrected)
+addpath('E:\PhD\Anaconda2\ANACONDA_2\package\+smita\epicea')
 
 %% load all rois in path
 rois = dir(fullfile(roi_path,'*.mat'));
@@ -14,7 +15,7 @@ for k = 1:numel(rois)
     c1 =str2double(c1{1}); c2= str2double(c2{1});
     h1 = str2double(ii{2});  h2=str2double(jj{2});
     m2q_1 = 12*c1+h1; m2q_2 = 12*c2+h2;
-    if c1== 2 && h1 == 3 && c2== 3 && h2 == 3
+%     if c1== 2 && h1 == 5 && c2== 8 && h2 == 11
 %%
     addpath('E:\PhD\Adamantane_data\data')
     addpath('E:\PhD\Anaconda2\ANACONDA_2\package\+smita\epicea')
@@ -26,8 +27,19 @@ for k = 1:numel(rois)
     mdata.conv.det2.m2q_label.labels 			= [ m2q_1;m2q_2];
     mdata.conv.det2.m2q_label.search_radius = [ 5.0];
     mdata.conv.det2.m2q_label.mass 			= mdata.conv.det2.m2q_label.labels ;
+    
     mdata.cond.C2H5_C8H11.C2H5.value				= m2q_1;%[12*2+5];
     mdata.cond.C2H5_C8H11.C8H11.value				= m2q_2;%12*8+11;
+
+es_range = [230;280]; %CH
+% es_range = [255.2;264.3]; %CH
+% es_range = [247.8;255.1]; %cH2
+
+    mdata.cond.C2H5_C8H11.e_TRG.e.type	        = 'continuous';
+    mdata.cond.C2H5_C8H11.e_TRG.e.data_pointer	= 'h.det1.KER';
+    mdata.cond.C2H5_C8H11.e_TRG.e.translate_condition = 'AND';
+    mdata.cond.C2H5_C8H11.e_TRG.e.value		= es_range;
+    
     data_converted = macro.convert(data_corrected, mdata);
     %%
     [e_filter_roi, ~] = find_events_in_roi(data_converted,roi.roi);
@@ -54,12 +66,12 @@ for k = 1:numel(rois)
     'Position',[0.13 0.41 0.51 0.50]);
     hold(axes1,'on');   box on 
     [etEI_x_tof,Xedges,Yedges] =histcounts2(e_ke,ker_sum,Xedges,Yedges);
-    surface(Xcenters, Ycenters, etEI_x_tof'); shading interp
+    surface(Xcenters, Ycenters, etEI_x_tof'); %shading interp
     ylabel('Total KER (eV)')
     cm_magma=magma(50);
     colormap(cm_magma)
     xlim(axes1,[240 275]);
-    ylim(axes1,[0 15]);
+    ylim(axes1,[0 10]);
 %%
 %     colorbar
 %     subplot(3,1,2)
@@ -78,10 +90,11 @@ for k = 1:numel(rois)
     'Position',[0.13 0.11 0.51 0.225103244837758]);
     hold(axes2,'on'); box on
 
-    data_stats = get_data_stats(data_converted);
+        [data_stats] =get_data_stats(data_converted);
+    [data_stats_es_filt] =get_data_stats_es_filt(data_converted,es_range);
     tof_1 =[roi.roi.Center(1)-500 ; roi.roi.Center(1)+500];
     tof_2 =[roi.roi.Center(2)-500 ; roi.roi.Center(2)+500];
-    [TES2IIpair_x, Xcenters] = plot_ES_ion_pair_c2(data_converted, data_stats,roi.roi,tof_1,tof_2);
+    [TES2IIpair_x, Xcenters] = plot_ES_ion_pair_c2(data_converted, data_stats,roi.roi,tof_1,tof_2,0);
         xlim(axes2,[240 275]);
     xlabel('Electron kinetic energy (eV)')
 
@@ -98,8 +111,8 @@ for k = 1:numel(rois)
 
     plot_signal.event.data_pointer = 'data_converted.e.det2.KER_sum';
     plot_signal.event.label = 'Total KER (eV)';%p_{1z} + p_{2z}
-    [~,~] =plot.epicea.plot_ion_c2(data_converted, data_stats,e_filter_roi,plot_signal,m2q_1,m2q_2);
-    xlim(axes3,[0 15]);
+    [~,~] =plot_ion_c2_aes(data_converted, data_stats_es_filt,e_filter_roi,plot_signal,m2q_1,m2q_2);
+    xlim(axes3,[0 10]);
     legend('hit1','hit2','Total KER')
 % legend(filename)
      
@@ -111,11 +124,11 @@ for k = 1:numel(rois)
 
     fig_name =sprintf('C_%iH_%i^+ / C_%iH_{%i}^+',c1,h1,c2,h2);
     sgtitle(fig_name)
-    fname = 'E:\PhD\meetings_n_conf\2022\wk 16\mean_with_std_threshold_errorbar';
-    saveas(figure1,fullfile(fname, sprintf('C%iH%i_C%iH%i',c1,h1,c2,h2)),'png')
-    close all
+    fname = 'E:\PhD\meetings_n_conf\2022\wk 30\ch2';
+%     saveas(figure1,fullfile(fname, sprintf('C%iH%i_C%iH%i',c1,h1,c2,h2)),'png')
+%     close all
     
 
-   end
+%    end
 end
 end

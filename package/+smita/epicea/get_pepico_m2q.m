@@ -1,10 +1,18 @@
 function [TetEI_x_m2q,Xcenters,Ycenters] = get_pepico_m2q(data_converted, data_stats,m2q_range);
 %% define etEI_x_m2q
-pepico.elec.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
-pepico.elec.type	        = 'continuous';
-pepico.elec.data_pointer	= 'h.det1.R';
-pepico.elec.translate_condition = 'AND';
-pepico.elec.value		= data_stats.e_R_range;
+try 
+    pepico.elec.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
+    pepico.elec.type	        = 'continuous';
+    pepico.elec.data_pointer	= 'h.det1.R';
+    pepico.elec.translate_condition = 'AND';
+    pepico.elec.value		= data_stats.e_R_range;
+catch
+    pepico.elec.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
+    pepico.elec.type	        = 'continuous';
+    pepico.elec.data_pointer	= 'h.det1.KER';
+    pepico.elec.translate_condition = 'AND';
+    pepico.elec.value		= data_stats.e_KER_range;
+end
 
 pepico.ions.C1= macro.filter.write_coincidence_condition(1, 'det2');
 pepico.ions.m2q.type             = 'continuous';
@@ -23,7 +31,7 @@ e_KER_new = data_converted.h.det1.KER(hit_filter_elec);
 i_m2q_new = data_converted.h.det2.m2q(hit_filter_ion);
 
 Xedges = [230:0.5:280];
-Yedges = [pepico.ions.m2q.value(1):0.2:pepico.ions.m2q.value(2)];
+Yedges = [pepico.ions.m2q.value(1):0.1:pepico.ions.m2q.value(2)];
 
 [etEI_x_m2q,Xedges,Yedges] =histcounts2(e_KER_new,i_m2q_new,Xedges,Yedges);
 
@@ -57,6 +65,7 @@ BetEI_x_m2q = kron((ES_0./data_stats.rtP_0)',(rtI_m2q./data_stats.N_RND));
 
 %% True pepicco
 TetEI_x_m2q=etEI_x_m2q - BetEI_x_m2q;
+TetEI_x_m2q =max(TetEI_x_m2q,0);
 Xcenters = Xedges(1:end-1) + (diff(Xedges)/2);
 Ycenters = Yedges(1:end-1) + (diff(Yedges)/2);
 end

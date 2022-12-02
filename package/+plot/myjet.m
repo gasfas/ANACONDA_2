@@ -35,7 +35,7 @@
 %                                                                         %
 %       Biomedical Engineering Group (University of Valladolid), Spain    %
 % ----------------------------------------------------------------------- %
-function J = whitejet(m)
+function J = myjet(m)
 
 if nargin < 1
    f = get(groot,'CurrentFigure');
