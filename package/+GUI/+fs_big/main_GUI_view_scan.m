@@ -32,8 +32,7 @@ UI_obj.main.Add_scan                = uibutton(UI_obj.f_scan, "Text", "Add scan"
 UI_obj.main.Remove_scan             = uibutton(UI_obj.f_scan, "Text", "Remove scan", "Position", [480, 320, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Remove_scan, "ButtonPushedFcn", @remove_scan_GUI);
 UI_obj.main.Modify_scan             = uibutton(UI_obj.f_scan, "Text", "Modify scan", "Position", [480, 290, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Modify_scan, "ButtonPushedFcn", @modify_scan_GUI);
 UI_obj.main.plot_m2q.uibutton       = uibutton(UI_obj.f_scan, "Text", "Plot M/Q", "Position", [480, 260, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_m2q, "ButtonPushedFcn", @plot_spectra_GUI);
-UI_obj.main.define_channels.uibutton= uibutton(UI_obj.f_scan, "Text", "Define channels", "Position", [480, 230, 100, 20], 'Tooltip', defaults.load_scan.tooltips.define_channels, "ButtonPushedFcn", @define_channels);
-UI_obj.main.plot_scan.uibutton      = uibutton(UI_obj.f_scan, "Text", "Plot scans", "Position", [480, 200, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_scan, "ButtonPushedFcn", @plot_scan_GUI);
+UI_obj.main.plot_m2q.plot_scan       = uibutton(UI_obj.f_scan, "Text", "Plot scan", "Position", [480, 230, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_scan, "ButtonPushedFcn", @define_channels);
 
 UI_obj.main.Save_workspace.uibutton      = uibutton(UI_obj.f_scan, "Text", "Save workspace", "Position", [480, 140, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Save_workspace);
 UI_obj.main.Load_workspace.uibutton      = uibutton(UI_obj.f_scan, "Text", "Load workspace", "Position", [480, 110, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Load_workspace);
@@ -157,19 +156,21 @@ function define_channels(~, ~)
    % Check which scan is selected:
    if length(fieldnames(exp_data)) == 1% only one scan loaded, so no selection needed:
        selected_scan_nr = 1;
-   else
-       try selected_scan_nr = unique(UI_obj.main.uitable.Selection(:,1));
-        catch selected_scan_nr = []; % if no selection is made
+   elseif isempty(fieldnames(exp_data))
+       UI_obj.main.plot_m2q.empty_data_plot_msgbox = msgbox('Cannot plot scans, since there are no scans loaded yet. Please do that first.');
+       selected_scan_nr = [];
+   else  % More than one scan loaded, so check whether any are selected to show first:
+       try 
+           selected_scan_nr = unique(UI_obj.main.uitable.Selection(:,1));
+       catch
+           selected_scan_nr = 1:length(fieldnames(exp_data)); % if no selection is made
        end
    end
-   
-   if length(selected_scan_nr) ~= 1
-       msgbox('Please load and select the scan for which you want to define fragments.')
-   else
+   if ~isempty(selected_scan_nr)
        % Fetch the name of the selected scan:
        sample_name  = UI_obj.main.uitable.Data.Name{selected_scan_nr};
        % Open the window to let the user select channels for the scan.
-        [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data);
+       [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, selected_scan_nr);
    end
 end
 

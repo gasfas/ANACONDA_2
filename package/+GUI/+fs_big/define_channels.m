@@ -1,4 +1,4 @@
-function [defaults, settings, UI_obj] = define_channels(defaults, settings, UI_obj, exp_data)
+function [defaults, settings, UI_obj] = define_channels(defaults, settings, UI_obj, exp_data, selected_scan_nr)
 % TODO: make valid for multiple samples at once.
 
 % If no fragments are defined yet, we initiate an empty array:
@@ -76,10 +76,14 @@ UI_obj.def_channel.Import_scan              = uibutton(UI_obj.def_channel.main ,
 UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 330, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @remove_fragment_GUI);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",  [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
-% Make table that selects which sample to show:
+% Make table thaat selects which sample to show:
 
+% Scans to plot:
+scans_to_plot_bool = zeros(size(sample_names));
+scans_to_plot_bool(selected_scan_nr(:)) = 1;
+scans_to_plot_bool                      = num2cell(scans_to_plot_bool);
 UI_obj.def_channel.scan_uitable = uitable(UI_obj.def_channel.main, 'Units','normalized','Position',...
-          [0.1 0.1 0.9 0.9], 'Data', [sample_names, true(size(sample_names))],... 
+          [0.1 0.1 0.9 0.9], 'Data', [sample_names, scans_to_plot_bool],... 
           'ColumnName', {'Scan name', 'Show'},...
           'ColumnFormat', {'char', 'logical'},...
           'ColumnEditable', [false true],...
