@@ -8,7 +8,7 @@ addpath('E:\PhD\meetings_n_conf\2022\wk 14\Colormaps\Colormaps (5)\Colormaps')
 
 S =data_list_adamantane;
 %%
-dir= S(3).dir_ada;
+dir= S(2).dir_ada;
 mdata = IO.import_metadata(dir);
 % mdata.spec.Efield = mdata.spec.Efield.*0.67;
 % mdata.spec.Efield = mdata.spec.Efield.*0.9;
@@ -16,7 +16,7 @@ mdata = IO.import_metadata(dir);
 raw_data = IO.import_raw(dir);
 data            = macro.filter(raw_data, mdata); %define the multiplicity of events
 data_corrected = macro.correct(data, mdata);
-% data_converted = macro.convert(data_corrected, mdata);
+data_converted = macro.convert(data_corrected, mdata);
 % data_stats = get_data_stats(data_converted);
 %% RT plot
 % get_rt_plot(data_converted, data_stats, mdata);
@@ -33,15 +33,15 @@ data_corrected = macro.correct(data, mdata);
 % sum(e_filter_etN)
 %%
 mdata = IO.import_metadata(dir);
-% [h_figure, h_axes, h_GraphObj, exp, histogram] =macro.plot(data_converted,mdata);
+[h_figure, h_axes, h_GraphObj, exp, histogram] =macro.plot(data_converted,mdata);
 % mdata.plot.det2.m2q.cond = mdata.calib.det2.momentum.cond;
 % [h_figure, h_axes, h_GraphObj, exp, histogram] =macro.plot(data_converted,mdata);
 % % macro.calibrate.Molecular_Beam(data_converted,2,mdata.calib.det2.MB)
 % disp(mdata.spec.Efield)
 % macro.calibrate.momentum(data_converted,2,mdata);
 %% KER_AES
-roi_path='E:\PhD\Adamantane_data\data\ascii_conv_data\Ada_PEPICO_hv350eV_ke260_0003_ascii\roi_final_filt\';%_carbons_new\new_folder';
-plot_AES_KER(roi_path,data_corrected)
+% roi_path='E:\PhD\Adamantane_data\data\ascii_conv_data\Ada_PEPICO_hv350eV_ke260_0003_ascii\roi_final_filt\';%_carbons_new\new_folder';
+% plot_AES_KER(roi_path,data_corrected)
 %%
 % exp_angle = data_converted.e.det2.angle_p_corr_C2(e_filter);
 % figure

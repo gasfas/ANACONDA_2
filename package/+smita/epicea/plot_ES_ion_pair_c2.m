@@ -1,4 +1,4 @@
-function [e_KE_mean,e_KE_std,e_KE_mode] = plot_ES_ion_pair_c2(data_converted, data_stats,roi,tof1,tof2)
+function [e_KE_mean,e_KE_std,e_KE_mode] = plot_ES_ion_pair_c2(data_converted, data_stats,roi,tof1,tof2,disp)
  tof_range =[2000 ; 11000];
 %  tof1 = roi(:,1);  tof2 = roi(:,2);
 
@@ -106,7 +106,8 @@ TES2IIpair_x_error = sqrt(ES2IIpair_x + BES2IIpair_x);
 %% filtering
 TES2IIpair_x =max(TES2IIpair_x,0);
 TES2IIpair_x(TES2IIpair_x < max(TES2IIpair_x)/5)=0;
-    
+
+TES2IIpair_x = TES2IIpair_x+disp;
 e_KE_mean = sum(TES2IIpair_x.*Xcenters)/sum(TES2IIpair_x);
 e_KE_mode = max(Xcenters(TES2IIpair_x == max(TES2IIpair_x)));
 e_KE_std = sqrt(sum(TES2IIpair_x.*((Xcenters - e_KE_mean).^2))./(sum(TES2IIpair_x).*((nnz(TES2IIpair_x)-1)/nnz(TES2IIpair_x))));
@@ -116,10 +117,13 @@ e_KE_std = sqrt(sum(TES2IIpair_x.*((Xcenters - e_KE_mean).^2))./(sum(TES2IIpair_
 % plot(Xcenters,BES2IIpair_x,'LineWidth',1,'DisplayName','BES2IIpair_x_j(x)')% colorbar
 % plot(Xcenters,TES2IIpair_x,'DisplayName','TES2IIpair_x_j(x)')% colorbar
 % figure./sum(TES2IIpair_x)
-errorbar(Xcenters,TES2IIpair_x,TES2IIpair_x_error,'LineWidth',2,'DisplayName','TES2IIpair_x_j(x)','Color',[0 0 0])% 
+%%
+errorbar(Xcenters,TES2IIpair_x./max(TES2IIpair_x),TES2IIpair_x_error./max(TES2IIpair_x),'LineWidth',2,'DisplayName','TES2IIpair_x_j(x)','Color',[0 0 0])% 
+hold on
 xline(e_KE_mean)
 yl= ylim;
 patch([e_KE_mean-e_KE_std,e_KE_mean-e_KE_std,e_KE_mean+e_KE_std,e_KE_mean+e_KE_std],[yl(1),yl(2),yl(2),yl(1)],[0.5 0.5 0.5],'FaceAlpha',0.2)
+
 % legend
 % % caxis([0 800])
 % xlabel('Electron kinetic energy (eV)')

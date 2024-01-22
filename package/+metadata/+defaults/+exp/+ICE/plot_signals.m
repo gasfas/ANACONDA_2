@@ -83,7 +83,7 @@ s.i_mult.axes.Label.String	= 'Number of hits'; %The label of the variable
 s.i_TOF.hist.pointer	= 'h.det1.TOF';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.i_TOF.hist.binsize	= 10;% [ns] binsize of the variable. 
-s.i_TOF.hist.Range	= [0 2e4];% [ns] range of the variable. 
+s.i_TOF.hist.Range	= [0 20000];% [ns] range of the variable. 
 % Axes metadata:
 s.i_TOF.axes.Lim		= s.i_TOF.hist.Range;% [ns] Lim of the axis that shows the variable. 
 s.i_TOF.axes.Tick	= round(unique(convert.m2q_2_TOF(exp_md.conv.det1.m2q_label.labels, ...
@@ -118,7 +118,7 @@ s.i_R.axes.Label.String	= 'R [mm]'; %The label of the variable
 s.i_m2q.hist.pointer	= 'h.det1.m2q';% Data pointer, where the signal can be found. 
 % Histogram metadata:
 s.i_m2q.hist.binsize	= 0.5;% [Da] binsize of the variable. 
-s.i_m2q.hist.Range	= [20 140];% [Da] range of the variable. 
+s.i_m2q.hist.Range	= [0 140];% [Da] range of the variable. 
 % Axes metadata:
 s.i_m2q.axes.Lim		= s.i_m2q.hist.Range;% [Da] Lim of the axis that shows the variable. 
 s.i_m2q.axes.Tick	= exp_md.conv.det1.m2q_label.labels; 		 % [Da] Tick of the axis that shows the variable. 

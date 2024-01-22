@@ -1,4 +1,4 @@
-function [Bincenters,Tet_m2q,Tet_m2q_error] = plot_ion_m2q(data_converted, data_stats)
+function [Bincenters,Tet_m2q,Tet_m2q_error] = plot_ion_m2q(data_converted, data_stats,S)
 e_TRG.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
 e_TRG.type	        = 'continuous';
 e_TRG.data_pointer	= 'h.det1.R';
@@ -38,9 +38,9 @@ Tet_m2q = et_m2q_hist - data_stats.SC.* rt_m2q_hist;
 Tet_m2q_error = sqrt(et_m2q_hist + (data_stats.SC.^2).* rt_m2q_hist);
 
 % normalise the max amplitude to 1
-% Tet_m2q = Tet_m2q./sum(Tet_m2q);
+Tet_m2q = Tet_m2q./sum(Tet_m2q);
 % Tet_m2q_error = Tet_m2q_error./sum(Tet_m2q);
-plot(Bincenters, Tet_m2q ,'LineWidth',2,'DisplayName','TetAI(m2q)') %./max(Tet_m2q)
+plot(Bincenters, smooth(Tet_m2q) ,'Color',[S.color],'LineWidth',2,'DisplayName','TetAI(m2q)') %./max(Tet_m2q)
 % xlabel('m2q (a.u.)')
 % legend
 % for kk =1:10

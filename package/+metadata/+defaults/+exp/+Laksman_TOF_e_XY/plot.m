@@ -8,9 +8,9 @@ function [exp_md] = plot(exp_md)
 
 % Specify which plot to show:
 % d1.ifdo.BR_Ci			= true;
-d1.ifdo.XY         	= true;
+% d1.ifdo.XY         	= true;
 % d1.ifdo.dpxy         	= true;
-d1.ifdo.theta_R		= true;
+% d1.ifdo.theta_R		= true;
 
 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 % Detector 2 
 
@@ -18,7 +18,7 @@ d2.labels_to_show     = exp_md.sample.fragment.masses;
 
 % Specify which plot to show:
 % d2.ifdo.BR_Ci							= true;
-% d2.ifdo.TOF							= true;
+d2.ifdo.TOF							= true;
 % d2.ifdo.TOF_X						= true;
 % d2.ifdo.TOF_R						= true;
 % d2.ifdo.XY						= true;
@@ -26,7 +26,7 @@ d2.labels_to_show     = exp_md.sample.fragment.masses;
 % d2.ifdo.p_norm					= true;
 % d2.ifdo.p_sum_norm				= true;
 % d2.ifdo.p_sum						= true;
-% d2.ifdo.TOF_hit1_hit2				= true;
+d2.ifdo.TOF_hit1_hit2				= true;
 % d2.ifdo.m2q_hit1_hit2				= true;
 % d2.ifdo.angle_p_corr_C2				= true;
 % d2.ifdo.angle_p_corr_p				= true;

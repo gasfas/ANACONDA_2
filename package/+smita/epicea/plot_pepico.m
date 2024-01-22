@@ -1,4 +1,4 @@
-function [TetEI_x_tof,Xcenters,Ycenters] = plot_pepico(data_converted, data_stats,tof_range);
+function [TetEI_x_tof_new,Xcenters_new,Ycenters_new] = plot_pepico(data_converted, data_stats,tof_range,epicea_2_scienta);
 %% define etEI_x_tof
 pepico.elec.C1= macro.filter.write_coincidence_condition(1, 'det1'); % electron trigger
 pepico.elec.type	        = 'continuous';
@@ -22,10 +22,19 @@ hit_filter_ion = filter.events_2_hits_det(e_filter_pepico, data_converted.e.raw(
 e_KER_new = data_converted.h.det1.KER(hit_filter_elec);
 i_TOF_new = data_converted.h.det2.TOF(hit_filter_ion);
 
-Xedges = [230:1.5:280];
+try
+    Xcenters =epicea_2_scienta.centres ;
+    Xedges = conv(Xcenters, [0.5, 0.5], 'valid');
+    binsize = Xedges(2) - Xedges(1);
+    Xedges = [Xedges(1)-binsize; Xedges; Xedges(end)+binsize];
+catch
+    Xedges = 230:2:280;
+    Xcenters = Xedges(1:end-1) + diff(Xedges) / 2; %tof values
+
+end
 % Xedges = [50:0.2:70];
 
-Yedges = [pepico.ions.tof.value(1):5:pepico.ions.tof.value(2)];
+Yedges = pepico.ions.tof.value(1):15:pepico.ions.tof.value(2);
 % Yedges = [pepico.ions.tof.value(1):50:pepico.ions.tof.value(2)];
 
 [etEI_x_tof,Xedges,Yedges] =histcounts2(e_KER_new,i_TOF_new,Xedges,Yedges);
@@ -75,18 +84,29 @@ BetEI_x_tof = kron((ES_0./data_stats.rtP_0)',(rtI_tof./data_stats.N_RND));
 
 %% True pepicco
 TetEI_x_tof=etEI_x_tof - BetEI_x_tof;
+TetEI_x_tof = TetEI_x_tof.* epicea_2_scienta.trans_function;
 % figure
-imagesc(Xedges,Yedges,TetEI_x_tof')
+% imagesc(Xedges,Yedges,TetEI_x_tof')
 % colorbar
+Ycenters = Yedges(1:end-1) + diff(Yedges) / 2; %tof values
+
+Xcenters_new = imresize(Xcenters',0.05);
+Ycenters_new = imresize(Ycenters,0.5);
+TetEI_x_tof_new = imresize(TetEI_x_tof,[length(Xcenters_new), length(Ycenters_new)]);
+h=surface(Xcenters_new, Ycenters_new, TetEI_x_tof_new'); shading interp
+cm_magma=magma(20);
+colormap(cm_magma)
+colorbar
 xlabel('Electron kinetic energy (eV)')
 ylabel('Ion TOF (ns)')
 % caxis([0 100])
 set(gca,'YDir','normal')
 title('TetEI(x,tof)')
+% set(gca,'ColorScale','log')
 %%
 % figure
-Xcenters = Xedges(1:end-1) + (diff(Xedges)/2);
-Ycenters = Yedges(1:end-1) + (diff(Yedges)/2);
+% Xcenters = Xedges(1:end-1) + (diff(Xedges)/2);
+% Ycenters = Yedges(1:end-1) + (diff(Yedges)/2);
 % 
 % plot(Xcenters,sum(etEI_x_tof,2),'DisplayName','etEI(x)')
 % hold on

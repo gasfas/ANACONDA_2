@@ -1,6 +1,7 @@
-function m2q_range = get_m2q_range(data_converted, data_stats)
+function m2q_range = get_m2q_range(data_converted, data_stats,m2q_1)
     set(gcf,'Visible','on')
     plot_ion_m2q(data_converted, data_stats);
+    xline(m2q_1);
     % Enable data cursor mode
     datacursormode on
     dcm_obj = datacursormode(gcf);
