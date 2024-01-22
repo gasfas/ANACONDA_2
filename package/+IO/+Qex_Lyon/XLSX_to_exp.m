@@ -9,7 +9,13 @@ function exp = XLSX_to_exp(XLSX_filename)
 % Read the XLSX file:
 M = xlsread(XLSX_filename);
 
-exp.hist.det1.TOF.bins  = M(:,1);
-exp.hist.det1.TOF.I     = M(:,2);
+% Normalize the spectrum:
+% Calculate integrated signal:
+Int_sign_cur = trapz(M(:,1), M(:,2));
+% Normalize spectrum:
+M(:,2)      = M(:,2)./Int_sign_cur;
+
+exp.hist.M2Q.bins  = M(:,1);
+exp.hist.M2Q.I     = M(:,2);
 
 end

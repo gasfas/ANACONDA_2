@@ -9,7 +9,7 @@ function [ y_fit ] = gauss_one_width(PM, xdata)
 %
 % Shell written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-nof_peaks = (length(PM)-2)/2;
+nof_peaks = (length(PM)-2)/3;
 
 %parameters (PM):
 mu              = PM(1:nof_peaks);% Average of Gaussian peaks

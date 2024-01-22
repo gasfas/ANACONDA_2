@@ -18,7 +18,6 @@ function [ R_corr ] = dR (V_created, V_lens, V_DriftTube, R, p)
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
-
 % Calculate the nondimensional voltage difference:
 V_nd        = (V_lens - V_DriftTube) ./ (V_created - V_DriftTube);
 % Calculate the nondimensional R ratio (from the fit):

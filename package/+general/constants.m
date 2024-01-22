@@ -61,6 +61,10 @@ for i = 1:length(names)
             values(i) = 1./(general.constants('h')*general.constants('c').*general.constants('JtoeV')*100); % converstion from eV to cm-1 (inverse centimeter)
 		case {'kcalmol_to_eV'}
 			values(i) = 0.0433634;
+        case {'MBa_to_m2'}
+            values(i) = 1e-22;
+        case {'MBa_to_cm2'}
+            values(i) = 1e-18;
 			
 		otherwise % We assume that a formula of different constants is given:
 			% TODO

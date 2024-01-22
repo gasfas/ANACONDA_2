@@ -42,10 +42,7 @@ DF.y_bgr.min    = 0;
 DF.y_bgr.max    = max(ydata);
 
 %% Fit Parameters:
-
 FP.names        = {'TolX',    'TolFun',   'MaxFunEvals', 'MaxIter'};
 FP.defaults     = [1E-10,     1E-11,      1e5,            1e5];
 
 end
-
-

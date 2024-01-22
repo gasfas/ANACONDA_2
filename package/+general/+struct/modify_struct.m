@@ -6,7 +6,7 @@ function [ struct ] = modify_struct (struct, mutation)
 % mutation	The struct that will overwrite the overlapping fieldnames of
 %			struct
 % Outputs:
-% struct	The struct that might be partly overwritten.
+% struct	The struct that might be partly overwritten by 'mutation'.
 %
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
@@ -19,7 +19,8 @@ for i = 1:length(names_ori)
     name = names_ori{i};
     if any(strncmp(name, names_mut, length(name)))
         if isstruct(mutation.(name)) % overlapping fieldnames:
-            % This means the mutation has a subfield here:
+            % This means the mutation has a subfield here. Load the
+            % function recursively:
             structfield = general.struct.modify_struct(struct.(name), mutation.(name));
             struct.(name) = structfield;
 		else % no overlapping fieldnames:

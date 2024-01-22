@@ -12,7 +12,7 @@ function [linestylestring, nof_variations] = linestylemkr(linestylenumber)
 % Written by Bart Oostenrijk, 2018, Lund university: Bart.oostenrijk(at)sljus.lu.se
 
 
-linestyle = {'-', '--', '-.', ':'};
+linestyle = {'-', '--', '-.'};
 nof_variations = length(linestyle);
 linestylenumber = mod(linestylenumber-1, length(linestyle))+1;
 linestylestring = linestyle{linestylenumber};

@@ -1,5 +1,5 @@
-function hhh = vline(x,in1,in2, height)
-% function h=vline(x, linetype, label, height)
+function hhh = vline(varargin)
+% function h=vline(x, linetype, label, height) x,in1,in2, height
 % 
 % Draws a vertical line on the current axes at the location specified by 'x'.  Optional arguments are
 % 'linetype' (default is 'r:') and 'label', which applies a text label to the graph near the line.  The
@@ -29,9 +29,26 @@ function hhh = vline(x,in1,in2, height)
 % By Brandon Kuczenski for Kensington Labs.
 % brandon_kuczenski@kensingtonlabs.com
 % 8 November 2001
-
-if ~exist('height', 'var')
-    height = 0.1;
+nargin_real = nargin;
+if isa(varargin{1}, 'matlab.graphics.axis.Axes')
+    ax          = varargin{1};
+    varargin    = varargin(2:end);
+    nargin_eff  = nargin_real-1;
+else
+    ax = gca;
+    nargin_eff  = nargin_real;
+end
+x = varargin{1};
+if length(varargin) > 1
+    in1 = varargin{2};
+end
+if length(varargin) > 2
+    in2 = varargin{3};
+end
+if length(varargin) > 3
+    height = varargin{4};
+else
+    height = 0.1; % default height
 end
     
 i = 0;
@@ -39,7 +56,7 @@ if length(x)>1  % vector input
     for I=1:length(x)
         i = i + 1;
         r = i/(2*length(x)+1)+0.3*mod(i,2)+0.2;
-        switch nargin
+        switch nargin_eff
         case 1
             linetype='r:';
             label='';
@@ -71,10 +88,10 @@ if length(x)>1  % vector input
                 label=in2{I};
             end
         end
-        h(I)=plot.vline(x(I),linetype,label, r);
+        h(I)=plot.vline(ax, x(I),linetype,label, r);
     end
 else
-    switch nargin
+    switch nargin_eff
     case 1
         linetype='r:';
         label='';
@@ -89,17 +106,17 @@ else
     
     
     
-    g=ishold(gca);
+    g=ishold(ax);
     hold on
 
-    y=get(gca,'ylim');
+    y=get(ax,'ylim');
     % plot function expects a string when only one line is to be drawn:
     if length(x) == 1 && iscell(linetype)
         linetype = linetype{:};
     end
-    h=plot([x x],[y(1) y(2)],linetype);
+    h=plot(ax, [x x],[y(1) y(2)],linetype);
     if length(label)
-        xx=get(gca,'xlim');
+        xx=get(ax,'xlim');
         xrange=xx(2)-xx(1);
         xunit=(x-xx(1))/xrange;
         if xunit<0.8

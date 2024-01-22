@@ -10,7 +10,7 @@ function [Prospector_M2Q,Prospector_names, Prospector_formulas] = Load_prospecto
 % Prospector_masses     [n,1], double: List of fragment masses as specified
 % in Prospector
 % Prospector_names      {n,1} cell with the corresponding fragment names.
-% Prospector_formulas   {n,1} The chemical formulas 
+% Prospector_formulas   {n,1} The chemical formulas
 
 if ~exist('settings', 'var')
     settings = struct();
@@ -25,6 +25,9 @@ end
 if ~isfield(settings, 'ifdo_show_doubly_charged_parent')
     settings.ifdo_show_doubly_charged_parent  = true;
 end
+if ~isfield(settings, 'ifdo_include_internal_fragments')
+    settings.ifdo_include_internal_fragments  = false;
+end
 
 table.idTableBy.plaintextPreceedingTable = 'Theoretical Peak Table';
 Prospector_cell     = htmlTableToCell(Filename_html,table);
@@ -38,6 +41,21 @@ end
 Prospector_M2Q          = cellfun( @str2num, Prospector_cell_ordered(1:end-nof_rows_2_remove,1) );
 Prospector_names        = Prospector_cell_ordered(1:end-nof_rows_2_remove,2);
 Prospector_formulas     = Prospector_cell_ordered(1:end-nof_rows_2_remove,3);
+
+%% Include the internal fragments if the user has requested:
+if settings.ifdo_include_internal_fragments
+    table.idTableBy.plaintextPreceedingTable = 'Internal Ions';
+    % Load the prospector HTML file into a cell:
+    Prospector_cell_int     = htmlTableToCell(Filename_html,table);
+    nof_rows_2_remove = 0;
+    % Split and merge the table for 'b' and 'a' fragments:
+    Prospector_cell_intnames_a      = cellfun(@(c)[c '_a'],Prospector_cell_int(2:end,[1]),'uni',false); % add the postscript 'a'
+    Prospector_cell_intnames_b      = cellfun(@(c)[c '_b'],Prospector_cell_int(2:end,[1]),'uni',false); % add the postscript 'b'
+    
+    Prospector_names    = [Prospector_names;    Prospector_cell_intnames_a; Prospector_cell_intnames_b];
+    Prospector_M2Q      = [Prospector_M2Q;      cellfun( @str2num, [Prospector_cell_int(2:end,[3]); Prospector_cell_int(2:end,[2])])];
+    Prospector_formulas = [Prospector_formulas; cellstr(repmat('.', 2*size(Prospector_cell_int,1)-2,1))];
+end
 
 %% User settings
 if settings.ifdo_show_doubly_charged_parent % add Doubly_charged parent if requested

@@ -21,7 +21,6 @@ if isempty(x_data)
 else
 	[Count, ~, mid]= hist.histcn([x_data y_data], x_edges, y_edges);
     
-
 	x_midpoints           = cell2mat(mid(1));
 	y_midpoints           = cell2mat(mid(2));
 

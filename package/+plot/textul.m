@@ -30,10 +30,17 @@ try color	= varargin{4};
 catch color = 'k'; % default color is black
 end
 
+if any(find(strcmp(varargin, 'Rotation')))
+    Rotation_cell       = varargin(find(strcmp(varargin, 'Rotation'))+1);
+    TextRotation        = Rotation_cell{1};
+else 
+    TextRotation        = 0;
+end
+    
 a = axis;
 wdth = a(2)-a(1);
 ht = a(4)-a(3);
 pos = [a(1)+width*wdth a(4)-height*ht];
 
-h = text(h_axes, pos(1),pos(2),txt,'Fontsize', 16, 'Color', color);
+h = text(h_axes, pos(1),pos(2),txt,'Fontsize', 16, 'Color', color, 'Rotation', TextRotation);
 end
