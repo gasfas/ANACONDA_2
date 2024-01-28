@@ -26,5 +26,5 @@ for sample_name_cell = fieldnames(exp_data)'
     exp_data.(sample_name_cur).matrix.M2Q.bins  = m_bins;
     exp_data.(sample_name_cur).matrix.M2Q.I     = m_I;
     % For now, write a color to each sample:
-    exp_data.(sample_name_cur).Color            = plot.colormkr(i, 1);
+    exp_data.(sample_name_cur).color            = plot.colormkr(i, 2)
 end
