@@ -22,7 +22,7 @@ settings                            = struct(); % Setting in saved in struct
 UI_obj                              = struct(); %All Ui objects stored in this struct.
 
 % Set up the display
-UI_obj.f_scan                       = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[200 200 600 400]);
+UI_obj.f_scan                       = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 600 400]);
 
 % Initiate the experiment struct:
 exp_data                                = struct;
@@ -62,7 +62,7 @@ end
 function modify_scan_GUI(~, ~)
     % The load scan function as run from 'Modify_scan'
     % Read which scan was selected:
-    if length(fieldnames(exp_data)) == 0
+    if isempty(fieldnames(exp_data))
         UI_obj.main.modify_scan.empty_data_msgbox = msgbox('Cannot modify scan, since there are no data files loaded yet. Nice try.');
     elseif isempty(UI_obj.main.uitable.Selection)
         UI_obj.main.modify_scan.no_data_selected_msgbox = msgbox('No data selected. Please select the sample you want to modify and try again.');
@@ -150,7 +150,7 @@ function plot_spectra_GUI(~, ~)
         % Find out which are the selected scans:
         [data_to_plot, metadata_to_plot] = fetch_selected_scans();
         % Send these selected spectra to mass spectrum plotter:
-        GUI.fs_big.Plot_m2q(data_to_plot, metadata_to_plot);
+        [defaults, UI_obj] = GUI.fs_big.Plot_m2q(data_to_plot, defaults, UI_obj);
     end
 end
 
@@ -219,6 +219,11 @@ function get_filepath(~, ~)
         if iscell(filelist) % Multiple files selected:
             settings.load_scan.csv_filelist = filelist;
             % Close the load_file dialog:
+            % Sort the filelist by photon energy. Fetch list of photon energies:
+            photon_energy_list_unordered = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(filelist);
+            % Then sort by ascending order:
+            [~, ordering_idx] = sort(photon_energy_list_unordered);
+            filelist = filelist(ordering_idx);
             UI_obj.LoadFilePath.Value = filelist;
         elseif ischar(filelist) % only one file selected
             UI_obj.LoadFilePath.Value = {filelist};
@@ -275,6 +280,8 @@ function load_scan_OK_callback(~, ~)
         set(UI_obj.load_scan.f_open_scan,'visible','off');
         % Closing the message box:
         set(UI_obj.load_scan.loading_data_msgbox, 'visible', 'off');
+        % Set the default directory to this one, for the possible next scan:
+        defaults.load_scan.browse_dir = settings.load_scan.csv_filedir;
         figure(UI_obj.f_scan)
     end
 end
@@ -298,7 +305,7 @@ end
 
 function update_filelist_uitable()
     try 
-        rmfield(UI_obj.main.uitable) % Remove old table, if present.
+        UI_obj.main = rmfield(UI_obj.main, 'uitable'); % Remove old table, if present.
     end
     % Update the names:
     settings.filelist.scan_name             = fieldnames(exp_data);

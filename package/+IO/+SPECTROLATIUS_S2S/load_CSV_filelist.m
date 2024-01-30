@@ -73,9 +73,7 @@ for filenr_cur = 1:nof_files
     spectr_name_cur     = ['spectr_', num2str(filenr_cur, '%03.f')];
     sample_data.hist.(spectr_name_cur).M2Q.I        = single(transpose(I));
     sample_data.hist.(spectr_name_cur).M2Q.bins     = single(transpose(M));
-    energy_number_end   = strfind(csv_filename_cur, 'eV')-1;
-    energy_number_start = strfind(csv_filename_cur(1:energy_number_end), '_');
-    sample_data.photon.energy(filenr_cur) = str2num(csv_filename_cur(energy_number_start(end)+1:energy_number_end));
+    sample_data.photon.energy(filenr_cur)           = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(csv_filename_cur);
 end
 
 M_m2q  = hist.H_1D_rebin_intensity(M_scan(:,2), rebin_factor);

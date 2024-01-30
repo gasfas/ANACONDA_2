@@ -22,7 +22,7 @@ settings                            = struct(); % Setting in saved in struct
 UI_obj                              = struct(); %All Ui objects stored in this struct.
 
 % Set up the display
-UI_obj.f_scan                       = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[200 200 600 400]);
+UI_obj.f_scan                       = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 600 400]);
 
 % Initiate the experiment struct:
 exp_data                                = struct;
@@ -34,7 +34,7 @@ UI_obj.main.Remove_scan             = uibutton(UI_obj.f_scan, "Text", "Remove sc
 UI_obj.main.Modify_scan             = uibutton(UI_obj.f_scan, "Text", "Modify scan", "Position", [480, 290, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Modify_scan, "ButtonPushedFcn", @modify_scan_GUI);
 UI_obj.main.plot_m2q.uibutton       = uibutton(UI_obj.f_scan, "Text", "Plot M/Q", "Position", [480, 260, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_m2q, "ButtonPushedFcn", @plot_spectra_GUI);
 
-UI_obj.main.plot_scan.uibutton= uibutton(UI_obj.f_scan, "Text", "Define channels", "Position", [480, 230, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_scan, "ButtonPushedFcn", @define_channels);
+UI_obj.main.plot_scan.uibutton= uibutton(UI_obj.f_scan, "Text", "Plot scan", "Position", [480, 230, 100, 20], 'Tooltip', defaults.load_scan.tooltips.plot_scan, "ButtonPushedFcn", @define_channels);
 
 UI_obj.main.Save_workspace.uibutton      = uibutton(UI_obj.f_scan, "Text", "Save workspace", "Position", [480, 140, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Save_workspace);
 UI_obj.main.Load_workspace.uibutton      = uibutton(UI_obj.f_scan, "Text", "Load workspace", "Position", [480, 110, 100, 20], 'Tooltip', defaults.load_scan.tooltips.Load_workspace);
@@ -62,7 +62,7 @@ end
 function modify_scan_GUI(~, ~)
     % The load scan function as run from 'Modify_scan'
     % Read which scan was selected:
-    if length(fieldnames(exp_data)) == 0
+    if isempty(fieldnames(exp_data))
         UI_obj.main.modify_scan.empty_data_msgbox = msgbox('Cannot modify scan, since there are no data files loaded yet. Nice try.');
     elseif isempty(UI_obj.main.uitable.Selection)
         UI_obj.main.modify_scan.no_data_selected_msgbox = msgbox('No data selected. Please select the sample you want to modify and try again.');
@@ -108,22 +108,13 @@ function load_scan_window(sample_settings)
             rb_Bessy.Value = true;
     end
     settings.load_scan.setup_type = '';
-    
-<<<<<<< Updated upstream
+
     UI_obj.load_scan.sample_name = uilabel(UI_obj.load_scan.f_open_scan, 'Text', 'Sample name', 'Position', [200, 375, 100, 30]);
     UI_obj.load_scan.sample_name = uieditfield(UI_obj.load_scan.f_open_scan, 'Value', sample_settings.sample_name, 'Tooltip', defaults.load_scan.tooltips.sample_name, 'Position', [200, 350, 100, 30]);
     
     % re-bin factor:
     UI_obj.load_scan.re_bin_text = uilabel(UI_obj.load_scan.f_open_scan, 'Text', 're-bin factor', 'Position', [200, 325, 70, 30]);
     UI_obj.load_scan.re_bin_factor = uieditfield(UI_obj.load_scan.f_open_scan,"numeric", 'Value', sample_settings.re_bin_factor, 'Tooltip', defaults.load_scan.tooltips.re_bin_factor, 'Position', [200, 300, 50, 30]);
-=======
-    UI_obj.load_scan.sample_name    = uilabel(UI_obj.load_scan.f_open_scan, 'Text', 'Sample name', 'Position', [200, 375, 100, 30]);
-    UI_obj.load_scan.sample_name    = uieditfield(UI_obj.load_scan.f_open_scan, 'Value', sample_settings.sample_name, 'Tooltip', defaults.load_scan.tooltips.sample_name, 'Position', [200, 350, 100, 30]);
-    
-    % re-bin factor:
-    UI_obj.load_scan.re_bin_text    = uilabel(UI_obj.load_scan.f_open_scan, 'Text', 're-bin factor', 'Position', [200, 325, 70, 30]);
-    UI_obj.load_scan.re_bin_factor  = uieditfield(UI_obj.load_scan.f_open_scan,"numeric", 'Value', sample_settings.re_bin_factor, 'Tooltip', defaults.load_scan.tooltips.re_bin_factor, 'Position', [200, 300, 50, 30]);
->>>>>>> Stashed changes
     
     % Text of the filepath:
     UI_obj.LoadFilePath         = uitextarea(UI_obj.load_scan.f_open_scan, 'Value', sample_settings.csv_filelist, 'Position', [10, 50, 500, 220]);
@@ -159,7 +150,7 @@ function plot_spectra_GUI(~, ~)
         % Find out which are the selected scans:
         [data_to_plot, metadata_to_plot] = fetch_selected_scans();
         % Send these selected spectra to mass spectrum plotter:
-        GUI.fs_big.Plot_m2q(data_to_plot, metadata_to_plot);
+        [defaults, UI_obj] = GUI.fs_big.Plot_m2q(data_to_plot, defaults, UI_obj);
     end
 end
 
@@ -167,23 +158,6 @@ function define_channels(~, ~)
    % Check which scan is selected:
    if length(fieldnames(exp_data)) == 1% only one scan loaded, so no selection needed:
        selected_scan_nr = 1;
-<<<<<<< Updated upstream
-   elseif isempty(fieldnames(exp_data))
-       UI_obj.main.plot_m2q.empty_data_plot_msgbox = msgbox('Cannot plot scans, since there are no scans loaded yet. Please do that first.');
-       selected_scan_nr = [];
-   else  % More than one scan loaded, so check whether any are selected to show first:
-       try 
-           selected_scan_nr = unique(UI_obj.main.uitable.Selection(:,1));
-       catch
-           selected_scan_nr = 1:length(fieldnames(exp_data)); % if no selection is made
-       end
-   end
-   if ~isempty(selected_scan_nr)
-       % Fetch the name of the selected scan:
-       sample_name  = UI_obj.main.uitable.Data.Name{selected_scan_nr};
-       % Open the window to let the user select channels for the scan.
-       [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, selected_scan_nr);
-=======
    elseif isempty(fieldnames(exp_data)) % No scans loaded yet, so no scan plot possible:
        selected_scan_nr = [];
    else
@@ -199,16 +173,11 @@ function define_channels(~, ~)
        sample_name  = UI_obj.main.uitable.Data.Name{selected_scan_nr};
        % Open the window to let the user select channels for the scan.
        [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, sample_name);
->>>>>>> Stashed changes
    end
 end
 
 function plot_scan_GUI(~,~)
-<<<<<<< Updated upstream
-    if length(fieldnames(exp_data)) == 0
-=======
     if isempty(fieldnames(exp_data))
->>>>>>> Stashed changes
         UI_obj.main.plot_m2q.empty_data_plot_msgbox = msgbox('Cannot plot scans, since there are no scans loaded yet. Nice try.');
     else
         % Find out which are the selected scans:
@@ -218,10 +187,6 @@ function plot_scan_GUI(~,~)
     end 
 end
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 function [data_to_plot, metadata_to_plot, sample_names] = fetch_selected_scans()
     % Check which run(s) are selected.
     if isempty(UI_obj.main.uitable.Selection)
@@ -254,6 +219,11 @@ function get_filepath(~, ~)
         if iscell(filelist) % Multiple files selected:
             settings.load_scan.csv_filelist = filelist;
             % Close the load_file dialog:
+            % Sort the filelist by photon energy. Fetch list of photon energies:
+            photon_energy_list_unordered = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(filelist);
+            % Then sort by ascending order:
+            [~, ordering_idx] = sort(photon_energy_list_unordered);
+            
             UI_obj.LoadFilePath.Value = filelist;
         elseif ischar(filelist) % only one file selected
             UI_obj.LoadFilePath.Value = {filelist};
@@ -333,7 +303,7 @@ end
 
 function update_filelist_uitable()
     try 
-        rmfield(UI_obj.main.uitable) % Remove old table, if present.
+        UI_obj.main = rmfield(UI_obj.main, 'uitable'); % Remove old table, if present.
     end
     % Update the names:
     settings.filelist.scan_name             = fieldnames(exp_data);

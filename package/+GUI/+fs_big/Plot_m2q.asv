@@ -67,7 +67,7 @@ UI_obj.plot.m2q.holdchbx            = uicheckbox(UI_obj.plot.m2q.main, 'Value', 
 UI_obj.plot.m2q.holdchbx = uidropdown(UI_obj.plot.m2q.main, 'Items', sample_names, ...
     'ValueChangedFcn', @change_sample_dropdown_callback, 'Position', [10, 130, 120, 25]);
 
-    function change_sample_dropdown_callback(objHandle,event)
+function change_sample_dropdown_callback(~,~)
     sample_name = UI_obj.plot.m2q.holdchbx.Value;
     change_scan(sample_name)
 end     
@@ -82,10 +82,6 @@ function change_scan(sample_name)
     % re-build the slider:
     spectrum_numbers_sample_cur = get_spectrum_numbers( exps.(sample_name));
     [sliderMajorTicks, SliderMajorTickLabels] = get_uislider_ticks(spectrum_numbers_sample_cur);
-    UI_obj.plot.m2q.spectr_slider.MajorTicks            = sliderMajorTicks;
-    UI_obj.plot.m2q.spectr_slider.MajorTickLabels       = SliderMajorTickLabels;
-    UI_obj.plot.m2q.spectr_slider.MinorTicks            = spectrum_numbers_sample_cur;
-    UI_obj.plot.m2q.spectr_slider.Limits                = [1, max(spectrum_numbers_sample_cur)];
     % For now, reset to first spectrum:
     UI_obj.plot.m2q.spectr_slider.Value = spectrum_number;
 end
@@ -107,8 +103,8 @@ end
 
 function change_spectrum(~, ~) % The callback function of the slider
     % Jump slider to nearest MajorTick:
-    [~, min_idx]     = min(abs(UI_obj.plot.m2q.spectr_slider.Value - UI_obj.plot.m2q.spectr_slider.MinorTicks));
-    UI_obj.plot.m2q.spectr_slider.Value     = UI_obj.plot.m2q.spectr_slider.MinorTicks(min_idx);
+    [~, min_idx]     = min(abs(UI_obj.plot.m2q.spectr_slider.Value - UI_obj.plot.m2q.spectr_slider.MajorTicks));
+    UI_obj.plot.m2q.spectr_slider.Value     = UI_obj.plot.m2q.spectr_slider.MajorTicks(min_idx);
     slider_value = get(UI_obj.plot.m2q.spectr_slider, 'Value');
     spectrum_number = round(slider_value);
     update_plot(UI_obj.plot.m2q.axes, exps, sample_name, spectrum_number);
@@ -152,12 +148,12 @@ function keypress_callback(~, event)
         % Find the current value:
         Value_cur = round(UI_obj.plot.m2q.spectr_slider.Value);
         % Find the higher one in the spectra list, if it exists:
-        cur_idx = find(Value_cur == UI_obj.plot.m2q.spectr_slider.MinorTicks);
+        cur_idx = find(Value_cur == UI_obj.plot.m2q.spectr_slider.MajorTicks);
         switch key
             case 'leftarrow' %one spectrum down
-                Value_new = UI_obj.plot.m2q.spectr_slider.MinorTicks(max(cur_idx-1, 1));
+                Value_new = UI_obj.plot.m2q.spectr_slider.MajorTicks(max(cur_idx-1, 1));
             case 'rightarrow' % one spectrum up
-                Value_new = UI_obj.plot.m2q.spectr_slider.MinorTicks(min(cur_idx+1, length(UI_obj.plot.m2q.spectr_slider.MinorTicks)));
+                Value_new = UI_obj.plot.m2q.spectr_slider.MajorTicks(min(cur_idx+1, length(UI_obj.plot.m2q.spectr_slider.MajorTicks)));
         end
         UI_obj.plot.m2q.spectr_slider.Value = Value_new; % Set value in slider.
         change_spectrum();
@@ -191,3 +187,8 @@ function [spectrum_numbers, spectrum_names] = get_spectrum_numbers( exp_sample )
     spectrum_numbers = regexp(spectrum_names, '\d*','match');
     spectrum_numbers = cellfun(@str2num, cat(2, spectrum_numbers{:}));
 end
+
+% function [photon_energy] = get_photon_energy(exps, sample_name, spectrum_number)
+%     spectrum_names   = fieldnames(exps.(sample_name).hist);
+%     exps.(sample_name).hist.(spectrum_names{spectrum_number}).M2Q
+% end
