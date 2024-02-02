@@ -5,7 +5,11 @@ switch class(filelist)
         % We assume the name of only one file is given:
         energy_number_end   = strfind(filelist, 'eV')-1;
         energy_number_start = strfind(filelist(1:energy_number_end), '_');
-        photon_energy       = str2num(filelist(energy_number_start(end)+1:energy_number_end));
+        if ~isempty(energy_number_start) & ~isempty(energy_number_end)
+            photon_energy       = str2num(filelist(energy_number_start(end)+1:energy_number_end));
+        else % The photon energy is not given in the expected way in the filename.
+            photon_energy       = nan;
+        end
     case 'cell'
         photon_energy = zeros(length(filelist),1);
         for i = 1:length(filelist)

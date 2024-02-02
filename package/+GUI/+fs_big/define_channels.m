@@ -63,14 +63,30 @@ uitable_create()
 
 % Initialize the interaction buttons (load, delete, view spectra):
 UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main , "Text", "Add channel", "Position",     [10, 250, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
-UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main , "Text", "Add Prospector", "Position",  [10, 220, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_scan_GUI);
-UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position", [10, 190, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @load_scan_GUI);
-UI_obj.def_channel.Import_scan              = uibutton(UI_obj.def_channel.main , "Text", "Import from scan", "Position",[10, 160, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_scan, "ButtonPushedFcn", @load_scan_GUI);
-UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 130, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @load_scan_GUI);
+UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main , "Text", "Add Prospector", "Position",  [10, 220, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
+UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position", [10, 190, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
+UI_obj.def_channel.Import_scan              = uibutton(UI_obj.def_channel.main , "Text", "Import from scan", "Position",[10, 160, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_scan, "ButtonPushedFcn", @Import_scan);
+UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 130, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
 UI_obj.def_channel.holdchbx                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'hold XY lim', 'Position', [10, 100, 100, 20], 'Tooltip', defaults.def_channel.tooltips.holdchbx, 'Value', 0, 'ValueChangedFcn', @hold_limits);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",  [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 % TODO: when one of the two window is closed, the other one closes as well:
+
+    function Remove_channel(hObj, event)
+        % Remove the selected channels from the list.
+        if ~isempty(settings.channels.Name) && ~isempty(UI_obj.def_channel.uitable.Selection(:,1))
+            rownrs              = unique(UI_obj.def_channel.uitable.Selection(:,1));
+            % Remove from the fragment list:
+            settings.channels.Name(rownrs)      = [];
+            settings.channels.minMtoQ(rownrs)   = [];
+            settings.channels.maxMtoQ(rownrs)   = [];
+            settings.channels.Visible(rownrs)   = [];
+            % Update the uitable:
+            uitable_add_fragment();
+        else
+            msgbox('No fragments to remove. Please select the fragment(s) you want to remove in the table.')
+        end
+    end
 
 function add_channel_manually(~,~)
     % User wants to manually pick a fragment from the plot window.
@@ -99,7 +115,7 @@ function add_channel_manually_done(~,~)
     % Show the updated table:
     uitable_add_fragment()
     % Make the scan plot keep the current channel plot:
-    update_scan_plot(exp_data, mass_limits, UI_obj, true)
+    update_scan_plot(exp_data, mass_limits, UI_obj, true);
 end
 
 function add_channel_manually_reset(~,~)
@@ -171,16 +187,16 @@ function[hLine, avg_M2Q] = update_plot(exp_data)
     % Plot the mass-to-charge spectra for all scans:
     avg_M2Q.XLim = [0,0];
     hold(UI_obj.def_channel.m2q.axes,"on");
-    for scan_name_cell = fieldnames(exp_data)'
+    for scan_name_cell = fieldnames(exp_data.scans)'
         scan_name_cur     = scan_name_cell{:};
-        avg_M2Q.(scan_name_cur).I       = mean(exp_data.(scan_name_cur).matrix.M2Q.I, 2);
-        avg_M2Q.(scan_name_cur).bins    = exp_data.(scan_name_cur).matrix.M2Q.bins;
+        avg_M2Q.(scan_name_cur).I       = mean(exp_data.scans.(scan_name_cur).matrix.M2Q.I, 2);
+        avg_M2Q.(scan_name_cur).bins    = exp_data.scans.(scan_name_cur).matrix.M2Q.bins;
         % 
         hold(UI_obj.def_channel.m2q.axes, 'on')
         grid(UI_obj.def_channel.m2q.axes, 'on')
         LineName_leg          = [scan_name_cur, ', averaged'];
         hLine.(scan_name_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scan_name_cur).bins, avg_M2Q.(scan_name_cur).I, 'DisplayName',scan_name_cur);
-        hLine.(scan_name_cur).Color = exp_data.(scan_name_cur).Color;
+        hLine.(scan_name_cur).Color = exp_data.scans.(scan_name_cur).Color;
         avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scan_name_cur).bins), avg_M2Q.XLim(1));
         avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scan_name_cur).bins), avg_M2Q.XLim(2));
     end
@@ -228,14 +244,14 @@ function update_slider_limits(ax)
     % Update the live scan plotter:
     mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)];
 
-    UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
+    UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data.scans, mass_limits, UI_obj, false);
 end
 
     function [hLine] = update_scan_plot(exps, mass_limits, UI_obj, ifdo_remember_line)
-        for sample_name_cell = fieldnames(exps)'
+        for sample_name_cell = fieldnames(exps.scans)'
             sample_name_cur = sample_name_cell{:};
             % Fetch the intensity data of the current sample:
-            M2Q_data        = exps.(sample_name_cur).matrix.M2Q.I;
+            M2Q_data        = exps.scans.(sample_name_cur).matrix.M2Q.I;
             % Remember the X,Y limits if the user wants it to be fixed:
             if UI_obj.def_channel.scan.if_hold_XY
                 xlims = get(UI_obj.def_channel.scan.axes, 'XLim'); 
@@ -254,8 +270,8 @@ end
             
             % Fetch the limit indices from the mass limits given through 
             % nearest neighbor interpolation:
-            min_idx         = 2*find(min(exps.(sample_name_cur).matrix.M2Q.bins)==exps.(sample_name_cur).matrix.M2Q.bins, 1, 'last');
-            bins            = double(exps.(sample_name_cur).matrix.M2Q.bins);
+            min_idx         = 2*find(min(exps.scans.(sample_name_cur).matrix.M2Q.bins)==exps.scans.(sample_name_cur).matrix.M2Q.bins, 1, 'last');
+            bins            = double(exps.scans.(sample_name_cur).matrix.M2Q.bins);
             % Get the unique masses and corresponding indices:
             [bins_u, idx_u] = unique(bins);
             % Make sure the mass limits (min) are not outside range:
@@ -265,8 +281,8 @@ end
             
             mass_indices = interp1(bins_u, idx_u, mass_limits, 'nearest', 'extrap');
             
-            hLine.(sample_name_cur)         = plot(UI_obj.def_channel.scan.axes, exps.(sample_name_cur).photon.energy, sum(exps.(sample_name_cur).matrix.M2Q.I(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName',sample_name_cur);
-            hLine.(sample_name_cur).Color   = exp_data.(sample_name_cur).Color;
+            hLine.(sample_name_cur)         = plot(UI_obj.def_channel.scan.axes, exps.scans.(sample_name_cur).photon.energy, sum(exps.scans.(sample_name_cur).matrix.M2Q.I(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName',sample_name_cur);
+            hLine.(sample_name_cur).Color   = exp_data.scans.(sample_name_cur).Color;
         
             if UI_obj.def_channel.scan.if_hold_XY
                 xlim(UI_obj.def_channel.scan.axes, xlims);

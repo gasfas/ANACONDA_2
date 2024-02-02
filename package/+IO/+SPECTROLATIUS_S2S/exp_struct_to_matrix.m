@@ -1,9 +1,9 @@
 function [exp_data] = exp_struct_to_matrix(exp_data)
-i = 0;
-for sample_name_cell = fieldnames(exp_data)'
-    i = i + 1;
+% Build an intensity matrix (only for scans)
+for sample_name_cell = fieldnames(exp_data.scans)'
+
     sample_name_cur     = sample_name_cell{:};
-    exp_sample = exp_data.(sample_name_cur);
+    exp_sample = exp_data.scans.(sample_name_cur);
 
     spectr_names    = fieldnames(exp_sample.hist);
     % Make sure all the bins are the same:
@@ -23,8 +23,8 @@ for sample_name_cell = fieldnames(exp_data)'
     end
     
     % Write the current experiment data into export struct:
-    exp_data.(sample_name_cur).matrix.M2Q.bins  = m_bins;
-    exp_data.(sample_name_cur).matrix.M2Q.I     = m_I;
+    exp_data.scans.(sample_name_cur).matrix.M2Q.bins  = m_bins;
+    exp_data.scans.(sample_name_cur).matrix.M2Q.I     = m_I;
     % For now, write a color to each sample:
-    exp_data.(sample_name_cur).Color            = plot.colormkr(i, 1);
+    exp_data.scans.(sample_name_cur).Color            = plot.colormkr(i, 1);
 end
