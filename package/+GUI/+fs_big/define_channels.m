@@ -35,9 +35,9 @@ hold(UI_obj.def_channel.m2q.axes, 'on')
 UI_obj.def_channel.m2q.rectangle = rectangle(UI_obj.def_channel.m2q.axes, 'FaceColor', [1 0.1 0.1 0.3], ...
     'Position', [UI_obj.def_channel.m2q.axes.XLim(1), UI_obj.def_channel.m2q.axes.YLim(1), diff(UI_obj.def_channel.m2q.axes.XLim), diff(UI_obj.def_channel.m2q.axes.YLim)]);
 
-% Set up the callbacks of the axes:
-set(zoom(UI_obj.def_channel.m2q.axes),'ActionPostCallback',@(x,y) update_slider_limits(UI_obj.def_channel.m2q.axes));
-set(pan(UI_obj.def_channel.data_plot),'ActionPostCallback',@(x,y) update_slider_limits(UI_obj.def_channel.m2q.axes));
+% Set up the callbacks of the axes, to update the slider location during move/zoom:
+set(zoom(UI_obj.def_channel.m2q.axes),'ActionPostCallback',@(x,y) update_slider_limits());
+set(pan(UI_obj.def_channel.data_plot),'ActionPostCallback',@(x,y) update_slider_limits());
 
 % Set the (improvised) Java range slider:
 UI_obj.def_channel.m2q.jRangeSlider = GUI.fs_big.rangeslider(UI_obj.def_channel.data_plot, 0, 100, 0, 100, 'channel limits', [75, 570, 700, 15], 0.1, 0.1, @update_channel_limits);
@@ -226,7 +226,7 @@ function k = update_channel_limits(jRangeSlider,event)
     UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
 end
 
-function update_slider_limits(ax)
+function update_slider_limits()
 % The user has moved (zoomed, panned, resized) the m2q axes, so we need to
 % update the limits accordingly:
     XLim    = UI_obj.def_channel.m2q.axes.XLim;
@@ -236,7 +236,7 @@ function update_slider_limits(ax)
     Max     = UI_obj.def_channel.m2q.jRangeSlider.Maximum;
     Min     = UI_obj.def_channel.m2q.jRangeSlider.Minimum;
     UI_obj.def_channel.m2q.jRangeSlider.LowValue = 0;
-    UI_obj.def_channel.m2q.jRangeSlider.HighValue = 100;
+    UI_obj.def_channel.m2q.jRangeSlider.HighValue = 200;
     new_slider_Lo = max(Min, (Pos_rect(1) - XLim(1))/diff(XLim) * (Max - Min));
     new_slider_Hi = min(Max, (Pos_rect(1) + Pos_rect(3) - XLim(1))/diff(XLim) * (Max - Min));
     UI_obj.def_channel.m2q.jRangeSlider.LowValue = new_slider_Lo;
@@ -244,10 +244,14 @@ function update_slider_limits(ax)
     % Update the live scan plotter:
     mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)];
 
-    UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data.scans, mass_limits, UI_obj, false);
+    UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
 end
 
     function [hLine] = update_scan_plot(exps, mass_limits, UI_obj, ifdo_remember_line)
+    % Update the plot in the spectrum. The plot consists of two parts:
+    % 1. The already-saved channels that could be requested to be shown
+    % 2. The current rectangle in the mass spectrum to form a new channel.
+
         for sample_name_cell = fieldnames(exps.scans)'
             sample_name_cur = sample_name_cell{:};
             % Fetch the intensity data of the current sample:
@@ -279,6 +283,7 @@ end
             % Make sure the mass limits (max) are not outside range:
             mass_limits(2)  = min(max(bins), mass_limits(2));
             
+            % Find the indices of the closest mass points in the data:
             mass_indices = interp1(bins_u, idx_u, mass_limits, 'nearest', 'extrap');
             
             hLine.(sample_name_cur)         = plot(UI_obj.def_channel.scan.axes, exps.scans.(sample_name_cur).photon.energy, sum(exps.scans.(sample_name_cur).matrix.M2Q.I(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName',sample_name_cur);

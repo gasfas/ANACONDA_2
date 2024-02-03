@@ -162,7 +162,7 @@ function remove_scan_GUI(~, ~)
             % Check which run is selected.
             sample_selected    = UI_obj.main.scan.uitable.Selection(rownrs(sample_nr));
             % Remove from exp data 
-            exp_data.scans        = rmfield(exp_data.scans, settings.filelist.scan_name{sample_selected});
+            exp_data        = rmfield(exp_data.scans, settings.filelist.scan_name{sample_selected});
         end
         % Update the table:
         uitable_scan_modify();
@@ -375,7 +375,6 @@ end
             % Make the new field with new name:
             exp_data.scans.(event.NewData)      = exp_data.scans.(scan_names{event.Indices(1)});
             settings.metadata.(event.NewData)   = settings.metadata.(scan_names{event.Indices(1)});
-            settings.filelist.scan_name{event.Indices(1)}  = event.NewData;
             % remove old name:
             exp_data.scans                      = rmfield(exp_data.scans, scan_names{event.Indices(1)});
             settings.metadata                   = rmfield(settings.metadata, (scan_names{event.Indices(1)}));
