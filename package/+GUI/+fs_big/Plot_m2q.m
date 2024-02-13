@@ -1,11 +1,11 @@
-function [defaults, UI_obj] = Plot_m2q(exps, defaults, UI_obj)
+function [defaults, UI_obj] = Plot_m2q(exp_data, defaults, UI_obj)
 % Function to plot mass spectra which can be manipulated in a second separate
 % control window
 
 ifdo_remember_line      = 0;
 ifdo_hold_axes_limits   = 0;
 nof_remembered_lines    = 0;
-sample_names            = fieldnames(exps);
+sample_names            = fieldnames(exp_data);
 sample_name             = sample_names{1};
 
 defaults.plot_m2q.tooltips.spectrumslider = 'Select different spectra in this slider to explore different energies';
@@ -25,9 +25,9 @@ set(hleg,'FontSize',12);
 set(UI_obj.plot.m2q.main, 'CloseRequestFcn', @close_both_M2Q_windows); % Make sure that both windows close when one is closed by user.
 set(UI_obj.plot.m2q.plot_window, 'CloseRequestFcn', @close_both_M2Q_windows);
 
-[spectrum_numbers_sample_cur] = get_spectrum_numbers( exps.(sample_name) );
+[spectrum_numbers_sample_cur] = get_spectrum_numbers( exp_data.(sample_name) );
 
-update_plot(UI_obj.plot.m2q.axes, exps, sample_name, 1);
+update_plot(UI_obj.plot.m2q.axes, exp_data, sample_name, 1);
 UI_obj.plot.m2q.slider_text = uilabel(UI_obj.plot.m2q.main, 'Text', 'Photon energy', 'Position', [80, 60, 120, 25], ...
                             'Tooltip', defaults.plot_m2q.tooltips.spectrumslider);
 
@@ -40,14 +40,14 @@ UI_obj.plot.m2q.slider_text = uilabel(UI_obj.plot.m2q.main, 'Text', 'Photon ener
         switch length(spectrum_numbers_sample_cur)
             case num2cell(1:5)
                 sliderMajorTicks        = spectrum_numbers_sample_cur;
-                SliderMajorTickLabels   = cellstr(num2str(exps.(sample_name).photon.energy(:)));
+                SliderMajorTickLabels   = cellstr(num2str(exp_data.(sample_name).photon.energy(:)));
             otherwise
                 % More spectra (photon energies) than can be shown on the slider,
                 % so divide it:
                 sample_stepsize         = ceil(length(spectrum_numbers_sample_cur)/5);
                 sample_nrs              = 1:sample_stepsize:length(spectrum_numbers_sample_cur);
                 sliderMajorTicks        = spectrum_numbers_sample_cur(sample_nrs);
-                slider_energies_double  = exps.(sample_name).photon.energy(sample_nrs);
+                slider_energies_double  = exp_data.(sample_name).photon.energy(sample_nrs);
                 SliderMajorTickLabels   = cellstr(num2str(slider_energies_double(:)));
         end
     end
@@ -76,11 +76,11 @@ function change_scan(sample_name)
     % The user wants to change scan. 
     spectrum_number = 1;
     % Update the plot window:
-    update_plot(UI_obj.plot.m2q.axes, exps, sample_name, spectrum_number);
+    update_plot(UI_obj.plot.m2q.axes, exp_data, sample_name, spectrum_number);
     % TODO: Find a spectrum that is closest in energy to the previous one,
     % or remember what user has used last.
     % re-build the slider:
-    spectrum_numbers_sample_cur = get_spectrum_numbers( exps.(sample_name));
+    spectrum_numbers_sample_cur = get_spectrum_numbers( exp_data.(sample_name));
     [sliderMajorTicks, SliderMajorTickLabels] = get_uislider_ticks(spectrum_numbers_sample_cur);
     UI_obj.plot.m2q.spectr_slider.MajorTicks            = sliderMajorTicks;
     UI_obj.plot.m2q.spectr_slider.MajorTickLabels       = SliderMajorTickLabels;
@@ -111,7 +111,7 @@ function change_spectrum(~, ~) % The callback function of the slider
     UI_obj.plot.m2q.spectr_slider.Value     = UI_obj.plot.m2q.spectr_slider.MinorTicks(min_idx);
     slider_value = get(UI_obj.plot.m2q.spectr_slider, 'Value');
     spectrum_number = round(slider_value);
-    update_plot(UI_obj.plot.m2q.axes, exps, sample_name, spectrum_number);
+    update_plot(UI_obj.plot.m2q.axes, exp_data, sample_name, spectrum_number);
 end
 
 function[hLine] = update_plot(ax, exps, sample_name, spectrum_number)

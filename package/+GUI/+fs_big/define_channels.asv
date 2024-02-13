@@ -75,8 +75,8 @@ UI_obj.def_channel.holdchbx                 = uicheckbox(UI_obj.def_channel.main
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",  [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
-%% Button Callbacks
- function Remove_channel(hObj, event)
+    
+    function Remove_channel(hObj, event)
         % Remove the selected channels from the list.
         if ~isempty(settings.channels.list) && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
             rownrs              = unique(UI_obj.def_channel.uitable_channelgroup.Selection(:,1));
@@ -155,14 +155,6 @@ function add_channel_manually_done(~,~)
     update_scan_plot();
     % update_spectra_existing_channels(chgroup_fieldname)
 end
-%% Uitable channel group functions
-
-
-%% UItable scan list functions
-
-%% Plot functions
-
-%% Slider functions
 
     function update_spectra_existing_channels(new_channelgroup_name)
         % update the plots showing the existing fragments:
@@ -229,27 +221,25 @@ end
         channelgroupnames = fieldnames(settings.channels.list);
         % Plot the existing channels:
             for chgroupname_cur = channelgroupnames'
-                    chgroupname_cur = chgroupname_cur{:};
-                if settings.channels.list.(chgroupname_cur).Visible
-                % Get the current mass limits:
-                mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
-                for scanname_cur = scannames'
-                    scanname_cur    = scanname_cur{:};
-                    if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
-                        %Fetch the intensity data of the current sample:
-                        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
-                        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
-                        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
-                        plotname     = [scanname_cur, ', ',  settings.channels.list.(chgroupname_cur).Name];
-                        LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
-                        LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
-                        Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
-                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle);
-                        UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
-                        plotnames{end+1} = plotname;
-                    end
+            chgroupname_cur = chgroupname_cur{:};
+            % Get the current mass limits:
+            mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
+            for scanname_cur = scannames'
+                scanname_cur    = scanname_cur{:};
+                if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
+                    %Fetch the intensity data of the current sample:
+                    M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
+                    bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
+                    photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
+                    plotname     = [scanname_cur, ', ',  settings.channels.list.(chgroupname_cur).Name];
+                    LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
+                    LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
+                    Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
+                    hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle);
+                    UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
+                    plotnames{end+1} = plotname;
                 end
-          end
+            end
     end
     legend();
     end
@@ -291,7 +281,7 @@ function add_channel_manually_reset(~,~)
 end
 
 function OK_close(~,~)
-    UI_obj.def_channel.main.Visible               = 'off';
+    UI_obj.def_channel.main.Visible                 = 'off';
     UI_obj.def_channel.data_plot.Visible          = 'off';
     % TODO: how to parse the fragments to main.
 end
@@ -328,7 +318,7 @@ end
             UI_obj.def_channel.uitable_scans.ColumnName{1} = ['Scan name (' settings.channels.list.(channelgroup_name_cur).Name ')'];
         end
     end
-
+    
     function uitable_channelgroup_user_edit(app, event)
         % This function will be called when the uitable of channels is
         % changed, and needs to be updated in the settings accordingly:
@@ -339,24 +329,22 @@ end
         switch event.Indices(2)
             case 1 % The Name has been change, exchange it in the struct:
                 settings.channels.list.(channelname_cur).Name       = event.NewData;
-                % Update the scan name table title:
-                UI_obj.def_channel.uitable_scans.ColumnName{1} = ['Scan name (' event.NewData ')'];
             case 2 % The minimum mass-to-charge has been changed:
                 settings.channels.list.(channelname_cur).minMtoQ    = event.NewData;
                 ifdo_update_plot        = true;
                 UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(1) = event.NewData;
             case 3 % The maxmum mass-to-charge has been changed:
-                settings.channels.list.(channelname_cur).maxMtoQ    = event.NewData;
+                settings.channels.list.(channelname_cur).minMtoQ    = event.NewData;
                 ifdo_update_plot        = true;
                 UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(3) = event.NewData - UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(1);
-            case 4 % The scaling of a channel has been changed:
+            case 4 % The Visibility of a channel has been changed:
+                settings.channels.list.(channelname_cur).Visible    = event.NewData;
+                ifdo_update_plot = true;
+            case 5 % The scaling of a channel has been changed:
                 settings.channels.list.(channelname_cur).dY         = event.NewData;
                 ifdo_update_plot = true;
-            case 5 % The dY value of a channel has been changed:
+            case 6 % The dY value of a channel has been changed:
                 settings.channels.list.(channelname_cur).Scale      = event.NewData;
-                ifdo_update_plot = true;
-            case 6 % The Visibility of a channel has been changed:
-                settings.channels.list.(channelname_cur).Visible    = event.NewData;
                 ifdo_update_plot = true;
         end
         if ifdo_update_plot

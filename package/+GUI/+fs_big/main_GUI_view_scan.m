@@ -29,12 +29,14 @@ is_scan_loaded                                  = false;
 settings                            = struct(); % Settings saved in struct
 UI_obj                              = struct(); %All Ui objects stored in this struct.
 
+% Some initial values for the settings:
+settings.filelist.color_counter     = 1;
+
 % Set up the display, Initiate the uifigure:
 UI_obj.main.uifigure                 = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 590 470]);
 
 % Initiate the experiment struct:
 exp_data                                = struct('scans', struct(), 'spectra', struct());
-
 
 % Create the uitable containing the list of scans:
 uitable_scan_create();
@@ -302,7 +304,7 @@ function load_scan_OK_callback(~, ~)
                         % Save the experimental data from this sample in the general data directory:
                         if ischar(settings.load_scan.csv_filelist)
                             exp_data.spectra.([UI_obj.load_scan.sample_name.Value]) = IO.SPECTROLATIUS_S2S.load_CSV_filelist(settings.load_scan.csv_filedir, settings.load_scan.csv_filelist , settings.load_scan.re_bin_factor);
-                        else 
+                        else
                             % Load the files one by one and store them
                             % in separate spectra files:
                             for spectr_nr = 1:length(settings.load_scan.csv_filelist)
@@ -319,7 +321,9 @@ function load_scan_OK_callback(~, ~)
                 settings.metadata.([UI_obj.load_scan.sample_name.Value]).re_bin_factor  = settings.load_scan.re_bin_factor;
                 settings.metadata.([UI_obj.load_scan.sample_name.Value]).csv_filelist   = settings.load_scan.csv_filelist;
                 settings.metadata.([UI_obj.load_scan.sample_name.Value]).csv_filedir    = settings.load_scan.csv_filedir;
-                settings.metadata.([UI_obj.load_scan.sample_name.Value]).sample_name      = UI_obj.load_scan.sample_name.Value;
+                settings.metadata.([UI_obj.load_scan.sample_name.Value]).sample_name    = UI_obj.load_scan.sample_name.Value;
+                settings.metadata.([UI_obj.load_scan.sample_name.Value]).Color          = plot.colormkr(settings.filelist.color_counter,1);
+                settings.filelist.color_counter                                         = settings.filelist.color_counter + 1;
                 % Update the table with the extra sample(s):
                 uitable_scan_modify();
                 uitable_spectra_modify();
