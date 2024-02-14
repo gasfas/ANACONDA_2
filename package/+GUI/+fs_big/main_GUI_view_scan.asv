@@ -241,9 +241,8 @@ function get_filepath(~, ~)
     read_setup_type_radio()
     switch  settings.load_scan.setup_type
         case 'Spektrolatius'         % Spektrolatius setup:
-        [filelist, csv_filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', defaults.load_scan.browse_dir, 'MultiSelect', 'on');
-        if iscell(filelist) & ~isempty(csv_filedir) % Multiple files selected:
-            settings.load_scan.csv_filedir = csv_filedir;
+        [filelist, settings.load_scan.csv_filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', defaults.load_scan.browse_dir, 'MultiSelect', 'on');
+        if iscell(filelist) % Multiple files selected:
             settings.load_scan.csv_filelist = filelist;
             % Close the load_file dialog:
             % Sort the filelist by photon energy. Fetch list of photon energies:
@@ -252,8 +251,7 @@ function get_filepath(~, ~)
             [~, ordering_idx] = sort(photon_energy_list_unordered);
             filelist = filelist(ordering_idx);
             UI_obj.LoadFilePath.Value = filelist;
-        elseif ischar(filelist)  & ~isempty(filelist) % only one file selected
-            settings.load_scan.csv_filedir = csv_filedir;
+        elseif ischar(filelist) % only one file selected
             UI_obj.LoadFilePath.Value = {filelist};
             settings.load_scan.csv_filelist = filelist;
         end % The third option, filelist=0, is not acted upon.

@@ -1,4 +1,4 @@
-function [defaults, settings, UI_obj] = define_channels(defaults, settings, UI_obj, exp_data, scan_name_cur)
+function [defaults, settings, UI_obj] = define_channels(defaults, settings, UI_obj, exp_data, scanname_cur)
 % Plot the photon-dependent yield of a scan, by defining channels and
 % visualizing the yields.
 
@@ -38,7 +38,7 @@ setpixelposition(UI_obj.def_channel.m2q.axes, [75, 350, 700, 200]); % Set it's l
 [exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
 
 % Plot the first M2Q spectrum:
-[UI_obj.def_channel.m2q_lines] = update_plot(exp_data);
+[UI_obj.def_channel.m2q_lines] = update_m2q_plot(exp_data);
 hold(UI_obj.def_channel.m2q.axes, 'on'); % No lines disappear when plotting additional ones.
 
 % Plot the rectangle with the rangeslider values:
@@ -63,7 +63,7 @@ update_scan_plot();
 
 % Initiate the uitables:
 uitable_channelgroup_list_create();
-uitable_channel_list_create();
+uitable_scan_list_create();
 
 % Initialize the interaction buttons (load, delete, view spectra) in the control window:
 UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
@@ -132,11 +132,11 @@ function add_channel_manually_done(~,~)
     settings.channels.list.(chgroup_fieldname).Visible     = true;
     
     for scan_name_cell = fieldnames(exp_data.scans)'
-        scan_name_cur = scan_name_cell{:}; % Set the initial values for the channels in this group:
-        settings.channels.list.(chgroup_fieldname).scanlist.(scan_name_cur).Visible     = true;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scan_name_cur).LineStyle   = LineStyle;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scan_name_cur).Marker      = Marker;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scan_name_cur).Color       = settings.metadata.(scan_name_cur).Color; % By default, the color is the same for one sample:
+        scanname_cur = scan_name_cell{:}; % Set the initial values for the channels in this group:
+        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Visible     = true;
+        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).LineStyle   = LineStyle;
+        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Marker      = Marker;
+        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = settings.metadata.(scanname_cur).Color; % By default, the color is the same for one sample:
     end
 
     % Plot a static rectangle in the mass spectrum to indicate the fragment.
@@ -155,127 +155,6 @@ function add_channel_manually_done(~,~)
     update_scan_plot();
     % update_spectra_existing_channels(chgroup_fieldname)
 end
-%% Uitable channel group functions
-
-
-%% UItable scan list functions
-
-%% Plot functions
-
-%% Slider functions
-
-    function update_spectra_existing_channels(new_channelgroup_name)
-        % update the plots showing the existing fragments:
-        % If new_channelgroup_name is given, an extra channel group is
-        % added and needs to be plotted.
-        % One of the channels is not plotted yet:
-        if exist('new_channelgroup_name', 'var')
-            for scan_name_cell = fieldnames(exp_data)' % For all loaded scans:
-                scan_name_cur = scan_name_cell{:};
-                UI_obj.def_channel.scan_plot.(new_channelgroup_name) = plot(UI_obj.def_channel.scan.axes, [], []);
-            end
-        end
-        % We update the uitable for the channel groups:
-        % The columns are the following: 
-        % {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'}
-        i = 0;
-        [Name, minMtoQ, maxMtoQ, dY, Scale, Show] = deal(cell(3,1), cell(3,1), cell(3,1), cell(3,1), cell(3,1), cell(3,1));
-        for channel_name_cell = fieldnames(settings.channels.list)'
-            i = i + 1;
-            channel_name_cur        = channel_name_cell{:};
-            Name{i}                 = settings.channels.grouplist.(channel_name_cur).Name;
-            minMtoQ{i}              = settings.channels.grouplist.(channel_name_cur).minMtoQ;
-            maxMtoQ{i}              = settings.channels.grouplist.(channel_name_cur).maxMtoQ;
-            dY{i}                   = settings.channels.grouplist.(channel_name_cur).dY;
-            Scale{i}                = settings.channels.grouplist.(channel_name_cur).Scale;
-            Show{i}                 = settings.channels.grouplist.(channel_name_cur).Show;
-        end
-        UI_obj.def_channel.uitable_channelgroup
-        UI_obj.def_channel.channelgroup.channel_001
-        UI_obj.def_channel.uitable_channelgroup.ColumnName
-
-    end
-
-    function update_scan_plot()
-    % Update the plot in the energy spectrum. 
-    % Remember the X,Y limits if the user wants it to be fixed:
-    if UI_obj.def_channel.scan.if_hold_XY
-        xlims = get(UI_obj.def_channel.scan.axes, 'XLim'); 
-        ylims = get(UI_obj.def_channel.scan.axes, 'YLim');
-    end
-    % Plot the current (slider) selection:
-    % plot_scan_sub(channelgroupnames, scannames);
-    delete(UI_obj.def_channel.scan.axes.Children)
-    % Firstly, we plot the scan defined by the channel of the current rectangle:
-    scannames = fieldnames(exp_data.scans);
-    plotnames = {};
-    for scanname_cur = scannames'
-        scanname_cur    = scanname_cur{:};
-        color_cur       = settings.metadata.(scanname_cur).Color;
-        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
-        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
-        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
-        plotname        = ['box ' scanname_cur];
-        plotnames{end+1}= plotname;
-        [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, plotname, color_cur, 'none', '-');
-        UI_obj.def_channel.lines.box    = hLine;
-    end
-
-    % Then we plot the already defined channels:
-
-    % Read through all channel groups and plot a line for each scan, if
-    % they are indicated to be visible:
-    if general.struct.issubfield(settings, 'channels.list')
-        channelgroupnames = fieldnames(settings.channels.list);
-        % Plot the existing channels:
-            for chgroupname_cur = channelgroupnames'
-                    chgroupname_cur = chgroupname_cur{:};
-                if settings.channels.list.(chgroupname_cur).Visible
-                % Get the current mass limits:
-                mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
-                for scanname_cur = scannames'
-                    scanname_cur    = scanname_cur{:};
-                    if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
-                        %Fetch the intensity data of the current sample:
-                        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
-                        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
-                        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
-                        plotname     = [scanname_cur, ', ',  settings.channels.list.(chgroupname_cur).Name];
-                        LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
-                        LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
-                        Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
-                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle);
-                        UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
-                        plotnames{end+1} = plotname;
-                    end
-                end
-          end
-    end
-    legend();
-    end
-
-    % Set the original X,Y limits if user wants it to be fixed:
-    if UI_obj.def_channel.scan.if_hold_XY
-        xlim(UI_obj.def_channel.scan.axes, xlims);
-        ylim(UI_obj.def_channel.scan.axes, ylims);
-    end
-    end
-
-    function [hLine] = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle)
-        % Plot the energy scan subplot.
-        hold(UI_obj.def_channel.scan.axes, 'on')
-        mass_limits_cur(1)  = max(min(bins), mass_limits_cur(1));
-        mass_limits_cur(2)  = min(max(bins), mass_limits_cur(2));
-        % Get the unique masses and corresponding indices:
-        [bins_u, idx_u] = unique(bins);
-        % Find the indices of the closest mass points in the data:
-        mass_indices = interp1(bins_u, idx_u, mass_limits_cur, 'nearest', 'extrap');
-        if islogical(LineStyle)| isempty(LineStyle);    LineStyle = '-'; end
-        if islogical(Marker) | isempty(Marker);         Marker = 'none'; end
-        hLine = plot(UI_obj.def_channel.scan.axes, ...
-            photon_energy, sum(M2Q_data(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName', plotname, ...
-            'Color', LineColor, 'LineStyle', LineStyle, 'Marker', Marker);
-    end
 
 function add_channel_manually_reset(~,~)
     % Set the range back to full:
@@ -295,6 +174,17 @@ function OK_close(~,~)
     UI_obj.def_channel.data_plot.Visible          = 'off';
     % TODO: how to parse the fragments to main.
 end
+
+    function hold_limits(objHandle, ~)
+        % User wants to change the state of the hold XY window:
+        UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
+    end
+
+    function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
+        delete(UI_obj.def_channel.main)
+        delete(UI_obj.def_channel.data_plot)
+    end
+%% Uitable channel group functions
 
     function uitable_channelgroup_list_create()
         % Create the table that lists the channel groups.
@@ -364,53 +254,6 @@ end
         end
     end
 
-    function uitable_channel_list_create()
-        % Create the table that lists the channels of each scan. Upon
-        % creation, there will be no channels written in it:
-        settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Marker', 'Line', 'Show'};
-        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 350 250], 'CellEditCallback', @uitable_channel_list_user_edit);
-        UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
-        UI_obj.def_channel.uitable_scans.ColumnEditable     = [false false true true true];
-        UI_obj.def_channel.uitable_scans.ColumnFormat       = {{'char'}, {'numeric'},  {'o', '+', '*', '.', 'x', '_', '|', 'square', 'diamond', '^', 'v', '>', '<', 'pentagram', 'hexagram', 'none'}, {'-', '--', ':', '-.'}, 'logical'};
-        % Set the columns tooltips:
-        % Create a sample uitable
-        % Get the Java object for the uitable
-        UI_obj.def_channel.uitable_scans.Tooltip      = {'Scan Name: The name of the scan as defined in the scan viewer window', ...
-                                                        'CR, CG, CB, Marker, Linestyle: The color (RGB 0 to 1), markerstyle and LineStyle of the specific line, respectively', ...
-                                                        'Show: Whether or not to show this line in the scan plot'};
-    end
-
-    function uitable_channel_list_selection
-        % Callback to update the requested plot line color.
-    switch hObj.Selection(2)
-        case 2 % The user wants to change the color of the line. TODO.
-                % Get the current color:
-                scan_names      = fieldnames(exp_data.scans);
-                scan_name_cur   = scan_names{hObj.Selection(1)};
-                % Call the color picker:
-                uisetcolor(settings.metadata.scan_name_cur.Color)
-    end
-    end
-
-    function uitable_channel_list_user_edit(hObj, event)
-        % Depending on the column edited, we need to update different
-        % aspects of the plot:
-        % Found out which channelgroup is selected at the moment:
-        channelgroup_name_cur   = UI_obj.def_channel.name_active_channelgroup;
-        scannames               = fieldnames(exp_data.scans);
-        scanname_cur            = scannames{event.DisplayIndices(1)};
-        switch event.DisplayIndices(2)
-            case 3 % The user wants to change the Marker:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Marker       = event.NewData;
-            case 4 % The user wants to change the LineStyle:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).LineStyle    = event.NewData;
-            case 5 % The user wants to change the LineStyle:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Visible      = event.NewData;
-        end
-        % replot the lines:
-        update_scan_plot()
-    end
-
     function uitable_add_fragment()
     % Fill in the channel group table: (Columns channelgroup_list: {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
     UI_obj.def_channel.uitable_channelgroup.Data   = compose_uitable_Data('channelgroup');
@@ -457,38 +300,184 @@ end
                 for i = 1:nof_scans
                     current_scan_name = scan_names{i};
                     uitable_data{i,1} = current_scan_name;
-                    uitable_data{i,2} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Color(1);
-                    % uitable_data{i,3} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Color(2);
-                    % uitable_data{i,4} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Color(3);
+                    uitable_data{i,2} = regexprep(num2str(round(settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Color,1)),'\s+',',');
                     uitable_data{i,3} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Marker;
                     uitable_data{i,4} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).LineStyle;
                     uitable_data{i,5} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Visible;
-
+                    % Draw background colors for the color cells:
+                    s = uistyle('BackgroundColor', settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_name).Color);
+                        addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', [i,2]);
                 end
         end
     end
+%% UItable scan list functions
+    function uitable_scan_list_create()
+        % Create the table that lists the channels of each scan. Upon
+        % creation, there will be no channels written in it:
+        settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Marker', 'Line', 'Show'};
+        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 350 250], ...
+                                                                'CellEditCallback', @uitable_scan_list_user_edit, 'CellSelectionCallback',@uitable_scan_list_selection);
+        UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
+        UI_obj.def_channel.uitable_scans.ColumnEditable     = [false false true true true];
+        UI_obj.def_channel.uitable_scans.ColumnFormat       = {{'char'}, {'char'},  {'o', '+', '*', '.', 'x', '_', '|', 'square', 'diamond', '^', 'v', '>', '<', 'pentagram', 'hexagram', 'none'}, {'-', '--', ':', '-.'}, 'logical'};
+        % Set the columns tooltips:
+        UI_obj.def_channel.uitable_scans.Tooltip      = {'Scan Name: The name of the scan as defined in the scan viewer window', ...
+                                                        'CR, CG, CB, Marker, Linestyle: The color (RGB 0 to 1), markerstyle and LineStyle of the specific line, respectively', ...
+                                                        'Show: Whether or not to show this line in the scan plot'};
+    end
 
-function[hLine, avg_M2Q] = update_plot(exp_data)
+    function uitable_scan_list_selection(hObj, event)
+        % Callback to update the requested plot line color.
+        if ~isempty(hObj.Selection) & all(unique(hObj.Selection(:,2)) == 2) % Only column 2 selected.
+            switch unique(hObj.Selection(2))
+                case 2 % The user wants to change the color of the line. TODO.
+                        % Get the current color:
+                        name_active_channelgroup = UI_obj.def_channel.name_active_channelgroup;
+                        scan_names      = fieldnames(exp_data.scans);
+                        scanname_cur   = scan_names{hObj.Selection(1,1)};
+                        % Call the color picker:
+                        newColorRGB = uisetcolor(settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color);
+                        
+                        for  i = 1:size(hObj.Selection, 1)% Possibly more than one scan needs to be re-colored:
+                            scanname_cur   = scan_names{hObj.Selection(i,1)};
+                            settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color = newColorRGB;
+                            % Write the RGB value into the cell:
+                            UI_obj.def_channel.uitable_scans.Data{i,2} = regexprep(num2str(round(newColorRGB,1)),'\s+',',');
+                        end
+                        % Color the cells of the color column to the default scan colors:
+                        hObj.Selection
+                        s = uistyle('BackgroundColor', newColorRGB);
+                        addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', hObj.Selection);
+                        update_scan_plot();
+            end
+        end
+    end
+
+    function uitable_scan_list_user_edit(hObj, event)
+        % Depending on the column edited, we need to update different
+        % aspects of the plot:
+        % Found out which channelgroup is selected at the moment:
+        channelgroup_name_cur   = UI_obj.def_channel.name_active_channelgroup;
+        scannames               = fieldnames(exp_data.scans);
+        scanname_cur            = scannames{event.DisplayIndices(1)};
+        switch event.DisplayIndices(2)
+            case 3 % The user wants to change the Marker:
+                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Marker       = event.NewData;
+            case 4 % The user wants to change the LineStyle:
+                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).LineStyle    = event.NewData;
+            case 5 % The user wants to change the LineStyle:
+                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Visible      = event.NewData;
+        end
+        % replot the lines:
+        update_scan_plot()
+    end
+
+%% Plot functions
+function[hLine, avg_M2Q] = update_m2q_plot(exp_data)
     % Plot the mass-to-charge spectra for all scans:
     avg_M2Q.XLim = [0,0];
     hold(UI_obj.def_channel.m2q.axes,"on");
     for scan_name_cell = fieldnames(exp_data.scans)'
-        scan_name_cur     = scan_name_cell{:};
-        avg_M2Q.(scan_name_cur).I       = mean(exp_data.scans.(scan_name_cur).matrix.M2Q.I, 2);
-        avg_M2Q.(scan_name_cur).bins    = exp_data.scans.(scan_name_cur).matrix.M2Q.bins;
+        scanname_cur     = scan_name_cell{:};
+        avg_M2Q.(scanname_cur).I       = mean(exp_data.scans.(scanname_cur).matrix.M2Q.I, 2);
+        avg_M2Q.(scanname_cur).bins    = exp_data.scans.(scanname_cur).matrix.M2Q.bins;
         % 
         hold(UI_obj.def_channel.m2q.axes, 'on')
         grid(UI_obj.def_channel.m2q.axes, 'on')
-        LineName_leg          = [scan_name_cur, ', averaged'];
-        hLine.(scan_name_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scan_name_cur).bins, avg_M2Q.(scan_name_cur).I, 'DisplayName',scan_name_cur);
-        hLine.(scan_name_cur).Color = exp_data.scans.(scan_name_cur).Color;
-        avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scan_name_cur).bins), avg_M2Q.XLim(1));
-        avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scan_name_cur).bins), avg_M2Q.XLim(2));
+        LineName_leg          = [scanname_cur, ', averaged'];
+        hLine.(scanname_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scanname_cur).bins, avg_M2Q.(scanname_cur).I, 'DisplayName',scanname_cur);
+        hLine.(scanname_cur).Color = settings.metadata.(scanname_cur).Color;
+        avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(1));
+        avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(2));
     end
     xlabel(UI_obj.def_channel.m2q.axes, 'mass to charge [au]')
     ylabel(UI_obj.def_channel.m2q.axes, 'Intensity [arb. u]')
     legend(UI_obj.def_channel.m2q.axes)
 end
+
+    function update_scan_plot()
+    % Update the plot in the energy spectrum. 
+    % Remember the X,Y limits if the user wants it to be fixed:
+    if UI_obj.def_channel.scan.if_hold_XY
+        xlims = get(UI_obj.def_channel.scan.axes, 'XLim'); 
+        ylims = get(UI_obj.def_channel.scan.axes, 'YLim');
+    end
+    % Plot the current (slider) selection:
+    % plot_scan_sub(channelgroupnames, scannames);
+    delete(UI_obj.def_channel.scan.axes.Children)
+    % Firstly, we plot the scan defined by the channel of the current rectangle:
+    scannames = fieldnames(exp_data.scans);
+    plotnames = {};
+    for scanname_cur = scannames'
+        scanname_cur    = scanname_cur{:};
+        color_cur       = settings.metadata.(scanname_cur).Color;
+        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
+        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
+        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
+        plotname        = [scanname_cur, ' box'];
+        plotnames{end+1}= plotname;
+        [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, plotname, color_cur, 'none', '-');
+        UI_obj.def_channel.lines.box    = hLine;
+    end
+
+    % Then we plot the already defined channels:
+
+    % Read through all channel groups and plot a line for each scan, if
+    % they are indicated to be visible:
+    if general.struct.issubfield(settings, 'channels.list')
+        channelgroupnames = fieldnames(settings.channels.list);
+        % Plot the existing channels:
+            for chgroupname_cur = channelgroupnames'
+                    chgroupname_cur = chgroupname_cur{:};
+                if settings.channels.list.(chgroupname_cur).Visible
+                % Get the current mass limits:
+                mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
+                for scanname_cur = scannames'
+                    scanname_cur    = scanname_cur{:};
+                    if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
+                        %Fetch the intensity data of the current sample:
+                        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
+                        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
+                        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
+                        plotname     = [scanname_cur, ', ',  settings.channels.list.(chgroupname_cur).Name];
+                        LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
+                        LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
+                        Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
+                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle);
+                        UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
+                        plotnames{end+1} = plotname;
+                    end
+                end
+          end
+    end
+    legend();
+    end
+
+    % Set the original X,Y limits if user wants it to be fixed:
+    if UI_obj.def_channel.scan.if_hold_XY
+        xlim(UI_obj.def_channel.scan.axes, xlims);
+        ylim(UI_obj.def_channel.scan.axes, ylims);
+    end
+    end
+
+    function [hLine] = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle)
+        % Plot the energy scan subplot.
+        hold(UI_obj.def_channel.scan.axes, 'on')
+        mass_limits_cur(1)  = max(min(bins), mass_limits_cur(1));
+        mass_limits_cur(2)  = min(max(bins), mass_limits_cur(2));
+        % Get the unique masses and corresponding indices:
+        [bins_u, idx_u] = unique(bins);
+        % Find the indices of the closest mass points in the data:
+        mass_indices = interp1(bins_u, idx_u, mass_limits_cur, 'nearest', 'extrap');
+        if islogical(LineStyle)| isempty(LineStyle);    LineStyle = '-'; end
+        if islogical(Marker) | isempty(Marker);         Marker = 'none'; end
+        hLine = plot(UI_obj.def_channel.scan.axes, ...
+            photon_energy, sum(M2Q_data(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName', plotname, ...
+            'Color', LineColor, 'LineStyle', LineStyle, 'Marker', Marker);
+    end
+
+%% Slider functions
+
 
 %Update the channel limits when the figure is zoomed:
 function update_channel_limits(jRangeSlider,event)
@@ -540,16 +529,6 @@ function update_slider_limits()
     UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
 end
 
-
-    function hold_limits(objHandle, ~)
-        % User wants to change the state of the hold XY window:
-        UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
-    end
-
-    function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
-        delete(UI_obj.def_channel.main)
-        delete(UI_obj.def_channel.data_plot)
-    end
 
     % set(UI_obj.def_channel.data_plot, 'SizeChangedFcn', @resize_channelslider);
 
