@@ -209,7 +209,7 @@ function define_channels(~, ~)
        % Fetch the name of the selected scan:
        sample_name  = UI_obj.main.scan.uitable.Data{selected_scan_nr,1};
        % Open the window to let the user select channels for the scan.
-       [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, sample_name);
+       [defaults_test, settings_test, UI_obj_test] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, sample_name);
    end
 end
 

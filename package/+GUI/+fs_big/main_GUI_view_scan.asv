@@ -209,7 +209,7 @@ function define_channels(~, ~)
        % Fetch the name of the selected scan:
        sample_name  = UI_obj.main.scan.uitable.Data{selected_scan_nr,1};
        % Open the window to let the user select channels for the scan.
-       [defaults, settings, UI_obj] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, sample_name);
+       [defaults_test, settings_test, UI_obj_test] = GUI.fs_big.define_channels(defaults, settings, UI_obj, exp_data, sample_name);
    end
 end
 
@@ -241,8 +241,9 @@ function get_filepath(~, ~)
     read_setup_type_radio()
     switch  settings.load_scan.setup_type
         case 'Spektrolatius'         % Spektrolatius setup:
-        [filelist, settings.load_scan.csv_filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', defaults.load_scan.browse_dir, 'MultiSelect', 'on');
-        if iscell(filelist) % Multiple files selected:
+        [filelist, csv_filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', defaults.load_scan.browse_dir, 'MultiSelect', 'on');
+        if iscell(filelist) & ~isempty(csv_filedir) % Multiple files selected:
+            settings.load_scan.csv_filedir = csv_filedir;
             settings.load_scan.csv_filelist = filelist;
             % Close the load_file dialog:
             % Sort the filelist by photon energy. Fetch list of photon energies:
@@ -251,7 +252,8 @@ function get_filepath(~, ~)
             [~, ordering_idx] = sort(photon_energy_list_unordered);
             filelist = filelist(ordering_idx);
             UI_obj.LoadFilePath.Value = filelist;
-        elseif ischar(filelist) % only one file selected
+        elseif ischar(filelist)  & ~isempty(filelist) % only one file selected
+            settings.load_scan.csv_filedir = csv_filedir;
             UI_obj.LoadFilePath.Value = {filelist};
             settings.load_scan.csv_filelist = filelist;
         end % The third option, filelist=0, is not acted upon.

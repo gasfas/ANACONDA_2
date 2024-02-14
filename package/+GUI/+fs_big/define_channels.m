@@ -9,12 +9,13 @@ defaults.def_channel.tooltips.Remove_channel          = 'Remove the selected cha
 defaults.def_channel.tooltips.Add_prospector_channels = 'Load channels from Prospector html file.';
 defaults.def_channel.tooltips.Import_quickview        = 'Import the fragments from quickviewer';
 defaults.def_channel.tooltips.OK                      = 'Save channels and close window';
-defaults.def_channel.tooltips.holdchbx                = 'Do not change the X, Y axes limits when changing mass spectrum';
-
+defaults.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
+defaults.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
 UI_obj.def_channel.name_active_channelgroup           = 'channel_001';
-% Hold XY;
-defaults.def_channel.scan.if_hold_XY = false; % Do not hold XY from start
-UI_obj.def_channel.scan.if_hold_XY  = defaults.def_channel.scan.if_hold_XY;
+settings.channels.show_box                            = true;
+
+% Hold XY (rangefix);
+UI_obj.def_channel.scan.if_hold_XY  = false; % Do not hold XY from start
 
 % If no fragments are defined yet, we start the counter for channels:
 if ~general.struct.issubfield(settings, 'channels.current_nr')
@@ -22,7 +23,7 @@ if ~general.struct.issubfield(settings, 'channels.current_nr')
 end
 
 % Set up the control window:
-UI_obj.def_channel.main         = uifigure('Name', 'Define and plot channels','NumberTitle','off','position',[200 50 550 600], ...
+UI_obj.def_channel.main         = uifigure('Name', 'Define and plot channels','NumberTitle','off','position',[200 50 580 600], ...
                                             'CloseRequestFcn', @close_both_scan_windows);
 
 % Set up the m2q plot window, where the slider will be placed:
@@ -32,7 +33,6 @@ UI_obj.def_channel.data_plot  = figure('Name', 'Channel scan, M/Q', 'NumberTitle
 % Plot the first mass spectrum:
 UI_obj.def_channel.m2q.axes     = axes('Parent', UI_obj.def_channel.data_plot, 'Fontsize', 10); % Initiate the axes.
 setpixelposition(UI_obj.def_channel.m2q.axes, [75, 350, 700, 200]); % Set it's location and size.
-
 
 % Calculate the spectrum matrix, to speed up plot updates:
 [exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
@@ -71,11 +71,20 @@ UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main ,
 UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position", [10, 490, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
 UI_obj.def_channel.Import_scan              = uibutton(UI_obj.def_channel.main , "Text", "Import from scan", "Position",[10, 460, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_scan, "ButtonPushedFcn", @Import_scan);
 UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 430, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
-UI_obj.def_channel.holdchbx                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'hold XY lim', 'Position', [10, 100, 100, 20], 'Tooltip', defaults.def_channel.tooltips.holdchbx, 'Value', 0, 'ValueChangedFcn', @hold_limits);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main  , "Text", 'XY anchor', 'Position', [10, 100, 100, 20], 'Tooltip', defaults.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
+UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'Show box', 'Position', [10, 130, 100, 20], 'Tooltip', defaults.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",  [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
 %% Button Callbacks
+
+function show_box(hObj, event)
+    % Read the current checkbox value:
+    settings.channels.show_box                            = event.Value;
+    % Update the scan plot:
+    update_scan_plot()
+end
+
  function Remove_channel(hObj, event)
         % Remove the selected channels from the list.
         if ~isempty(settings.channels.list) && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
@@ -120,7 +129,6 @@ function add_channel_manually_done(~,~)
     % Give all the lines in the same fragment group the same Marker and
     % LineStyle:
     [LineStyle, Marker]     = plot.linestyle_and_markermkr(settings.channels.current_nr);
-    disp(Marker)
     % Set the initial values for this channel group:
     settings.channels.list.(chgroup_fieldname).LineStyle    = LineStyle;
     settings.channels.list.(chgroup_fieldname).Marker       = Marker;
@@ -175,10 +183,12 @@ function OK_close(~,~)
     % TODO: how to parse the fragments to main.
 end
 
-    function hold_limits(objHandle, ~)
-        % User wants to change the state of the hold XY window:
-        UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
-    end
+
+function hold_limits_scan(objHandle, ~)
+    % User wants to change the state of the hold XY window:
+    UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
+end
+
 
     function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
         delete(UI_obj.def_channel.main)
@@ -190,7 +200,7 @@ end
         % Create the table that lists the channel groups.
         settings.channels.channelgroup.VariableNames            = {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
         UI_obj.def_channel.uitable_channelgroup                  = uitable(UI_obj.def_channel.main, ...
-            "ColumnName", settings.channels.channelgroup.VariableNames, "Position",[120 325 350 250], ...
+            "ColumnName", settings.channels.channelgroup.VariableNames, "Position",[120 325 450 250], ...
             'CellSelectionCallback', @uitable_channelgroup_selectioncallback);
         if isfield(settings.channels, 'list') % This means there are already channels defined:
             UI_obj.def_channel.uitable_channelgroup.Data             = compose_uitable_Data('channelgroup');
@@ -243,7 +253,7 @@ end
                 settings.channels.list.(channelname_cur).dY         = event.NewData;
                 ifdo_update_plot = true;
             case 5 % The dY value of a channel has been changed:
-                settings.channels.list.(channelname_cur).Scale      = event.NewData;
+                settings.channels.list.(channelname_cur).Yscale      = event.NewData;
                 ifdo_update_plot = true;
             case 6 % The Visibility of a channel has been changed:
                 settings.channels.list.(channelname_cur).Visible    = event.NewData;
@@ -259,7 +269,6 @@ end
     UI_obj.def_channel.uitable_channelgroup.Data   = compose_uitable_Data('channelgroup');
     % Fill in the channel table for a specific channel group:
     % Selected channel group:
-    UI_obj.def_channel.uitable_channelgroup
     % Find the list of names in the settings data:
     channelgroup_names      = fieldnames(settings.channels.list);
     if ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection)
@@ -315,7 +324,7 @@ end
         % Create the table that lists the channels of each scan. Upon
         % creation, there will be no channels written in it:
         settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Marker', 'Line', 'Show'};
-        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 350 250], ...
+        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 450 250], ...
                                                                 'CellEditCallback', @uitable_scan_list_user_edit, 'CellSelectionCallback',@uitable_scan_list_selection);
         UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
         UI_obj.def_channel.uitable_scans.ColumnEditable     = [false false true true true];
@@ -390,34 +399,38 @@ function[hLine, avg_M2Q] = update_m2q_plot(exp_data)
         avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(1));
         avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(2));
     end
-    xlabel(UI_obj.def_channel.m2q.axes, 'mass to charge [au]')
-    ylabel(UI_obj.def_channel.m2q.axes, 'Intensity [arb. u]')
-    legend(UI_obj.def_channel.m2q.axes)
+    xlabel(UI_obj.def_channel.m2q.axes, 'mass to charge [au]');
+    ylabel(UI_obj.def_channel.m2q.axes, 'Intensity [arb. u]');
+    legend(UI_obj.def_channel.m2q.axes);
 end
 
-    function update_scan_plot()
+function update_scan_plot()
     % Update the plot in the energy spectrum. 
     % Remember the X,Y limits if the user wants it to be fixed:
     if UI_obj.def_channel.scan.if_hold_XY
         xlims = get(UI_obj.def_channel.scan.axes, 'XLim'); 
         ylims = get(UI_obj.def_channel.scan.axes, 'YLim');
+    else
+        hold(UI_obj.def_channel.scan.axes, 'off')
     end
-    % Plot the current (slider) selection:
-    % plot_scan_sub(channelgroupnames, scannames);
+    % Remove the current lines if present:
     delete(UI_obj.def_channel.scan.axes.Children)
-    % Firstly, we plot the scan defined by the channel of the current rectangle:
+    % Plot the current (slider) selection if the user wishes:
     scannames = fieldnames(exp_data.scans);
     plotnames = {};
-    for scanname_cur = scannames'
-        scanname_cur    = scanname_cur{:};
-        color_cur       = settings.metadata.(scanname_cur).Color;
-        M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
-        bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
-        photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
-        plotname        = [scanname_cur, ' box'];
-        plotnames{end+1}= plotname;
-        [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, plotname, color_cur, 'none', '-');
-        UI_obj.def_channel.lines.box    = hLine;
+    if settings.channels.show_box
+        % Firstly, we plot the scan defined by the channel of the current rectangle:
+        for scanname_cur = scannames'
+            scanname_cur    = scanname_cur{:};
+            color_cur       = settings.metadata.(scanname_cur).Color;
+            M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
+            bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
+            photon_energy   = exp_data.scans.(scanname_cur).photon.energy;
+            plotname        = [scanname_cur, ' box'];
+            plotnames{end+1}= plotname;
+            [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, 1, 0, plotname, color_cur, 'none', '-');
+            UI_obj.def_channel.lines.box    = hLine;
+        end
     end
 
     % Then we plot the already defined channels:
@@ -432,6 +445,8 @@ end
                 if settings.channels.list.(chgroupname_cur).Visible
                 % Get the current mass limits:
                 mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
+                Yscale          = settings.channels.list.(chgroupname_cur).Yscale % Scale in Y direction
+                dY              = settings.channels.list.(chgroupname_cur).dY; % Vertical offset
                 for scanname_cur = scannames'
                     scanname_cur    = scanname_cur{:};
                     if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
@@ -443,24 +458,26 @@ end
                         LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
                         LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
                         Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
-                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle);
+                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, plotname, LineColor, Marker, LineStyle);
                         UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
                         plotnames{end+1} = plotname;
                     end
                 end
           end
-    end
-    legend();
+       end
     end
 
     % Set the original X,Y limits if user wants it to be fixed:
     if UI_obj.def_channel.scan.if_hold_XY
         xlim(UI_obj.def_channel.scan.axes, xlims);
         ylim(UI_obj.def_channel.scan.axes, ylims);
+    else
+        axis tight
     end
-    end
+legend();
+end
 
-    function [hLine] = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, plotname, LineColor, Marker, LineStyle)
+    function [hLine] = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, plotname, LineColor, Marker, LineStyle)
         % Plot the energy scan subplot.
         hold(UI_obj.def_channel.scan.axes, 'on')
         mass_limits_cur(1)  = max(min(bins), mass_limits_cur(1));
@@ -472,7 +489,7 @@ end
         if islogical(LineStyle)| isempty(LineStyle);    LineStyle = '-'; end
         if islogical(Marker) | isempty(Marker);         Marker = 'none'; end
         hLine = plot(UI_obj.def_channel.scan.axes, ...
-            photon_energy, sum(M2Q_data(mass_indices(1):mass_indices(2),:),1), 'b', 'DisplayName', plotname, ...
+            photon_energy, Yscale*sum(M2Q_data(mass_indices(1):mass_indices(2),:),1) + dY, 'b', 'DisplayName', plotname, ...
             'Color', LineColor, 'LineStyle', LineStyle, 'Marker', Marker);
     end
 
