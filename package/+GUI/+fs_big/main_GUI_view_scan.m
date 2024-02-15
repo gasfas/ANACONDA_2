@@ -33,7 +33,7 @@ UI_obj                              = struct(); %All Ui objects stored in this s
 settings.filelist.color_counter     = 1;
 
 % Set up the display, Initiate the uifigure:
-UI_obj.main.uifigure                 = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 590 470]);
+UI_obj.main.uifigure                 = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 590 470], 'CloseRequestFcn', @close_all_GUI_windows);
 
 % Initiate the experiment struct:
 exp_data                                = struct('scans', struct(), 'spectra', struct());
@@ -160,6 +160,14 @@ function load_scan_Keypress_callback(hObj, event)
     end
 end
 
+function close_all_GUI_windows(~,~) % Make sure that all windows close when the main one is closed by user.
+    try delete(UI_obj.def_channel.main);        end
+    try delete(UI_obj.def_channel.data_plot);   end
+    try delete(UI_obj.data_plot);               end
+    try delete(UI_obj.plot.m2q.main);           end
+    try delete(UI_obj.plot.m2q.plot_window);    end
+end
+
 function remove_scan_GUI(~, ~)
     % Read which scan was selected:
     if isempty(fieldnames(exp_data.scans))
@@ -184,10 +192,9 @@ function plot_spectra_GUI(~, ~)
     if isempty(fieldnames(exp_data))
         UI_obj.main.plot_m2q.empty_data_plot_msgbox = msgbox('Cannot plot mass spectra, since there are no scans loaded yet. Nice try.');
     else
-        % Find out which are the selected scans:
-        [data_to_plot] = fetch_selected_scans();
-        % Send these selected spectra to mass spectrum plotter:
-        [defaults, UI_obj] = GUI.fs_big.Plot_m2q(data_to_plot, defaults, UI_obj);
+        % % Find out which are the selected scans:
+        % [data_to_plot] = fetch_selected_scans();
+        [defaults, UI_obj] = GUI.fs_big.Plot_m2q(exp_data, defaults, UI_obj);
     end
 end
 
@@ -203,7 +210,7 @@ function define_channels(~, ~)
        end
    end
    
-   if isempty(selected_scan_nr)
+   if isempty(selected_scan_nr) || isempty(fieldnames(exp_data.scans))
        msgbox('Please load and select the scan for which you want to define fragments.')
    else
        % Fetch the name of the selected scan:
@@ -215,7 +222,9 @@ end
 
 function [data_to_plot, metadata_to_plot, sample_names] = fetch_selected_scans()
     % Check which run(s) are selected.
-    if isempty(UI_obj.main.scan.uitable.Selection)
+    if isempty(fieldnames(exp_data.scans)) && isempty(fieldnames(exp_data.spectra))
+        msgbox('Please load and select the scan for which you want to define fragments.')
+    elseif isempty(UI_obj.main.scan.uitable.Selection)
         % No data selected, All samples will be available in the plot interface:
         sample_names    = fieldnames(exp_data.scans);
         data_to_plot    = exp_data.scans;
@@ -375,11 +384,12 @@ end
 
     function uitable_scan_create()
         % Create the table that lists the scans.
-        UI_obj.main.scan.Properties.VariableNames = {'Scan name', '#', 'Emin', 'max', 'Color'};
+        UI_obj.main.scan.Properties.VariableNames = {'Scan name', '#', 'Emin', 'Emax', 'Color'};
         UI_obj.main.scan.uitable                  = uitable(UI_obj.main.uifigure , "ColumnName", UI_obj.main.scan.Properties.VariableNames, "Position",[10 40 430 190]);
         UI_obj.main.scan.uitable.CellEditCallback = @uitable_scan_user_edit;
         UI_obj.main.scan.uitable.CellSelectionCallback = @uitable_scan_user_select;
         UI_obj.main.scan.uitable.ColumnEditable   = [true false false false, false];
+        UI_obj.main.scan.uitable.ColumnWidth      = {200, 40, 50, 50, 50};
         UI_obj.main.scan.uitable.ColumnFormat     = {'char', 'numeric', 'numeric', 'numeric', 'char'};
     end
 
@@ -438,6 +448,7 @@ end
         UI_obj.main.spectra.Properties.VariableNames = {'Spectrum name', 'Type'};
         UI_obj.main.spectra.uitable                  = uitable(UI_obj.main.uifigure , "ColumnName", UI_obj.main.spectra.Properties.VariableNames, "Position",[10 250 430 190]);
         UI_obj.main.spectra.uitable.CellEditCallback = @uitable_spectra_user_edit;
+        UI_obj.main.spectra.uitable.ColumnWidth     = {250, 200};
         UI_obj.main.spectra.uitable.ColumnEditable   = [true true];
         UI_obj.main.spectra.uitable.ColumnFormat{1}  = {'char'};
         UI_obj.main.spectra.uitable.ColumnFormat{2} = {'ESI_only', 'no_ESI', 'background', 'none'};

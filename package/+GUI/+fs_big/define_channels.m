@@ -189,11 +189,11 @@ function hold_limits_scan(objHandle, ~)
     UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
 end
 
+function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
+    delete(UI_obj.def_channel.main)
+    delete(UI_obj.def_channel.data_plot)
+end
 
-    function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
-        delete(UI_obj.def_channel.main)
-        delete(UI_obj.def_channel.data_plot)
-    end
 %% Uitable channel group functions
 
     function uitable_channelgroup_list_create()
@@ -201,7 +201,7 @@ end
         settings.channels.channelgroup.VariableNames            = {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
         UI_obj.def_channel.uitable_channelgroup                  = uitable(UI_obj.def_channel.main, ...
             "ColumnName", settings.channels.channelgroup.VariableNames, "Position",[120 325 450 250], ...
-            'CellSelectionCallback', @uitable_channelgroup_selectioncallback);
+            'ColumnWidth', 'Fit', 'CellSelectionCallback', @uitable_channelgroup_selectioncallback);
         if isfield(settings.channels, 'list') % This means there are already channels defined:
             UI_obj.def_channel.uitable_channelgroup.Data             = compose_uitable_Data('channelgroup');
         else % This means there are no channel (groups) defined yet:
@@ -325,7 +325,7 @@ end
         % creation, there will be no channels written in it:
         settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Marker', 'Line', 'Show'};
         UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 450 250], ...
-                                                                'CellEditCallback', @uitable_scan_list_user_edit, 'CellSelectionCallback',@uitable_scan_list_selection);
+                                                                'CellEditCallback', @uitable_scan_list_user_edit, 'ColumnWidth', 'Fit', 'CellSelectionCallback',@uitable_scan_list_selection);
         UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
         UI_obj.def_channel.uitable_scans.ColumnEditable     = [false false true true true];
         UI_obj.def_channel.uitable_scans.ColumnFormat       = {{'char'}, {'char'},  {'o', '+', '*', '.', 'x', '_', '|', 'square', 'diamond', '^', 'v', '>', '<', 'pentagram', 'hexagram', 'none'}, {'-', '--', ':', '-.'}, 'logical'};

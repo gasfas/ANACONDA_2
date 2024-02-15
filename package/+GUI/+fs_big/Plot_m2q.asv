@@ -16,9 +16,6 @@ defaults.plot_m2q.tooltips.remember_linechbx = 'Hold the currently plotted spect
 defaults.plot_m2q.tooltips.holdchbx            = 'Do not change the X, Y axes limits when changing mass spectrum';
 
 if ~isfield(settings.spectra)
-    % There are no properties of the spectra defined yet:
-    settings.spectra.dY
-end
 
 % Initiate the main plot window with the central axes:
 UI_obj.plot.m2q.main = uifigure('Name', 'Control mass spectra, exp names: ' + join(string(scan_names), ', '), ...
