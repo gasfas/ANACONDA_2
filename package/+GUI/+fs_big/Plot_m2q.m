@@ -17,7 +17,7 @@ defaults.plot_m2q.tooltips.holdchbx            = 'Do not change the X, Y axes li
 
 if ~isfield(settings.spectra)
     % There are no properties of the spectra defined yet:
-    settings.spectra.dY
+    settings.spectra.dY % TODO refactoring first.
 end
 
 % Initiate the main plot window with the central axes:

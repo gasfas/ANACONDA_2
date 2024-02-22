@@ -20,8 +20,6 @@ if ~general.struct.issubfield(settings, 'channels.current_nr')
     settings.channels.current_nr = 0;
 end
 
-function [defaults, settings, UI_obj] = plot_scan(defaults, settings, UI_obj, exp_data, scanname_cur)
-
 % Set up the control window:
 UI_obj.def_channel.main         = uifigure('Name', 'Define and plot channels','NumberTitle','off','position',[200 50 580 600], ...
                                             'CloseRequestFcn', @close_both_scan_windows);
@@ -73,7 +71,6 @@ UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main ,
 UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main  , "Text", 'XY anchor', 'Position',    [10, 100, 100, 20], 'Tooltip', defaults.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
 UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'Show box', 'Position',     [10, 130, 100, 20], 'Tooltip', defaults.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",              [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
-end
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
 %% Button Callbacks
