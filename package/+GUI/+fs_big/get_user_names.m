@@ -1,4 +1,4 @@
-function scan_usernames = get_user_scannames(scans)
+function scan_usernames = get_user_names(scans)
 % Fetch the user-visible names of the scans:
 
 % The amount of scans defined:

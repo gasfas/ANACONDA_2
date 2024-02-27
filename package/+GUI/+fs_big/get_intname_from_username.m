@@ -10,7 +10,7 @@ function [intname] = get_intname_from_username(input_struct, username_input)
 % Get the internal names:
 Intnames    = fieldnames(input_struct);
 % Get the corresponding user names:
-usernames = GUI.fs_big.get_user_scannames(input_struct);
+usernames = GUI.fs_big.get_user_names(input_struct);
 % Find the internal name:
 [idx] = find(ismember(usernames, username_input));
 % Make sure no duplicate names:
