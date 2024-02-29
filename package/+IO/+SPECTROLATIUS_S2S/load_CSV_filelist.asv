@@ -59,7 +59,7 @@ if iscell(csv_scan_filenames)
 else
     fid = fopen(csv_scan_filenames);
 end
-comment_line = fgetl(fid);
+comment_line = textscan(fid);
 fclose(fid);
 
 sample_data.comments        = comment_line;

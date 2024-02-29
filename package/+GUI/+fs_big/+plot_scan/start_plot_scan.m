@@ -1,14 +1,18 @@
+function start_plot_scan(GUI_settings)
+% Get the variables from base workspace:
+[GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+
 % Plot the photon-dependent yield of a scan, by defining channels and
 % visualizing the yields.
 
 % Define the tooltips to help the user understand what a button does:
-defaults.def_channel.tooltips.Add_single_channel      = 'Manually add a channel by clicking the channel limits in the axes of the mass spectrum';
-defaults.def_channel.tooltips.Remove_channel          = 'Remove the selected channels';
-defaults.def_channel.tooltips.Add_prospector_channels = 'Load channels from Prospector html file.';
-defaults.def_channel.tooltips.Import_quickview        = 'Import the fragments from quickviewer';
-defaults.def_channel.tooltips.OK                      = 'Save channels and close window';
-defaults.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
-defaults.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
+GUI_settings.def_channel.tooltips.Add_single_channel      = 'Manually add a channel by clicking the channel limits in the axes of the mass spectrum';
+GUI_settings.def_channel.tooltips.Remove_channel          = 'Remove the selected channels';
+GUI_settings.def_channel.tooltips.Add_prospector_channels = 'Load channels from Prospector html file.';
+GUI_settings.def_channel.tooltips.Import_quickview        = 'Import the fragments from quickviewer';
+GUI_settings.def_channel.tooltips.OK                      = 'Save channels and close window';
+GUI_settings.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
+GUI_settings.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
 UI_obj.def_channel.name_active_channelgroup           = 'channel_001';
 settings.channels.show_box                            = true;
 
@@ -19,8 +23,6 @@ UI_obj.def_channel.scan.if_hold_XY  = false; % Do not hold XY from start
 if ~general.struct.issubfield(settings, 'channels.current_nr')
     settings.channels.current_nr = 0;
 end
-
-function [defaults, settings, UI_obj] = plot_scan(defaults, settings, UI_obj, exp_data, scanname_cur)
 
 % Set up the control window:
 UI_obj.def_channel.main         = uifigure('Name', 'Define and plot channels','NumberTitle','off','position',[200 50 580 600], ...
@@ -38,7 +40,7 @@ setpixelposition(UI_obj.def_channel.m2q.axes, [75, 350, 700, 200]); % Set it's l
 [exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
 
 % Plot the first M2Q spectrum:
-[UI_obj.def_channel.m2q_lines] = update_m2q_plot(exp_data);
+update_m2q_plot(exp_data);
 hold(UI_obj.def_channel.m2q.axes, 'on'); % No lines disappear when plotting additional ones.
 
 % Plot the rectangle with the rangeslider values:
@@ -66,14 +68,14 @@ uitable_channelgroup_list_create();
 uitable_scan_list_create();
 
 % Initialize the interaction buttons (load, delete, view spectra) in the control window:
-UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
-UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main , "Text", "Add Prospector", "Position",  [10, 520, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
-UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
-UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', defaults.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
-UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main  , "Text", 'XY anchor', 'Position',    [10, 100, 100, 20], 'Tooltip', defaults.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
-UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'Show box', 'Position',     [10, 130, 100, 20], 'Tooltip', defaults.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
-UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",              [10, 10, 100, 20], 'Tooltip', defaults.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
-end
+UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
+UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main , "Text", "Add Prospector", "Position",  [10, 520, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
+UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
+UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main  , "Text", '⚓', 'Position',    [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
+UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'Show box', 'Position',     [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
+UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",              [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
+
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
 %% Button Callbacks
@@ -87,7 +89,7 @@ end
 
 function Remove_channel(~, ~)
         % Remove the selected channels from the list.
-        if ~isempty(settings.channels.list) && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
+        if numel(fieldnames(settings.channels.list))>0 && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
             rownrs              = unique(UI_obj.def_channel.uitable_channelgroup.Selection(:,1));
             % Remove from the fragment list:
             channelgroup_list = fieldnames(settings.channels.list);
@@ -103,22 +105,28 @@ function Remove_channel(~, ~)
                 % remove the channel groups from the uitable data:
                 settings.channels.list  = rmfield(settings.channels.list, channelgroup_list{rownrs});
             end
+
+            % Update the scan table:
+            if numel(fieldnames(settings.channels.list)) > 0
+                UI_obj.def_channel.uitable_channelgroup.Data           = compose_uitable_Data('channelgroup', new_channelgroup_list{1});
+                UI_obj.def_channel.uitable_scans.Data                  = compose_uitable_Data('channel', new_channelgroup_list{1});
+            else
+                UI_obj.def_channel.uitable_channelgroup.Data           = {};
+                UI_obj.def_channel.uitable_scans.Data                  = {};
+            end
         else
             msgbox('No fragments to remove. Please select the fragment(s) you want to remove in the table.')
         end
         new_channelgroup_list = fieldnames(settings.channels.list);
-        % Update the scan table:
-        UI_obj.def_channel.uitable_channelgroup.Data           = compose_uitable_Data('channelgroup', new_channelgroup_list{1});
-        UI_obj.def_channel.uitable_scans.Data                   = compose_uitable_Data('channel', new_channelgroup_list{1});
     end
 
 function add_channel_manually(~,~)
     % User wants to manually pick a fragment from the plot window.
     UI_obj.def_channel.Add_single_channel.Visible = 'off';
     UI_obj.def_channel.Done     = uibutton(UI_obj.def_channel.main , "Text", "Done", "Position", ...
-        [10, 550, 50, 20], 'Tooltip', defaults.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually_done);
+        [10, 550, 50, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually_done);
     UI_obj.def_channel.Reset     = uibutton(UI_obj.def_channel.main , "Text", "Reset", "Position", ...
-        [65, 550, 45, 20], 'Tooltip', defaults.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually_reset);
+        [65, 550, 45, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually_reset);
 end
 
 function add_channel_manually_done(~,~)
@@ -194,8 +202,8 @@ function hold_limits_scan(objHandle, ~)
 end
 
 function close_both_scan_windows(~,~) % Make sure that both windows close when one is closed by user.
-    %TODO make sure the channel information is saved to memory.
-    delete(UI_obj.def_channel.main)
+    %TODO make sure the channel information is saved to memory. 
+    delete(UI_obj.def_channel.main) 
     delete(UI_obj.def_channel.data_plot)
 end
 
@@ -215,6 +223,7 @@ end
         UI_obj.def_channel.uitable_channelgroup.ColumnEditable   = [true true true true, true, true];
         UI_obj.def_channel.uitable_channelgroup.ColumnFormat     = {'char', 'numeric', 'numeric', 'numeric', 'numeric', 'logical'};
         UI_obj.def_channel.uitable_channelgroup.CellEditCallback = @uitable_channelgroup_user_edit;
+        UI_obj.def_channel.uitable_channelgroup.ColumnWidth      = {140, 70, 70, 40, 50, 50};
     end
 
     function uitable_channelgroup_selectioncallback(~, event)
@@ -285,52 +294,52 @@ end
     UI_obj.def_channel.uitable_scans.Data           = compose_uitable_Data('channel', channelgroup_name_cur);
 end
 
-    function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgroup)
-        % The amount of channel groups defined:
-        channelgroup_names  = fieldnames(settings.channels.list);
-        nof_channelgroups   = numel(channelgroup_names);
-        % The amount of scans defined:
-        scan_usernames          = GUI.fs_big.get_user_scannames(exp_data.scans);
-        scan_intnames           = fieldnames(exp_data.scans);
-        nof_scans               = numel(scan_intnames);
-        switch uitable_type
-            case 'channelgroup' 
-                % Data_column_fieldnames : {'Name', 'minMtoQ', 'maxMtoQ', 'dY', 'Scale', 'Visible'};
-                uitable_data = cell(nof_channelgroups, 6);
-                for i = 1:nof_channelgroups
-                    chgroup_fieldname = channelgroup_names{i};
-                    uitable_data{i,1} = settings.channels.list.(chgroup_fieldname).Name;
-                    uitable_data{i,2} = settings.channels.list.(chgroup_fieldname).minMtoQ;
-                    uitable_data{i,3} = settings.channels.list.(chgroup_fieldname).maxMtoQ;
-                    uitable_data{i,4} = settings.channels.list.(chgroup_fieldname).dY;
-                    uitable_data{i,5} = settings.channels.list.(chgroup_fieldname).Yscale;
-                    uitable_data{i,6} = settings.channels.list.(chgroup_fieldname).Visible;
-                end
-            case 'channel'
-                % If a channel uitable is to be made, we need to know which
-                % channel group is currently to be shown.
-                % 'Selected_channelgroup' is therefore an obligatory input.
-                % Data_column_fieldnames: {'Scan Name', 'CR', 'CG', 'CB', 'Marker', 'LineStyle', 'Visible'};
-                uitable_data = cell(nof_scans, 6);
-                for i = 1:nof_scans
-                    current_scan_username   = scan_usernames{i};
-                    current_scan_intname    = scan_intnames{i};
-                    uitable_data{i,1} = current_scan_username;
-                    uitable_data{i,2} = regexprep(num2str(round(settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color,1)),'\s+',',');
-                    uitable_data{i,3} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Marker;
-                    uitable_data{i,4} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).LineStyle;
-                    uitable_data{i,5} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Visible;
-                    % Draw background colors for the color cells:
-                    s = uistyle('BackgroundColor', settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color);
-                        addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', [i,2]);
-                end
+function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgroup)
+    % The amount of channel groups defined:
+    channelgroup_names  = fieldnames(settings.channels.list);
+    nof_channelgroups   = numel(channelgroup_names);
+    % The amount of scans defined:
+    scan_usernames          = GUI.fs_big.get_user_names(exp_data.scans);
+    scan_intnames           = fieldnames(exp_data.scans);
+    nof_scans               = numel(scan_intnames);
+    switch uitable_type
+        case 'channelgroup' 
+            % Data_column_fieldnames : {'Name', 'minMtoQ', 'maxMtoQ', 'dY', 'Scale', 'Visible'};
+            uitable_data = cell(nof_channelgroups, 6);
+            for i = 1:nof_channelgroups
+                chgroup_fieldname = channelgroup_names{i};
+                uitable_data{i,1} = settings.channels.list.(chgroup_fieldname).Name;
+                uitable_data{i,2} = settings.channels.list.(chgroup_fieldname).minMtoQ;
+                uitable_data{i,3} = settings.channels.list.(chgroup_fieldname).maxMtoQ;
+                uitable_data{i,4} = settings.channels.list.(chgroup_fieldname).dY;
+                uitable_data{i,5} = settings.channels.list.(chgroup_fieldname).Yscale;
+                uitable_data{i,6} = settings.channels.list.(chgroup_fieldname).Visible;
             end
+        case 'channel'
+            % If a channel uitable is to be made, we need to know which
+            % channel group is currently to be shown.
+            % 'Selected_channelgroup' is therefore an obligatory input.
+            % Data_column_fieldnames: {'Scan Name', 'Color', 'Marker', 'LineStyle', 'Visible'};
+            uitable_data = cell(nof_scans, 5);
+            for i = 1:nof_scans
+                current_scan_username   = scan_usernames{i};
+                current_scan_intname    = scan_intnames{i};
+                uitable_data{i,1} = current_scan_username;
+                uitable_data{i,2} = regexprep(num2str(round(settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color,1)),'\s+',',');
+                uitable_data{i,3} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Marker;
+                uitable_data{i,4} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).LineStyle;
+                uitable_data{i,5} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Visible;
+                % Draw background colors for the color cells:
+                s = uistyle('BackgroundColor', settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color);
+                    addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', [i,2]);
+            end
+        end
     end
 %% UItable scan list functions
     function uitable_scan_list_create()
         % Create the table that lists the channels of each scan. Upon
         % creation, there will be no channels written in it:
-        settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Marker', 'Line', 'Show'};
+        settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Mark', 'Line', 'Show'};
         UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 450 250], ...
                                                                 'CellEditCallback', @uitable_scan_list_user_edit, 'ColumnWidth', 'Fit', 'CellSelectionCallback',@uitable_scan_list_selection);
         UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
@@ -340,6 +349,8 @@ end
         UI_obj.def_channel.uitable_scans.Tooltip      = {'Scan Name: The name of the scan as defined in the scan viewer window', ...
                                                         'CR, CG, CB, Marker, Linestyle: The color (RGB 0 to 1), markerstyle and LineStyle of the specific line, respectively', ...
                                                         'Show: Whether or not to show this line in the scan plot'};
+
+        UI_obj.def_channel.uitable_scans.ColumnWidth      = {140, 50, 50, 50, 50};
     end
 
     function uitable_scan_list_selection(hObj, ~)
@@ -400,7 +411,8 @@ function[hLine, avg_M2Q] = update_m2q_plot(exp_data)
         % 
         hold(UI_obj.def_channel.m2q.axes, 'on')
         grid(UI_obj.def_channel.m2q.axes, 'on')
-        hLine.(scanname_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scanname_cur).bins, avg_M2Q.(scanname_cur).I, 'DisplayName',scanname_cur);
+        plotname        = [general.char.replace_symbol_in_char(exp_data.scans.(scanname_cur).Name, '_', ' '), ' box'];
+        hLine.(scanname_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scanname_cur).bins, avg_M2Q.(scanname_cur).I, 'DisplayName',plotname);
         hLine.(scanname_cur).Color = exp_data.scans.(scanname_cur).Color;
         avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(1));
         avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(2));
@@ -438,7 +450,7 @@ function update_scan_plot()
             M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
             bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
             photon_energy   = exp_data.scans.(scanname_cur).Data.photon.energy;
-            plotname        = [scanname_cur, ' box'];
+            plotname        = [general.char.replace_symbol_in_char(exp_data.scans.(scanname_cur).Name, '_', ' '), ' box'];
             plotnames{i}    = plotname;
             i               = i + 1;
             [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, 1, 0, plotname, color_cur, 'none', '-');
@@ -556,7 +568,7 @@ function update_slider_limits()
 
     UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
 end
-
+end
 
     % set(UI_obj.def_channel.data_plot, 'SizeChangedFcn', @resize_channelslider);
 

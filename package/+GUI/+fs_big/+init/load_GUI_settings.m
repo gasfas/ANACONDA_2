@@ -1,8 +1,7 @@
 function [GUI_settings] = load_GUI_settings(GUI_settings)
 % Set some initial GUI_settings for the GUI:
 
-GUI_settings.load_scan.browse_dir                   = 'C:\';
-GUI_settings.load_scan.browse_dir                   = 'D:\DATA\2024\Galaxies_2024\KM-5 Skedge scan intermediate steps';
+GUI_settings.load_scan.browse_dir                   = 'D:\DATA\2023\PETRA P04\';
 GUI_settings.load_scan.setup_type                   = 'Spektrolatius';
 GUI_settings.load_scan.tooltips.re_bin_factor       = 'The re-bin factor reduces the amount of (m2q) datapoints by calculating the average of every bunch of ''re-bin factor'' values.';
 GUI_settings.load_scan.tooltips.sample_name         = 'Fill in the name of the sample or run you are loading. For example: ""MetEnk_Desirs"" ';

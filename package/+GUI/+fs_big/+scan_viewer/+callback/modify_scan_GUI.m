@@ -20,11 +20,11 @@ function modify_scan_GUI(~, ~, GUI_settings)
             % Get the internal name:
             sample_intscanname_selected         = GUI.fs_big.get_intname_from_username(exp_data.scans, sample_userscanname_selected);
             % Read the metadata from that run:
-            selected_sample_GUI_settings        = exp_data.scans.(sample_intscanname_selected{:}).metadata.IO;
+            selected_sample_GUI_settings        = exp_data.scans.(sample_intscanname_selected).metadata.IO;
             % Overwrite the load_scan metadata with that from the selected scan:
-            GUI_settings.load_scan              = general.struct.catstruct(GUI_settings.load_scan, exp_data.scans.(sample_intscanname_selected{:}).metadata.IO);
+            GUI_settings.load_scan              = general.struct.catstruct(GUI_settings.load_scan, exp_data.scans.(sample_intscanname_selected).metadata.IO);
             GUI_settings.load_scan.is_scan      = true;
-            GUI_settings.load_scan.Color        = exp_data.scans.(sample_intscanname_selected{:}).Color;
+            GUI_settings.load_scan.Color        = exp_data.scans.(sample_intscanname_selected).Color;
             % Then use the metadata as initial GUI_settings to load_scan_window and load the modified scan:
             [GUI_settings, UI_obj]              = GUI.fs_big.load_scan.load_scan_window(GUI_settings, sample_userscanname_selected{:}, UI_obj, true);
         end
