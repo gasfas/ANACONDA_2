@@ -25,12 +25,12 @@ if ~general.struct.issubfield(settings, 'channels.current_nr')
 end
 
 % Set up the control window:
-UI_obj.def_channel.main         = uifigure('Name', 'Define and plot channels','NumberTitle','off','position',[200 50 580 600], ...
-                                            'CloseRequestFcn', @close_both_scan_windows);
+UI_obj.def_channel.main         = uifigure('Name', 'Control panel photon scans','NumberTitle','off','position',[200 50 580 600]);%, ...
+                                            % 'CloseRequestFcn', @close_both_scan_windows);
 
 % Set up the m2q plot window, where the slider will be placed:
-UI_obj.def_channel.data_plot  = figure('Name', 'Channel scan, M/Q', 'NumberTitle','off', 'position', [20 20 800 600], ...
-                                        'CloseRequestFcn', @close_both_scan_windows); % Make sure that both windows close when one is closed by user.
+UI_obj.def_channel.data_plot  = figure('Name', 'Plot photon scans', 'NumberTitle','off', 'position', [20 20 800 600]);%, ...
+                                        % 'CloseRequestFcn', @close_both_scan_windows); % Make sure that both windows close when one is closed by user.
 
 % Plot the first mass spectrum:
 UI_obj.def_channel.m2q.axes     = axes('Parent', UI_obj.def_channel.data_plot, 'Fontsize', 10); % Initiate the axes.
@@ -173,6 +173,9 @@ function add_channel_manually_done(~,~)
     % Make the scan plot keep the current channel plot:
     update_scan_plot();
     % update_spectra_existing_channels(chgroup_fieldname)
+
+    % Set the variables to base workspace:
+    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 end
 
 function add_channel_manually_reset(~,~)
@@ -412,7 +415,7 @@ function[hLine, avg_M2Q] = update_m2q_plot(exp_data)
         hold(UI_obj.def_channel.m2q.axes, 'on')
         grid(UI_obj.def_channel.m2q.axes, 'on')
         plotname        = [general.char.replace_symbol_in_char(exp_data.scans.(scanname_cur).Name, '_', ' '), ' box'];
-        hLine.(scanname_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scanname_cur).bins, avg_M2Q.(scanname_cur).I, 'DisplayName',plotname);
+        hLine.(scanname_cur)   = plot(UI_obj.def_channel.m2q.axes, avg_M2Q.(scanname_cur).bins, avg_M2Q.(scanname_cur).I, 'DisplayName', plotname);
         hLine.(scanname_cur).Color = exp_data.scans.(scanname_cur).Color;
         avg_M2Q.XLim(1)         = min(min(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(1));
         avg_M2Q.XLim(2)         = max(max(avg_M2Q.(scanname_cur).bins), avg_M2Q.XLim(2));
@@ -479,11 +482,11 @@ function update_scan_plot()
                         M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
                         bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
                         photon_energy   = exp_data.scans.(scanname_cur).Data.photon.energy;
-                        plotname     = [scanname_cur, ', ',  settings.channels.list.(chgroupname_cur).Name];
+                        plotname     = [exp_data.scans.(scanname_cur).Name, ', ',  settings.channels.list.(chgroupname_cur).Name];
                         LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
                         LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
                         Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
-                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, plotname, LineColor, Marker, LineStyle);
+                        hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, general.char.replace_symbol_in_char(plotname, '_', ' '), LineColor, Marker, LineStyle);
                         UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
                         plotnames{i}    = plotname;
                         i               = i + 1;

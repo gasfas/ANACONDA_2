@@ -40,8 +40,6 @@ UI_obj.plot.m2q.smooth_label        = uilabel(UI_obj.plot.m2q.main, 'Text', 'smo
 UI_obj.plot.m2q.cur_line_color      = uibutton(UI_obj.plot.m2q.main, 'Position', [310, 10, 20, 25], 'Text', 'C', ...
                         'ButtonPushedFcn', @change_cur_line_color, 'Tooltip', GUI_settings.plot_m2q.tooltips.cur_line_color, 'BackgroundColor', plot.colormkr(nof_remembered_lines, 1));
 
-
-
 % Spectrum/scan tabs:
 UI_obj.plot.m2q.uitabgroup.main         = uitabgroup(UI_obj.plot.m2q.main, "Position", [5, 45, 340, 250]);
 if numel(fieldnames(exp_data.spectra)) >= 1
@@ -69,8 +67,8 @@ if numel(fieldnames(exp_data.scans)) >= 1
 
     UI_obj.plot.m2q.uitabgroup.scans        = uitab(UI_obj.plot.m2q.uitabgroup.main, "Title",   "Scans");
     % Scan tab:
-    set(UI_obj.plot.m2q.main, 'CloseRequestFcn', @close_both_M2Q_windows); % Make sure that both windows close when one is closed by user.
-    set(UI_obj.plot.m2q.plot_window, 'CloseRequestFcn', @close_both_M2Q_windows);
+    % set(UI_obj.plot.m2q.main, 'CloseRequestFcn', @close_both_M2Q_windows); % Make sure that both windows close when one is closed by user.
+    % set(UI_obj.plot.m2q.plot_window, 'CloseRequestFcn', @close_both_M2Q_windows);
     
     [sliderMajorTicks, SliderMajorTickLabels] = get_uislider_ticks(spectrum_numbers_sample_cur);
         UI_obj.plot.m2q.spectr_slider = uislider(UI_obj.plot.m2q.uitabgroup.scans, 'Limits', [min(spectrum_numbers_sample_cur), max(spectrum_numbers_sample_cur)], ...

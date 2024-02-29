@@ -73,8 +73,9 @@ else % The files exist.
                             exp_data.spectra.(spectr_name_cur).metadata.IO.re_bin_factor= GUI_settings.load_scan.re_bin_factor;
                             exp_data.spectra.(spectr_name_cur).metadata.IO.csv_filelist = GUI_settings.load_scan.csv_filelist;
                             exp_data.spectra.(spectr_name_cur).metadata.IO.csv_filedir  = GUI_settings.load_scan.csv_filedir;
-                            exp_data.scans.(spectr_name_cur).Data.dY                    = 0;
-                            exp_data.scans.(spectr_name_cur).Data.Scale                 = 1;
+                            % Fill in a dY (intensity shift) and scale for the spectrum, used for correction later.
+                            exp_data.spectra.(spectr_name_cur).Data.hist.spectr_001.dY    = 0;
+                            exp_data.spectra.(spectr_name_cur).Data.hist.spectr_001.Scale = 1;
                             spectrum_nr_cur                    = spectrum_nr_cur + 1;
                             color_counter                     = color_counter + 1;
                             spectr_name_cur = ['spectrum_' , num2str(spectrum_nr_cur, '%03.f')];
@@ -89,8 +90,11 @@ else % The files exist.
                        exp_data.scans.(scan_name_cur).metadata.IO.csv_filelist      = GUI_settings.load_scan.csv_filelist;
                        exp_data.scans.(scan_name_cur).metadata.IO.csv_filedir       = GUI_settings.load_scan.csv_filedir;
                        exp_data.scans.(scan_name_cur).Name                          = UI_obj.load_scan.sample_name.Value;
-                       exp_data.scans.(scan_name_cur).Data.dY                       = 0;
-                       exp_data.scans.(scan_name_cur).Data.Scale                    = 1;
+                       % Fill in a dY (intensity shift) and scale for every spectrum in the scan, used for correction later.
+                       for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)'
+                           exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).dY     = 0;
+                           exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).Scale  = 1;
+                       end
                        if is_modify_scan
                            exp_data.scans.(scan_name_cur).Color                = GUI_settings.load_scan.Color;
                        else
@@ -108,7 +112,7 @@ else % The files exist.
             set(UI_obj.load_scan.f_open_scan,'visible','off');
             % Closing the message box:
             try set(UI_obj.load_scan.loading_data_msgbox, 'visible', 'off'); catch;  end
-            % Set the default directory to this one, for the possible next scan:
+            % Set the default directory to the one just used, for the possible next scan/spectrum load:
             GUI_settings.load_scan.browse_dir = GUI_settings.load_scan.csv_filedir;
             figure(UI_obj.main.uifigure)
         end

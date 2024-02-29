@@ -6,7 +6,8 @@ function [GUI_settings, UI_obj] = start_scan_viewer(GUI_settings)
 UI_obj                                  = struct(); %All Ui objects stored in this struct.
 
 % Set up the display, Initiate the uifigure:
-UI_obj.main.uifigure                    = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 590 470], 'CloseRequestFcn', {@GUI.fs_big.scan_viewer.callback.close_all_GUI_windows, GUI_settings});
+UI_obj.main.uifigure                    = uifigure('Name', 'Scan viewer','NumberTitle','off','position',[100 100 590 470]); %, ...
+    % 'CloseRequestFcn', {@GUI.fs_big.scan_viewer.callback.close_all_GUI_windows, GUI_settings});
 
 % Create the uitable containing the list of scans:
 UI_obj                                  = GUI.fs_big.scan_viewer.uitable_scan_create(GUI_settings, UI_obj);

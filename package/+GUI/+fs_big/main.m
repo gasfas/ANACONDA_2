@@ -1,3 +1,4 @@
+function main()
 % main GUI file for the FS-BIG data viewer
 
 % Assign a GUI number to this GUI run:
@@ -18,3 +19,4 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % [exp_data, settings, UI_obj] = GUI.fs_big.main_GUI_view_scan();
 % Build the standalone application:
 % buildResults = compiler.build.standaloneApplication('main.m')
+end
