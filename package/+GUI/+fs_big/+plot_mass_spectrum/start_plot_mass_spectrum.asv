@@ -15,7 +15,6 @@ GUI_settings.plot_m2q.tooltips.remember_linechbx    = 'Hold the currently plotte
 GUI_settings.plot_m2q.tooltips.holdchbx             = 'Fixate the X, Y axes limits when changing mass spectrum';
 GUI_settings.plot_m2q.tooltips.smooth               = 'Smoothen the mass spectrum using a median filter of specified width';
 GUI_settings.plot_m2q.tooltips.cur_line_color       = 'Choose the color of the current plot';
-GUI_settings.plot_m2q.tooltips.save_and_close       = 'Save parameters and close mass spectrum windows';
 
 % Initiate the main plot window with the central axes:
 UI_obj.plot.m2q.main = uifigure('Name', 'Control panel mass spectra', ...
@@ -27,32 +26,30 @@ hleg = legend(UI_obj.plot.m2q.axes, 'show','location','NorthWest');
 set(hleg,'FontSize',12);
 
 % Create plot manipulation button and checkboxes outside tab:
-UI_obj.plot.m2q.remember_linechbx   = uibutton(UI_obj.plot.m2q.main, 'Text', 'Store line', 'Position', [10, 40, 80, 25], ...
+UI_obj.plot.m2q.remember_linechbx   = uibutton(UI_obj.plot.m2q.main, 'Text', 'Store line', 'Position', [10, 10, 60, 25], ...
                         'ButtonPushedFcn', @remember_line, 'Tooltip', GUI_settings.plot_m2q.tooltips.remember_linechbx);
-UI_obj.plot.m2q.clear_graph_pushbtn = uibutton(UI_obj.plot.m2q.main, 'Text', 'Clear', 'Position', [100, 40, 60, 25], ...
+UI_obj.plot.m2q.clear_graph_pushbtn = uibutton(UI_obj.plot.m2q.main, 'Text', 'Clear', 'Position', [80, 10, 60, 25], ...
                         'ButtonPushedFcn', @clear_lines, 'Tooltip', GUI_settings.plot_m2q.tooltips.clear_graph_pushbtn);
 UI_obj.plot.m2q.holdchbx            = uicheckbox(UI_obj.plot.m2q.main, 'Value', 0, ...
-                        'Text', '⚓', 'Position', [170, 40, 80, 25], ...
+                        'Text', '⚓', 'Position', [150, 10, 80, 25], ...
                         'Tooltip', GUI_settings.plot_m2q.tooltips.holdchbx, 'ValueChangedFcn', @hold_limits);
 UI_obj.plot.m2q.smooth_edit         = uieditfield(UI_obj.plot.m2q.main,"numeric", 'Value', 1, ...
-                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [210, 40, 35, 25], 'ValueChangedFcn', @change_spectrum_within_scan);
+                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [210, 10, 35, 25], 'ValueChangedFcn', @change_spectrum_within_scan);
 UI_obj.plot.m2q.smooth_label        = uilabel(UI_obj.plot.m2q.main, 'Text', 'smooth', ...
-                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [250, 40, 50, 25]);
-UI_obj.plot.m2q.cur_line_color      = uibutton(UI_obj.plot.m2q.main, 'Position', [310, 40, 20, 25], 'Text', 'C', ...
+                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [250, 10, 50, 25]);
+UI_obj.plot.m2q.cur_line_color      = uibutton(UI_obj.plot.m2q.main, 'Position', [310, 10, 20, 25], 'Text', 'C', ...
                         'ButtonPushedFcn', @change_cur_line_color, 'Tooltip', GUI_settings.plot_m2q.tooltips.cur_line_color, 'BackgroundColor', plot.colormkr(nof_remembered_lines, 1));
-UI_obj.plot.m2q.clear_graph_pushbtn = uibutton(UI_obj.plot.m2q.main, 'Text', '💾 + ✕', 'Position', [10, 10, 80, 25], ...
-                        'ButtonPushedFcn', @close_both_M2Q_windows, 'Tooltip', GUI_settings.plot_m2q.tooltips.save_and_close);
 
 % Spectrum/scan tabs:
-UI_obj.plot.m2q.uitabgroup.main         = uitabgroup(UI_obj.plot.m2q.main, "Position", [5, 75, 340, 220]);
-if numel(fieldnames(exp_data.spectra)) >= 1 % Show spectrum tab
+UI_obj.plot.m2q.uitabgroup.main         = uitabgroup(UI_obj.plot.m2q.main, "Position", [5, 45, 340, 250]);
+if numel(fieldnames(exp_data.spectra)) >= 1
     spectra_intnames                        = fieldnames(exp_data.spectra);
     spectra_sample_username                 = exp_data.spectra.(spectra_intnames{1}).Name;
     UI_obj.plot.m2q.uitabgroup.spectra      = uitab(UI_obj.plot.m2q.uitabgroup.main, "Title",   "Spectra");
     % Spectra tab:
     % Show a table of all the loaded spectra and properties:
     UI_obj.plot.m2q.spectra.uitable = uitable(UI_obj.plot.m2q.uitabgroup.spectra, ...
-                "ColumnName", {'Name', 'dY', 'Scale', 'Color'}, "Position",[5 5 320 190], 'ColumnEditable', [false true true, false], ...
+                "ColumnName", {'Name', 'dY', 'Scale', 'Color'}, "Position",[5 5 320 220], 'ColumnEditable', [false true true, false], ...
                 "Data", [], 'ColumnWidth', {100, 40, 50, 80}, 'CellSelectionCallback', {@spectra_table_select, GUI_settings}, ...
                 'CellEditCallback', {@spectra_table_edit, GUI_settings});
     % Write data in uitable:
@@ -63,7 +60,7 @@ if numel(fieldnames(exp_data.spectra)) >= 1 % Show spectrum tab
         update_plot(UI_obj.plot.m2q.axes, exp_data, 'spectra', spectra_sample_username, 1);
     end
 end
-if numel(fieldnames(exp_data.scans)) >= 1 % Show scan tab
+if numel(fieldnames(exp_data.scans)) >= 1
     scan_usernames                  = GUI.fs_big.get_user_names(exp_data.scans);
     scan_sample_username            = scan_usernames{1};
     int_name_cur                    = GUI.fs_big.get_intname_from_username(exp_data.scans, scan_sample_username);
@@ -78,15 +75,15 @@ if numel(fieldnames(exp_data.scans)) >= 1 % Show scan tab
         UI_obj.plot.m2q.spectr_slider = uislider(UI_obj.plot.m2q.uitabgroup.scans, 'Limits', [min(spectrum_numbers_sample_cur), max(spectrum_numbers_sample_cur)], ...
             'MajorTicks', sliderMajorTicks, 'MinorTicks', spectrum_numbers_sample_cur, 'MajorTickLabels', SliderMajorTickLabels, 'Tooltip', GUI_settings.plot_m2q.tooltips.spectrumslider, ...
             'ValueChangedFcn', @change_spectrum_within_scan);
-    UI_obj.plot.m2q.spectr_slider.Position(1:3) = [35, 125, 230];
+    UI_obj.plot.m2q.spectr_slider.Position(1:3) = [35, 155, 230];
     
     % Create dropdown window to select different scans:
     UI_obj.plot.m2q.dropdownscans = uidropdown(UI_obj.plot.m2q.uitabgroup.scans, 'Items', scan_usernames, ...
-        'ValueChangedFcn', @change_sample_dropdown_callback, 'Position', [25, 145, 120, 25]);
+        'ValueChangedFcn', @change_sample_dropdown_callback, 'Position', [25, 175, 120, 25]);
 
     UI_obj.plot.m2q.cur_line_color.BackgroundColor = exp_data.scans.(int_name_cur).Color;
     update_plot(UI_obj.plot.m2q.axes, exp_data, 'scans', scan_sample_username, 1);
-    UI_obj.plot.m2q.slider_text = uilabel(UI_obj.plot.m2q.uitabgroup.scans, 'Text', 'Photon energy:', 'Position', [165, 145, 120, 25], ...
+    UI_obj.plot.m2q.slider_text = uilabel(UI_obj.plot.m2q.uitabgroup.scans, 'Text', 'Photon energy:', 'Position', [165, 175, 120, 25], ...
                                 'Tooltip', GUI_settings.plot_m2q.tooltips.spectrumslider);
 end
 
@@ -101,16 +98,14 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 
         spectra_intnames        = fieldnames(exp_data.spectra);
         current_spectrum_name   = spectra_intnames{event.Indices(1)};
-        sample_username         = exp_data.spectra.(current_spectrum_name).Name;
-        spectrum_number         = 1;
         switch unique(event.Indices(2))
             case 2 % Change in dY:
                 exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.dY    = event.NewData;
-                % Update the plot:
-                update_plot(UI_obj.plot.m2q.axes, exp_data, 'spectra', sample_username, spectrum_number);
             case 3 % change in Scale
                 exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.Scale = event.NewData;
                 % Update the plot:
+                sample_username = exp_data.spectra.(current_spectrum_name).Name;
+                spectrum_number = 1;
                 update_plot(UI_obj.plot.m2q.axes, exp_data, 'spectra', sample_username, spectrum_number);
         end
         % Write the variables to base workspace:
@@ -219,8 +214,6 @@ function[hLine] = update_plot(ax, exps, datatype, sample_name, spectrum_number)
     grid(UI_obj.plot.m2q.axes, 'on')
     sample_intname  = GUI.fs_big.get_intname_from_username(exp_data.(datatype), sample_name);
     spectra_names   = fieldnames(exps.(datatype).(sample_intname).Data.hist);
-    Yscale          = exps.(datatype).(sample_intname).Data.hist.(spectra_names{spectrum_number}).Scale;
-    dY              = exps.(datatype).(sample_intname).Data.hist.(spectra_names{spectrum_number}).dY;
     M2Q_data        = exps.(datatype).(sample_intname).Data.hist.(spectra_names{spectrum_number}).M2Q;
     sample_intname  = GUI.fs_big.get_intname_from_username(exp_data.(datatype), sample_name);
     sample_name_legendready = general.char.replace_symbol_in_char(sample_name, '_', ' ');
@@ -230,10 +223,10 @@ function[hLine] = update_plot(ax, exps, datatype, sample_name, spectrum_number)
         LineName_leg    = sample_name_legendready;
     end
     LineName_title  = ['Sample: ', sample_name_legendready, ',  ', num2str(exps.(datatype).(sample_intname).Data.photon.energy(spectrum_number)), ' eV'];
-    if UI_obj.plot.m2q.smooth_edit.Value >= 1 % User wants to smooth the intensity data:
+    if UI_obj.plot.m2q.smooth_edit.Value ~= 1 % User wants to smooth the intensity data:
         M2Q_data.I = smoothdata(M2Q_data.I, "movmedian", UI_obj.plot.m2q.smooth_edit.Value, 'omitnan');
     end
-    UI_obj.plot.m2q.cur_line           = plot(UI_obj.plot.m2q.axes, M2Q_data.bins, Yscale*M2Q_data.I+dY, 'DisplayName', LineName_leg);
+    UI_obj.plot.m2q.cur_line           = plot(UI_obj.plot.m2q.axes, M2Q_data.bins, M2Q_data.I, 'DisplayName', LineName_leg);
     % try 
     %     hLine.Color     = exp_data.(datatype).(sample_intname).Color;
     % catch 
@@ -288,11 +281,10 @@ function keypress_callback(~, event)
 end
 
 function close_both_M2Q_windows(~,~)
-    % Set the variables to base workspace:
-    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj)
-    % Close both windows:
     delete(UI_obj.plot.m2q.main)
     delete(UI_obj.plot.m2q.plot_window)
+    % Set the variables to base workspace:
+    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj)
 end
 
 function change_cur_line_color(hObj, event)

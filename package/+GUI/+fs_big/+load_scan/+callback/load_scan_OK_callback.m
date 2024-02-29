@@ -30,8 +30,8 @@ else % The files exist.
     end
 
     % Read which scan and spectrum numbers should be used:
-    scan_nrs            =  cellfun(@str2double, regexp(fieldnames(exp_data.scans),'\d+','match'));
-    spectra_nrs         =  cellfun(@str2double, regexp(fieldnames(exp_data.spectra),'\d+','match'));
+    scan_nrs            = cellfun(@str2double, regexp(fieldnames(exp_data.scans),'\d+','match'));
+    spectra_nrs         = cellfun(@str2double, regexp(fieldnames(exp_data.spectra),'\d+','match'));
     scan_nr_cur         = max([scan_nrs; 0]) + 1;
     spectrum_nr_cur     = max([spectra_nrs; 0]) + 1;
     color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
@@ -82,8 +82,8 @@ else % The files exist.
                             file_found = true;
                         end
                     case false % A scan is loaded, so save the files in exp_data.scans:
-                        exp_data.scans.(scan_name_cur).Data   = IO.SPECTROLATIUS_S2S.load_CSV_filelist(GUI_settings.load_scan.csv_filedir, GUI_settings.load_scan.csv_filelist , GUI_settings.load_scan.re_bin_factor);
-                        scan_nr_cur = scan_nr_cur + 1;      
+                       exp_data.scans.(scan_name_cur).Data   = IO.SPECTROLATIUS_S2S.load_CSV_filelist(GUI_settings.load_scan.csv_filedir, GUI_settings.load_scan.csv_filelist , GUI_settings.load_scan.re_bin_factor);
+                       scan_nr_cur = scan_nr_cur + 1;      
                        % Write the metadata of this sample in the GUI_settings:
                        exp_data.scans.(scan_name_cur).metadata.IO.setup_type        = GUI_settings.load_scan.setup_type;
                        exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor     = GUI_settings.load_scan.re_bin_factor;

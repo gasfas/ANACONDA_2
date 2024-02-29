@@ -10,11 +10,11 @@ GUI_settings.def_channel.tooltips.Add_single_channel      = 'Manually add a chan
 GUI_settings.def_channel.tooltips.Remove_channel          = 'Remove the selected channels';
 GUI_settings.def_channel.tooltips.Add_prospector_channels = 'Load channels from Prospector html file.';
 GUI_settings.def_channel.tooltips.Import_quickview        = 'Import the fragments from quickviewer';
-GUI_settings.def_channel.tooltips.OK                      = 'Save channels and close window';
+GUI_settings.def_channel.tooltips.OK                      = 'Save channels and close scan windows';
 GUI_settings.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
 GUI_settings.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
-UI_obj.def_channel.name_active_channelgroup           = 'channel_001';
-settings.channels.show_box                            = true;
+UI_obj.def_channel.name_active_channelgroup               = 'channel_001';
+settings.channels.show_box                                = true;
 
 % Hold XY (rangefix);
 UI_obj.def_channel.scan.if_hold_XY  = false; % Do not hold XY from start
@@ -54,6 +54,8 @@ set(pan(UI_obj.def_channel.data_plot),'ActionPostCallback',@(x,y) update_slider_
 % Set the (improvised) Java range slider:
 UI_obj.def_channel.m2q.jRangeSlider = GUI.fs_big.rangeslider(UI_obj.def_channel.data_plot, 0, 100, 0, 100, 'channel limits', [75, 570, 700, 15], 0.1, 0.1, @update_channel_limits);
 
+
+
 %Plot the live scan axes in the same figure:
 UI_obj.def_channel.scan.axes            = axes('Parent', UI_obj.def_channel.data_plot, 'Fontsize', 10);
 xlabel(UI_obj.def_channel.scan.axes, 'Photon energy [eV]');
@@ -68,13 +70,13 @@ uitable_channelgroup_list_create();
 uitable_scan_list_create();
 
 % Initialize the interaction buttons (load, delete, view spectra) in the control window:
-UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
-UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main , "Text", "Add Prospector", "Position",  [10, 520, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
-UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
-UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
-UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main  , "Text", '⚓', 'Position',    [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
-UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main  , "Text", 'Show box', 'Position',     [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
-UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main , "Text", "OK", "Position",              [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
+UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main  , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
+UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main  , "Text", "Add Prospector", "Position",  [10, 520, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
+UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main  , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
+UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main  , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓', 'Position',              [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
+UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main, "Text", 'Show box', 'Position',        [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
+UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main  , "Text", '💾 + ✕', "Position",         [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
@@ -515,8 +517,8 @@ end
         [bins_u, idx_u] = unique(bins);
         % Find the indices of the closest mass points in the data:
         mass_indices = interp1(bins_u, idx_u, mass_limits_cur, 'nearest', 'extrap');
-        if islogical(LineStyle)| isempty(LineStyle);    LineStyle = '-'; end
-        if islogical(Marker) | isempty(Marker);         Marker = 'none'; end
+        if islogical(LineStyle) | isempty(LineStyle);    LineStyle = '-'; end
+        if islogical(Marker)    | isempty(Marker);         Marker = 'none'; end
         hLine = plot(UI_obj.def_channel.scan.axes, ...
             photon_energy, Yscale*sum(M2Q_data(mass_indices(1):mass_indices(2),:),1) + dY, 'b', 'DisplayName', plotname, ...
             'Color', LineColor, 'LineStyle', LineStyle, 'Marker', Marker);

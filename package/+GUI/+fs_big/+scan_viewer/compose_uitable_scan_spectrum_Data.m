@@ -40,15 +40,15 @@
                 uitable_data = cell(nof_spectra, 4); % Initialize empty cell
                 for i = 1:nof_spectra
                     current_spectrum_name = spectra_intnames{i};
-                    if ~isfield(exp_data.spectra.(current_spectrum_name), 'dY')
-                        exp_data.spectra.(current_spectrum_name).dY = 0;
+                    if ~isfield(exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001, 'dY')
+                        exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.dY = 0;
                     end
-                    if ~isfield(exp_data.spectra.(current_spectrum_name), 'Scale')
-                        exp_data.spectra.(current_spectrum_name).Scale = 1;
+                    if ~isfield(exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001, 'Scale')
+                        exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.Scale = 1;
                     end
                     uitable_data{i,1} = exp_data.spectra.(current_spectrum_name).Name;                        % Name
-                    uitable_data{i,2} = exp_data.spectra.(current_spectrum_name).dY;                          % dY
-                    uitable_data{i,3} = exp_data.spectra.(current_spectrum_name).Scale;                       % Scale
+                    uitable_data{i,2} = exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.dY;                          % dY
+                    uitable_data{i,3} = exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.Scale;                       % Scale
                     uitable_data{i,4} = regexprep(num2str(round(exp_data.spectra.(current_spectrum_name).Color,1)),'\s+',','); % Color
                     % Draw background colors for the color cells:
                     s = uistyle('BackgroundColor', exp_data.spectra.(current_spectrum_name).Color);

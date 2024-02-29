@@ -30,8 +30,8 @@ else % The files exist.
     end
 
     % Read which scan and spectrum numbers should be used:
-    scan_nrs            =  cellfun(@str2double, regexp(fieldnames(exp_data.scans),'\d+','match'));
-    spectra_nrs         =  cellfun(@str2double, regexp(fieldnames(exp_data.spectra),'\d+','match'));
+    scan_nrs            = cellfun(@str2double, regexp(fieldnames(exp_data.scans),'\d+','match'));
+    spectra_nrs         = cellfun(@str2double, regexp(fieldnames(exp_data.spectra),'\d+','match'));
     scan_nr_cur         = max([scan_nrs; 0]) + 1;
     spectrum_nr_cur     = max([spectra_nrs; 0]) + 1;
     color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
@@ -74,16 +74,16 @@ else % The files exist.
                             exp_data.spectra.(spectr_name_cur).metadata.IO.csv_filelist = GUI_settings.load_scan.csv_filelist;
                             exp_data.spectra.(spectr_name_cur).metadata.IO.csv_filedir  = GUI_settings.load_scan.csv_filedir;
                             % Fill in a dY (intensity shift) and scale for the spectrum, used for correction later.
-                            exp_data.scans.(spectr_name_cur).Data.hist.spectr_001.dY    = 0;
-                            exp_data.scans.(spectr_name_cur).Data.hist.spectr_001.Scale = 1;
+                            exp_data.spectra.(spectr_name_cur).Data.hist.spectr_001.dY    = 0;
+                            exp_data.spectra.(spectr_name_cur).Data.hist.spectr_001.Scale = 1;
                             spectrum_nr_cur                    = spectrum_nr_cur + 1;
                             color_counter                     = color_counter + 1;
                             spectr_name_cur = ['spectrum_' , num2str(spectrum_nr_cur, '%03.f')];
                             file_found = true;
                         end
                     case false % A scan is loaded, so save the files in exp_data.scans:
-                        exp_data.scans.(scan_name_cur).Data   = IO.SPECTROLATIUS_S2S.load_CSV_filelist(GUI_settings.load_scan.csv_filedir, GUI_settings.load_scan.csv_filelist , GUI_settings.load_scan.re_bin_factor);
-                        scan_nr_cur = scan_nr_cur + 1;      
+                       exp_data.scans.(scan_name_cur).Data   = IO.SPECTROLATIUS_S2S.load_CSV_filelist(GUI_settings.load_scan.csv_filedir, GUI_settings.load_scan.csv_filelist , GUI_settings.load_scan.re_bin_factor);
+                       scan_nr_cur = scan_nr_cur + 1;      
                        % Write the metadata of this sample in the GUI_settings:
                        exp_data.scans.(scan_name_cur).metadata.IO.setup_type        = GUI_settings.load_scan.setup_type;
                        exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor     = GUI_settings.load_scan.re_bin_factor;
@@ -91,7 +91,7 @@ else % The files exist.
                        exp_data.scans.(scan_name_cur).metadata.IO.csv_filedir       = GUI_settings.load_scan.csv_filedir;
                        exp_data.scans.(scan_name_cur).Name                          = UI_obj.load_scan.sample_name.Value;
                        % Fill in a dY (intensity shift) and scale for every spectrum in the scan, used for correction later.
-                       for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)
+                       for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)'
                            exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).dY     = 0;
                            exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).Scale  = 1;
                        end
@@ -112,7 +112,7 @@ else % The files exist.
             set(UI_obj.load_scan.f_open_scan,'visible','off');
             % Closing the message box:
             try set(UI_obj.load_scan.loading_data_msgbox, 'visible', 'off'); catch;  end
-            % Set the default directory to this one, for the possible next scan:
+            % Set the default directory to the one just used, for the possible next scan/spectrum load:
             GUI_settings.load_scan.browse_dir = GUI_settings.load_scan.csv_filedir;
             figure(UI_obj.main.uifigure)
         end
