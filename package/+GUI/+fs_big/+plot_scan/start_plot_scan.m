@@ -29,7 +29,7 @@ UI_obj.def_channel.main         = uifigure('Name', 'Control panel photon scans',
                                             % 'CloseRequestFcn', @close_both_scan_windows);
 
 % Set up the m2q plot window, where the slider will be placed:
-UI_obj.def_channel.data_plot  = figure('Name', 'Plot photon scans', 'NumberTitle','off', 'position', [20 20 800 600]);%, ...
+UI_obj.def_channel.data_plot    = uifigure('Name', 'Plot photon scans', 'NumberTitle','off', 'position', [20 20 800 600]);%, ...
                                         % 'CloseRequestFcn', @close_both_scan_windows); % Make sure that both windows close when one is closed by user.
 
 % Plot the first mass spectrum:
@@ -51,16 +51,16 @@ UI_obj.def_channel.m2q.rectangle = rectangle(UI_obj.def_channel.m2q.axes, 'FaceC
 set(zoom(UI_obj.def_channel.m2q.axes),'ActionPostCallback',@(x,y) update_slider_limits());
 set(pan(UI_obj.def_channel.data_plot),'ActionPostCallback',@(x,y) update_slider_limits());
 
-% Set the (improvised) Java range slider:
-UI_obj.def_channel.m2q.jRangeSlider = GUI.fs_big.rangeslider(UI_obj.def_channel.data_plot, 0, 100, 0, 100, 'channel limits', [75, 570, 700, 15], 0.1, 0.1, @update_channel_limits);
-
-
+% Set the (improvised) range slider:
+% UI_obj.def_channel.m2q.jRangeSlider = GUI.fs_big.rangeslider(UI_obj.def_channel.data_plot, 0, 100, 0, 100, 'channel limits', [75, 570, 700, 15], 0.1, 0.1, @update_channel_limits);
+[UI_obj.def_channel.m2q.jRangeSliderLow, UI_obj.def_channel.m2q.jRangeSliderHigh] = GUI.fs_big.plot_scan.double_uislider( ...
+    UI_obj.def_channel.data_plot, 0, 100, 0, 100, [75, 570, 700, 3], 0.1, {@update_channel_limits, GUI_settings});
 
 %Plot the live scan axes in the same figure:
 UI_obj.def_channel.scan.axes            = axes('Parent', UI_obj.def_channel.data_plot, 'Fontsize', 10);
 xlabel(UI_obj.def_channel.scan.axes, 'Photon energy [eV]');
 ylabel(UI_obj.def_channel.scan.axes, 'Intensity [arb. u.]');
-setpixelposition(UI_obj.def_channel.scan.axes, [75, 100, 700, 200])
+setpixelposition(UI_obj.def_channel.scan.axes, [75, 75, 700, 225])
 
 mass_limits                             = UI_obj.def_channel.m2q.axes.XLim;
 update_scan_plot();
@@ -78,6 +78,9 @@ UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main
 UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main, "Text", 'Show box', 'Position',        [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main  , "Text", '💾 + ✕', "Position",         [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
+
+% Set the variables to base workspace:
+GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 
 %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks %% Local callbacks
 %% Button Callbacks
@@ -197,7 +200,10 @@ function OK_close(~,~)
     % TODO: how to parse the fragments to main.
     assignin('caller','settings',settings)
     UI_obj.def_channel.main.Visible               = 'off';
-    UI_obj.def_channel.data_plot.Visible          = 'off';
+    try    % remove the plot figure in case it is still there: 
+        UI_obj.def_channel.data_plot.Visible          = 'off';
+    catch
+    end
 end
 
 
@@ -458,6 +464,7 @@ function update_scan_plot()
             plotname        = [general.char.replace_symbol_in_char(exp_data.scans.(scanname_cur).Name, '_', ' '), ' box'];
             plotnames{i}    = plotname;
             i               = i + 1;
+            mass_limits
             [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, 1, 0, plotname, color_cur, 'none', '-');
             UI_obj.def_channel.lines.box    = hLine;
         end
@@ -527,16 +534,18 @@ end
 %% Slider functions
 
 %Update the channel limits when the figure is zoomed:
-function update_channel_limits(jRangeSlider, ~)
+    function update_channel_limits(hObj, event, GUI_settings)
+        % Get the variables from base workspace:
+        [~, UI_obj] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
-    UI_obj.def_channel.m2q.RangeSlider.LowValue     = jRangeSlider.LowValue;
-    UI_obj.def_channel.m2q.RangeSlider.HighValue    = jRangeSlider.HighValue;
+    uisliderHigValue   = UI_obj.def_channel.m2q.jRangeSliderHigh.Value;
+    uisliderLowValue   = UI_obj.def_channel.m2q.jRangeSliderLow.Value;
+    Lo      = min(uisliderHigValue, uisliderLowValue);
+    Hi      = max(uisliderHigValue, uisliderLowValue);
     XLim    = UI_obj.def_channel.m2q.axes.XLim;
     Pos_rect = UI_obj.def_channel.m2q.rectangle.Position;
-    Lo      = min(jRangeSlider.LowValue, jRangeSlider.HighValue);  
-    Hi      = max(jRangeSlider.LowValue, jRangeSlider.HighValue);
-    Max     = jRangeSlider.Maximum;
-    Min     = jRangeSlider.Minimum;
+    Min     = UI_obj.def_channel.m2q.jRangeSliderHigh.Limits(1);
+    Max     = UI_obj.def_channel.m2q.jRangeSliderHigh.Limits(2);
     if (Hi-Lo)<1e-4
         if Hi == Max % We are at the far right (maximum) of the slider
             Lo = Max - 1e-3;
@@ -548,6 +557,7 @@ function update_channel_limits(jRangeSlider, ~)
                                                 Pos_rect(2), ...
                                                 (Hi-Lo)/(Max-Min)*diff(XLim), ...
                                                 Pos_rect(4)]; % Added 0.001 to prevent zero-sized rectangle dimensions;
+    Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
     % Define the current mass limits of the box:
     mass_limits = [Pos_rect(1), Pos_rect(1) + Pos_rect(3)];
     
@@ -558,20 +568,23 @@ end
 function update_slider_limits()
 % The user has moved (zoomed, panned, resized) the m2q axes, so we need to
 % update the limits accordingly:
-    XLim    = UI_obj.def_channel.m2q.axes.XLim;
-    Pos_rect = UI_obj.def_channel.m2q.rectangle.Position;
-    Max     = UI_obj.def_channel.m2q.jRangeSlider.Maximum;
-    Min     = UI_obj.def_channel.m2q.jRangeSlider.Minimum;
-    UI_obj.def_channel.m2q.jRangeSlider.LowValue = 0;
-    UI_obj.def_channel.m2q.jRangeSlider.HighValue = 200;
-    new_slider_Lo = max(Min, (Pos_rect(1) - XLim(1))/diff(XLim) * (Max - Min));
-    new_slider_Hi = min(Max, (Pos_rect(1) + Pos_rect(3) - XLim(1))/diff(XLim) * (Max - Min));
-    UI_obj.def_channel.m2q.jRangeSlider.LowValue = new_slider_Lo;
-    UI_obj.def_channel.m2q.jRangeSlider.HighValue = new_slider_Hi;
-    % Update the live scan plotter:
-    mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)];
+    XLim        = UI_obj.def_channel.m2q.axes.XLim;
+    Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
+    Min         = UI_obj.def_channel.m2q.jRangeSliderHigh.Limits(1);
+    Max         = UI_obj.def_channel.m2q.jRangeSliderHigh.Limits(2);
+    new_slider_Lo = min(max(Min, (Pos_rect(1) - XLim(1))/diff(XLim) * (Max - Min)), Max);
+    new_slider_Hi = max(min(Max, (Pos_rect(1) + Pos_rect(3) - XLim(1))/diff(XLim) * (Max - Min)), Min);
+    UI_obj.def_channel.m2q.jRangeSliderLow.Value    = new_slider_Lo;
+    UI_obj.def_channel.m2q.jRangeSliderHigh.Value   = new_slider_Hi;
 
-    UI_obj.def_channel.m2q.hLine = update_scan_plot(exp_data, mass_limits, UI_obj, false);
+    Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
+    % Update the live scan plotter:
+    mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)]
+
+    update_scan_plot();
+
+    % Set the variables to base workspace:
+    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 end
 end
 
