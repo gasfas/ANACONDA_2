@@ -14,14 +14,14 @@ GUI_settings.def_channel.tooltips.OK                      = 'Save channels and c
 GUI_settings.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
 GUI_settings.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
 UI_obj.def_channel.name_active_channelgroup               = 'channel_001';
-settings.channels.show_box                                = true;
+GUI_settings.channels.show_box                                = true;
 
 % Hold XY (rangefix);
 UI_obj.def_channel.scan.if_hold_XY  = false; % Do not hold XY from start
 
 % If no fragments are defined yet, we start the counter for channels:
-if ~general.struct.issubfield(settings, 'channels.current_nr')
-    settings.channels.current_nr = 0;
+if ~general.struct.issubfield(GUI_settings, 'channels.current_nr')
+    GUI_settings.channels.current_nr = 0;
 end
 
 % Set up the control window:
@@ -87,32 +87,32 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 
 function show_box(~, event)
     % Read the current checkbox value:
-    settings.channels.show_box                            = event.Value;
+    GUI_settings.channels.show_box                            = event.Value;
     % Update the scan plot:
     update_scan_plot()
 end
 
 function Remove_channel(~, ~)
         % Remove the selected channels from the list.
-        if numel(fieldnames(settings.channels.list))>0 && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
+        if numel(fieldnames(GUI_settings.channels.list))>0 && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection(:,1))
             rownrs              = unique(UI_obj.def_channel.uitable_channelgroup.Selection(:,1));
             % Remove from the fragment list:
-            channelgroup_list = fieldnames(settings.channels.list);
+            channelgroup_list = fieldnames(GUI_settings.channels.list);
             if numel(rownrs) > 1 % More than one fragment requested. Make sure user is not mistaken in request:
                 switch questdlg(['You are about to remove channels ' num2str(rownrs) ', are you sure?'], 'yes', 'no', 'no')
                     case 'yes'
                         for rownr = rownrs
-                            settings.channels.list  = rmfield(settings.channels.list, channelgroup_list{rownr});
+                            GUI_settings.channels.list  = rmfield(GUI_settings.channels.list, channelgroup_list{rownr});
                             %  
                         end
                 end     
             else
                 % remove the channel groups from the uitable data:
-                settings.channels.list  = rmfield(settings.channels.list, channelgroup_list{rownrs});
+                GUI_settings.channels.list  = rmfield(GUI_settings.channels.list, channelgroup_list{rownrs});
             end
-
+            new_channelgroup_list                                      = fieldnames(GUI_settings.channels.list);
             % Update the scan table:
-            if numel(fieldnames(settings.channels.list)) > 0
+            if numel(fieldnames(GUI_settings.channels.list)) > 0
                 UI_obj.def_channel.uitable_channelgroup.Data           = compose_uitable_Data('channelgroup', new_channelgroup_list{1});
                 UI_obj.def_channel.uitable_scans.Data                  = compose_uitable_Data('channel', new_channelgroup_list{1});
             else
@@ -122,7 +122,10 @@ function Remove_channel(~, ~)
         else
             msgbox('No fragments to remove. Please select the fragment(s) you want to remove in the table.')
         end
-        new_channelgroup_list = fieldnames(settings.channels.list);
+        new_channelgroup_list = fieldnames(GUI_settings.channels.list);
+    
+        % Set the variables to base workspace:
+        GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
     end
 
 function add_channel_manually(~,~)
@@ -135,32 +138,32 @@ function add_channel_manually(~,~)
 end
 
 function add_channel_manually_done(~,~)
-    settings.channels.current_nr = settings.channels.current_nr + 1;
+    GUI_settings.channels.current_nr = GUI_settings.channels.current_nr + 1;
     % Place the current rectangle limits into the list of channels:
     minMtoQ_cur = UI_obj.def_channel.m2q.rectangle.Position(1);
     maxMtoQ_cur = UI_obj.def_channel.m2q.rectangle.Position(3) +  UI_obj.def_channel.m2q.rectangle.Position(1);
     Name_cur = num2str(round(mean([minMtoQ_cur, maxMtoQ_cur])), 1);
-    chgroup_fieldname = (['channel_', num2str(settings.channels.current_nr, '%03.f')]);
+    chgroup_fieldname = (['channel_', num2str(GUI_settings.channels.current_nr, '%03.f')]);
     % Add the channel to those defined in the settings:
     % Give all the lines in the same fragment group the same Marker and
     % LineStyle:
-    [LineStyle, Marker]     = plot.linestyle_and_markermkr(settings.channels.current_nr);
+    [LineStyle, Marker]     = plot.linestyle_and_markermkr(GUI_settings.channels.current_nr);
     % Set the initial values for this channel group:
-    settings.channels.list.(chgroup_fieldname).LineStyle    = LineStyle;
-    settings.channels.list.(chgroup_fieldname).Marker       = Marker;
-    settings.channels.list.(chgroup_fieldname).dY           = 0;
-    settings.channels.list.(chgroup_fieldname).Yscale       = 1;
-    settings.channels.list.(chgroup_fieldname).Name        = Name_cur;
-    settings.channels.list.(chgroup_fieldname).minMtoQ     = minMtoQ_cur;
-    settings.channels.list.(chgroup_fieldname).maxMtoQ     = maxMtoQ_cur;
-    settings.channels.list.(chgroup_fieldname).Visible     = true;
+    GUI_settings.channels.list.(chgroup_fieldname).LineStyle    = LineStyle;
+    GUI_settings.channels.list.(chgroup_fieldname).Marker       = Marker;
+    GUI_settings.channels.list.(chgroup_fieldname).dY           = 0;
+    GUI_settings.channels.list.(chgroup_fieldname).Yscale       = 1;
+    GUI_settings.channels.list.(chgroup_fieldname).Name        = Name_cur;
+    GUI_settings.channels.list.(chgroup_fieldname).minMtoQ     = minMtoQ_cur;
+    GUI_settings.channels.list.(chgroup_fieldname).maxMtoQ     = maxMtoQ_cur;
+    GUI_settings.channels.list.(chgroup_fieldname).Visible     = true;
     
     for scan_name_cell = fieldnames(exp_data.scans)'
         scanname_cur = scan_name_cell{:}; % Set the initial values for the channels in this group:
-        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Visible     = true;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).LineStyle   = LineStyle;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Marker      = Marker;
-        settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = exp_data.scans.(scanname_cur).Color; % By default, the color is the same for one sample:
+        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Visible     = true;
+        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).LineStyle   = LineStyle;
+        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Marker      = Marker;
+        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = exp_data.scans.(scanname_cur).Color; % By default, the color is the same for one sample:
     end
 
     % Plot a static rectangle in the mass spectrum to indicate the fragment.
@@ -198,7 +201,7 @@ end
 
 function OK_close(~,~)
     % TODO: how to parse the fragments to main.
-    assignin('caller','settings',settings)
+    assignin('caller','settings',GUI_settings)
     UI_obj.def_channel.main.Visible               = 'off';
     try    % remove the plot figure in case it is still there: 
         UI_obj.def_channel.data_plot.Visible          = 'off';
@@ -222,11 +225,11 @@ end
 
     function uitable_channelgroup_list_create()
         % Create the table that lists the channel groups.
-        settings.channels.channelgroup.VariableNames            = {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
+        GUI_settings.channels.channelgroup.VariableNames            = {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
         UI_obj.def_channel.uitable_channelgroup                  = uitable(UI_obj.def_channel.main, ...
-            "ColumnName", settings.channels.channelgroup.VariableNames, "Position",[120 325 450 250], ...
+            "ColumnName", GUI_settings.channels.channelgroup.VariableNames, "Position",[120 325 450 250], ...
             'ColumnWidth', 'Fit', 'CellSelectionCallback', @uitable_channelgroup_selectioncallback);
-        if isfield(settings.channels, 'list') % This means there are already channels defined:
+        if isfield(GUI_settings.channels, 'list') % This means there are already channels defined:
             UI_obj.def_channel.uitable_channelgroup.Data             = compose_uitable_Data('channelgroup');
         else % This means there are no channel (groups) defined yet:
             UI_obj.def_channel.uitable_channelgroup.Data             = [{}, [], [], [], [], [], [], []];
@@ -241,16 +244,16 @@ end
         % If the user selects a row in the channelgroup table, the relevant
         % table of the channels in that group should appear.
         % First check whether any channel exists, and if a selection is made:
-        if ~isempty(general.struct.probe_field(settings, 'channels.list')) && ~isempty(event.Indices)
+        if ~isempty(general.struct.probe_field(GUI_settings, 'channels.list')) && ~isempty(event.Indices)
             % Find the name in the settings data:
-            channelgroup_names      = fieldnames(settings.channels.list);
+            channelgroup_names      = fieldnames(GUI_settings.channels.list);
             channelgroup_name_cur   = channelgroup_names{event.Indices(1,1)};
             UI_obj.def_channel.name_active_channelgroup = channelgroup_name_cur;
             % Write that name to uitable:
             UI_obj.def_channel.uitable_scans.Data           = compose_uitable_Data('channel', channelgroup_name_cur);
             % Write in the scan table which channelgroup they are currenlty
             % looking at:
-            UI_obj.def_channel.uitable_scans.ColumnName{1} = ['Scan name (' settings.channels.list.(channelgroup_name_cur).Name ')'];
+            UI_obj.def_channel.uitable_scans.ColumnName{1} = ['Scan name (' GUI_settings.channels.list.(channelgroup_name_cur).Name ')'];
         end
     end
 
@@ -259,29 +262,29 @@ end
         % changed, and needs to be updated in the settings accordingly:
         ifdo_update_plot = false; % by default, no extra plot needed.
         % Find which value has been changed:
-        channelnames            = fieldnames(settings.channels.list);
+        channelnames            = fieldnames(GUI_settings.channels.list);
         channelname_cur         = channelnames{event.DisplayIndices(1)};
         switch event.Indices(2)
             case 1 % The Name has been change, exchange it in the struct:
-                settings.channels.list.(channelname_cur).Name       = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).Name       = event.NewData;
                 % Update the scan name table title:
                 UI_obj.def_channel.uitable_scans.ColumnName{1} = ['Scan name (' event.NewData ')'];
             case 2 % The minimum mass-to-charge has been changed:
-                settings.channels.list.(channelname_cur).minMtoQ    = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).minMtoQ    = event.NewData;
                 ifdo_update_plot        = true;
                 UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(1) = event.NewData;
             case 3 % The maxmum mass-to-charge has been changed:
-                settings.channels.list.(channelname_cur).maxMtoQ    = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).maxMtoQ    = event.NewData;
                 ifdo_update_plot        = true;
                 UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(3) = event.NewData - UI_obj.def_channel.grouplist.(channelname_cur).rectangle.Position(1);
             case 4 % The scaling of a channel has been changed:
-                settings.channels.list.(channelname_cur).dY         = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).dY         = event.NewData;
                 ifdo_update_plot = true;
             case 5 % The dY value of a channel has been changed:
-                settings.channels.list.(channelname_cur).Yscale      = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).Yscale      = event.NewData;
                 ifdo_update_plot = true;
             case 6 % The Visibility of a channel has been changed:
-                settings.channels.list.(channelname_cur).Visible    = event.NewData;
+                GUI_settings.channels.list.(channelname_cur).Visible    = event.NewData;
                 ifdo_update_plot = true;
         end
         if ifdo_update_plot
@@ -295,7 +298,7 @@ end
     % Fill in the channel table for a specific channel group:
     % Selected channel group:
     % Find the list of names in the settings data:
-    channelgroup_names      = fieldnames(settings.channels.list);
+    channelgroup_names      = fieldnames(GUI_settings.channels.list);
     if ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection)
         channelgroup_name_cur   = channelgroup_names{UI_obj.def_channel.uitable_channelgroup.Selection(1,1)};
     else     % If there is no channel selected, then the first channel is shown:
@@ -307,7 +310,7 @@ end
 
 function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgroup)
     % The amount of channel groups defined:
-    channelgroup_names  = fieldnames(settings.channels.list);
+    channelgroup_names  = fieldnames(GUI_settings.channels.list);
     nof_channelgroups   = numel(channelgroup_names);
     % The amount of scans defined:
     scan_usernames          = GUI.fs_big.get_user_names(exp_data.scans);
@@ -319,12 +322,12 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
             uitable_data = cell(nof_channelgroups, 6);
             for i = 1:nof_channelgroups
                 chgroup_fieldname = channelgroup_names{i};
-                uitable_data{i,1} = settings.channels.list.(chgroup_fieldname).Name;
-                uitable_data{i,2} = settings.channels.list.(chgroup_fieldname).minMtoQ;
-                uitable_data{i,3} = settings.channels.list.(chgroup_fieldname).maxMtoQ;
-                uitable_data{i,4} = settings.channels.list.(chgroup_fieldname).dY;
-                uitable_data{i,5} = settings.channels.list.(chgroup_fieldname).Yscale;
-                uitable_data{i,6} = settings.channels.list.(chgroup_fieldname).Visible;
+                uitable_data{i,1} = GUI_settings.channels.list.(chgroup_fieldname).Name;
+                uitable_data{i,2} = GUI_settings.channels.list.(chgroup_fieldname).minMtoQ;
+                uitable_data{i,3} = GUI_settings.channels.list.(chgroup_fieldname).maxMtoQ;
+                uitable_data{i,4} = GUI_settings.channels.list.(chgroup_fieldname).dY;
+                uitable_data{i,5} = GUI_settings.channels.list.(chgroup_fieldname).Yscale;
+                uitable_data{i,6} = GUI_settings.channels.list.(chgroup_fieldname).Visible;
             end
         case 'channel'
             % If a channel uitable is to be made, we need to know which
@@ -336,12 +339,12 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                 current_scan_username   = scan_usernames{i};
                 current_scan_intname    = scan_intnames{i};
                 uitable_data{i,1} = current_scan_username;
-                uitable_data{i,2} = regexprep(num2str(round(settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color,1)),'\s+',',');
-                uitable_data{i,3} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Marker;
-                uitable_data{i,4} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).LineStyle;
-                uitable_data{i,5} = settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Visible;
+                uitable_data{i,2} = regexprep(num2str(round(GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color,1)),'\s+',',');
+                uitable_data{i,3} = GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Marker;
+                uitable_data{i,4} = GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).LineStyle;
+                uitable_data{i,5} = GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Visible;
                 % Draw background colors for the color cells:
-                s = uistyle('BackgroundColor', settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color);
+                s = uistyle('BackgroundColor', GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color);
                     addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', [i,2]);
             end
         end
@@ -350,8 +353,8 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
     function uitable_scan_list_create()
         % Create the table that lists the channels of each scan. Upon
         % creation, there will be no channels written in it:
-        settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Mark', 'Line', 'Show'};
-        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", settings.channels.scans.VariableNames, "Position",[120 25 450 250], ...
+        GUI_settings.channels.scans.VariableNames               = {'Scan Name', 'Color', 'Mark', 'Line', 'Show'};
+        UI_obj.def_channel.uitable_scans                    = uitable(UI_obj.def_channel.main , "ColumnName", GUI_settings.channels.scans.VariableNames, "Position",[120 25 450 250], ...
                                                                 'CellEditCallback', @uitable_scan_list_user_edit, 'ColumnWidth', 'Fit', 'CellSelectionCallback',@uitable_scan_list_selection);
         UI_obj.def_channel.uitable_scans.Data               = [{}, [], {}, {}, []];
         UI_obj.def_channel.uitable_scans.ColumnEditable     = [false false true true true];
@@ -374,11 +377,11 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                         scan_names      = fieldnames(exp_data.scans);
                         scanname_cur   = scan_names{hObj.Selection(1,1)};
                         % Call the color picker:
-                        newColorRGB = uisetcolor(settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color);
+                        newColorRGB = uisetcolor(GUI_settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color);
                         
                         for  i = 1:size(hObj.Selection, 1)% Possibly more than one scan needs to be re-colored:
                             scanname_cur   = scan_names{hObj.Selection(i,1)};
-                            settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color = newColorRGB;
+                            GUI_settings.channels.list.(name_active_channelgroup).scanlist.(scanname_cur).Color = newColorRGB;
                             % Write the RGB value into the cell:
                             UI_obj.def_channel.uitable_scans.Data{i,2} = regexprep(num2str(round(newColorRGB,1)),'\s+',',');
                         end
@@ -400,11 +403,11 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
         scanname_cur            = scannames{event.DisplayIndices(1)};
         switch event.DisplayIndices(2)
             case 3 % The user wants to change the Marker:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Marker       = event.NewData;
+                GUI_settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Marker       = event.NewData;
             case 4 % The user wants to change the LineStyle:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).LineStyle    = event.NewData;
+                GUI_settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).LineStyle    = event.NewData;
             case 5 % The user wants to change the Visibility:
-                settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Visible      = event.NewData;
+                GUI_settings.channels.list.(channelgroup_name_cur).scanlist.(scanname_cur).Visible      = event.NewData;
         end
         % replot the lines:
         update_scan_plot()
@@ -446,14 +449,14 @@ function update_scan_plot()
     delete(UI_obj.def_channel.scan.axes.Children)
     % Plot the current (slider) selection if the user wishes:
     scannames = fieldnames(exp_data.scans);
-    if ~isfield(settings.channels, 'list')
+    if ~isfield(GUI_settings.channels, 'list')
         nof_channels = 0;
     else 
-        nof_channels = numel(fieldnames(settings.channels.list));
+        nof_channels = numel(fieldnames(GUI_settings.channels.list));
     end
     plotnames   = cell(times(nof_channels+1, length(fieldnames(exp_data.scans))));
     i           = 1;
-    if settings.channels.show_box
+    if GUI_settings.channels.show_box
         % Firstly, we plot the scan defined by the channel of the current rectangle:
         for scanname_cur_cell = scannames'
             scanname_cur    = scanname_cur_cell{:};
@@ -464,7 +467,6 @@ function update_scan_plot()
             plotname        = [general.char.replace_symbol_in_char(exp_data.scans.(scanname_cur).Name, '_', ' '), ' box'];
             plotnames{i}    = plotname;
             i               = i + 1;
-            mass_limits
             [hLine]         = plot_scan_sub(M2Q_data, bins, mass_limits, photon_energy, 1, 0, plotname, color_cur, 'none', '-');
             UI_obj.def_channel.lines.box    = hLine;
         end
@@ -474,27 +476,27 @@ function update_scan_plot()
 
     % Read through all channel groups and plot a line for each scan, if
     % they are indicated to be visible:
-    if general.struct.issubfield(settings, 'channels.list')
-        channelgroupnames = fieldnames(settings.channels.list);
+    if general.struct.issubfield(GUI_settings, 'channels.list')
+        channelgroupnames = fieldnames(GUI_settings.channels.list);
         % Plot the existing channels:
         for chgroupname_cur_cell = channelgroupnames'
                 chgroupname_cur = chgroupname_cur_cell{:};
-            if settings.channels.list.(chgroupname_cur).Visible
+            if GUI_settings.channels.list.(chgroupname_cur).Visible
                 % Get the current mass limits:
-                mass_limits_cur = [settings.channels.list.(chgroupname_cur).minMtoQ settings.channels.list.(chgroupname_cur).maxMtoQ];
-                Yscale          = settings.channels.list.(chgroupname_cur).Yscale; % Scale in Y direction
-                dY              = settings.channels.list.(chgroupname_cur).dY; % Vertical offset
+                mass_limits_cur = [GUI_settings.channels.list.(chgroupname_cur).minMtoQ GUI_settings.channels.list.(chgroupname_cur).maxMtoQ];
+                Yscale          = GUI_settings.channels.list.(chgroupname_cur).Yscale; % Scale in Y direction
+                dY              = GUI_settings.channels.list.(chgroupname_cur).dY; % Vertical offset
                 for scanname_cur_cell = scannames'
                     scanname_cur    = scanname_cur_cell{:};
-                    if settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
+                    if GUI_settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
                         %Fetch the intensity data of the current sample:
                         M2Q_data        = exp_data.scans.(scanname_cur).matrix.M2Q.I;
                         bins            = double(exp_data.scans.(scanname_cur).matrix.M2Q.bins);
                         photon_energy   = exp_data.scans.(scanname_cur).Data.photon.energy;
-                        plotname     = [exp_data.scans.(scanname_cur).Name, ', ',  settings.channels.list.(chgroupname_cur).Name];
-                        LineColor       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
-                        LineStyle       = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
-                        Marker          = settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
+                        plotname     = [exp_data.scans.(scanname_cur).Name, ', ',  GUI_settings.channels.list.(chgroupname_cur).Name];
+                        LineColor       = GUI_settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Color;
+                        LineStyle       = GUI_settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).LineStyle;
+                        Marker          = GUI_settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Marker;
                         hLine           = plot_scan_sub(M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, general.char.replace_symbol_in_char(plotname, '_', ' '), LineColor, Marker, LineStyle);
                         UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
                         plotnames{i}    = plotname;
@@ -527,7 +529,7 @@ end
         if islogical(LineStyle) | isempty(LineStyle);    LineStyle = '-'; end
         if islogical(Marker)    | isempty(Marker);         Marker = 'none'; end
         hLine = plot(UI_obj.def_channel.scan.axes, ...
-            photon_energy, Yscale*sum(M2Q_data(mass_indices(1):mass_indices(2),:),1) + dY, 'b', 'DisplayName', plotname, ...
+            photon_energy, Yscale*trapz(bins(mass_indices(1):mass_indices(2),:), M2Q_data(mass_indices(1):mass_indices(2),:),1) + dY, 'b', 'DisplayName', plotname, ...
             'Color', LineColor, 'LineStyle', LineStyle, 'Marker', Marker);
     end
 
@@ -579,13 +581,18 @@ function update_slider_limits()
 
     Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
     % Update the live scan plotter:
-    mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)]
+    mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)];
 
     update_scan_plot();
 
     % Set the variables to base workspace:
     GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 end
+
+function import_quickviewer(hObj, event)
+    msgbox({'Sorry, not implemented yet.'; 'Our sincere apologies'}, 'Oops')
+end
+
 end
 
     % set(UI_obj.def_channel.data_plot, 'SizeChangedFcn', @resize_channelslider);

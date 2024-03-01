@@ -30,10 +30,8 @@ else % The files exist.
     end
 
     % Read which scan and spectrum numbers should be used:
-    scan_nrs            = cellfun(@str2double, regexp(fieldnames(exp_data.scans),'\d+','match'));
-    spectra_nrs         = cellfun(@str2double, regexp(fieldnames(exp_data.spectra),'\d+','match'));
-    scan_nr_cur         = max([scan_nrs; 0]) + 1;
-    spectrum_nr_cur     = max([spectra_nrs; 0]) + 1;
+    [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans);
+    [~, spectrum_nr_cur]= GUI.fs_big.make_new_intname(exp_data.spectra);
     color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
     user_scannames      = GUI.fs_big.get_user_names(exp_data.scans);
     user_spectranames   = GUI.fs_big.get_user_names(exp_data.spectra);

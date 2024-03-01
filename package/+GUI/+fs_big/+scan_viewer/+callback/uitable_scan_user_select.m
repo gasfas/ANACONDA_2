@@ -1,7 +1,7 @@
 function uitable_scan_user_select(hObj, event, selection, GUI_settings)
 
 % Get the variables from base workspace:
-[~, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+[GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
     % If the user wants to change the color of the scan/spectrum (relevant in later plots):
     switch selection 
@@ -42,7 +42,7 @@ function uitable_scan_user_select(hObj, event, selection, GUI_settings)
                     % Change the color of the cell to the newly selected one:
                     s = uistyle('BackgroundColor', newColorRGB);
                     addStyle(UI_obj.main.(d_name).uitable, s, 'cell', hObj.Selection);
-                    if general.struct.issubfield(UI_obj, 'plot.m2q') % Also re-color the mass spectrum column if it exists:
+                    if general.struct.issubfield(UI_obj, 'plot.m2q') &&  ishandle(UI_obj.plot.m2q.spectra.uitable)% Also re-color the mass spectrum column if it exists:
                         addStyle(UI_obj.plot.m2q.spectra.uitable, s, 'cell', [hObj.Selection(:,1), 4]);
                         UI_obj.plot.m2q.spectra.uitable.Data{hObj.Selection(:,1), 4} = NewColorchar;
                     end

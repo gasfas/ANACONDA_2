@@ -1,0 +1,20 @@
+function normalization_method_callback(hObj, event, GUI_settings)
+% This callback function updates the  dropdown list that determines the 
+% normalization method.
+
+% Fetch the variables from base workspace:
+[GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+
+switch event.NewValue.Text
+    case 'Channel' 
+        % User wants to see a channel, so make the dropdown list appear to choose which channel:
+        
+        UI_obj.normalize.Channel_choose_label               = uilabel(UI_obj.normalize.main, 'Text', 'Channel:', 'Position', [150, 70, 100, 15]);
+        UI_obj.normalize.Channel_choose_dropdown            = uidropdown(UI_obj.normalize.main, ...
+            'Items', GUI_settings.channels. , 'Position', [150, 50, 130, 20]);
+
+end
+
+% Write the variables to base workspace:
+GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
+end
