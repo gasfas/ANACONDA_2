@@ -2,13 +2,15 @@ function [GUI_settings] = load_GUI_settings(GUI_settings)
 % Set some initial GUI_settings for the GUI:
 
 GUI_settings.load_scan.browse_dir                   = 'D:\DATA\2023\PETRA P04\';
+
+% GUI_settings.load_scan.browse_dir                   = 'C:';
 GUI_settings.load_scan.setup_type                   = 'Spektrolatius';
 GUI_settings.load_scan.tooltips.re_bin_factor       = 'The re-bin factor reduces the amount of (m2q) datapoints by calculating the average of every bunch of ''re-bin factor'' values.';
 GUI_settings.load_scan.tooltips.sample_name         = 'Fill in the name of the sample or run you are loading. For example: ""MetEnk_Desirs"" ';
 GUI_settings.load_scan.tooltips.Remove_scan         = 'Removes the selected scan(s) in the table from memory.';
 GUI_settings.load_scan.tooltips.Modify_scan         = 'Adapt an already-loaded scan, e.g. by adding or removing spectra or changing the name.';
 GUI_settings.load_scan.tooltips.calibrate           = 'Normalizing either a scan or spectrum. The normalized data will be added as one of the scans or spectra.';
-GUI_settings.load_scan.tooltips.subtract            = 'Subtract a spectrum/scan by a spectrum/(spectrum/scan)'
+GUI_settings.load_scan.tooltips.subtract            = 'Subtract a spectrum/scan by a spectrum/(spectrum/scan)';
 GUI_settings.load_scan.tooltips.plot_m2q            = 'Visualize the mass spectra of selected scan(s). If no scans are selected, all of them will be available.';
 GUI_settings.load_scan.tooltips.plot_scan           = 'Visualize the yields of selected scan(s). If no scans are selected, all of them will be considered.';
 GUI_settings.load_scan.tooltips.define_channels     = 'Select the fragments from an averaged mass spectru';
