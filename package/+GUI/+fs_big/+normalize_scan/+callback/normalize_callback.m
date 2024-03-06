@@ -7,8 +7,10 @@ function normalize_callback(hObj, event, GUI_settings)
 
 if UI_obj.normalize.radioswitch_scan.Value
     datatype_name = 'scans';
+    field_subname = 'scan';
 else
     datatype_name = 'spectra';
+    field_subname = 'spectr';
 end
 data_name = GUI.fs_big.get_intname_from_username(exp_data.(datatype_name), UI_obj.normalize.dropdown_dataselection.Value);
 
@@ -42,7 +44,7 @@ for sp_name_cur = spectrum_names'
     % and divide the intensity by it:
     d_norm.Data.hist.(sp_name_cur{:}).M2Q.I = d_raw.Data.hist.(sp_name_cur{:}).M2Q.I./norm_denominator;
     % Make a new intname, make sure it is not in use yet:
-    new_datatype_name = GUI.fs_big.make_new_intname(exp_data.(datatype_name));
+    new_datatype_name = GUI.fs_big.make_new_intname(exp_data.(datatype_name), field_subname);
 end
 
 % Store the new spectrum/channel in the exp_data struct:

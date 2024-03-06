@@ -30,8 +30,8 @@ else % The files exist.
     end
 
     % Read which scan and spectrum numbers should be used:
-    [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans);
-    [~, spectrum_nr_cur]= GUI.fs_big.make_new_intname(exp_data.spectra);
+    [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans, 'scan');
+    [~, spectrum_nr_cur]= GUI.fs_big.make_new_intname(exp_data.spectra, 'spectr');
     color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
     user_scannames      = GUI.fs_big.get_user_names(exp_data.scans);
     user_spectranames   = GUI.fs_big.get_user_names(exp_data.spectra);
