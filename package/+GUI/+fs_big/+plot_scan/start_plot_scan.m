@@ -390,6 +390,8 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                         s = uistyle('BackgroundColor', newColorRGB);
                         addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', hObj.Selection);
                         update_scan_plot();
+                        % Put the scan plot window on top:
+                        figure(UI_obj.def_channel.main)
             end
         end
     end

@@ -46,6 +46,8 @@ function uitable_scan_user_select(hObj, event, selection, GUI_settings)
                         addStyle(UI_obj.plot.m2q.spectra.uitable, s, 'cell', [hObj.Selection(:,1), 4]);
                         UI_obj.plot.m2q.spectra.uitable.Data{hObj.Selection(:,1), 4} = NewColorchar;
                     end
+                    % Make the scan window top again:
+                    figure(UI_obj.main.uifigure)
         end
     end
 

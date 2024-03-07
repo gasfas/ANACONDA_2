@@ -300,6 +300,9 @@ function change_cur_line_color(hObj, event)
     UI_obj.plot.m2q.cur_line.Color = uisetcolor(UI_obj.plot.m2q.cur_line.Color);
     % Update the button color:
     UI_obj.plot.m2q.cur_line_color.BackgroundColor = UI_obj.plot.m2q.cur_line.Color;
+    % Put the m2q plot window on top:
+    figure(UI_obj.plot.m2q.plot_window)
+    figure(UI_obj.plot.m2q.main)
 end
 
 

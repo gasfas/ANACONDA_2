@@ -85,7 +85,7 @@ for filenr_cur = 1:nof_files
     sample_data.hist.(spectr_name_cur).M2Q.bins     = single(transpose(M));
     sample_data.photon.energy(filenr_cur)           = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(csv_filename_cur);
     sample_data.photon.Photodiode_current(filenr_cur)= IO.SPECTROLATIUS_S2S.fetch_photodiode_current(csv_filename_cur);
-    sample_data.photon.flux(filenr_cur)             = IO.SPECTROLATIUS_S2S.calc_photon_flux(sample_data.photon.Photodiode_current(filenr_cur), sample_data.photon.energy(filenr_cur), 'OptodiodeSXUV100');
+    sample_data.photon.flux(filenr_cur)             = IO.SPECTROLATIUS_S2S.calc_photon_flux(csv_filename_cur);
 end
 
 M_m2q  = hist.H_1D_rebin_intensity(M_scan(:,2), rebin_factor);
