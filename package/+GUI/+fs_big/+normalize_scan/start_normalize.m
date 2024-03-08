@@ -13,6 +13,9 @@ GUI_settings.normalize.tooltips.normalization_method          = ['Choose normali
 GUI_settings.normalize.tooltips.Normalize          = 'Generate a new spectrum/scan with the above specified preferences.';
 GUI_settings.normalize.tooltips.cancel             = 'Generate a new spectrum/scan with the above specified preferences.';
 GUI_settings.normalize.default_data_output_name    = 'Example_normalized';
+GUI_settings.normalize.tooltips.View_flux                   = 'Plot the photon flux as a function of photon energy (in case of scan), or show the flux number (in case of spectrum)';
+GUI_settings.normalize.tooltips.View_PD_current             = 'Plot the measured photodiode current as a function of photon energy (in case of scan), or show the Photodiode current (in case of spectrum)';
+
 
 % Define the uifigure:
 UI_obj.normalize.main         = uifigure('Name', 'Normalize data','NumberTitle','off', ...
@@ -32,12 +35,13 @@ UI_obj.normalize.radioswitch_spectrum_scan  = uibuttongroup(UI_obj.normalize.mai
 UI_obj.normalize.radioswitch_spectrum       = uiradiobutton(UI_obj.normalize.radioswitch_spectrum_scan,'Text', 'Spectrum', 'Position',[10 20 91 15]);
 UI_obj.normalize.radioswitch_scan           = uiradiobutton(UI_obj.normalize.radioswitch_spectrum_scan,'Text', 'Scan', 'Position',[10 5 91 15]);
 
-UI_obj.normalize.radioswitch_normalization_method   = uibuttongroup(UI_obj.normalize.main,'Title', 'Normalization method', 'Position',[150 90 140 80], ...
+UI_obj.normalize.radioswitch_normalization_method   = uibuttongroup(UI_obj.normalize.main,'Title', 'Normalization method', 'Position',[150 80 140 90], ...
                                                       'SelectionChangedFcn',{@GUI.fs_big.normalize_scan.callback.normalization_method_callback, GUI_settings}, ...
                                                       'Tooltip', GUI_settings.normalize.tooltips.normalization_method);
-UI_obj.normalize.radioswitch_norm_maximum           = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Maximum', 'Position',[10 40 91 15]);
-UI_obj.normalize.radioswitch_norm_channel           = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Channel', 'Position',[10 25 91 15]);
-UI_obj.normalize.radioswitch_norm_total             = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Total', 'Position',[10 10 91 15]);
+UI_obj.normalize.radioswitch_norm_maximum           = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Maximum', 'Position',[10 50 91 15]);
+UI_obj.normalize.radioswitch_norm_channel           = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Channel', 'Position',[10 35 91 15]);
+UI_obj.normalize.radioswitch_norm_total             = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Total', 'Position',[10 20 91 15]);
+UI_obj.normalize.radioswitch_norm_photon_flux       = uiradiobutton(UI_obj.normalize.radioswitch_normalization_method,'Text', 'Photon flux', 'Position',[10 5 91 15]);
 
 UI_obj.normalize.Normalize                          = uibutton(UI_obj.normalize.main, "Text", "Normalize", "Position", [200, 10, 80, 20], ...
                                                 "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.normalize_callback, GUI_settings}, ...

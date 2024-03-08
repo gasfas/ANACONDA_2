@@ -4,15 +4,9 @@ function normalization_method_callback(hObj, event, GUI_settings)
 
 % Fetch the variables from base workspace:
 [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
-if isfield(UI_obj.normalize, 'view_PD')
-    try UI_obj.normalize.view_PD.Visible    = 'off'; catch; end
-    try UI_obj.normalize.view_flux.Visible  = 'off'; catch; end
-end
-% Hide the channel dropdown if the user does not want the channel normalization method:
-if isfield(UI_obj.normalize, 'Channel_choose_dropdown')
-    try UI_obj.normalize.Channel_choose_dropdown.Visible    = 'off'; catch; end
-    try UI_obj.normalize.Channel_choose_label.Visible       = 'off'; catch; end
-end
+
+UI_obj.normalize.view_PD.Visible = 'off';
+UI_obj.normalize.view_flux.Visible = 'off';
 
 switch event.NewValue.Text
     case 'Channel' 
@@ -26,12 +20,17 @@ switch event.NewValue.Text
                 msgbox('No channels defined. Please define in ''plot_scan'' window first.')
         end
     case 'Photon flux' % User wants to normalize on the photon flux, so make it possible to plot:
-        UI_obj.normalize.view_flux      = uibutton(UI_obj.normalize.main, "Text", "View flux", "Position", [150, 57, 100, 20], ...
-                                        "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.View_flux, GUI_settings, 'flux'}, ...
+        UI_obj.normalize.view_flux      = uibutton(UI_obj.normalize.main, "Text", "View flux", "Position", [150, 55, 100, 20], ...
+                                        "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.View_flux, GUI_settings}, ...
                                         'Tooltip', GUI_settings.normalize.tooltips.View_flux);
-        UI_obj.normalize.view_PD        = uibutton(UI_obj.normalize.main, "Text", "View PD", "Position", [150, 35, 100, 20], ...
-                                        "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.View_flux, GUI_settings, 'PD'}, ...
+        UI_obj.normalize.view_PD        = uibutton(UI_obj.normalize.main, "Text", "View PD", "Position", [150, 30, 100, 20], ...
+                                        "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.View_PDcur, GUI_settings}, ...
                                         'Tooltip', GUI_settings.normalize.tooltips.View_PD_current);
+    otherwise % Hide the channel dropdown if the user does not want the channel normalization method:
+        if isfield(UI_obj.normalize, 'Channel_choose_dropdown')
+            UI_obj.normalize.Channel_choose_dropdown.Visible    = 'off';
+            UI_obj.normalize.Channel_choose_label.Visible       = 'off';
+        end
 end
 
 % Update the suggested name:

@@ -209,7 +209,6 @@ function OK_close(~,~)
     end
 end
 
-
 function hold_limits_scan(objHandle, ~)
     % User wants to change the state of the hold XY window:
     UI_obj.def_channel.scan.if_hold_XY  = objHandle.Value;
@@ -290,6 +289,9 @@ end
         if ifdo_update_plot
             update_scan_plot();
         end
+
+        % Set the variables to base workspace:
+        GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
     end
 
     function uitable_add_fragment()

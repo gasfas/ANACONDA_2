@@ -19,11 +19,9 @@ d_raw   = exp_data.(datatype_name).(data_name);
 d_norm  = d_raw;
 
 spectrum_names = fieldnames(d_raw.Data.hist);
-i = 0;
 
 % Normalize the spectra one at a time:
-for sp_name_cur = spectrum_names'
-    i = i + 1;
+for sp_name_cur = spectrum_names'        
     M2Q_I_unnorm         = d_raw.Data.hist.(sp_name_cur{:}).M2Q.I;
     M2Q_bins_unnorm      = d_raw.Data.hist.(sp_name_cur{:}).M2Q.bins;
     % Check the normalization method:
@@ -43,10 +41,12 @@ for sp_name_cur = spectrum_names'
         % Integrate over the entire spectrum:
         norm_denominator      = trapz(M2Q_bins_unnorm, M2Q_I_unnorm);
     elseif UI_obj.normalize.radioswitch_norm_photon_flux.Value
-        % Fetch the photon flux for this spectrum:
-        norm_denominator = d_raw.Data.photon.flux(i);
+        % Fetch the photon flux:
+        photon_flux = d_raw.Data.photon.flux;
+        % Integrate over the entire spectrum:
+        norm_denominator      = trapz(M2Q_bins_unnorm, photon_flux);
     end
-    % and divide the intensity by the denominator:
+    % and divide the intensity by it:
     d_norm.Data.hist.(sp_name_cur{:}).M2Q.I = d_raw.Data.hist.(sp_name_cur{:}).M2Q.I./norm_denominator;
     % Make a new intname, make sure it is not in use yet:
     new_datatype_name = GUI.fs_big.make_new_intname(exp_data.(datatype_name), field_subname);
@@ -58,7 +58,7 @@ exp_data.(datatype_name).(new_datatype_name) = d_norm;
 exp_data.(datatype_name).(new_datatype_name).Name       = (UI_obj.normalize.data_output_name.Value);
 
 % If a scan, also make up new plot properties for it:
-if strcmpi(datatype_name, 'scans') && general.struct.issubfield(GUI_settings, 'channels.list')
+if strcmpi(datatype_name, 'scans')
     Channelgroup_names   = fieldnames(GUI_settings.channels.list);
     for chgroupname_cur_cell = Channelgroup_names'
         chgroupname_cur     = chgroupname_cur_cell{:};

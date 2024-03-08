@@ -11,9 +11,14 @@ elseif UI_obj.normalize.radioswitch_norm_channel.Value
     postfix = '_nC';
 elseif UI_obj.normalize.radioswitch_norm_total.Value
     postfix = '_nT';
+elseif UI_obj.normalize.radioswitch_norm_photon_flux.Value
+    postfix = '_nP';
 end
 
 data_selected = UI_obj.normalize.dropdown_dataselection.Value;
+if isempty(data_selected)
+    data_selected = 'example_name';
+end
 
 UI_obj.normalize.data_output_name.Value = [data_selected postfix];
 

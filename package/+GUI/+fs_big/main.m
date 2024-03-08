@@ -32,4 +32,5 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % - Read ESI_only, Photon_only, etc columns.
 % - Read the photon flux.
 % - Make it possible to normalize by photon flux.
+% - Also save mass-to-charge.
 end
