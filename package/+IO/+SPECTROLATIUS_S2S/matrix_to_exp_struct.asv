@@ -12,10 +12,8 @@ else isempty(spectrumnames_init) % We generate fieldnames 1 to num_spectra:
 end
 
 % Now we place the data one by one into the data_struct:
-spec_nr_cur = 0;
 for spec_name_cur = spectrnames_list
-    spec_nr_cur = spec_nr_cur + 1;
-    data_struct.Data.hist.(spec_name_cur{:}).M2Q.I = I_matrix(:, spec_nr_cur);
+    data_struct.Data.hist.(spec_name_cur.M2Q.I = I_matrix(:, spec_nr_cur);
 end
 
 end

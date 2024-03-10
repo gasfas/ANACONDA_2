@@ -115,9 +115,10 @@ else % In case the photon energies of the subtrahend and minuend are not
     I_min_mat_corrected     = I_min_mat * Scale_min + dY_min;
     [M2Q_subtr_MG, hv_subtr_MG] = meshgrid(double(M2Q_subtr), hv_subtr);
     [M2Q_min_MG, hv_min_MG] = meshgrid(double(M2Q_min), hv_min);
-    I_subtracted            = interp2(M2Q_subtr_MG, hv_subtr_MG, I_subtr_mat', M2Q_min_MG, hv_min_MG, 'makima');
+    I_subtr_mat_int         = interp2(M2Q_subtr_MG, hv_subtr_MG, I_subtr_mat_corrected', M2Q_min_MG, hv_min_MG, 'makima');
+    I_subtracted            = I_min_mat_corrected - I_subtr_mat_int';
     % Place the spectra back into their struct fields:
-    d_output                = IO.SPECTROLATIUS_S2S.matrix_to_exp_struct(I_subtracted', d_output);
+    d_output                = IO.SPECTROLATIUS_S2S.matrix_to_exp_struct(I_subtracted, d_output);
 end
 
 
