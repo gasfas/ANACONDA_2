@@ -3,6 +3,12 @@ function normalize_callback(hObj, event, GUI_settings)
 % saves the spectrum/scan as a new channel in memory.
 [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
+% Check if a valid name has been chosen:
+% Check if chosen name is valid:
+if ~GUI.fs_big.check_validity_name(exp_data, UI_obj.normalize.data_output_name.Value)
+    msgbox('Incorrect name of new spectrum/scan, either duplicate or empty. Please check and try again.')
+else
+
 % Read the state of the UIs to know what and how to subtract
 
 if UI_obj.normalize.radioswitch_scan.Value
@@ -78,4 +84,5 @@ UI_obj.normalize.main.Visible = 'off';
 
 % Set the variables to base workspace:
 GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
+end
 end

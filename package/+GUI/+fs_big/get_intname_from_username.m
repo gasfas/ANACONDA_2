@@ -17,6 +17,11 @@ usernames = GUI.fs_big.get_user_names(input_struct);
 if numel(idx) > 1
     warning('Duplicate user name found')
 end
-intname     = Intnames(idx(1));
-intname     = intname{:}; % Convert from cell to char.
+if ~isempty(Intnames) && ~isempty(idx)
+    intname     = Intnames(idx(1));
+    intname     = intname{:}; % Convert from cell to char.
+else
+    intname     = [];
+end
+
 end

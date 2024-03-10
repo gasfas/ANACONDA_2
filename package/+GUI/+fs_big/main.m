@@ -27,10 +27,14 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % - Suggested channelgroup name should not be scientific notation. 
 % - Remove channel should update table. Also when it is the last removed
 % channel.
+% - Make shift in m2q possible (or in TOF ?)
 % - Make 'Visible' column in main scan viewer window.
 % - dY and scale of the channels are not saved?
 % - Read ESI_only, Photon_only, etc columns.
 % - Read the photon flux.
 % - Make it possible to normalize by photon flux.
 % - Also save mass-to-charge.
+% - Make scan subplots
+% - Implement 'normalization factor' option
+% - Implement peakfinder in define_channels.
 end

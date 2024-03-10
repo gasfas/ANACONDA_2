@@ -10,11 +10,8 @@ function uitable_scan_spectra_user_edit(hObj, event, GUI_settings, uitable_type)
 if event.Indices(2) == 1 % Name change
     NewName = event.NewData;
     cur_int_names   = fieldnames(exp_data.(uitable_type));
-    % Make sure the name is unique:
-    % Check if the name is not already in use (either for a spectrum or scan): 
-    spectra_usernames = GUI.fs_big.get_user_names(exp_data.spectra);
-    scan_usernames = GUI.fs_big.get_user_names(exp_data.scans);
-    if ~isempty(NewName) && ~any(ismember(scan_usernames, NewName)) && ~any(ismember(spectra_usernames, NewName))
+    % Make sure the name is unique and valid:
+    if GUI.fs_big.isemptyname(exp_data, NewName)
         % Current internal name:
         cur_int_name    = cur_int_names{event.Indices(1)};
         % Write the new name:

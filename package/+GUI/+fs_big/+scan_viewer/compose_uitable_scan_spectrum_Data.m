@@ -20,7 +20,7 @@
                     addStyle(UI_obj.main.scans.uitable, s, 'cell', [i,5]);
                 end
             case 'spectra'
-                % Data_column_fieldnames : {'Spectrum name', 'Color'};
+                % Data_column_fieldnames : {'Spectrum name', 'Color', 'dY', 'Scale'};
                 spectra_intnames    = fieldnames(exp_data.spectra);
                 nof_spectra         = numel(spectra_intnames);
                 uitable_data        = cell(nof_spectra, 2); % Initialize empty cell
@@ -28,6 +28,8 @@
                     current_spectrum_name = spectra_intnames{i};
                     uitable_data{i,1} = exp_data.spectra.(current_spectrum_name).Name;                 % Name
                     uitable_data{i,2} = regexprep(num2str(round(exp_data.spectra.(current_spectrum_name).Color,1)),'\s+',','); % Color
+                    uitable_data{i,3} = exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.dY; % Color
+                    uitable_data{i,4} = exp_data.spectra.(current_spectrum_name).Data.hist.spectr_001.Scale; % Color
                     % Draw background colors for the color cells:
                     s = uistyle('BackgroundColor', exp_data.spectra.(current_spectrum_name).Color);
                     addStyle(UI_obj.main.spectra.uitable, s, 'cell', [i,2]);

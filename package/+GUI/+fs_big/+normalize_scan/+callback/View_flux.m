@@ -31,7 +31,6 @@ if ~isempty(UI_obj.normalize.dropdown_dataselection.Value) % In case a file is s
                 UI_obj.normalize.PD_line    = plot(UI_obj.normalize.PD_axes, exp_data.scans.(intname).Data.photon.energy, exp_data.scans.(intname).Data.photon.Photodiode_current);
                 xlabel('Photon energy [eV]')
                 ylabel('Photodiode current [microAmpere]')
-                
     end
 end
 

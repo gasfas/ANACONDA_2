@@ -293,6 +293,11 @@ function close_both_M2Q_windows(~,~)
     % Close both windows:
     delete(UI_obj.plot.m2q.main)
     delete(UI_obj.plot.m2q.plot_window)
+    % Update the tables at main window:
+    GUI.fs_big.scan_viewer.uitable_scan_modify(UI_obj, exp_data);
+    GUI.fs_big.scan_viewer.uitable_spectra_modify(UI_obj, exp_data);
+    % Put main window at front:
+    figure(UI_obj.main.uifigure)
 end
 
 function change_cur_line_color(hObj, event)

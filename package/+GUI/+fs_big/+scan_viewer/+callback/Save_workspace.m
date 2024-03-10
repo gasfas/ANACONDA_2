@@ -4,7 +4,7 @@ function Save_workspace(hObj, event, GUI_settings)
 % exp_data, GUI_settings
 
 % Load the variables from base workspace:
-[GUI_settings, ~, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+[GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
 try 
     scan_names                  = fieldnames(exp_data.scans);
@@ -23,5 +23,10 @@ end
 [saveFile, savePath]  = uiputfile( '*.mat', 'Save workspace as', fullfile(browse_dir, [suggested_savename '.mat']));
 if all([saveFile, savePath])
     save(fullfile(savePath, saveFile), 'exp_data', 'GUI_settings');
+    % Update the tables:
+    UI_obj.main.scans.uitable.Data                  = GUI.fs_big.scan_viewer.compose_uitable_scan_spectrum_Data('scans', UI_obj, exp_data);
+    UI_obj.main.spectra.uitable.Data                = GUI.fs_big.scan_viewer.compose_uitable_scan_spectrum_Data('spectra', UI_obj, exp_data);
+    % Main window up:
+    figure(UI_obj.main.uifigure)
 end
 end

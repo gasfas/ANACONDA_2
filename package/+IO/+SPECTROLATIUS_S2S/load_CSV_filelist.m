@@ -83,6 +83,8 @@ for filenr_cur = 1:nof_files
     spectr_name_cur     = ['spectr_', num2str(filenr_cur, '%03.f')];
     sample_data.hist.(spectr_name_cur).M2Q.I        = single(transpose(I));
     sample_data.hist.(spectr_name_cur).M2Q.bins     = single(transpose(M));
+    % Make sure the M2Q bins are unique:
+    sample_data.hist.(spectr_name_cur).M2Q          = unique_M2Q_points(sample_data.hist.(spectr_name_cur).M2Q);
     sample_data.photon.energy(filenr_cur)           = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(csv_filename_cur);
     sample_data.photon.Photodiode_current(filenr_cur)= IO.SPECTROLATIUS_S2S.fetch_photodiode_current(csv_filename_cur);
     sample_data.photon.flux(filenr_cur)             = IO.SPECTROLATIUS_S2S.calc_photon_flux(sample_data.photon.Photodiode_current(filenr_cur), sample_data.photon.energy(filenr_cur), 'OptodiodeSXUV100');
@@ -107,4 +109,16 @@ case 'column'
     % M = dlmread(csv_filename, '\t', 6, 0);        
     M = readmatrix(csv_filename);
 end
+end
+
+function M2Q_unique = unique_M2Q_points(M2Q_not_unique)
+        % Find where the minimum M2Q is located:
+        [~, idx_min]  = min(M2Q_not_unique.bins);
+        % remove all values below the minimum:
+        new_first_idx = idx_min + round(numel(M2Q_not_unique.bins)/100);
+        M2Q_unique.bins     = M2Q_not_unique.bins(new_first_idx:end);
+        M2Q_unique.I        = M2Q_not_unique.I(new_first_idx:end);
+        
+        % In case there are still non-unique, find the unique values in M2Q bins:
+        % [unique_values, unique_idx, unique_n] = unique(M2Q_unique.bins);
 end
