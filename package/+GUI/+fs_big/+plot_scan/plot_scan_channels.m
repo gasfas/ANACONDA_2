@@ -1,5 +1,5 @@
 function [UI_obj, plotnames] = plot_scan_channels(exp_data, GUI_settings, UI_obj, i)
-
+plotnames               = {};
 scannames               = fieldnames(exp_data.scans);
 % Read through all channel groups and plot a line for each scan, if
     % they are indicated to be visible:

@@ -17,7 +17,13 @@ function draw_subplots(~,~, GUI_settings)
 
     % Start a subplot, depending on the amount of channels:
     num_channels    = numel(visible_channel_names);
-    num_row         = min(4, num_channels);
+    if num_channels < 5
+        num_row = 2;
+    elseif num_channels < 7
+        num_row = 3;
+    else 
+        num_row         = min(4, num_channels);
+    end
     num_col         = ceil(num_channels/num_row);
 UI_obj.plot_scan.subplot.fig = figure();
 i = 0;
@@ -37,9 +43,6 @@ for channel_visible_cur_cell     = visible_channel_names
                   Yscale         = GUI_settings.channels.list.(channel_visible_cur).Yscale; % Scale in Y direction
                   dY             = GUI_settings.channels.list.(channel_visible_cur).dY; % Vertical offset
                   mass_limits_cur= [GUI_settings.channels.list.(channel_visible_cur).minMtoQ GUI_settings.channels.list.(channel_visible_cur).maxMtoQ];
-                  Marker_cur    = GUI_settings.channels.list.(channel_visible_cur).scanlist.(scanname_cur).Marker;
-                  LineStyle_cur = GUI_settings.channels.list.(channel_visible_cur).scanlist.(scanname_cur).LineStyle;
-                  Color_cur     = GUI_settings.channels.list.(channel_visible_cur).scanlist.(scanname_cur).Color;
                   % hLine         = plot_scan_sub(haxes, M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, plotname, LineColor, Marker, LineStyle);
                   [hLine, plotname] =  GUI.fs_big.plot_scan.plot_scan_channel(haxes, exp_data, GUI_settings, scanname_cur, channel_visible_cur, mass_limits_cur, Yscale, dY);
                   UI_obj.plot_scan.subplot.axes.(scanname_cur) = hLine;
