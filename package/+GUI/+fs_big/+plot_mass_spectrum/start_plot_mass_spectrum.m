@@ -120,16 +120,17 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
     function spectra_table_select(hObj, event, GUI_settings)
     % Get the variables from base workspace:
     [~, ~, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
-
-    spectra_intnames    = fieldnames(exp_data.spectra);
-    sample_username     = exp_data.spectra.(spectra_intnames{event.Indices(1)}).Name;
-    sample_intname      = GUI.fs_big.get_intname_from_username(exp_data.spectra, sample_username);
-    % Update the color to the one specified by the spectrum:
-    UI_obj.plot.m2q.cur_line.Color = exp_data.spectra.(sample_intname).Color;
-    % Update the button color:
-    UI_obj.plot.m2q.cur_line_color.BackgroundColor = exp_data.spectra.(sample_intname).Color;
-    % User selected a row in the spectrum table, so show that in the plot:
-    update_plot(UI_obj.plot.m2q.axes, exp_data, 'spectra', sample_username, 1);
+    if ~isempty(event.Indices)
+        spectra_intnames    = fieldnames(exp_data.spectra);
+        x   sample_username     = exp_data.spectra.(spectra_intnames{event.Indices(1)}).Name;
+        sample_intname      = GUI.fs_big.get_intname_from_username(exp_data.spectra, sample_username);
+        % Update the color to the one specified by the spectrum:
+        UI_obj.plot.m2q.cur_line.Color = exp_data.spectra.(sample_intname).Color;
+        % Update the button color:
+        UI_obj.plot.m2q.cur_line_color.BackgroundColor = exp_data.spectra.(sample_intname).Color;
+        % User selected a row in the spectrum table, so show that in the plot:
+        update_plot(UI_obj.plot.m2q.axes, exp_data, 'spectra', sample_username, 1);
+    end
 end
 
 % uislider

@@ -104,7 +104,7 @@ if strcmp(datatype_min_name, 'spectra')
     % interpolate the subtrahend intensities to minuend M2Q abscissa:
     I_subtr_corrected   = I_subtr*Scale_subtr + dY_subtr;
     I_min_corrected     = I_min*Scale_min + dY_min;
-    I_subtr_int         = interp1(M2Q_subtr, I_subtr_corrected, M2Q_min, 'linear', 'nearest');
+    I_subtr_int         = interp1(M2Q_subtr, I_subtr_corrected, M2Q_min, 'linear', 'extrap');
     % Subtract the subtrahend from minuend:
     d_output.Data.hist.spectr_001.M2Q.I = I_min_corrected - I_subtr_int;
 else % In case the photon energies of the subtrahend and minuend are not 

@@ -21,7 +21,8 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % buildResults = compiler.build.standaloneApplication('main.m')
 
 % Todo: 
-% - M/q shift allowed 
+% - Corrections: M/q shift, photon energy shift, 
+% - Define fragments: all scans invisible makes entire channel invisible.
 % - interpolation of m2q and photon energies.
 % - Make option to change color for each channelgroup, instead of channel.
 % - Suggested channelgroup name should not be scientific notation. 
@@ -33,7 +34,7 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % - Read ESI_only, Photon_only, etc columns.
 % - Read the photon flux.
 % - Make it possible to normalize by photon flux.
-% - Also save mass-to-charge.
+% - Also save time-of-flight information.
 % - Make scan subplots
 % - Implement 'normalization factor' option
 % - Implement peakfinder in define_channels.

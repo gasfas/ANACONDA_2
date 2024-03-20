@@ -1,4 +1,4 @@
-function subtract_callback(hObj, event, GUI_settings)
+function subtract_callback(~, ~, GUI_settings)
 % Start the subtraction GUI window
 
 [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);

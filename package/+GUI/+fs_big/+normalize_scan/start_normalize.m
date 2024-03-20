@@ -15,7 +15,7 @@ GUI_settings.normalize.tooltips.cancel             = 'Generate a new spectrum/sc
 GUI_settings.normalize.default_data_output_name    = 'Example_normalized';
 GUI_settings.normalize.tooltips.View_flux                   = 'Plot the photon flux as a function of photon energy (in case of scan), or show the flux number (in case of spectrum)';
 GUI_settings.normalize.tooltips.View_PD_current             = 'Plot the measured photodiode current as a function of photon energy (in case of scan), or show the Photodiode current (in case of spectrum)';
-
+GUI_settings.normalize.tooltips.copy_data          = 'Whether or not to copy this data to a new spectrum/scan (true), or to overwrite the existing scan/spectrum (false).';
 
 % Define the uifigure:
 UI_obj.normalize.main         = uifigure('Name', 'Normalize data','NumberTitle','off', ...
@@ -51,7 +51,10 @@ UI_obj.normalize.Normalize                          = uibutton(UI_obj.normalize.
 %                                                 "ButtonPushedFcn", {@GUI.fs_big.normalize_scan.callback.cancel_callback, GUI_settings}, ...
 %                                                 'Tooltip', GUI_settings.normalize.tooltips.cancel);
 
-UI_obj.normalize.data_output_name_label             = uilabel(UI_obj.normalize.main, 'Text', 'Output:', 'Position', [10, 35, 100, 15]);
+UI_obj.normalize.copy_data                          = uicheckbox(UI_obj.normalize.main, 'Value', true, 'Text', 'Data output:', ...
+                                                    'ValueChangedFcn', {@GUI.fs_big.normalize_scan.callback.copy_data_check_callback, 'normalize', GUI_settings}, ...
+                                                    'Position', [15, 35, 120, 15], 'Tooltip', GUI_settings.normalize.tooltips.copy_data);
+
 UI_obj.normalize.data_output_name                   = uieditfield(UI_obj.normalize.main, 'Value', GUI_settings.normalize.default_data_output_name, 'Position', [10, 10, 150, 20]);
 
 % Write the variables to base workspace:

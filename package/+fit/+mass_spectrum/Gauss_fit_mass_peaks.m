@@ -2,12 +2,13 @@ function [fit_peak_strength, fit_peak_mass, fit_peak_FWHM] = Gauss_fit_mass_peak
 % Gaussian fits of mass peaks. Inputs:
 % m_bins                    = mass bin centres [Da]
 % I                         = Intensities at the given mass centres.
-% peak_mass_center_guess    = [n_peaks, 1] First guess of the peak centre, expressed in mass [Da]
-% peak_width_guess          = First guess of the peak width, expressed in mass [Da]. Size: either scalar, or [n_peaks, 1] array. if scalar, used for all peaks.
-% peak_mass_search_radius   = The total allowed distance from the initial peak centre guess to travel [Da]. Size: either scalar, or [n_peaks, 1] array. if scalar, used for all peaks.
-% peak_width_search_radius  = The allowed change in peak width as part of the solution space. [Da]
-% fit_mass_width            = The width over the region over which the fit
-% is made. [Da]
+% m_fit                     = struct, which contains the fields:
+%                               peak_mass_center_guess    = [n_peaks, 1] First guess of the peak centre, expressed in mass [Da]
+%                               peak_FWHM_guess           = First guess of the peak width, expressed in mass [Da]. Size: either scalar, or [n_peaks, 1] array. if scalar, used for all peaks.
+%                               peak_mass_search_radius   = The total allowed distance from the initial peak centre guess to travel [Da]. Size: either scalar, or [n_peaks, 1] array. if scalar, used for all peaks.
+%                               peak_width_search_radius  = The allowed change in peak width as part of the solution space. [Da]
+%                               fit_mass_width            = The width over the region over which the fit
+%                               is made. [Da]
 % Outputs:
 % fit_peak_strength         = The fitted peak intensity
 % fit_peak_mass             = The fitted peak mass [Da]
@@ -18,10 +19,31 @@ peak_FWHM_guess             = m_fit.peak_FWHM_guess;
 peak_mass_search_radius     = m_fit.peak_mass_search_radius;
 peak_FWHM_search_radius     = m_fit.peak_FWHM_search_radius;
 fit_mass_full_width         = m_fit.fit_mass_full_width;
-Normalization_method        = m_fit.Normalization_method;
-min_rel_peak2peak           = m_fit.min_rel_peak2peak;
-main_peak_mass_search_radius= m_fit.main_peak_mass_search_radius;
-RESNORM_max                 = m_fit.RESNORM_max;
+
+% Optional input and defaults:
+if isfield(m_fit, 'min_rel_peak2peak')
+    min_rel_peak2peak           = m_fit.min_rel_peak2peak;
+else
+    min_rel_peak2peak           = 0.1;
+end
+if isfield(m_fit, 'main_peak_mass_search_radius')
+    main_peak_mass_search_radius    = m_fit.main_peak_mass_search_radius;
+else
+    main_peak_mass_search_radius    = 0.2;
+end
+if isfield(m_fit, 'Normalization_method')
+    Normalization_method    = m_fit.Normalization_method;
+else
+    Normalization_method    = 'none';
+end
+if isfield(m_fit, 'RESNORM_max')
+    RESNORM_max             = m_fit.RESNORM_max;
+else
+    RESNORM_max             = 1e-7;
+end
+if ~isfield(m_fit, 'min_peak2peak_dm')
+    m_fit.min_peak2peak_dm             = 0.25;
+end
 
 if length(peak_mass_center_guess) > 1 && length(peak_FWHM_guess) == 1
     % make peak_width_guess just as long as value_nominal, if only one

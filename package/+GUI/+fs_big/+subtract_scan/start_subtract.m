@@ -60,7 +60,10 @@ UI_obj.subtract.subtract                          = uibutton(UI_obj.subtract.mai
                                                 'Tooltip', GUI_settings.subtract.tooltips.subtract);
 
 
-UI_obj.subtract.data_output_name_label             = uilabel(UI_obj.subtract.main, 'Text', 'Output:', 'Position', [10, 35, 100, 15]);
+
+UI_obj.subtract.copy_data                          = uicheckbox(UI_obj.subtract.main, 'Value', true, 'Text', 'Data output:', ...
+                                                    'ValueChangedFcn', {@GUI.fs_big.normalize_scan.callback.copy_data_check_callback, 'subtract', GUI_settings}, ...
+                                                    'Position', [15, 35, 120, 15], 'Tooltip', GUI_settings.normalize.tooltips.copy_data);
 UI_obj.subtract.data_output_name                   = uieditfield(UI_obj.subtract.main, 'Value', GUI_settings.subtract.default_data_output_name, 'Position', [10, 10, 150, 20]);
 
 

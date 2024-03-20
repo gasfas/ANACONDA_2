@@ -66,8 +66,8 @@ mass_limits                             = UI_obj.def_channel.m2q.axes.XLim;
 [GUI_settings, UI_obj] = GUI.fs_big.plot_scan.update_scan_plot(exp_data, GUI_settings, UI_obj);
 
 % Initiate the uitables:
-[GUI_settings, UI_obj] = uitable_channelgroup_list_create(GUI_settings, UI_obj);
-[GUI_settings, UI_obj] = uitable_scan_list_create(GUI_settings, UI_obj);
+uitable_channelgroup_list_create();
+uitable_scan_list_create();
 
 % Initialize the interaction buttons (load, delete, view spectra) in the control window:
 UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main  , "Text", "Add channel", "Position",     [10, 550, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_single_channel, "ButtonPushedFcn", @add_channel_manually);
@@ -77,6 +77,7 @@ UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main  
 UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓', 'Position',              [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
 UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main, "Text", 'Show box', 'Position',        [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main  , "Text", '💾 + ✕', "Position",         [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
+
 
 % Set the variables to base workspace:
 GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
@@ -100,9 +101,9 @@ function Remove_channel(~, ~)
             % Remove from the fragment list:
             channelgroup_list = fieldnames(GUI_settings.channels.list);
             if numel(rownrs) > 1 % More than one fragment requested. Make sure user is not mistaken in request:
-                switch questdlg('Remove multiple channels?', ['You are about to remove channels ' num2str(rownrs') ', are you sure?'], 'yes', 'no', 'no')
+                switch questdlg(['You are about to remove channels ' num2str(rownrs) ', are you sure?'], 'yes', 'no', 'no')
                     case 'yes'
-                        for rownr = rownrs'
+                        for rownr = rownrs
                             GUI_settings.channels.list  = rmfield(GUI_settings.channels.list, channelgroup_list{rownr});
                             %  
                         end
@@ -153,11 +154,7 @@ function add_channel_manually_done(~,~)
         minMtoQ_cur = UI_obj.def_channel.m2q.rectangle.Position(1);
         maxMtoQ_cur = UI_obj.def_channel.m2q.rectangle.Position(3) +  UI_obj.def_channel.m2q.rectangle.Position(1);
     else 
-        scannames = fieldnames(exp_data.scans);
-        m2q_bins = exp_data.scans.(scannames{1}).Data.hist.spectr_001.M2Q.bins;
-        minMtoQ_cur = min(m2q_bins);
-        maxMtoQ_cur = max(m2q_bins);
-    end
+        
     Name_cur = num2str(round(mean([minMtoQ_cur, maxMtoQ_cur])), '%d');
     chgroup_fieldname = (['channel_', num2str(GUI_settings.channels.current_nr, '%03.f')]);
     % Add the channel to those defined in the settings:
@@ -182,13 +179,10 @@ function add_channel_manually_done(~,~)
         GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = exp_data.scans.(scanname_cur).Color; % By default, the color is the same for one sample:
     end
 
-    if ishandle(UI_obj.def_channel.m2q.rectangle)
-        % Plot a static rectangle in the mass spectrum to indicate the fragment.
-        UI_obj.def_channel.grouplist.(chgroup_fieldname).rectangle = rectangle(UI_obj.def_channel.m2q.axes, 'FaceColor', [0.1 0.1 0.1 0.1], ...
-            'EdgeColor', [0.5, 0.5, 0.5, 0.3], 'LineStyle', LineStyle, ...
-            'Position', [minMtoQ_cur, UI_obj.def_channel.m2q.axes.YLim(1), ...
-            maxMtoQ_cur-minMtoQ_cur, diff(UI_obj.def_channel.m2q.axes.YLim)]);
-    end
+    % Plot a static rectangle in the mass spectrum to indicate the fragment.
+    UI_obj.def_channel.grouplist.(chgroup_fieldname).rectangle = rectangle(UI_obj.def_channel.m2q.axes, 'FaceColor', [0.1 0.1 0.1 0.1], ...
+        'EdgeColor', [0.5, 0.5, 0.5, 0.3], 'LineStyle', LineStyle, ...
+        'Position', [minMtoQ_cur, UI_obj.def_channel.m2q.axes.YLim(1), maxMtoQ_cur-minMtoQ_cur, diff(UI_obj.def_channel.m2q.axes.YLim)]);
 
     % Make the 'Done' and 'Reset' button invisble, and show the 'Add single
     % channel' button again:
@@ -196,7 +190,7 @@ function add_channel_manually_done(~,~)
     UI_obj.def_channel.Reset.Visible                = 'off';
     UI_obj.def_channel.Add_single_channel.Visible   = 'on';
     % Show the updated table:
-    uitable_add_fragment(GUI_settings, UI_obj)
+    uitable_add_fragment()
     % Make the scan plot keep the current channel plot:
     [GUI_settings, UI_obj] = GUI.fs_big.plot_scan.update_scan_plot(exp_data, GUI_settings, UI_obj);
     % update_spectra_existing_channels(chgroup_fieldname)
@@ -256,7 +250,7 @@ end
 
 %% Uitable channel group functions
 
-    function [GUI_settings, UI_obj] = uitable_channelgroup_list_create(GUI_settings, UI_obj)
+    function uitable_channelgroup_list_create()
         % Create the table that lists the channel groups.
         GUI_settings.channels.channelgroup.VariableNames            = {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
         UI_obj.def_channel.uitable_channelgroup                  = uitable(UI_obj.def_channel.main, ...
@@ -271,7 +265,6 @@ end
         UI_obj.def_channel.uitable_channelgroup.ColumnFormat     = {'char', 'numeric', 'numeric', 'numeric', 'numeric', 'logical'};
         UI_obj.def_channel.uitable_channelgroup.CellEditCallback = @uitable_channelgroup_user_edit;
         UI_obj.def_channel.uitable_channelgroup.ColumnWidth      = {140, 70, 70, 40, 50, 50};
-
     end
 
     function uitable_channelgroup_selectioncallback(~, event)
@@ -337,20 +330,24 @@ end
         GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
     end
 
-function uitable_add_fragment(GUI_settings, UI_obj)
+    function uitable_add_fragment()
+    % Get the variables from base workspace:
+    [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
     % Fill in the channel group table: (Columns channelgroup_list: {'Name', 'min M/Q', 'max M/Q', 'dY', 'Scale', 'Show'};
     UI_obj.def_channel.uitable_channelgroup.Data   = compose_uitable_Data('channelgroup');
     % Fill in the channel table for a specific channel group:
     % Selected channel group:
     % Find the list of names in the settings data:
     channelgroup_names      = fieldnames(GUI_settings.channels.list);
-    if isfield(UI_obj.def_channel.uitable_channelgroup, 'Selection') && ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection)
+    if ~isempty(UI_obj.def_channel.uitable_channelgroup.Selection)
         channelgroup_name_cur   = channelgroup_names{UI_obj.def_channel.uitable_channelgroup.Selection(1,1)};
     else     % If there is no channel selected, then the first channel is shown:
         channelgroup_name_cur   = channelgroup_names{1};
     end
     % Write that name to uitable:
     UI_obj.def_channel.uitable_scans.Data           = compose_uitable_Data('channel', channelgroup_name_cur);
+    % Set the variables to base workspace:
+    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 end
 
 function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgroup)
@@ -392,10 +389,12 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                 s = uistyle('BackgroundColor', GUI_settings.channels.list.(Selected_channelgroup).scanlist.(current_scan_intname).Color);
                     addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', [i,2]);
             end
-     end
- end
+        end
+    end
 %% UItable scan list functions
-    function [GUI_settings, UI_obj] = uitable_scan_list_create(GUI_settings, UI_obj)
+    function uitable_scan_list_create()
+    % Get the variables from base workspace:
+    [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
     
     % Create the table that lists the channels of each scan. Upon
     % creation, there will be no channels written in it:
@@ -411,6 +410,8 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                                                     'Show: Whether or not to show this line in the scan plot'};
 
     UI_obj.def_channel.uitable_scans.ColumnWidth      = {140, 50, 50, 50, 50};
+    % Set the variables to base workspace:
+    GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
  end
 
     function uitable_scan_list_selection(hObj, ~)
