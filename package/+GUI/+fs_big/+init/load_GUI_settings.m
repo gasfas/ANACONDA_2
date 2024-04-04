@@ -5,6 +5,14 @@ GUI_settings.load_scan.browse_dir                   = 'D:\DATA\2023\PETRA P04\';
 
 % GUI_settings.load_scan.browse_dir                   = 'C:';
 GUI_settings.load_scan.setup_type                   = 'Spektrolatius';
+GUI_settings.load_scan.tooltips.sample_name         = 'Write the name of the spectrum or scan here';
+GUI_settings.load_scan.tooltips.re_bin_factor       = 'The re-bin factor merges ''factor'' mass-to-charge bins together to an average, to save storage size. Default = 1.';
+GUI_settings.load_scan.tooltips.Data_type_radio     = 'Indicate whether you are loading a spectrum/spectra, or a scan of spectra (must include photon energy in title in case of Spektrolatius.';
+GUI_settings.load_scan.tooltips.choose_spectrometer = 'Choose which type of spectrometer the data originates from';
+GUI_settings.load_scan.tooltips.Browse              = 'Browse through file system to find the data you want to load';
+GUI_settings.load_scan.tooltips.Cancel              = 'Cancel the file loading, return to scan main viewer window';
+GUI_settings.load_scan.tooltips.OK                  = 'Load the files to memory and return to scan main viewer window';
+
 GUI_settings.scan_view.tooltips.re_bin_factor       = 'The re-bin factor reduces the amount of (m2q) datapoints by calculating the average of every bunch of ''re-bin factor'' values.';
 GUI_settings.scan_view.tooltips.sample_name         = 'Fill in the name of the sample or run you are loading. For example: ""MetEnk_Desirs"" ';
 GUI_settings.scan_view.tooltips.Remove_scan         = 'Removes the selected scan(s) in the table from memory.';
