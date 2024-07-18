@@ -14,9 +14,9 @@ usernames = GUI.fs_big.get_user_names(input_struct);
 % Find the internal name:
 [idx] = find(ismember(usernames, username_input));
 % Make sure no duplicate names:
-if numel(idx) > 1
-    warning('Duplicate user name found')
-end
+% if numel(idx) > 1
+%     warning('Duplicate user name found')
+% end
 if ~isempty(Intnames) && ~isempty(idx)
     intname     = Intnames(idx(1));
     intname     = intname{:}; % Convert from cell to char.

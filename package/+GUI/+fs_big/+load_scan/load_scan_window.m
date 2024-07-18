@@ -37,7 +37,7 @@ function [GUI_settings, UI_obj] = load_scan_window(GUI_settings, username, UI_ob
     UI_obj.load_scan.isscan.SelectedObject.Value          = ~GUI_settings.load_scan.is_scan;
 
     % Text of the filepath:
-    UI_obj.load_scan.LoadFilePath         = uitextarea(UI_obj.load_scan.f_open_scan, 'Value', GUI_settings.load_scan.csv_filelist, 'Position', [10, 50, 500, 220]);
+    UI_obj.load_scan.LoadFilePath         = uitextarea(UI_obj.load_scan.f_open_scan, 'Value', GUI_settings.load_scan.filelist, 'Position', [10, 50, 500, 220]);
     UI_obj.load_scan.LoadFile_Browse_btn  = uibutton(UI_obj.load_scan.f_open_scan, "Text", "Browse", "Position", [10, 10, 80, 20], ...
         "ButtonPushedFcn", {@GUI.fs_big.load_scan.callback.get_filepath, GUI_settings, UI_obj}, ...
         'Tooltip', GUI_settings.load_scan.tooltips.Browse);

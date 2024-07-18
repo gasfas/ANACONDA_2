@@ -1,4 +1,4 @@
-function R_corr = R_circle(R_raw, theta_raw, R_maxs, R_avg, theta_scaling_factor)
+ofunction R_corr = R_circle(R_raw, theta_raw, R_maxs, R_avg, theta_scaling_factor)
 % This function rescales the radius of the electron hits, due to
 % non-roundness of the spectrometer.
 % Inputs:

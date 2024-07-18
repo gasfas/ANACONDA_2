@@ -36,11 +36,11 @@ def.p_sum.translate_condition = 'AND';
 def.p_sum.invert_filter     = false;
 
 % make sure one only takes the labeled hits:
-def.label.type             = 'continuous';
+def.label.type             = 'discrete';
 def.label.data_pointer     = 'h.det1.m2q_l';
-def.label.value            = [min(exp_md.conv.det1.m2q_label.labels); max(exp_md.conv.det1.m2q_label.labels)];
+def.label.value            = exp_md.conv.det1.m2q_label.mass;
+def.label.value            = [80];
 def.label.translate_condition = 'AND';
-
 
 def.X_X.C2			= macro.filter.write_coincidence_condition(2, 'det1');
 

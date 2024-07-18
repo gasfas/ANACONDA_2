@@ -27,6 +27,8 @@ function draw_subplots(~,~, GUI_settings)
     num_col         = ceil(num_channels/num_row);
 UI_obj.plot_scan.subplot.fig = figure();
 i = 0;
+% Calculate the spectrum matrix, to speed up plot updates (in case this hadn't been done yet):
+[exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
 % Plot the channel:
 for channel_visible_cur_cell     = visible_channel_names
     channel_visible_cur            = channel_visible_cur_cell{:};

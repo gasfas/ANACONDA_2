@@ -19,10 +19,13 @@ exp_md.corr.det1.dTOF 			 	= 0;% [ns] The difference between signal propagation 
 
 exp_md.corr.det1.R_circle			= load(fullfile(fileparts(mfilename('fullpath')), 'R_circle_param.mat'));  % scaling factor [] and the corresponding angle [rad].
 
+
+exp_md.corr.det2.dTOF 			 	= 0;% [ns] The difference between signal propagation times of trigger and hits.
+
 % Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 %% Detector 2 % (ION DETECTOR)
 
 % Which corrections should be performed on the data:
-exp_md.corr.det2.ifdo.dXdY 		= true;% Does this data need detector image translation correction?
+exp_md.corr.det2.ifdo.dXdY 		    = true;% Does this data need detector image translation correction?
 exp_md.corr.det2.ifdo.dTheta 		= true;%; % Does this data need detector image rotation correction?
 exp_md.corr.det2.ifdo.dTOF  		= true;% Does this data need detector absolute TOF correction?
 exp_md.corr.det2.ifdo.detectorabb	= false;% Does this data need detector-induced abberation correction?
@@ -46,4 +49,3 @@ exp_md.corr.det2.dTOF 			 	=  0;% [ns] The difference between signal propagation
 % exp_md.corr.det2.lensabb.dR.p_i 			= [3.591547226568072   2.711873874269235   1.222350376192316   0.994428857836460];
 
 end
-

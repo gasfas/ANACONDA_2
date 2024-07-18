@@ -4,7 +4,7 @@ function load_scan_GUI(~, ~, GUI_settings)
 
 GUI_settings.load_scan.sample_name     = ['sample', num2str(GUI_settings.load_scan.sample_number)];
 GUI_settings.load_scan.re_bin_factor   = 1;
-GUI_settings.load_scan.csv_filelist    = GUI_settings.load_scan.browse_dir;
+GUI_settings.load_scan.filelist    = GUI_settings.load_scan.browse_dir;
 GUI_settings.load_scan.setup_type      = GUI_settings.load_scan.setup_type;
 GUI_settings.load_scan.is_scan         = false;
 

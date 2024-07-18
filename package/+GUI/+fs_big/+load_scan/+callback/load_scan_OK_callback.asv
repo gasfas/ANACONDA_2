@@ -93,12 +93,7 @@ switch GUI_settings.load_scan.setup_type
                            exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor = GUI_settings.load_scan.re_bin_factor;
                            exp_data.scans.(scan_name_cur).metadata.IO.filelist      = GUI_settings.load_scan.filelist;
                            exp_data.scans.(scan_name_cur).metadata.IO.filedir       = GUI_settings.load_scan.filedir;
-                           if general.struct.issubfield(GUI_settings, 'channels.list')
-                                % There are channels defined, so we add an entry for
-                                % this newly added scan. 
-                                [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, plot.colormkr(color_counter,1));
-                           end
-
+                           
                            % Fill in a dY (intensity shift) and scale for every spectrum in the scan, used for correction later.
                            for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)'
                                exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).dY     = 0;
@@ -162,8 +157,18 @@ switch GUI_settings.load_scan.setup_type
                 % fragment list, if it already exists:
                 if general.struct.issubfield(GUI_settings, 'channels.list')
                     % There are channels defined, so we add an entry for
-                    % this newly added scan. 
-                    [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, plot.colormkr(color_counter,1));
+                    % this newly added scan. We copy the properties (except
+                    % for the color) from the first entry in the list:
+                    % fetch the channel names:
+                    channel_names           = fieldnames(GUI_settings.channels.list);
+                    existing_scan_names     = fieldnames(GUI_settings.channels.list.(channel_names{1}).scanlist);
+                    channel_to_copy         = GUI_settings.channels.list.(channel_names{1}).scanlist.(existing_scan_names{1});
+                    for channel_name_cur = channel_names'
+                        % Copy the file:
+                        GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur)          = channel_to_copy;
+                        % Overwrite the color:
+                        GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Color    = plot.colormkr(color_counter,1);
+                    end
                 end
                 color_counter                                               = color_counter + 1;
             end
@@ -196,7 +201,7 @@ occ_nr      = 0;
     end
 end
 
-function [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, Color)
+function [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur)
     % fetch the channel names:
     channel_names           = fieldnames(GUI_settings.channels.list);
     existing_scan_names     = fieldnames(GUI_settings.channels.list.(channel_names{1}).scanlist);
@@ -205,6 +210,6 @@ function [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, Col
         % Copy the file:
         GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur)          = channel_to_copy;
         % Overwrite the color:
-        GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Color    = Color;
+        GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Color    = plot.colormkr(color_counter,1);
     end
 end

@@ -42,10 +42,10 @@ for i = 1:length(detnames)
 				% see if the requested procedure exists:
 % 				macro.(routine_name).(subroutine_name{j})
 				% try to execute the subroutine procedure:
-               
-				try data_out = macro.(routine_name).(subroutine_name{j})(data_out, metadata_in, detname);
-				catch disp(['Warning: the ' routine_name ' macro called ' subroutine_name{j} ' failed to run on ' detname])
-				end
+                
+				data_out = macro.(routine_name).(subroutine_name{j})(data_out, metadata_in, detname);
+				% catch disp(['Warning: the ' routine_name ' macro called ' subroutine_name{j} ' failed to run on ' detname])
+				% end
 			end
 		end
 				

@@ -11,7 +11,7 @@ if event.Indices(2) == 1 % Name change
     NewName = event.NewData;
     cur_int_names   = fieldnames(exp_data.(uitable_type));
     % Make sure the name is unique and valid:
-    if GUI.fs_big.isemptyname(exp_data, NewName)
+    if GUI.fs_big.check_validity_name(exp_data, NewName)
         % Current internal name:
         cur_int_name    = cur_int_names{event.Indices(1)};
         % Write the new name:

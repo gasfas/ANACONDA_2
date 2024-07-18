@@ -17,6 +17,4 @@ function [data_out] = correct(data_in, metadata_in)
 % execute all the correction subroutines that are requested by the user:
 [data_out] = general.macro.run_subroutines(data_in, metadata_in, 'correct');
 
-%         write in the log:
-% TODO: waiting for Lisa...
 end

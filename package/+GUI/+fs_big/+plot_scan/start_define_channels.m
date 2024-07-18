@@ -14,7 +14,7 @@ GUI_settings.def_channel.tooltips.OK                      = 'Save channels and c
 GUI_settings.def_channel.tooltips.holdchbx_scan           = 'Do not change the X, Y axes limits when changing scan spectrum';
 GUI_settings.def_channel.tooltips.show_box                = 'Whether or not to show the scan from the selection box';
 UI_obj.def_channel.name_active_channelgroup               = 'channel_001';
-GUI_settings.channels.show_box                                = true;
+GUI_settings.channels.show_box                            = true;
 
 % Hold XY (rangefix);
 UI_obj.def_channel.scan.if_hold_XY  = false; % Do not hold XY from start
@@ -74,8 +74,9 @@ UI_obj.def_channel.Add_single_channel       = uibutton(UI_obj.def_channel.main  
 UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main  , "Text", "Add Prospector", "Position",  [10, 520, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Add_prospector_channels, "ButtonPushedFcn", @load_prospector);
 UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main  , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
 UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main  , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
-UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓', 'Position',              [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
 UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main, "Text", 'Show box', 'Position',        [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓', 'Position',             [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", 'Show legend', 'Position',     [10, 70, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 1, 'ValueChangedFcn', @show_legend_tick);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main  , "Text", '💾 + ✕', "Position",         [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 % Set the variables to base workspace:
@@ -232,6 +233,17 @@ function OK_close(~,~)
     try    % remove the plot figure in case it is still there: 
         UI_obj.def_channel.data_plot.Visible          = 'off';
     catch
+    end
+end
+
+function show_legend_tick(objHandle, ~)
+    % Get the variables from base workspace:
+    [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+    % User wants to change the visibility of the legend:
+    if objHandle.Value
+        UI_obj.def_channel.scan.axes.Legend.Visible =  'on';
+    else 
+        UI_obj.def_channel.scan.axes.Legend.Visible =  'off';
     end
 end
 

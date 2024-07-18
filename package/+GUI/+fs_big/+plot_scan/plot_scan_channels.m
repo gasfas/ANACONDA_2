@@ -16,7 +16,8 @@ scannames               = fieldnames(exp_data.scans);
                 for scanname_cur_cell = scannames'
                     scanname_cur    = scanname_cur_cell{:};
                     if GUI_settings.channels.list.(chgroupname_cur).scanlist.(scanname_cur).Visible % If the user wants to see this plot:
-                        [hLine, plotname] = GUI.fs_big.plot_scan.plot_scan_channel(UI_obj.def_channel.scan.axes, exp_data, GUI_settings, scanname_cur, chgroupname_cur, mass_limits_cur, Yscale, dY);
+                        [hLine, plotname] = GUI.fs_big.plot_scan.plot_scan_channel(UI_obj.def_channel.scan.axes, ...
+                            exp_data, GUI_settings, scanname_cur, chgroupname_cur, mass_limits_cur, Yscale, dY);
                         UI_obj.def_channel.lines.channels.list.(chgroupname_cur).scanlist.(scanname_cur) = hLine;
                         plotnames{i}    = plotname;
                         i               = i + 1;

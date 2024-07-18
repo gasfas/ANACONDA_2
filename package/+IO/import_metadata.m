@@ -53,6 +53,6 @@ function [exp_md, simu_md, th_md] = load_script(dir, file)
 function [exp_md, simu_md, th_md] = load_mat(filename)
 % Load a '.mat' file:
 	exp_md = []; simu_md = []; th_md = [];
-	load(filename)
+	load(filename);
  end
 	

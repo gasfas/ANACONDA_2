@@ -11,10 +11,10 @@ function get_filepath(hObj, event, GUI_settings, UI_obj)
     [GUI_settings] = GUI.fs_big.load_scan.read_setup_type_radio(GUI_settings, UI_obj);
     switch  GUI_settings.load_scan.setup_type
         case 'Spektrolatius'         % Spektrolatius setup:
-        [filelist, csv_filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', GUI_settings.load_scan.browse_dir, 'MultiSelect', 'on');
-        if iscell(filelist) && ~isempty(csv_filedir) % Multiple files selected:
-            GUI_settings.load_scan.csv_filedir = csv_filedir;
-            GUI_settings.load_scan.csv_filelist = filelist;
+        [filelist, filedir] = uigetfile('.csv', 'Select all spectra that are part of the scan', GUI_settings.load_scan.browse_dir, 'MultiSelect', 'on');
+        if iscell(filelist) && ~isempty(filedir) % Multiple files selected:
+            GUI_settings.load_scan.filedir = filedir;
+            GUI_settings.load_scan.filelist = filelist;
             % Close the load_file dialog:
             % Sort the filelist by photon energy. Fetch list of photon energies:
             photon_energy_list_unordered = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(filelist);
@@ -23,19 +23,26 @@ function get_filepath(hObj, event, GUI_settings, UI_obj)
             filelist = filelist(ordering_idx);
             UI_obj.load_scan.LoadFilePath.Value = filelist;
         elseif ischar(filelist)  && ~isempty(filelist) % only one file selected
-            GUI_settings.load_scan.csv_filedir = csv_filedir;
+            GUI_settings.load_scan.filedir = filedir;
             UI_obj.load_scan.LoadFilePath.Value = {filelist};
-            GUI_settings.load_scan.csv_filelist = filelist;
+            GUI_settings.load_scan.filelist = filelist;
         end % The third option, filelist=0, is not acted upon.
         case 'Desirs_LTQ'
         % Here we offer the 'Chef special' option that Bart prepared:
         % Let the user decide which kind of experiment is loaded:
         UI_obj.load_scan.Desirs.questdlg = questdlg('Which Desirs files would you like to load?', ...
         'Choose type of Desirs experiment', 'Desirs (txt)', 'Desirs 2022 (Chef special)', 'Desirs 2022 (Chef special)');
-        GUI_settings.load_scan.filedir = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the scans');
-        UI_obj.load_scan.LoadFilePath.Value = GUI_settings.load_scan.csv_filedir;
-        otherwise
-        msgbox('Be friendly to the programmer, ask at the right moment if a setup module could be added in the future');
+        filelist = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the scans');
+        GUI_settings.load_scan.filedir = filelist;
+        if strcmp(UI_obj.load_scan.Desirs.questdlg, 'Desirs 2022 (Chef special)')
+            % The user is expected to load the folder where the data is
+            % found of the Desir measurements done in  2022.
+            if GUI_settings.load_scan.filedir ~= 0
+                UI_obj.load_scan.LoadFilePath.Value = GUI_settings.load_scan.filedir;
+            end
+        else
+            msgbox('Be friendly to the programmer, ask at the right moment if a setup module could be added in the future');
+        end
     end
     % Rename the suggested filename by reading the filename of the first loaded file:
     [~, filename] = fileparts(UI_obj.load_scan.LoadFilePath.Value{1});
