@@ -26,11 +26,11 @@ GUI_settings.scan_view.tooltips.Save_workspace      = 'Save the current workspac
 GUI_settings.scan_view.tooltips.Load_workspace      = 'Load a previously used workspace from disk. Note that the currently loaded workspace will be cleared.';
 GUI_settings.scan_view.tooltips.Refresh_table       = 'Refresh the table view.';
 GUI_settings.scan_view.tooltips.Data_type_radio     = 'Do the data files form a common scan (only if all have a defined photon energy), or are they a collection of individual spectra?';
+GUI_settings.scan_view.tooltips.correct_data        = 'Correct the spectrum/a or scan(s) currently selected by shifting/scaling the mass-to-charge range or photon energy.';
 
 GUI_settings.scan_view.tooltips.Add                 = 'Load a spectrum (or scan of spectra) from disk to memory. The spectrum name will appear as a row in the table.';
 GUI_settings.scan_view.tooltips.Remove_spectrum     = 'Removes the selected spectrum/spectra in the table from memory.';
 GUI_settings.scan_view.tooltips.Modify_spectrum     = 'Adapt an already-loaded scan, e.g. by adding or removing spectra or changing the name.';
 GUI_settings.load_scan.sample_number                = 0; % 
-
 
 end

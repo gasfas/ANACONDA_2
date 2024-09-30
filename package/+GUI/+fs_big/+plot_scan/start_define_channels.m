@@ -75,8 +75,8 @@ UI_obj.def_channel.Add_prospector_channels  = uibutton(UI_obj.def_channel.main  
 UI_obj.def_channel.Import_quickviewer       = uibutton(UI_obj.def_channel.main  , "Text", "Import Quickview", "Position",[10, 490, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Import_quickview, "ButtonPushedFcn", @import_quickviewer);
 UI_obj.def_channel.Remove_channel           = uibutton(UI_obj.def_channel.main  , "Text", "Remove channel", "Position",  [10, 460, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.Remove_channel, "ButtonPushedFcn", @Remove_channel);
 UI_obj.def_channel.show_box                 = uicheckbox(UI_obj.def_channel.main, "Text", 'Show box', 'Position',        [10, 130, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.show_box, 'Value', 1, 'ValueChangedFcn', @show_box);
-UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓', 'Position',             [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
-UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", 'Show legend', 'Position',     [10, 70, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 1, 'ValueChangedFcn', @show_legend_tick);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", '⚓ scan', 'Position',             [10, 100, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 0, 'ValueChangedFcn', @hold_limits_scan);
+UI_obj.def_channel.holdchbx_scan            = uicheckbox(UI_obj.def_channel.main, "Text", 'Scan legend', 'Position',     [10, 70, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.holdchbx_scan, 'Value', 1, 'ValueChangedFcn', @show_legend_tick);
 UI_obj.def_channel.OK                       = uibutton(UI_obj.def_channel.main  , "Text", '💾 + ✕', "Position",         [10, 10, 100, 20], 'Tooltip', GUI_settings.def_channel.tooltips.OK, "ButtonPushedFcn", @OK_close);
 
 % Set the variables to base workspace:
@@ -430,7 +430,7 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
     % Get the variables from base workspace:
     [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
         % Callback to update the requested plot line color.
-        if ~isempty(hObj.Selection) & all(unique(hObj.Selection(:,2)) == 2) % Only column 2 selected.
+        if ~isempty(hObj.Selection) && all(unique(hObj.Selection(:,2)) == 2) % Only column 2 selected.
             switch unique(hObj.Selection(2))
                 case 2 % The user wants to change the color of the line. TODO.
                         % Get the current color:
@@ -447,7 +447,6 @@ function [uitable_data] = compose_uitable_Data(uitable_type, Selected_channelgro
                             UI_obj.def_channel.uitable_scans.Data{i,2} = regexprep(num2str(round(newColorRGB,1)),'\s+',',');
                         end
                         % Color the cells of the color column to the default scan colors:
-                        hObj.Selection
                         s = uistyle('BackgroundColor', newColorRGB);
                         addStyle(UI_obj.def_channel.uitable_scans, s, 'cell', hObj.Selection);
                         [GUI_settings, UI_obj] = GUI.fs_big.plot_scan.update_scan_plot(exp_data, GUI_settings, UI_obj);
@@ -550,11 +549,12 @@ end
     GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 end
 
-function update_slider_limits()
+function update_slider_limits(hObj, event)
     % Get the variables from base workspace:
     [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
-% The user has moved (zoomed, panned, resized) the m2q axes, so we need to
-% update the limits accordingly:
+    % Make sure it is the scan figure that is being resized, not the M/Q window:
+    % The user has moved (zoomed, panned, resized) the m2q axes, so we need to
+    % update the limits accordingly:
     XLim        = UI_obj.def_channel.m2q.axes.XLim;
     Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
     Min         = UI_obj.def_channel.m2q.jRangeSliderHigh.Limits(1);
@@ -568,6 +568,7 @@ function update_slider_limits()
     % Update the live scan plotter:
     mass_limits = [Pos_rect(1), Pos_rect(1)+Pos_rect(3)];
 
+    % UI_obj.def_channel.scan.if_hold_XY = true;
     [GUI_settings, UI_obj] = GUI.fs_big.plot_scan.update_scan_plot(exp_data, GUI_settings, UI_obj);
 
     % Set the variables to base workspace:

@@ -93,11 +93,7 @@ switch GUI_settings.load_scan.setup_type
                            exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor = GUI_settings.load_scan.re_bin_factor;
                            exp_data.scans.(scan_name_cur).metadata.IO.filelist      = GUI_settings.load_scan.filelist;
                            exp_data.scans.(scan_name_cur).metadata.IO.filedir       = GUI_settings.load_scan.filedir;
-                           if general.struct.issubfield(GUI_settings, 'channels.list')
-                                % There are channels defined, so we add an entry for
-                                % this newly added scan. 
-                                [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, plot.colormkr(color_counter,1));
-                           end
+
 
                            % Fill in a dY (intensity shift) and scale for every spectrum in the scan, used for correction later.
                            for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)'
@@ -158,18 +154,50 @@ switch GUI_settings.load_scan.setup_type
                 exp_data.scans.(scan_name_cur).metadata.IO.filelist         = sample_name;
                 exp_data.scans.(scan_name_cur).Data.comments                = '';
                 exp_data.scans.(scan_name_cur).Color                        = plot.colormkr(color_counter,1);
-                % A new scan is added, so there should also be entries added to the
-                % fragment list, if it already exists:
-                if general.struct.issubfield(GUI_settings, 'channels.list')
-                    % There are channels defined, so we add an entry for
-                    % this newly added scan. 
-                    [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, plot.colormkr(color_counter,1));
-                end
+
                 color_counter                                               = color_counter + 1;
             end
         end
         file_found      = true;
+    case 'Amazon (FELIX)'
+        % Read which scan and spectrum numbers should be used:
+        [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans, 'scan');
+        [~, spectrum_nr_cur]= GUI.fs_big.make_new_intname(exp_data.spectra, 'spectr');
+        color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
+
+        scan_name_cur   = ['scan_' , num2str(scan_nr_cur, '%03.f')];
+        % Check if user name is duplicate:
+        exp_data.scans.(scan_name_cur).Name   = username_for_new_spectrum_scan(exp_data, UI_obj.load_scan.sample_name.Value);
+        % Load the CSV data:
+        exp_data.scans.(scan_name_cur).Data   = IO.FELIX.load_FELIX_CSV_filedir(GUI_settings.load_scan.filelist{1});
+        scan_nr_cur                           = scan_nr_cur + 1;
+        % Write the metadata of this sample in the GUI_settings:
+        exp_data.scans.(scan_name_cur).metadata.IO.setup_type    = GUI_settings.load_scan.setup_type;
+        exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor = GUI_settings.load_scan.re_bin_factor;
+        exp_data.scans.(scan_name_cur).metadata.IO.filelist      = GUI_settings.load_scan.filelist;
+        exp_data.scans.(scan_name_cur).metadata.IO.filedir       = GUI_settings.load_scan.filedir;
+
+        % Fill in a dY (intensity shift) and scale for every spectrum in the scan, used for correction later.
+        for spectr_name = fieldnames(exp_data.scans.(scan_name_cur).Data.hist)'
+           exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).dY     = 0;
+           exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).Scale  = 1;
+        end
+        % Give a color
+        if is_modify_scan % either that was used for this scan before
+           exp_data.scans.(scan_name_cur).Color                = GUI_settings.load_scan.Color;
+        else %or that is not used yet for a new scan:
+           exp_data.scans.(scan_name_cur).Color                = plot.colormkr(color_counter,1);
+        end
+        color_counter                              = color_counter + 1;
 end
+% A new scan is added, so there should also be entries added to the
+% fragment list, if it already exists:
+if general.struct.issubfield(GUI_settings, 'channels.list')
+    % There are channels defined, so we add an entry for
+    % this newly added scan. 
+    [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, plot.colormkr(color_counter,1));
+end
+
 if file_found
     % Closing the load spectrum window:
     set(UI_obj.load_scan.f_open_scan,'visible','off');

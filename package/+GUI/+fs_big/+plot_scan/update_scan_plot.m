@@ -21,6 +21,10 @@ function [GUI_settings, UI_obj] = update_scan_plot(exp_data, GUI_settings, UI_ob
         end
         plotnames   = cell(times(nof_channels+1, length(fieldnames(exp_data.scans))));
         mass_limits = UI_obj.def_channel.m2q.axes.XLim;
+        % Hack
+        Pos_rect    = UI_obj.def_channel.m2q.rectangle.Position;
+        % Define the current mass limits of the box:
+        mass_limits = [Pos_rect(1), Pos_rect(1) + Pos_rect(3)];
         i           = 1;
         if GUI_settings.channels.show_box
             % Firstly, we plot the scan defined by the channel of the current rectangle:

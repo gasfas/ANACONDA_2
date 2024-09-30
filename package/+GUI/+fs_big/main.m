@@ -30,8 +30,9 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
 % - dY and scale of the channels are not saved?
 % - Read ESI_only, Photon_only, etc columns.
 % - Read the photon flux.
-% - Make it possible to normalize by photon flux.
 % - Also save time-of-flight information.
 % - Implement peakfinder in define_channels.
-
+% - Implement peak fitter in branching ratio calculation.
+% - For each modification of data (correct, normalize, subtract), write a
+% note in the 'data treatment log' of the file. 
 end

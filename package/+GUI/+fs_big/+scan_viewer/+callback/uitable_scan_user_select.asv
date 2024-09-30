@@ -41,7 +41,7 @@ function uitable_scan_user_select(hObj, event, selection, GUI_settings)
                         if general.struct.issubfield(GUI_settings, 'channels.list')
                             channel_intnames = fieldnames(GUI_settings.channels.list);
                             for channel_nr = 1:length(channel_intnames) % Overwrite the channel colors as well:
-                                GUI_settings.channels.list.(channel_intnames{channel_nr}).scanlist.(intname_active_scan).Color = newColorRGB;
+                                GUI_settings.channels.list.(channel_intnames{i}).scanlist.(intname_active_scan).Color = newColorRGB;
                             end
                         end
                     end

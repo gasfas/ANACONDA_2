@@ -10,6 +10,6 @@ function subtract_callback(~, ~, GUI_settings)
         % If there is some data to plot, start the mass spectrum:
         GUI.fs_big.subtract_scan.start_subtract(GUI_settings);
     end
-
+    
 
 end

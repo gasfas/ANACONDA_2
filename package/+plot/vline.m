@@ -115,6 +115,8 @@ else
         linetype = linetype{:};
     end
     h=plot(ax, [x x],[y(1) y(2)],linetype);
+    % Make line invisible in legend:
+    h.Annotation.LegendInformation.IconDisplayStyle = 'off';
     if length(label)
         xx=get(ax,'xlim');
         xrange=xx(2)-xx(1);

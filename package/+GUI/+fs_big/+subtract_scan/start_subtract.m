@@ -11,6 +11,7 @@ GUI_settings.subtract.tooltips.subtraction_method          = ['Choose subtractio
     '''Scan'' subtracts all intensity points of all spectra in a scan with the intensity of spectra in another scan. Note that this option only works when the scan energies of the subtracting scan overlap the subtracted scan range.'];
 GUI_settings.subtract.tooltips.subtract          = 'Generate a subtracted spectrum/scan with the above specified preferences.';
 GUI_settings.subtract.tooltips.cancel             = 'Generate a new spectrum/scan with the above specified preferences.';
+GUI_settings.subtract.tooltips.copy_data          = 'Whether to overwrite or copy into a new scan/spectrum entry';
 GUI_settings.subtract.default_data_output_name    = 'Example_normalized';
 
 % Define the uifigure:
@@ -59,13 +60,10 @@ UI_obj.subtract.subtract                          = uibutton(UI_obj.subtract.mai
                                                 "ButtonPushedFcn", {@GUI.fs_big.subtract_scan.callback.subtract_callback, GUI_settings}, ...
                                                 'Tooltip', GUI_settings.subtract.tooltips.subtract);
 
-
-
-UI_obj.subtract.copy_data                          = uicheckbox(UI_obj.subtract.main, 'Value', true, 'Text', 'Data output:', ...
+UI_obj.subtract.copy_data                          = uicheckbox(UI_obj.subtract.main, 'Value', true, 'Text', 'Write to new name:', ...
                                                     'ValueChangedFcn', {@GUI.fs_big.normalize_scan.callback.copy_data_check_callback, 'subtract', GUI_settings}, ...
-                                                    'Position', [15, 35, 120, 15], 'Tooltip', GUI_settings.normalize.tooltips.copy_data);
+                                                    'Position', [15, 40, 140, 15], 'Tooltip', GUI_settings.subtract.tooltips.copy_data);
 UI_obj.subtract.data_output_name                   = uieditfield(UI_obj.subtract.main, 'Value', GUI_settings.subtract.default_data_output_name, 'Position', [10, 10, 150, 20]);
-
 
 % Write the variables to base workspace:
 GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)

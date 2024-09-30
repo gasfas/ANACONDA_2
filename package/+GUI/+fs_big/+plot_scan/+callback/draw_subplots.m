@@ -18,7 +18,7 @@ function draw_subplots(~,~, GUI_settings)
     % Start a subplot, depending on the amount of channels:
     num_channels    = numel(visible_channel_names);
     if num_channels < 5
-        num_row = 2;
+        num_row = num_channels;
     elseif num_channels < 7
         num_row = 3;
     else 
@@ -28,7 +28,11 @@ function draw_subplots(~,~, GUI_settings)
 UI_obj.plot_scan.subplot.fig = figure();
 i = 0;
 % Calculate the spectrum matrix, to speed up plot updates (in case this hadn't been done yet):
-[exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
+scannames = fieldnames(exp_data.scans);
+if ~isfield(exp_data.scans.(scannames{1}), 'matrix')
+    [exp_data] = IO.SPECTROLATIUS_S2S.exp_struct_to_matrix(exp_data);
+end
+
 % Plot the channel:
 for channel_visible_cur_cell     = visible_channel_names
     channel_visible_cur            = channel_visible_cur_cell{:};
@@ -37,7 +41,14 @@ for channel_visible_cur_cell     = visible_channel_names
        % Plot it in the right subplot: 
        haxes = subplot(num_row, num_col, i);
        scannames = fieldnames(GUI_settings.channels.list.(channel_visible_cur).scanlist);
+       % Check if samples are selected at the moment:
+       if ~isempty(UI_obj.main.scans.uitable.Selection)
+           % User has selected some scans. Pick the columns that were selected:
+           sel_col = unique(UI_obj.main.scans.uitable.Selection(:,1));
+           scannames = scannames(sel_col);
+       end
        legendtext = {};
+
        for j = 1:numel(scannames)
            scanname_cur  = scannames{j};
            % Plot it in the right style:

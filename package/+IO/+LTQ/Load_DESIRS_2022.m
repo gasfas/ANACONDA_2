@@ -68,9 +68,11 @@ if strcmpi(energy_range_char, 'full') % The user wants to fetch the full range o
         % The import values:
         exps.Data.meta.import.hv_range_5_7    = exps_to_merge.hv_range_5_7.(sample_name_cur).meta.import;
         exps.Data.meta.import.hv_range_7_14   = exps_to_merge.hv_range_7_14.(sample_name_cur).meta.import;
-        % If the datafiles are holding the same mass range, we take the overlapping
-        % part of all spectra and (if necessary) interpolate:
-        % First, see if the histograms are of the same size:
+        % Initialize the YScale and dY:
+        for spectrum_name_cur = fieldnames(exps.Data.hist)'
+            exps.Data.hist.(spectrum_name_cur{:}).Scale  = 1;
+            exps.Data.hist.(spectrum_name_cur{:}).dY     = 0;
+        end
     end
 else
     energy_range_fieldname_cur = ['hv_range_' general.char.replace_symbol_in_char(energy_range_char, '-', '_')];

@@ -119,6 +119,7 @@ else % In case the photon energies of the subtrahend and minuend are not
     I_subtracted            = I_min_mat_corrected - I_subtr_mat_int';
     % Place the spectra back into their struct fields:
     d_output                = IO.SPECTROLATIUS_S2S.matrix_to_exp_struct(I_subtracted, d_output);
+    d_output.matrix.M2Q.I   = I_subtracted;         
 end
 
 
@@ -130,7 +131,7 @@ if ~isequal(M2Q_min, M2Q_subtr)
         % The minuend spectrum has a smaller m2q range than the subtrahend,
         % so extrapolation is required. Make sure the user is aware:
         msgbox({['Warning: the range of the to-be-subtracted (minuend) spectrum/spectra is smaller than the range of the subtracting ' ...
-            'spectrum (subtrahend). Extrapolation is done by subtracting using the last inensity point in the spectrum.']; ...
+            'spectrum (subtrahend). Extrapolation is done by subtracting using the last intensity point in the spectrum.']; ...
             ['Minimum m2q (minuend) : ', num2str(min(M2Q_min)), ' Minimum m2q (subtrahend) : ', num2str(min(M2Q_subtr))]; ...
             ['Maximum m2q (minuend) : ', num2str(max(M2Q_min)), ' Maximum m2q (subtrahend) : ', num2str(max(M2Q_subtr))];})
     end

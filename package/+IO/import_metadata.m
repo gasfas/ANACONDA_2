@@ -13,6 +13,7 @@ function [exp_md, simu_md, th_md] = import_metadata (filename)
 
 [dir, file, ext] = fileparts(filename);
 
+% add md_ prefix if not already given:
  try 
 	 is_md_prefix = strcmp(file(1:3), 'md_');
  catch

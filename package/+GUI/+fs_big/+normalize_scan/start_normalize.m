@@ -1,4 +1,6 @@
 function start_normalize(GUI_settings)
+% Initiate the GUI to let the user normalize the spectrum
+
 % Fetch variables from base workspace:
 [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
@@ -7,9 +9,10 @@ GUI_settings.normalize.tooltips.main                          = 'Normalizing eit
 GUI_settings.normalize.tooltips.radioswitch_spectrum_scan     = 'Would you like to normalize a single spectrum, or multiple spectra in a scan?';
 GUI_settings.normalize.tooltips.dropdown_data_choose          = 'Pick the spectrum or scan you would want to normalize';
 GUI_settings.normalize.tooltips.normalization_method          = ['Choose normalization method: ' ...
-    '''Channel'' divides all intensity by the integrated intensity of a channel (e.g. defining the parent), ' ...
     '''Maximum'' scales the entire spectrum so that the maximum becomes equal to zero.' ...
-    '''Total'' integrates the entire mass spectrum and divides all intensity by that.'];
+    '''Channel'' divides all intensity by the integrated intensity of a channel (e.g. defining the parent), ' ...
+    '''Total'' integrates the entire mass spectrum and divides all intensity by that.' ...
+    '''Photon flux'' Divides the entire mass spectrum by the photon flux at that photon energy.'];
 GUI_settings.normalize.tooltips.Normalize          = 'Generate a new spectrum/scan with the above specified preferences.';
 GUI_settings.normalize.tooltips.cancel             = 'Generate a new spectrum/scan with the above specified preferences.';
 GUI_settings.normalize.default_data_output_name    = 'Example_normalized';
@@ -25,7 +28,7 @@ UI_obj.normalize.main         = uifigure('Name', 'Normalize data','NumberTitle',
 
 % Dropdown menu to choose the scan or spectrum to normalize:
 UI_obj.normalize.dropdown_dataselection = uidropdown(UI_obj.normalize.main, 'Items', {}, ...
-        'Position', [10, 80, 120, 25], 'ValueChangedFcn', {@GUI.fs_big.normalize_scan.callback.data_dropdown_callback, GUI_settings});
+        'Position', [10, 80, 120, 25], 'ValueChangedFcn', {@GUI.fs_big.normalize_scan.callback.data_dropdown_callback, GUI_settings}, 'Tooltip', GUI_settings.normalize.tooltips.dropdown_data_choose);
 
 % Let the user choose through radiobutton which kind of data should be normalized:
 UI_obj.normalize.radioswitch_spectrum_scan  = uibuttongroup(UI_obj.normalize.main,'Title', 'Data type', 'Position',[10 110 120 60], ...

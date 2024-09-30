@@ -35,7 +35,7 @@ UI_obj.plot.m2q.holdchbx            = uicheckbox(UI_obj.plot.m2q.main, 'Value', 
                         'Text', '⚓', 'Position', [170, 40, 80, 25], ...
                         'Tooltip', GUI_settings.plot_m2q.tooltips.holdchbx, 'ValueChangedFcn', @hold_limits);
 UI_obj.plot.m2q.smooth_edit         = uieditfield(UI_obj.plot.m2q.main,"numeric", 'Value', 1, ...
-                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [210, 40, 35, 25], 'ValueChangedFcn', @change_spectrum_within_scan);
+                        'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [210, 40, 35, 25], 'ValueChangedFcn', @smoothen_spectrum);
 UI_obj.plot.m2q.smooth_label        = uilabel(UI_obj.plot.m2q.main, 'Text', 'smooth', ...
                         'Tooltip', GUI_settings.plot_m2q.tooltips.smooth, 'Position', [250, 40, 50, 25]);
 UI_obj.plot.m2q.cur_line_color      = uibutton(UI_obj.plot.m2q.main, 'Position', [310, 40, 20, 25], 'Text', 'C', ...
@@ -122,7 +122,7 @@ GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj, exp_data)
     [~, ~, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
     if ~isempty(event.Indices)
         spectra_intnames    = fieldnames(exp_data.spectra);
-        x   sample_username     = exp_data.spectra.(spectra_intnames{event.Indices(1)}).Name;
+        sample_username     = exp_data.spectra.(spectra_intnames{event.Indices(1)}).Name;
         sample_intname      = GUI.fs_big.get_intname_from_username(exp_data.spectra, sample_username);
         % Update the color to the one specified by the spectrum:
         UI_obj.plot.m2q.cur_line.Color = exp_data.spectra.(sample_intname).Color;
@@ -207,6 +207,21 @@ function change_spectrum_within_scan(~, ~) % The callback function of the slider
     update_plot(UI_obj.plot.m2q.axes, exp_data, 'scans', scan_sample_username, spectrum_number);
 end
 
+function smoothen_spectrum(~,~)
+    datatype = lower(UI_obj.plot.m2q.uitabgroup.main.SelectedTab.Title);
+    slider_value = get(UI_obj.plot.m2q.spectr_slider, 'Value');
+    spectrum_number = round(slider_value);
+    switch datatype 
+        case 'spectra'
+            spectra_names       = GUI.fs_big.get_user_names(exp_data.spectra);
+            sample_username   = spectra_names{UI_obj.plot.m2q.spectra.uitable.Selection(1)};
+        case 'scans'
+            scan_names          = GUI.fs_big.get_user_names(exp_data.scans);
+            sample_username     = scan_names{UI_obj.plot.m2q.spectra.uitable.Selection(1)};
+    end
+    update_plot(UI_obj.plot.m2q.axes, exp_data, datatype, sample_username, spectrum_number);
+end
+
 function[hLine] = update_plot(ax, exps, datatype, sample_name, spectrum_number)
     % datatype is either 'scans' or 'spectra'
     if ifdo_hold_axes_limits  
@@ -226,7 +241,7 @@ function[hLine] = update_plot(ax, exps, datatype, sample_name, spectrum_number)
     sample_intname  = GUI.fs_big.get_intname_from_username(exp_data.(datatype), sample_name);
     sample_name_legendready = general.char.replace_symbol_in_char(sample_name, '_', ' ');
     if isnumeric(exps.(datatype).(sample_intname).Data.photon.energy(spectrum_number))
-        LineName_leg    = [sample_name_legendready, ', h\nu: ', num2str(exps.(datatype).(sample_intname).Data.photon.energy(spectrum_number)), ' eV'];
+        LineName_leg    = [sample_name_legendready, ', hv: ', num2str(exps.(datatype).(sample_intname).Data.photon.energy(spectrum_number)), ' eV'];
     else
         LineName_leg    = sample_name_legendready;
     end

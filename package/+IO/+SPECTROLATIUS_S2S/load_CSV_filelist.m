@@ -91,10 +91,8 @@ for filenr_cur = 1:nof_files
 end
 
 M_m2q  = hist.H_1D_rebin_intensity(M_scan(:,2), rebin_factor);
-
 % Read the photon energy to store:
 % Find the 'eV' in the name of the CSV files: 
-
 % decide the limits around the photon energies:
 
 end

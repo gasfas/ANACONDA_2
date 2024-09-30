@@ -65,8 +65,9 @@ for i = 1:length(names)
             values(i) = 1e-22;
         case {'MBa_to_cm2'}
             values(i) = 1e-18;
-			
-		otherwise % We assume that a formula of different constants is given:
+        case 'cm-1_to_eV'
+            values(i) = 1/general.constants('eVtocm-1');
+        otherwise % We assume that a formula of different constants is requested:
 			% TODO
 		const = {'q', ...	% [C] elementary charge or conversion from joule to eV
 			'eVtoJ', ...	% [C] elementary charge or conversion from joule to eV

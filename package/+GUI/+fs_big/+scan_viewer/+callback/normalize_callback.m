@@ -1,6 +1,7 @@
 function normalize_callback(~, ~, GUI_settings)
 % Start the normalize GUI window. 
 
+% Fetch variables from base workspace:
 [GUI_settings, UI_obj, exp_data] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
 
     % This function feeds the selected to the m2q plot function

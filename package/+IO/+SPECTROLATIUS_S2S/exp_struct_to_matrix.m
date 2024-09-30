@@ -10,8 +10,15 @@ for sample_name_cell = fieldnames(exp_data.scans)'
         m_bins       = exp_sample.Data.hist.(spectr_names{1}).M2Q.bins;
         for i = 1:length(spectr_names)
             spectr_name_cur     = spectr_names{i};
-            
-            if ~isequal(m_bins, exp_sample.Data.hist.(spectr_name_cur).M2Q.bins)
+            % Compare the M2Q spectra, if they are close enough within
+            % tolerance:
+            tol = 1e-3; % Tolerance in [Da]
+            isapproximatelyequal = @(x1,x2,tol) all(abs(real(x1(:)-x2(:)))<tol) & all(abs(imag(x1(:)-x2(:)))<tol);
+
+            if ~isapproximatelyequal(m_bins, exp_sample.Data.hist.(spectr_name_cur).M2Q.bins, tol)
+                % The bins are not the same, TODO: this means we need to
+                % re-shape the M2Q spectra to the largest overlapping
+                % region, using interpolation:
                 error('bins are not the same, cannot merge to matrix')
             end
         end

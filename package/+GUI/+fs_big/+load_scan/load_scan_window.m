@@ -6,9 +6,10 @@ function [GUI_settings, UI_obj] = load_scan_window(GUI_settings, username, UI_ob
         'KeyPressFcn', {@ GUI.fs_big.load_scan.callback.load_scan_Keypress_callback, GUI_settings});
     % Radio button to choose type of spectrometer:
     % Let the user decide which kind of experiment is done:
-    UI_obj.setup_bg     = uibuttongroup(UI_obj.load_scan.f_open_scan,'Title', 'Choose spectrometer', 'Position',[30 300 140 100], 'Tooltip', GUI_settings.load_scan.tooltips.choose_spectrometer);
-    rb_Spektrolatius    = uiradiobutton(UI_obj.setup_bg,'Text', 'Spektrolatius', 'Position',[10 60 91 15]);
-    rb_Desirs_LTQ       = uiradiobutton(UI_obj.setup_bg,'Text', 'Desirs_LTQ', 'Position',[10 38 91 15]);
+    UI_obj.setup_bg     = uibuttongroup(UI_obj.load_scan.f_open_scan,'Title', 'Choose spectrometer', 'Position',[30 280 140 120], 'Tooltip', GUI_settings.load_scan.tooltips.choose_spectrometer);
+    rb_Spektrolatius    = uiradiobutton(UI_obj.setup_bg,'Text', 'Spektrolatius', 'Position',[10 82 91 15]);
+    rb_Desirs_LTQ       = uiradiobutton(UI_obj.setup_bg,'Text', 'Desirs_LTQ', 'Position',[10 60 91 15]);
+    rb_Desirs_LTQ       = uiradiobutton(UI_obj.setup_bg,'Text', 'Amazon (FELIX)', 'Position',[10 38 125 15]);
     rb_Bessy            = uiradiobutton(UI_obj.setup_bg,'Text', 'Bessy', 'Position',[10 16 91 15]);
     % Set default radiobutton position:
     switch GUI_settings.load_scan.setup_type

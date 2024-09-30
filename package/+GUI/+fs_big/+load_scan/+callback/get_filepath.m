@@ -31,19 +31,31 @@ function get_filepath(hObj, event, GUI_settings, UI_obj)
         % Here we offer the 'Chef special' option that Bart prepared:
         % Let the user decide which kind of experiment is loaded:
         UI_obj.load_scan.Desirs.questdlg = questdlg('Which Desirs files would you like to load?', ...
-        'Choose type of Desirs experiment', 'Desirs (txt)', 'Desirs 2022 (Chef special)', 'Desirs 2022 (Chef special)');
-        filelist = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the scans');
-        GUI_settings.load_scan.filedir = filelist;
+        'Choose type of Desirs experiment', 'Desirs (txt)', 'Desirs 2022 (Chef special)', 'Cancel', 'Desirs 2022 (Chef special)');
+        
         if strcmp(UI_obj.load_scan.Desirs.questdlg, 'Desirs 2022 (Chef special)')
             % The user is expected to load the folder where the data is
             % found of the Desir measurements done in  2022.
+            filelist = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the Desirs scans');
+            GUI_settings.load_scan.filedir = filelist;
             if GUI_settings.load_scan.filedir ~= 0
                 UI_obj.load_scan.LoadFilePath.Value = GUI_settings.load_scan.filedir;
             end
-        else
+        elseif strcmp(UI_obj.load_scan.Desirs.questdlg, 'Desirs (txt)')
             msgbox('Be friendly to the programmer, ask at the right moment if a setup module could be added in the future');
+            filelist = [];
+        else 
+            filelist = [];
         end
+        case 'Amazon (FELIX)' % Load the amazon (Felix) scan data
+            filelist                        = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the Felix scans');
+            GUI_settings.load_scan.filedir  = filelist;
+            if GUI_settings.load_scan.filedir ~= 0
+                UI_obj.load_scan.LoadFilePath.Value = GUI_settings.load_scan.filedir;
+            end
+            UI_obj.load_scan.isscan.SelectedObject.Value = 1; % Only scans from FELIX.
     end
+if ~isempty(filelist)
     % Rename the suggested filename by reading the filename of the first loaded file:
     [~, filename] = fileparts(UI_obj.load_scan.LoadFilePath.Value{1});
     if iscell(filelist) || ischar(filelist) % If a file has been selected:
