@@ -193,10 +193,13 @@ end
 % A new scan is added, so there should also be entries added to the
 % fragment list, if it already exists:
 if general.struct.issubfield(GUI_settings, 'channels.list')
-    % There are channels defined.
+    % There are channels defined:
+    
     % fetch the channel names:
     channel_names           = fieldnames(GUI_settings.channels.list);
-    if ~isempty(channel_names)
+    % Make sure there is a scanlist for each fragment:
+    existing_scan_names     = fieldnames(GUI_settings.channels.list.(channel_names{1}).scanlist);
+    if ~isempty(existing_scan_names)
         % There are channels and scans defined, so we add an entry for this
         % newly added scan:
         [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, channel_names, plot.colormkr(color_counter,1));

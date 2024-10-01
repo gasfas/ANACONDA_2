@@ -59,12 +59,14 @@ for channel_visible_cur_cell     = visible_channel_names
                   % hLine         = plot_scan_sub(haxes, M2Q_data, bins, mass_limits_cur, photon_energy, Yscale, dY, plotname, LineColor, Marker, LineStyle);
                   [hLine, plotname] =  GUI.fs_big.plot_scan.plot_scan_channel(haxes, exp_data, GUI_settings, scanname_cur, channel_visible_cur, mass_limits_cur, Yscale, dY);
                   UI_obj.plot_scan.subplot.axes.(scanname_cur) = hLine;
-                  haxes.XLabel.String   = 'Photon energy [eV]';
                   haxes.YLabel.String   = 'Intensity [arb. u.]';
                   legendtext{end+1}         = plotname;
             end
        end
-       legend(haxes, legendtext)
+       if strcmp(channel_visible_cur, visible_channel_names{end})
+                haxes.XLabel.String   = 'Photon energy [eV]';
+       end
+       legend(haxes, legendtext, 'Location', 'Best')
 end
 
 % Set the variables to base workspace:
