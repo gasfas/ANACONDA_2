@@ -48,7 +48,7 @@ function [GUI_settings, UI_obj] = load_scan_window(GUI_settings, username, UI_ob
     UI_obj.load_scan.LoadFile_Ok_btn      = uibutton(UI_obj.load_scan.f_open_scan, "Text", "Ok", "Position", [500, 10, 80, 20], ...
         "ButtonPushedFcn", {@GUI.fs_big.load_scan.callback.load_scan_OK_callback, GUI_settings, is_modify_scan}, ...
         'Tooltip', GUI_settings.load_scan.tooltips.OK);
-
+    
     % Write the variables to base workspace:
     GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj)
 end

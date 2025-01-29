@@ -17,9 +17,9 @@ function get_filepath(hObj, event, GUI_settings, UI_obj)
             GUI_settings.load_scan.filelist = filelist;
             % Close the load_file dialog:
             % Sort the filelist by photon energy. Fetch list of photon energies:
-            photon_energy_list_unordered = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(filelist);
+            UI_obj.load_scan.photon_energy_list_unordered = IO.SPECTROLATIUS_S2S.fetch_photon_energy_csv_namelist(filelist);
             % Then sort by ascending order:
-            [~, ordering_idx] = sort(photon_energy_list_unordered);
+            [~, ordering_idx] = sort(UI_obj.load_scan.photon_energy_list_unordered);
             filelist = filelist(ordering_idx);
             UI_obj.load_scan.LoadFilePath.Value = filelist;
         elseif ischar(filelist)  && ~isempty(filelist) % only one file selected
@@ -27,24 +27,40 @@ function get_filepath(hObj, event, GUI_settings, UI_obj)
             UI_obj.load_scan.LoadFilePath.Value = {filelist};
             GUI_settings.load_scan.filelist = filelist;
         end % The third option, filelist=0, is not acted upon.
-        case 'Desirs_LTQ'
+        
+        case 'Desirs_LTQ' % In case the user wants to read data from an LTQ system (for example installed at SOLEIL/DESIRS/PLEIADES)
         % Here we offer the 'Chef special' option that Bart prepared:
         % Let the user decide which kind of experiment is loaded:
         UI_obj.load_scan.Desirs.questdlg = questdlg('Which Desirs files would you like to load?', ...
-        'Choose type of Desirs experiment', 'Desirs (txt)', 'Desirs 2022 (Chef special)', 'Cancel', 'Desirs 2022 (Chef special)');
+        'Choose type of Desirs experiment', 'LTQ (txt)', 'Desirs 2022 (Chef special)', 'Cancel', 'Desirs 2022 (Chef special)');
         
         if strcmp(UI_obj.load_scan.Desirs.questdlg, 'Desirs 2022 (Chef special)')
             % The user is expected to load the folder where the data is
             % found of the Desir measurements done in  2022.
             filelist = uigetdir(GUI_settings.load_scan.browse_dir, 'Select path to find the Desirs scans');
             GUI_settings.load_scan.filedir = filelist;
-            if GUI_settings.load_scan.filedir ~= 0
+            if GUI_settings.load_scan.filedir ~= 0 % If a file directory is given, write it in:
                 UI_obj.load_scan.LoadFilePath.Value = GUI_settings.load_scan.filedir;
+            else
+                hmsgbox = msgbox('Please select the directory either called 5-unit or 10-unit');
+                figure(hmsgbox);
             end
-        elseif strcmp(UI_obj.load_scan.Desirs.questdlg, 'Desirs (txt)')
-            msgbox('Be friendly to the programmer, ask at the right moment if a setup module could be added in the future');
-            filelist = [];
-        else 
+        elseif strcmp(UI_obj.load_scan.Desirs.questdlg, 'LTQ (txt)')
+            % Let the user select a .txt file from the Soleil LTQ system:
+            [filelist, filedir]                     = uigetfile('.txt', GUI_settings.load_scan.browse_dir, 'Select path to find the Desirs scans', 'MultiSelect', 'on');
+            GUI_settings.load_scan.filedir          = filedir;
+            UI_obj.load_scan.LoadFilePath.Value     = filelist;
+            % If multiple files are loaded, the user could give a list of
+            % photon energies for each given textfile:
+            if length(filelist) > 1
+                % Set the variables to base workspace:
+                GUI.fs_big.IO.assignin_GUI(GUI_settings, UI_obj)
+                GUI.fs_big.load_scan.LTQ_TXT_assignment(GUI_settings, filelist, filedir);
+                % Save it in a place where we can find it while actually
+                % loading the settings again:
+                [GUI_settings, UI_obj] = GUI.fs_big.IO.evalin_GUI(GUI_settings.GUI_nr);
+            end
+        else
             filelist = [];
         end
         case 'Amazon (FELIX)' % Load the amazon (Felix) scan data
@@ -67,7 +83,7 @@ if ~isempty(filelist)
         if length(UI_obj.load_scan.LoadFilePath.Value) == 1
             UI_obj.isscanfields.rb_individual_spectra.Value = true;
         else % else they are separate spectra:
-            if any(find(isnan(photon_energy_list_unordered))) % nan's for photon energy, so some of the files do not have a photon energy defined, they are
+            if any(find(isnan(UI_obj.load_scan.photon_energy_list_unordered))) % nan's for photon energy, so some of the files do not have a photon energy defined, they are
                 % also treated as separate spectra rather than a scan:
                 Data_type_handle.Children(2).Value = true;
             else % we found a scan:

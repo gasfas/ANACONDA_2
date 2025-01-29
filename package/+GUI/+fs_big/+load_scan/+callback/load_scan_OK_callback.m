@@ -126,39 +126,128 @@ switch GUI_settings.load_scan.setup_type
         [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans, 'scan');
         [~, spectrum_nr_cur]= GUI.fs_big.make_new_intname(exp_data.spectra, 'spectr');
         color_counter       = spectrum_nr_cur + scan_nr_cur - 1;
+        switch UI_obj.load_scan.Desirs.questdlg
+            case 'Desirs 2022 (Chef special)'
+                for datafile = datafiles
+                    [data_dir_base, peptide_size] = fileparts(datafile{:});
+                    switch peptide_size
+                        case '10-unit'
+                            sample_names = {'RWG2MG5', 'RWG4MG3', 'RWG6MG', 'RWMG7'};
+                        case '5-unit'
+                            sample_names = {'RFGGM', 'RFMGG', 'RWGGM', 'RWMGG', 'RYGGM', 'RYMGG'};
+                        otherwise
+                            UI_obj.load_scan.invalid_DESIRS2022_name_msgbox = msgbox('Please give a valid DESIRS 2022 file directory. Choose between 5- or 10-unit folder');
+                            figure(UI_obj.load_scan.invalid_DESIRS2022_name_msgbox)
+                            break
+                    end
+                    % Chef special is always a scan:
+                   UI_obj.load_scan.loading_data_msgbox = msgbox('Loading the requested LTQ spectra/scans. This might take a while');    
+                    % Save the scan:
+                    for sample_name = sample_names
+                        scan_nr_cur = scan_nr_cur + 1; 
+                        scan_name_cur = ['scan_' , num2str(scan_nr_cur, '%03.f')];
+                        % Check if user name is not duplicate:
+                        NewName                                                     = [UI_obj.load_scan.sample_name.Value '_DESIRS_' sample_name{:}];
+                        NewName                                                     = username_for_new_spectrum_scan(exp_data, NewName);
+                        % Loading the data to memory:
+                        [exp_data.scans.(scan_name_cur)]                            = IO.LTQ.Load_DESIRS_2022(data_dir_base, sample_name, 'full', fullfile(data_dir_base, 'Flux_calibration'));
+                        exp_data.scans.(scan_name_cur).Name                         = NewName;
+                        % Write the metadata of this sample in the GUI_settings:
+                        exp_data.scans.(scan_name_cur).metadata.IO.setup_type       = GUI_settings.load_scan.setup_type;
+                        exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor    = GUI_settings.load_scan.re_bin_factor;
+                        exp_data.scans.(scan_name_cur).metadata.IO.filedir          = data_dir_base;
+                        exp_data.scans.(scan_name_cur).metadata.IO.filelist         = sample_name;
+                        exp_data.scans.(scan_name_cur).Data.comments                = '';
+                        exp_data.scans.(scan_name_cur).Color                        = plot.colormkr(color_counter,1);
+                        % Write the metadata of this sample:
+                        exp_data.scans.(scan_name_cur).metadata.IO.setup_type    = GUI_settings.load_scan.setup_type;
+                        exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor = GUI_settings.load_scan.re_bin_factor;
+                        exp_data.scans.(scan_name_cur).metadata.IO.filelist      = GUI_settings.load_scan.filelist;
+                        exp_data.scans.(scan_name_cur).metadata.IO.filedir       = GUI_settings.load_scan.filedir;
+        
+                        color_counter                                               = color_counter + 1;
+                    end
+                end
+                file_found      = true;
+            case 'LTQ (txt)' % User has chosen to open separate LTQ files:
+               % It can be either a spectrum or scan, depending whether 
+               % the photon energies were user-given.
+               if ~isfield(UI_obj.load_scan, 'photon_energy_list_unordered')
+                   msgbox("Please finish (press 'OK') the photon energy list first.")
+                   return
+               else % The user has indicated photon energies
+                   %Assuming the sample name is the same for all files:
+                   sample_name      = UI_obj.load_scan.sample_name.Value;
+                   UI_obj.load_scan.loading_data_msgbox = msgbox('Loading the requested LTQ TXT spectra/scans. This might take a while');   
+                   % Load the txt files:
+                   exp_md_cur       = struct();
+                   hist = IO.LTQ.Load_LTQ_txt_files(GUI_settings.load_scan.filelist, GUI_settings.load_scan.filedir, exp_md_cur, 0);
+                   % Check whether we are loading a spectrum or a scan:
+                   isscan = UI_obj.load_scan.isscan.Children(1).Value;
+                   if isscan
+                    % Save the scan:
+                    spectrum_names = fieldnames(hist);
+                
+                    scan_name_cur = ['scan_' , num2str(scan_nr_cur, '%03.f')];
+                    % Check if user name is not duplicate:
+                    NewName                                                     = ['LTQ_' sample_name];
+                    NewName                                                     = username_for_new_spectrum_scan(exp_data, NewName);
+                    % Loading the data to memory:
+                    exp_data.scans.(scan_name_cur).Data.hist                    = hist;
+                    for spectr_name = fieldnames(hist)'
+                        exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).dY    = 0;
+                        exp_data.scans.(scan_name_cur).Data.hist.(spectr_name{:}).Scale = 1;
+                    end
 
-        for datafile = datafiles
-            [data_dir_base, peptide_size] = fileparts(datafile{:});
-            switch peptide_size
-                case '10-unit'
-                    sample_names = {'RWG2MG5', 'RWG4MG3', 'RWG6MG', 'RWMG7'};
-                case '5-unit'
-                    sample_names = {'RFGGM', 'RFMGG', 'RWGGM', 'RWMGG', 'RYGGM', 'RYMGG'};
-                otherwise
-                     UI_obj.load_scan.invalid_DESIRS2022_name_msgbox = msgbox('Please give a valid DESIRS 2022 file directory. Choose between 5- or 10-unit folder');
-            end
-            UI_obj.load_scan.loading_data_msgbox = msgbox('Loading the requested DESIRS spectra. This might take a while');
+                    exp_data.scans.(scan_name_cur).Name                         = NewName;
+                    % Write the metadata of this sample in the GUI_settings:
+                    exp_data.scans.(scan_name_cur).metadata.IO.setup_type       = GUI_settings.load_scan.setup_type;
+                    exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor    = GUI_settings.load_scan.re_bin_factor;
+                    exp_data.scans.(scan_name_cur).metadata.IO.filedir          = GUI_settings.load_scan.filedir;
+                    exp_data.scans.(scan_name_cur).metadata.IO.filelist         = sample_name;
+                    exp_data.scans.(scan_name_cur).Data.comments                = ['LTQ TXT file. Photon energies [eV]: ' num2str(UI_obj.load_scan.photon_energy_list_unordered') '. No photon flux or photodiode reading included'];
+                    exp_data.scans.(scan_name_cur).Color                        = plot.colormkr(color_counter,1);
+                    exp_data.scans.(scan_name_cur).Data.photon.energy                = UI_obj.load_scan.photon_energy_list_unordered;
+                    exp_data.scans.(scan_name_cur).Data.photon.Photodiode            = NaN*zeros(length(UI_obj.load_scan.photon_energy_list_unordered));
+                    exp_data.scans.(scan_name_cur).Data.photon.flux                  = NaN*zeros(length(UI_obj.load_scan.photon_energy_list_unordered));
+                    color_counter                                               = color_counter + 1;
+                    % Write the metadata of this sample:
+                    exp_data.scans.(scan_name_cur).metadata.IO.setup_type    = GUI_settings.load_scan.setup_type;
+                    exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor = GUI_settings.load_scan.re_bin_factor;
+                    exp_data.scans.(scan_name_cur).metadata.IO.filelist      = GUI_settings.load_scan.filelist;
+                    exp_data.scans.(scan_name_cur).metadata.IO.filedir       = GUI_settings.load_scan.filedir;
+                   else % we have loaded a set of spectra:
+                       loaded_spectrum_nr = 1;
+                       loaded_spectrum_names = fieldnames(hist);
+                    for txtfile_name = GUI_settings.load_scan.filelist'
+                        loaded_spectrum_name_cur = loaded_spectrum_names{loaded_spectrum_nr};
+                        spectrum_name   = [txtfile_name{:}];
+                        spectrum_name_cur   = ['spectrum_' , num2str(spectrum_nr_cur, '%03.f')];
+                        exp_data.spectra.(spectrum_name_cur).Data.hist.spectr_001       = hist.(loaded_spectrum_name_cur);
+                        exp_data.spectra.(spectrum_name_cur).Data.hist.spectr_001.dY    = 0;
+                        exp_data.spectra.(spectrum_name_cur).Data.hist.spectr_001.Scale = 1;
+                        exp_data.spectra.(spectrum_name_cur).Data.photon.energy         = UI_obj.load_scan.photon_energy_list_unordered(loaded_spectrum_nr);
+                        exp_data.spectra.(spectrum_name_cur).Data.photon.Photodiode     = NaN;
+                        exp_data.spectra.(spectrum_name_cur).Data.photon.flux           = NaN;
+                        exp_data.spectra.(spectrum_name_cur).Data.comments              = 'LTQ TXT file';
+                        
+                        exp_data.spectra.(spectrum_name_cur).Name                       = spectrum_name;
+                        exp_data.spectra.(spectrum_name_cur).Color                      = plot.colormkr(color_counter,1);
+                        
+                        exp_data.spectra.(spectrum_name_cur).metadata.IO.setup_type   = GUI_settings.load_scan.setup_type;
+                        exp_data.spectra.(spectrum_name_cur).metadata.IO.re_bin_factor= GUI_settings.load_scan.re_bin_factor;
+                        exp_data.spectra.(spectrum_name_cur).metadata.IO.filelist     = GUI_settings.load_scan.filelist;
+                        exp_data.spectra.(spectrum_name_cur).metadata.IO.filedir      = GUI_settings.load_scan.filedir;
 
-            for sample_name = sample_names
-                scan_nr_cur = scan_nr_cur + 1; 
-                scan_name_cur = ['scan_' , num2str(scan_nr_cur, '%03.f')];
-                % Check if user name is not duplicate:
-                NewName                                                     = [UI_obj.load_scan.sample_name.Value '_DESIRS_' sample_name{:}];
-                NewName                                                     = username_for_new_spectrum_scan(exp_data, NewName);
-                [exp_data.scans.(scan_name_cur)]                            = IO.LTQ.Load_DESIRS_2022(data_dir_base, sample_name, 'full', fullfile(data_dir_base, 'Flux_calibration'));
-                exp_data.scans.(scan_name_cur).Name                         = NewName;
-                % Write the metadata of this sample in the GUI_settings:
-                exp_data.scans.(scan_name_cur).metadata.IO.setup_type       = GUI_settings.load_scan.setup_type;
-                exp_data.scans.(scan_name_cur).metadata.IO.re_bin_factor    = GUI_settings.load_scan.re_bin_factor;
-                exp_data.scans.(scan_name_cur).metadata.IO.filedir          = data_dir_base;
-                exp_data.scans.(scan_name_cur).metadata.IO.filelist         = sample_name;
-                exp_data.scans.(scan_name_cur).Data.comments                = '';
-                exp_data.scans.(scan_name_cur).Color                        = plot.colormkr(color_counter,1);
+                        % Add spectrum number and color counter for the next spectrum:
+                        spectrum_nr_cur = spectrum_nr_cur + 1;
+                        color_counter                                               = color_counter + 1;
 
-                color_counter                                               = color_counter + 1;
-            end
+                   end
+               end
         end
-        file_found      = true;
+    end
+
     case 'Amazon (FELIX)'
         % Read which scan and spectrum numbers should be used:
         [~, scan_nr_cur]    = GUI.fs_big.make_new_intname(exp_data.scans, 'scan');
@@ -192,14 +281,14 @@ switch GUI_settings.load_scan.setup_type
 end
 % A new scan is added, so there should also be entries added to the
 % fragment list, if it already exists:
-if general.struct.issubfield(GUI_settings, 'channels.list')
+if general.struct.issubfield(GUI_settings, 'channels.list') && exist("scan_name_cur", "var")
     % There are channels defined.
     % fetch the channel names:
     channel_names           = fieldnames(GUI_settings.channels.list);
     if ~isempty(channel_names)
         % There are channels and scans defined, so we add an entry for this
         % newly added scan:
-        [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, channel_names, plot.colormkr(color_counter,1));
+        [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, channel_names, plot.colormkr(color_counter,1), scan_nr_cur);
     end
 end
 
@@ -229,11 +318,21 @@ occ_nr      = 0;
     end
 end
 
-function [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, channel_names, Color)
-    channel_to_copy         = GUI_settings.channels.list.(channel_names{1}).scanlist.(existing_scan_names{1});
+function [GUI_settings] = add_fragment_channels(GUI_settings, scan_name_cur, channel_names, Color, scan_nr_cur)
+    % Make sure there is a scanlist for each fragment:
+    existing_scan_names     = fieldnames(GUI_settings.channels.list.(channel_names{1}).scanlist);
+    
     for channel_name_cur = channel_names'
-        % Copy the file:
-        GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur)          = channel_to_copy;
+        if ~isempty(existing_scan_names) % This means that other scans are still loaded.
+            % Copy the file:
+            channel_to_copy         = GUI_settings.channels.list.(channel_names{1}).scanlist.(existing_scan_names{1});
+            GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur)          = channel_to_copy; 
+        else % This means that no other scan is loaded at the moment, so create a new one:
+            [LineStyle, Marker]     = plot.linestyle_and_markermkr(scan_nr_cur);
+            GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Visible  = true;
+            GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).LineStyle   = LineStyle;
+            GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Marker      = Marker;
+        end
         % Overwrite the color:
         GUI_settings.channels.list.(channel_name_cur{:}).scanlist.(scan_name_cur).Color    = Color;
     end

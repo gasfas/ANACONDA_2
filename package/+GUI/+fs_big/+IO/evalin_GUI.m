@@ -1,8 +1,8 @@
 function varargout = evalin_GUI(GUI_nr)
 % Fetch the GUI variables from workspace.
 GUI_settings_name   = ['GUI_settings_' , num2str(GUI_nr, '%03.f')];
-exp_data_name       = ['exp_data_' , num2str(GUI_nr, '%03.f')];
 UI_obj_name         = ['UI_obj_' , num2str(GUI_nr, '%03.f')];
+exp_data_name       = ['exp_data_' , num2str(GUI_nr, '%03.f')];
 
 if nargout >= 1
     varargout{1}            = general.evalin('base', GUI_settings_name);

@@ -1,5 +1,5 @@
 function [ N ] = norm_vectorarray( VECTOR_ARRAY, DIM )
-%This function calculates the norm of a number of vectors, stored in an
+%This function calculates the 2 norm of a number of vectors, stored in an
 %array. The dimension along which the vector is defined is denoted in 'DIM'
 % Inputs:
 % VECTOR_ARRAY	[n, m] Array of vectors (matrix), of which the norms are

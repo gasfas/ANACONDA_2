@@ -6,7 +6,7 @@ function sample_data = load_FELIX_CSV_filedir(CSV_filename)
 csv_filename_cur        = fullfile(CSV_filename, [filename, '.D.csv']);
 
 fid                     = fopen(csv_filename_cur);
-if ~fid
+if fid < 1
     msgbox("FELIX data directory and/or file not found. Please try again, specify the .d directory.")
     % TODO: error will be thrown, ideally this does not happen.
 else

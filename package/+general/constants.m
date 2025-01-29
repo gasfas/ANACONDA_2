@@ -66,7 +66,9 @@ for i = 1:length(names)
         case {'MBa_to_cm2'}
             values(i) = 1e-18;
         case 'cm-1_to_eV'
-            values(i) = 1/general.constants('eVtocm-1');
+            values(i) = 1/general.constants('eVtocm-1'); %convert wavenumbers to wavelength (inversely proportional)
+        case 'mu_0'
+            values(i) = 1.25663706127e-6; % [N/A^2] vacuum magnetic permeability
         otherwise % We assume that a formula of different constants is requested:
 			% TODO
 		const = {'q', ...	% [C] elementary charge or conversion from joule to eV

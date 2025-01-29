@@ -31,8 +31,12 @@ function remove_spectrum_scan_GUI(~, ~,selection, GUI_settings)
                 % remove the scan from all channels:
                 fragment_channels = fieldnames(GUI_settings.channels.list);
                 for fragment_channel_cur = fragment_channels'
-                    GUI_settings.channels.list.(fragment_channel_cur{:}).scanlist = ...
-                        rmfield(GUI_settings.channels.list.(fragment_channel_cur{:}).scanlist, intname);
+                    try 
+                        GUI_settings.channels.list.(fragment_channel_cur{:}).scanlist = ...
+                            rmfield(GUI_settings.channels.list.(fragment_channel_cur{:}).scanlist, intname); 
+                    catch
+                        warning("Could not delecte all requested scans")
+                    end
                 end
             end
         end

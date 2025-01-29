@@ -166,10 +166,10 @@ function add_channel_manually_done(~,~)
     % LineStyle:
     [LineStyle, Marker]     = plot.linestyle_and_markermkr(GUI_settings.channels.current_nr);
     % Set the initial values for this channel group:
-    GUI_settings.channels.list.(chgroup_fieldname).LineStyle    = LineStyle;
-    GUI_settings.channels.list.(chgroup_fieldname).Marker       = Marker;
-    GUI_settings.channels.list.(chgroup_fieldname).dY           = 0;
-    GUI_settings.channels.list.(chgroup_fieldname).Yscale       = 1;
+    GUI_settings.channels.list.(chgroup_fieldname).LineStyle   = LineStyle;
+    GUI_settings.channels.list.(chgroup_fieldname).Marker      = Marker;
+    GUI_settings.channels.list.(chgroup_fieldname).dY          = 0;
+    GUI_settings.channels.list.(chgroup_fieldname).Yscale      = 1;
     GUI_settings.channels.list.(chgroup_fieldname).Name        = Name_cur;
     GUI_settings.channels.list.(chgroup_fieldname).minMtoQ     = minMtoQ_cur;
     GUI_settings.channels.list.(chgroup_fieldname).maxMtoQ     = maxMtoQ_cur;
@@ -180,7 +180,7 @@ function add_channel_manually_done(~,~)
         GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Visible     = true;
         GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).LineStyle   = LineStyle;
         GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Marker      = Marker;
-        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = exp_data.scans.(scanname_cur).Color; % By default, the color is the same for one sample:
+        GUI_settings.channels.list.(chgroup_fieldname).scanlist.(scanname_cur).Color       = exp_data.scans.(scanname_cur).Color; % By default, the color is the same for all channels of the scan.
     end
 
     if ishandle(UI_obj.def_channel.m2q.rectangle)

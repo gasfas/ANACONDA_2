@@ -257,15 +257,15 @@ for peak_cent_cur = peak_mass_center_guess
     try close(h_test); end
     if true %m_fit.photon_energy >= 9 %%&& m_fit.photon_energy <= 13.3 && peak_cent_cur < 297.2
         h_test = figure();    
-        plot(m_bins_cur, I_cur, 'DisplayName','Data'); hold on % Data in blue.
+        plot(m_bins_cur, I_cur); hold on % Data in blue.
         plot.vline(peak_cent_cur)
         m_bins_fit = linspace(m_bins_cur(1), m_bins_cur(end), 100);
         plot(m_bins_fit, fun(x0, m_bins_fit), 'g', 'DisplayName','Initial guess') % initial guess in green
-        plot(m_bins_fit, fun(x, m_bins_fit), 'r', 'DisplayName','Fit solution') % final solution in red
-        plot(PeakFinderCent_UV1, PeakFinderValues_UV1, 'b*', 'DisplayName', 'Fitted center') % Plot dot
+        plot(m_bins_fit, fun(x, m_bins_fit), 'r', 'DisplayName','Fit solut') % final solution in red
+        plot(PeakFinderCent_UV1, PeakFinderValues_UV1, 'b*') % Plot dot
         plot.vline(x(1), 'r')
         plot.vline(x0(1), 'g')
-        legend
+        legend('Data', 'Initial guess', 'fit solution', 'Peak center')
         xlim([lb(1)-ub(2), ub(1)+ub(2)]);
         % title(['hv =', num2str(m_fit.photon_energy), ', PS =', num2str(x(3).*x(2).*sqrt(pi/log(2))./2), ', sample =' , m_fit.sample_name, ', m_IG =' num2str(peak_cent_cur, 4)])
         disp(num2str(length(x)/3))
